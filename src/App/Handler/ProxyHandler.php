@@ -30,27 +30,44 @@ class ProxyHandler implements RequestHandlerInterface
             $host = parse_url($url, PHP_URL_HOST);
             $path = parse_url($url, PHP_URL_PATH);
 
-            unset($params['_url']);
-
             $auth = self::getHostAuthentication($config['layers'], $host, $path);
             $proxied = self::isHostProxied($config['layers'], $host, $path);
 
-            // if ($proxied === true) {
-            //     $regex = preg_replace([
-            //         '/^https?:/',
-            //         '/\./',
-            //         '/\//',
-            //     ], [
-            //         'https?:',
-            //         '\\.',
-            //         '\\/',
-            //     ], $url);
+            if ($proxied === true) {
+                $localHTTPS = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']);
+                $localHost = $_SERVER['HTTP_HOST'];
 
-            //     $callback = function ($body) use ($url, $regex) {
-            //         // return str_replace($url, '/proxy?_url='.urlencode($url), $body);
-            //         return preg_replace('/'.$regex.'/i', '/proxy?_url='.urlencode($url), $body);
-            //     };
-            // }
+                $proxy = 'http'.($localHTTPS ? 's' : '').'://'.$localHost.'/proxy';
+
+                $callback = function ($body) use ($host, $path, $proxy) {
+                    return preg_replace_callback(
+                        '/xlink:href="(https?:\/\/.+?)"/',
+                        function ($matches) use ($host, $path, $proxy) {
+                            $url = parse_url($matches[1]);
+
+                            if ($url['host'] === $host && $url['path'] === $path) {
+                                if (isset($url['query'])) {
+                                    $urlQuery = html_entity_decode($url['query']);
+                                    $urlQuery = urldecode($urlQuery);
+                                    parse_str($urlQuery, $output);
+
+                                    $query = http_build_query($output);
+                                }
+
+                                return 'xlink:href='.
+                                    '"'
+                                    .$proxy
+                                    .'?_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'])
+                                    .(isset($query) ? htmlentities('&'.$query) : '')
+                                    .'"';
+                            }
+
+                            return $matches[0];
+                        },
+                        $body
+                    );
+                };
+            }
 
             if (is_null($auth)) {
                 return self::forward($url, $params, $acceptEncoding, $callback ?? null);
@@ -142,6 +159,8 @@ class ProxyHandler implements RequestHandlerInterface
         $client = new Client([
             //'timeout'  => 2.0,
         ]);
+
+        // var_dump($query); exit();
 
         $response = $client->request('GET', $url, [
             'query' => $query,
