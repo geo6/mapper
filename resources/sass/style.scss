@@ -1,0 +1,23 @@
+@import 'global';
+@import 'map';
+
+#modal-layers-layers {
+    height: 50vh;
+    min-height: 350px;
+    overflow-y: auto;
+
+    & p.text-info {
+        margin-bottom: 0;
+    }
+    & p.text-info ~ ul {
+        margin-top: 1rem;
+    }
+}
+
+#info-list ol > li {
+    cursor: pointer;
+
+    &:hover {
+        font-weight: bold;
+    }
+}

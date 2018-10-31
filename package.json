@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.7",
+    "@fortawesome/free-brands-svg-icons": "^5.4.2",
+    "@fortawesome/free-regular-svg-icons": "^5.4.2",
+    "@fortawesome/free-solid-svg-icons": "^5.4.2",
+    "ol": "^5.2.0",
+    "resumablejs": "^1.1.0",
+    "sidebar-v2": "^0.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "babel-minify-webpack-plugin": "^0.3.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "node-sass": "^4.9.4",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "npm run build:css & npm run build:js",
+    "build:css": "node-sass --output-style compressed --output public/css resources/sass/style.scss",
+    "build:js": "webpack --config webpack.config.js --mode production --progress",
+    "test": "eslint resources/javascript/",
+    "fix": "eslint resources/javascript/ --fix",
+    "watch": "npm run watch:css & npm run watch:js",
+    "watch:css": "node-sass --watch --output-style compressed --output public/css resources/sass/style.scss",
+    "watch:js": "webpack --watch --config webpack.config.js --mode development --progress"
+  }
+}

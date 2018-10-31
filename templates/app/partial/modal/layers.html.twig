@@ -1,0 +1,47 @@
+<div class="modal" id="modal-layers" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Add a layer
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select class="form-control" id="modal-layers-services">
+                    <optgroup label="WMS Services" id="modal-layers-services-wms" style="display: none;">
+                    </optgroup>
+                    <optgroup label="WMTS Services" id="modal-layers-services-wmts" style="display: none;">
+                    </optgroup>
+                    <optgroup label="Files">
+                        <option value="geojson">GeoJSON</option>
+                    </optgroup>
+                </select>
+                <hr>
+                <div id="modal-layers-layers">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="btn btn-outline-secondary" id="btn-layers-upload">
+                    <i class="fas fa-upload"></i>
+                    Upload
+                </span>
+                <div class="btn-group dropup" role="group">
+                    <button id="btn-layers-add" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-link"></i>
+                        Add service
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btn-layers-add">
+                        <a class="dropdown-item" href="#" id="btn-layers-add-wms">WMS Service</a>
+                        <a class="dropdown-item" href="#" id="btn-layers-add-wmts">WMTS Service</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="btn-layers-apply">Apply</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
