@@ -183,6 +183,7 @@ function generateLayersList(id, layers) {
 
         $(div)
             .append([
+                (layers[i].queryable === true ? '<i class="fas fa-info-circle"></i> ' : ''),
                 layers[i].Title,
                 $(badge).text(layers[i].Identifier)
             ])
