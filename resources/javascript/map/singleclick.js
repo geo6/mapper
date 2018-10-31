@@ -1,9 +1,3 @@
-import VectorLayer from 'ol/layer/Vector';
-import {
-    toLonLat
-} from 'ol/proj';
-import VectorSource from 'ol/source/Vector';
-
 import {
     getFeatureInfo as WMSGetFeatureInfo,
 } from './layers/wms';
@@ -14,7 +8,7 @@ import {
 
 export default function () {
     window.app.map.on('singleclick', (event) => {
-        displayLocationInfo(toLonLat(event.coordinate));
+        displayLocationInfo(event.coordinate);
 
         $('#info-list').empty();
 

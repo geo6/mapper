@@ -1,3 +1,10 @@
+import {
+    toLonLat
+} from 'ol/proj';
+import {
+    toStringXY
+} from 'ol/coordinate';
+
 function createUlService(serviceType, serviceId, title) {
     if ($(`#info-service-${serviceType}-${serviceId}`).length === 0) {
         let ul = document.createElement('ul');
@@ -31,7 +38,7 @@ function createOlLayer(serviceType, serviceId, layerId, title) {
 }
 
 export function displayLocationInfo(coordinates) {
-    $('#info-location-coordinates').text(coordinates.map(coordinate => Math.round(coordinate * 1000000) / 1000000).join(', '));
+    $('#info-location-coordinates').text(toStringXY(toLonLat(coordinates), 6));
 
     $('.sidebar-tabs > ul > li:has(a[href="#info"])').removeClass('disabled');
     window.app.sidebar.open('info');
