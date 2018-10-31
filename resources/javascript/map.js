@@ -17,6 +17,7 @@ import initBaselayers from './map/baselayers';
 import initMarker from './map/marker';
 import initPermalink from './map/permalink';
 import initSingleClick from './map/singleclick';
+import initInfo from './info';
 
 require('sidebar-v2/js/jquery-sidebar.js');
 
@@ -28,19 +29,24 @@ export default function () {
 
     window.app.map = new Map({
         target: 'map',
-        controls: ControlDefaults({attribution: false}).extend([
-            new Attribution({collapsible: false}),
+        controls: ControlDefaults({
+            attribution: false
+        }).extend([
+            new Attribution({
+                collapsible: false
+            }),
             new ScaleLine()
         ]),
         layers: [],
         view: new View({
-            center: [0,0],
+            center: [0, 0],
             zoom: 2
         })
     });
     window.app.map.once('rendercomplete', () => {
         initPermalink();
         initSingleClick();
+        initInfo();
         initBaselayers();
         initMarker();
     });

@@ -21,3 +21,11 @@
         font-weight: bold;
     }
 }
+
+#info-details {
+    font-size: 0.8rem;
+
+    &> table > caption {
+        caption-side: top;
+    }
+}

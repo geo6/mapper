@@ -1,16 +1,21 @@
 import {
     getFeatureInfo as WMSGetFeatureInfo,
 } from './layers/wms';
-import {
-    displayFeatureInfo,
-    displayLocationInfo
-} from '../info';
+
+import displayFeatureInfoList from '../info/list';
+import displayLocation from '../info/location';
 
 export default function () {
     window.app.map.on('singleclick', (event) => {
-        displayLocationInfo(event.coordinate);
+        displayLocation(event.coordinate);
 
-        $('#info-list').empty();
+        $('#info-list').empty().show();
+        $('#info-details').hide();
+        $('#info-details > table > caption, #info-details > table > tbody').empty();
+        $('#info-details-geometry').empty().hide();
+
+        $('#infos-list-btn-prev, #infos-list-btn-next').prop('disabled', true);
+        $('#infos-details-btn-locate').off().prop('disabled', true);
 
         // WMS
         window.app.wms.forEach((service) => {
@@ -23,7 +28,7 @@ export default function () {
                         results.forEach((result) => {
                             service.selection = result.features;
 
-                            result.features.forEach((feature, index) => displayFeatureInfo(service, result.layerName, feature, index));
+                            result.features.forEach((feature, index) => displayFeatureInfoList(service, result.layerName, feature, index));
                         });
 
                         $('#info-loading').hide();
