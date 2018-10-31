@@ -7,12 +7,6 @@ import {
     initLayers,
     uploadLayer
 } from './map/layers';
-import {
-    load as WMSLoad
-} from './map/layers/wms';
-import {
-    load as WMTSLoad
-} from './map/layers/wmts';
 
 window.app = window.app || {};
 window.app.fn = {

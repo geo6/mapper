@@ -40,8 +40,12 @@ export default function (serviceTitle, layerTitle, feature, li) {
         $('#info-details > table > tbody')
             .append(tr);
 
-        $(document.createElement('th')).text(key).appendTo(tr);
-        $(document.createElement('td')).text(properties[key]).appendTo(tr);
+        $(document.createElement('th'))
+            .text(key)
+            .appendTo(tr);
+        $(document.createElement('td'))
+            .text(properties[key])
+            .appendTo(tr);
     }
 
     let geometry = feature.getGeometry();

@@ -14,10 +14,11 @@ export default function (geometry) {
         .on('click', () => {
             let extent = geometry.getExtent();
 
-            window.app.map.getView().fit(extent, {
-                maxZoom: 18,
-                padding: [15, 15, 15, 15]
-            });
+            window.app.map.getView()
+                .fit(extent, {
+                    maxZoom: 18,
+                    padding: [15, 15, 15, 15]
+                });
         });
 
     $(divGeometry)

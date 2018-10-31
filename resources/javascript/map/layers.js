@@ -1,15 +1,12 @@
 import Resumable from 'resumablejs/resumable';
 
-import {
-    addLayerToMap as WMSAddLayerToMap,
-    updateLayers as WMSUpdateLayers,
-    loadGetCapabilities as WMSLoadGetCapabilities
-} from './layers/wms';
-import {
-    addLayerToMap as WMTSAddLayerToMap,
-    updateLayers as WMTSUpdateLayers,
-    loadGetCapabilities as WMTSLoadGetCapabilities
-} from './layers/wmts';
+import WMSAddLayerToMap from '../layers/wms/map';
+import WMSUpdateLayers from '../layers/wms/sidebar';
+import WMSLoadGetCapabilities from '../layers/wms/capabilities';
+
+import WMTSAddLayerToMap from '../layers/wmts/map';
+import WMTSUpdateLayers from '../layers/wmts/sidebar';
+import WMTSLoadGetCapabilities from '../layers/wmts/capabilities';
 
 export function initLayers() {
     window.app.wms = [];
@@ -71,7 +68,9 @@ export function initLayers() {
         if (url !== null && url !== '') {
             WMSLoadGetCapabilities(url)
                 .then((id) => {
-                    $('#modal-layers-services').val('wms:' + id).trigger('change');
+                    $('#modal-layers-services')
+                        .val('wms:' + id)
+                        .trigger('change');
                 });
         }
     });
@@ -81,7 +80,9 @@ export function initLayers() {
         if (url !== null && url !== '') {
             WMTSLoadGetCapabilities(url)
                 .then((id) => {
-                    $('#modal-layers-services').val('wmts:' + id).trigger('change');
+                    $('#modal-layers-services')
+                        .val('wmts:' + id)
+                        .trigger('change');
                 });
         }
     });
@@ -181,7 +182,8 @@ function displayLayersButton(type, id, layers) {
 
         let name = layers[i].Name || layers[i].Identifier;
 
-        $(li).data({
+        $(li)
+            .data({
                 type: type,
                 id: id,
                 layer: name
@@ -192,7 +194,8 @@ function displayLayersButton(type, id, layers) {
             .show()
             .appendTo('#layers .list-group');
 
-        $(li).find('div.layer-name')
+        $(li)
+            .find('div.layer-name')
             .addClass('text-nowrap text-truncate')
             .attr({
                 title: name
@@ -215,7 +218,9 @@ function displayLayersButton(type, id, layers) {
 
             $(li).find('div.layer-legend').html(img);
 
-            $(li).find('.btn-layer-legend').removeClass('disabled').prop('disabled', false);
+            $(li).find('.btn-layer-legend')
+                .removeClass('disabled')
+                .prop('disabled', false);
         }
     }
 }

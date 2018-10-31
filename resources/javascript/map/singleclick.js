@@ -1,6 +1,4 @@
-import {
-    getFeatureInfo as WMSGetFeatureInfo,
-} from './layers/wms';
+import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 
 import displayFeatureInfoList from '../info/list';
 import displayLocation from '../info/location';
