@@ -26,11 +26,8 @@ export default function () {
                 let fetch = WMSGetFeatureInfo(service, event.coordinate);
                 if (fetch !== null) {
                     fetch.then((results) => {
-                        console.log(results);
                         results.forEach((result) => {
                             service.selection = result.features;
-
-                            console.log(result.layerName, service.selection.length, service.selection);
 
                             result.features.forEach((feature, index) => displayFeatureInfo(service, result.layerName, feature, index));
                         });
