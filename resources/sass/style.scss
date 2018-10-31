@@ -9,12 +9,13 @@
     & p.text-info {
         margin-bottom: 0;
     }
-    & p.text-info ~ ul {
+
+    & p.text-info~ul {
         margin-top: 1rem;
     }
 }
 
-#info-list ol > li {
+#info-list ol>li {
     cursor: pointer;
 
     &:hover {
@@ -25,7 +26,7 @@
 #info-details {
     font-size: 0.8rem;
 
-    &> table > caption {
+    &>table>caption {
         caption-side: top;
     }
 }

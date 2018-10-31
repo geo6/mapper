@@ -1,23 +1,56 @@
 #sidebar {
-  box-sizing: content-box;
-  z-index: 1000 !important;
+    bottom: 8px;
+    box-sizing: content-box;
+    top: .5em;
+    z-index: 1000 !important;
 }
-.sidebar-left ~ .sidebar-map .ol-scale-line { margin-left: 46px; }
-  @media (min-width: 768px) { .sidebar-left ~ .sidebar-map .ol-scale-line { transition: margin-left 500ms; } }
-  @media (min-width: 768px) and (max-width: 991px) { .sidebar-left ~ .sidebar-map .ol-scale-line { margin-left: 317px; } }
-  @media (min-width: 992px) and (max-width: 1199px) { .sidebar-left ~ .sidebar-map .ol-scale-line { margin-left: 402px; } }
-  @media (min-width: 1200px) { .sidebar-left ~ .sidebar-map .ol-scale-line { margin-left: 472px; } }
-  @media (min-width: 768px) { .sidebar-left.collapsed ~ .sidebar-map .ol-scale-line { margin-left: 52px; }
+
+.sidebar-left~.sidebar-map .ol-scale-line {
+    margin-left: 46px;
+}
+
+@media (min-width: 768px) {
+    .sidebar-left~.sidebar-map .ol-scale-line {
+        transition: margin-left 500ms;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .sidebar-left~.sidebar-map .ol-scale-line {
+        margin-left: 317px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .sidebar-left~.sidebar-map .ol-scale-line {
+        margin-left: 402px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .sidebar-left~.sidebar-map .ol-scale-line {
+        margin-left: 472px;
+    }
+}
+
+@media (min-width: 768px) {
+    .sidebar-left.collapsed~.sidebar-map .ol-scale-line {
+        margin-left: 52px;
+    }
 }
 
 #map {
     background-color: #eee;
 }
+
 .ol-attribution.ol-logo-only,
 .ol-attribution.ol-uncollapsible {
-  max-width: calc(100% - 3em) !important;
-  height: 1.5em !important;
+    max-width: calc(100% - 3em) !important;
+    height: 1.5em !important;
 }
-.ol-control button, .ol-attribution, .ol-scale-line-inner {
-  font-family: 'Lucida Grande',Verdana,Geneva,Lucida,Arial,Helvetica,sans-serif !important;
+
+.ol-control button,
+.ol-attribution,
+.ol-scale-line-inner {
+    font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif !important;
 }
