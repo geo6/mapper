@@ -1,5 +1,3 @@
-import Resumable from 'resumablejs/resumable';
-
 import WMSAddLayerToMap from '../layers/wms/map';
 import WMSUpdateLayers from '../layers/wms/sidebar';
 import WMSLoadGetCapabilities from '../layers/wms/capabilities';
@@ -8,7 +6,57 @@ import WMTSAddLayerToMap from '../layers/wmts/map';
 import WMTSUpdateLayers from '../layers/wmts/sidebar';
 import WMTSLoadGetCapabilities from '../layers/wmts/capabilities';
 
-export function initLayers() {
+function displayLayersButton(type, id, layers) {
+    for (let i = 0; i < layers.length; i++) {
+        let li = $('#layers-new').clone();
+        let divName = $(li).find('div.layer-name');
+
+        let name = layers[i].Name || layers[i].Identifier;
+
+        $(li)
+            .data({
+                type: type,
+                id: id,
+                layer: name
+            })
+            .attr({
+                id: 'layers-' + type + '-' + id + '-' + i
+            })
+            .show()
+            .appendTo('#layers .list-group');
+
+        $(li)
+            .find('div.layer-name')
+            .addClass('text-nowrap text-truncate')
+            .attr({
+                title: name
+            })
+            .html(
+                (layers[i].queryable === true ? '<i class="fas fa-info-circle"></i> ' : '') +
+                layers[i].Title
+            );
+
+        if (
+            typeof layers[i].Style !== 'undefined' && layers[i].Style.length > 0 &&
+            typeof layers[i].Style[0].LegendURL !== 'undefined' && layers[i].Style[0].LegendURL.length > 0
+        ) {
+            let img = document.createElement('img');
+
+            img.src = layers[i].Style[0].LegendURL[0].OnlineResource;
+            img.alt = `Legend "${name}"`;
+
+            img.classList.add('img-fluid');
+
+            $(li).find('div.layer-legend').html(img);
+
+            $(li).find('.btn-layer-legend')
+                .removeClass('disabled')
+                .prop('disabled', false);
+        }
+    }
+}
+
+export default function () {
     window.app.wms = [];
     window.app.wmts = [];
 
@@ -155,72 +203,4 @@ export function initLayers() {
 
         $(event.target).closest('li').find('div.layer-legend').toggle();
     });
-}
-
-export function uploadLayer() {
-    let r = new Resumable({
-        fileType: [
-            'json',
-            'geojson'
-        ],
-        target: '/upload'
-    });
-    r.assignBrowse(document.getElementById('btn-layers-upload'));
-    r.on('fileAdded', (file, event) => {
-        console.log(file);
-        r.upload();
-    });
-    r.on('fileSuccess', (file, message) => {
-        console.log(message);
-    });
-}
-
-function displayLayersButton(type, id, layers) {
-    for (let i = 0; i < layers.length; i++) {
-        let li = $('#layers-new').clone();
-        let divName = $(li).find('div.layer-name');
-
-        let name = layers[i].Name || layers[i].Identifier;
-
-        $(li)
-            .data({
-                type: type,
-                id: id,
-                layer: name
-            })
-            .attr({
-                id: 'layers-' + type + '-' + id + '-' + i
-            })
-            .show()
-            .appendTo('#layers .list-group');
-
-        $(li)
-            .find('div.layer-name')
-            .addClass('text-nowrap text-truncate')
-            .attr({
-                title: name
-            })
-            .html(
-                (layers[i].queryable === true ? '<i class="fas fa-info-circle"></i> ' : '')
-                + layers[i].Title
-            );
-
-        if (
-            typeof layers[i].Style !== 'undefined' && layers[i].Style.length > 0 &&
-            typeof layers[i].Style[0].LegendURL !== 'undefined' && layers[i].Style[0].LegendURL.length > 0
-        ) {
-            let img = document.createElement('img');
-
-            img.src = layers[i].Style[0].LegendURL[0].OnlineResource;
-            img.alt = `Legend "${name}"`;
-
-            img.classList.add('img-fluid');
-
-            $(li).find('div.layer-legend').html(img);
-
-            $(li).find('.btn-layer-legend')
-                .removeClass('disabled')
-                .prop('disabled', false);
-        }
-    }
 }
