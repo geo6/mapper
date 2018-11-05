@@ -104,11 +104,17 @@ export default function () {
     }
 
     $('#modal-layers-services').on('change', (event) => {
-        let target = $(event.target).find('option:selected').data('target');
+        let { target, upload } = $(event.target).find('option:selected').data();
+
+        if (upload == true) {
+            $('#progress-upload').show();
+        } else {
+            $('#progress-upload').hide();
+        }
 
         $('#modal-layers-layers > div').hide();
         $(target).show();
-    });
+    }).trigger('change');
 
     $('#btn-layers-add-wms').on('click', (event) => {
         let url = prompt('Enter the WMS service url :');

@@ -4,7 +4,7 @@ require('./fontawesome');
 
 import initMap from './map';
 import initLayers from './map/layers';
-import uploadLayer from './upload';
+import initUpload from './upload';
 
 window.app = window.app || {};
 window.app.fn = {
@@ -14,5 +14,5 @@ window.app.fn = {
 $(document).ready(() => {
     initMap();
     initLayers();
-    uploadLayer();
+    initUpload();
 });

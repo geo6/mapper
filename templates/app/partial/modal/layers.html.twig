@@ -11,17 +11,27 @@
                 </button>
             </div>
             <div class="modal-body">
-                <select class="form-control" id="modal-layers-services">
-                    <optgroup label="WMS Services" id="modal-layers-services-wms" style="display: none;">
+                <select class="form-control" id="modal-layers-services" autocomplete="off">
+                    <optgroup label="WMS Services" id="modal-layers-services-wms" style="display:none;">
                     </optgroup>
-                    <optgroup label="WMTS Services" id="modal-layers-services-wmts" style="display: none;">
+                    <optgroup label="WMTS Services" id="modal-layers-services-wmts" style="display:none;">
                     </optgroup>
                     <optgroup label="Files">
-                        <option value="geojson">GeoJSON</option>
+                        <option value="geojson" data-upload="true" data-target="#modal-layers-files-geojson" selected>GeoJSON</option>
+                        <option value="kml" data-upload="true" data-target="#modal-layers-files-kml">KML</option>
                     </optgroup>
                 </select>
+                <div id="progress-upload" class="progress mt-3">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
                 <hr>
                 <div id="modal-layers-layers">
+                    <div id="modal-layers-files-geojson">
+                        <ul class="list-group"></ul>
+                    </div>
+                    <div id="modal-layers-files-kml">
+                        <ul class="list-group"></ul>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -30,7 +40,8 @@
                     Upload
                 </span>
                 <div class="btn-group dropup" role="group">
-                    <button id="btn-layers-add" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button id="btn-layers-add" type="button" class="btn btn-outline-secondary dropdown-toggle"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-link"></i>
                         Add service
                     </button>
