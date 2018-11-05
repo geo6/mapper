@@ -60,7 +60,10 @@ export default function (id, layers) {
                 }
 
                 if (extent !== null) {
-                    window.app.map.getView().fit(extent);
+                    window.app.map.getView().fit(extent, {
+                        maxZoom: 18,
+                        padding: [15, 15, 15, 15]
+                    })
                 }
         */
     }
