@@ -14,6 +14,7 @@ import {
 } from 'ol/control';
 
 import initBaselayers from './map/baselayers';
+import GeolocationControl from './map/geolocation';
 import initMarker from './map/marker';
 import initPermalink from './map/permalink';
 import initSingleClick from './map/singleclick';
@@ -35,7 +36,8 @@ export default function () {
             new Attribution({
                 collapsible: false
             }),
-            new ScaleLine()
+            new ScaleLine(),
+            new GeolocationControl()
         ]),
         layers: [],
         view: new View({
