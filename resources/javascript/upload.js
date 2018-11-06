@@ -13,17 +13,24 @@ export default function () {
     resumable.assignBrowse(document.getElementById('btn-layers-upload'));
 
     resumable.on('filesAdded', (files, skipped) => {
+        $('#progress-upload > .progress-bar')
+            .attr('aria-valuenow', 0)
+            .css('width', '0%');
+
+        let count = {
+            geojson: 0,
+            kml: 0
+        };
+
         files.forEach(file => {
-            const count = $('#modal-layers-files-geojson > .list-group > .list-group-item').length;
+            const pointer = $('#modal-layers-files-geojson > .list-group > .list-group-item').length;
+            const extension = file.fileName.substring(file.fileName.lastIndexOf('.') + 1, file.fileName.length) || file.name;
 
             const li = document.createElement('li');
             $(li)
                 .addClass('list-group-item')
                 .css({
                     opacity: 0.33
-                })
-                .attr({
-                    id: `geojson-${count}`
                 })
                 .data({
                     identifier: file.uniqueIdentifier
@@ -33,8 +40,38 @@ export default function () {
                 .append(`<strong>${file.fileName}</strong>`)
                 .appendTo(li);
 
-            $('#modal-layers-files-geojson > .list-group').append(li);
+            switch (extension.toLowerCase()) {
+                case 'json':
+                case 'geojson':
+                    count.geojson++;
+
+                    $(li).attr({
+                        id: `geojson-${pointer}`
+                    });
+
+                    $('#modal-layers-files-geojson > .list-group').append(li);
+                    break;
+                case 'kml':
+                    count.kml++;
+
+                    $(li).attr({
+                        id: `kml-${pointer}`
+                    });
+
+                    $('#modal-layers-files-kml > .list-group').append(li);
+                    break;
+            }
         });
+
+        if (Math.max(...Object.values(count)) === count.geojson) {
+            $('#modal-layers-services')
+                .val('geojson')
+                .trigger('change');
+        } else if (Math.max(...Object.values(count)) === count.kml) {
+            $('#modal-layers-services')
+                .val('kml')
+                .trigger('change');
+        }
 
         resumable.upload();
     });
@@ -51,40 +88,58 @@ export default function () {
     // });
 
     resumable.on('fileSuccess', (file, message) => {
+        const extension = file.fileName.substring(file.fileName.lastIndexOf('.') + 1, file.fileName.length) || file.name;
         const {
             title,
             description
         } = JSON.parse(message);
 
-        $('#modal-layers-files-geojson > .list-group > .list-group-item').each((index, element) => {
-            const { identifier } = $(element).data();
+        let list = null;
+        switch (extension.toLowerCase()) {
+            case 'json':
+            case 'geojson':
+                list = $('#modal-layers-files-geojson > .list-group > .list-group-item');
+                break;
+            case 'kml':
+                list = $('#modal-layers-files-kml > .list-group > .list-group-item');
+                break;
+        }
 
-            if (identifier === file.uniqueIdentifier) {
-                $(element)
-                    .css({
-                        opacity: 1
-                    });
+        if (list !== null) {
+            $(list).each((index, element) => {
+                const {
+                    identifier
+                } = $(element).data();
 
-                if (typeof title !== 'undefined') {
-                    $(document.createElement('div'))
-                        .text(title)
-                        .appendTo(element);
+                if (identifier === file.uniqueIdentifier) {
+                    $(element)
+                        .css({
+                            opacity: 1
+                        })
+                        .on('click', (event) => {
+                            event.stopPropagation();
+
+                            $(event.delegateTarget).toggleClass('list-group-item-primary');
+                        });
+
+                    if (typeof title !== 'undefined') {
+                        $(document.createElement('div'))
+                            .text(title)
+                            .appendTo(element);
+                    }
+                    if (typeof description !== 'undefined') {
+                        $(document.createElement('p'))
+                            .addClass('text-info small')
+                            .text(description)
+                            .appendTo(element);
+                    }
+
+                    return false;
                 }
-                if (typeof description !== 'undefined') {
-                    $(document.createElement('p'))
-                        .addClass('text-info small')
-                        .text(description)
-                        .appendTo(element);
-                }
-
-                return;
-            }
-        });
+            });
+        }
     });
 
-    resumable.on('complete', () => {
-        $('#progress-upload > .progress-bar')
-            .attr('aria-valuenow', 0)
-            .css('width', '0%');
-    });
+    // resumable.on('complete', () => {
+    // });
 }

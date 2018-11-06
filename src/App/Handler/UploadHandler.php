@@ -8,6 +8,7 @@ use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use SimpleXMLElement;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
 // use Zend\Expressive\Session\SessionMiddleware;
@@ -116,10 +117,35 @@ class UploadHandler implements RequestHandlerInterface
 
                                 $data['mime'] = mime_content_type($tempDirectory.'/'.$resumableFilename);
 
-                                $json = json_decode(file_get_contents($tempDirectory.'/'.$resumableFilename));
+                                if (is_readable($tempDirectory.'/'.$resumableFilename)) {
+                                    $content = file_get_contents($tempDirectory.'/'.$resumableFilename);
 
-                                $data['title'] = $json->title ?? null;
-                                $data['description'] = $json->description ?? null;
+                                    if ($content !== false) {
+                                        switch ($data['mime']) {
+                                            case 'application/json':
+                                            case 'text/plain':
+                                                $json = json_decode($content);
+
+                                                $data['title'] = $json->title ?? null;
+                                                $data['description'] = $json->description ?? null;
+                                                break;
+
+                                            case 'application/xml':
+                                            case 'text/xml':
+                                                $xml = new SimpleXMLElement($content);
+
+                                                $data['title'] = isset($xml->Document->name) ? (string) $xml->Document->name : null;
+                                                $data['description'] = isset($xml->Document->description) ? (string) $xml->Document->description : null;
+                                                break;
+
+                                            default:
+                                                $data['title'] = null;
+                                                $data['description'] = null;
+                                                break;
+                                        }
+                                    }
+                                }
+
 
                                 // rmdir($tempDirectory);
                             } else {
