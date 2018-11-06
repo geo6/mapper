@@ -1,9 +1,5 @@
-import {
-    Tile as TileLayer
-} from 'ol/layer';
-import {
-    WMTS
-} from 'ol/source';
+import TileLayer from 'ol/layer/Tile';
+import WMTS from 'ol/source/WMTS';
 import {
     optionsFromCapabilities
 } from 'ol/source/WMTS';

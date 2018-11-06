@@ -1,6 +1,4 @@
-import {
-    WMSGetFeatureInfo
-} from 'ol/format';
+import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
 
 export default function (service, coordinate) {
     let source = service.olLayer.getSource();

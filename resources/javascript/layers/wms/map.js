@@ -1,9 +1,5 @@
-import {
-    Tile as TileLayer
-} from 'ol/layer';
-import {
-    TileWMS
-} from 'ol/source';
+import TileLayer from 'ol/layer/Tile';
+import TileWMS from 'ol/source/TileWMS';
 
 export default function (id, layers) {
     if (typeof window.app.wms[id] !== 'undefined' && layers.length > 0) {
