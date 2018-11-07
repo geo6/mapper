@@ -10,27 +10,27 @@ export default function () {
         let layer = window.app.layers[i];
 
         switch (layer.type) {
-            case 'wmts':
-                WMTSLoadGetCapabilities(layer.url)
-                    .then((index) => {
-                        if (typeof layer.layer !== 'undefined') {
-                            let layers = [];
+        case 'wmts':
+            WMTSLoadGetCapabilities(layer.url)
+                .then((index) => {
+                    if (typeof layer.layer !== 'undefined') {
+                        let layers = [];
 
-                            for (let i = 0; i < window.app.wmts[index].layers.length; i++) {
-                                if (window.app.wmts[index].layers[i].Identifier === layer.layer) {
-                                    layers.push(window.app.wmts[index].layers[i]);
+                        for (let i = 0; i < window.app.wmts[index].layers.length; i++) {
+                            if (window.app.wmts[index].layers[i].Identifier === layer.layer) {
+                                layers.push(window.app.wmts[index].layers[i]);
 
-                                    WMTSAddLayerToSidebar(index, window.app.wmts[index].layers[i]);
-                                    break;
-                                }
+                                WMTSAddLayerToSidebar(index, window.app.wmts[index].layers[i]);
+                                break;
                             }
-
-                            // To Do: Define what to do with mutlipe layers from same WMTS
-
-                            WMTSAddLayersToMap(index, layers[0]);
                         }
-                    });
-                break;
+
+                        // To Do: Define what to do with mutlipe layers from same WMTS
+
+                        WMTSAddLayersToMap(index, layers[0]);
+                    }
+                });
+            break;
         }
     }
 

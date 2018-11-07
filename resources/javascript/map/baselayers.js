@@ -9,56 +9,56 @@ import {
     optionsFromCapabilities
 } from 'ol/source/WMTS';
 
-function loadBaselayer(index) {
+function loadBaselayer (index) {
     if (typeof window.app.baselayers[index] !== 'undefined') {
         let baselayer = window.app.baselayers[index];
 
         switch (baselayer.mode) {
-            case 'wms':
-                window.app.map.getLayers().setAt(0,
-                    new TileLayer({
-                        source: new TileWMS({
-                            attributions: baselayer.attributions,
-                            maxZoom: baselayer.maxZoom,
-                            params: {
-                                LAYERS: baselayer.layers,
-                                TRANSPARENT: false
-                            },
-                            url: baselayer.url
-                        })
+        case 'wms':
+            window.app.map.getLayers().setAt(0,
+                new TileLayer({
+                    source: new TileWMS({
+                        attributions: baselayer.attributions,
+                        maxZoom: baselayer.maxZoom,
+                        params: {
+                            LAYERS: baselayer.layers,
+                            TRANSPARENT: false
+                        },
+                        url: baselayer.url
                     })
-                );
-                break;
+                })
+            );
+            break;
 
-            case 'wmts':
-                fetch(baselayer.url + '?service=wmts&request=GetCapabilities&version=1.1.0')
-                    .then(response => response.text())
-                    .then((text) => {
-                        let capabilities = (new WMTSCapabilities()).read(text);
+        case 'wmts':
+            fetch(baselayer.url + '?service=wmts&request=GetCapabilities&version=1.1.0')
+                .then(response => response.text())
+                .then((text) => {
+                    let capabilities = (new WMTSCapabilities()).read(text);
 
-                        window.app.map.getLayers().setAt(0,
-                            new TileLayer({
-                                source: new WMTS(optionsFromCapabilities(capabilities, {
-                                    attributions: baselayer.attributions,
-                                    layer: baselayer.layer,
-                                    url: baselayer.url
-                                }))
-                            })
-                        );
-                    });
-                break;
-
-            default:
-                window.app.map.getLayers().setAt(0,
-                    new TileLayer({
-                        source: new XYZ({
-                            attributions: baselayer.attributions,
-                            maxZoom: baselayer.maxZoom,
-                            url: baselayer.url
+                    window.app.map.getLayers().setAt(0,
+                        new TileLayer({
+                            source: new WMTS(optionsFromCapabilities(capabilities, {
+                                attributions: baselayer.attributions,
+                                layer: baselayer.layer,
+                                url: baselayer.url
+                            }))
                         })
+                    );
+                });
+            break;
+
+        default:
+            window.app.map.getLayers().setAt(0,
+                new TileLayer({
+                    source: new XYZ({
+                        attributions: baselayer.attributions,
+                        maxZoom: baselayer.maxZoom,
+                        url: baselayer.url
                     })
-                );
-                break;
+                })
+            );
+            break;
         }
     }
 }

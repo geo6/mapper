@@ -10,5 +10,5 @@ export default function (file, coordinate) {
         layerFilter: (layer) => {
             return layer === file.olLayer;
         }
-    })
+    });
 }

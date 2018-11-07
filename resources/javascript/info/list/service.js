@@ -1,6 +1,6 @@
 import displayFeatureInList from '../feature';
 
-function createUlService(serviceType, serviceIndex, title) {
+function createUlService (serviceType, serviceIndex, title) {
     if ($(`#info-service-${serviceType}-${serviceIndex}`).length === 0) {
         let ul = document.createElement('ul');
 
@@ -16,7 +16,7 @@ function createUlService(serviceType, serviceIndex, title) {
     return $(`#info-service-${serviceType}-${serviceIndex} > ul`);
 }
 
-function createOlLayer(serviceType, serviceIndex, layerIndex, title) {
+function createOlLayer (serviceType, serviceIndex, layerIndex, title) {
     if ($(`#info-layer-${serviceType}-${serviceIndex}-${layerIndex}`).length === 0) {
         let ol = document.createElement('ol');
 
@@ -49,7 +49,7 @@ export default function (service, layerName, feature, featureIndex) {
     const layerIndex = service.layers.findIndex(element => element.Name === layerName);
 
     const serviceTitle = service.capabilities.Service.Title;
-    const layerTitle = service.layers[layerIndex].Title
+    const layerTitle = service.layers[layerIndex].Title;
 
     const ulService = createUlService(serviceType, serviceIndex, serviceTitle);
     const olLayer = createOlLayer(serviceType, serviceIndex, layerIndex, layerTitle);

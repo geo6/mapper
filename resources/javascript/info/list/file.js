@@ -1,6 +1,6 @@
 import displayFeatureInList from '../feature';
 
-function createOlFile(fileType, fileIndex, title) {
+function createOlFile (fileType, fileIndex, title) {
     if ($(`#info-layer-${fileType}-${fileIndex}`).length === 0) {
         const ol = document.createElement('ol');
 

@@ -38,9 +38,9 @@ export default function (index, layers) {
                 .appendTo(li);
         }
 
-        /*if (typeof layers[i].Layer !== 'undefined') {
+        /* if (typeof layers[i].Layer !== 'undefined') {
             $(li).append(generateLayersList(index, layers[i].Layer));
-        }*/
+        } */
     }
 
     return ul;

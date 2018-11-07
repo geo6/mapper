@@ -6,8 +6,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 class GeolocationControl extends Control {
-
-    constructor(opt_options) {
+    constructor (opt_options) {
         const options = opt_options || {};
 
         const button = document.createElement('button');
@@ -45,7 +44,7 @@ class GeolocationControl extends Control {
         this.initGeolocation.call(this);
     }
 
-    handleGeolocation() {
+    handleGeolocation () {
         this.active = !this.active;
 
         this.geolocation.setTracking(this.active);
@@ -60,7 +59,7 @@ class GeolocationControl extends Control {
         }
     }
 
-    initGeolocation() {
+    initGeolocation () {
         this.geolocation = new Geolocation({
             trackingOptions: {
                 enableHighAccuracy: true
@@ -96,4 +95,4 @@ export {
     GeolocationControl
     as
     default
-}
+};

@@ -40,31 +40,31 @@ export default function () {
         const id = $(option).closest('optgroup').attr('id');
 
         switch (id) {
-            case 'modal-layers-files':
-                const type = $('#modal-layers-services').val();
+        case 'modal-layers-files':
+            const type = $('#modal-layers-services').val();
 
-                switch (type) {
-                    case 'geojson':
-                        GeoJSONApplySelection();
-                        break;
-
-                    case 'kml':
-                        KMLApplySelection();
-                        break;
-                }
+            switch (type) {
+            case 'geojson':
+                GeoJSONApplySelection();
                 break;
 
-            case 'modal-layers-services-wms':
-                const indexWMS = $('#modal-layers-services-wms > option').index(option);
-
-                WMSApplySelection(indexWMS);
+            case 'kml':
+                KMLApplySelection();
                 break;
+            }
+            break;
 
-            case 'modal-layers-services-wmts':
-                const indexWMTS = $('#modal-layers-services-wmts > option').index(option);
+        case 'modal-layers-services-wms':
+            const indexWMS = $('#modal-layers-services-wms > option').index(option);
 
-                WMTSApplySelection(indexWMTS);
-                break;
+            WMSApplySelection(indexWMS);
+            break;
+
+        case 'modal-layers-services-wmts':
+            const indexWMTS = $('#modal-layers-services-wmts > option').index(option);
+
+            WMTSApplySelection(indexWMTS);
+            break;
         }
     });
 
@@ -79,18 +79,18 @@ export default function () {
         $(event.target).closest('li').remove();
 
         switch (type) {
-            case 'geojson':
-                GeoJSONRemoveLayer(index);
-                break;
-            case 'kml':
-                KMLRemoveLayer(index);
-                break;
-            case 'wms':
-                WMSRemoveLayer();
-                break;
-            case 'wmts':
-                WMTSRemoveLayer();
-                break;
+        case 'geojson':
+            GeoJSONRemoveLayer(index);
+            break;
+        case 'kml':
+            KMLRemoveLayer(index);
+            break;
+        case 'wms':
+            WMSRemoveLayer();
+            break;
+        case 'wmts':
+            WMTSRemoveLayer();
+            break;
         }
     });
 

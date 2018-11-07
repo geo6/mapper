@@ -2,13 +2,13 @@ import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
 import generateLayersList from './list';
 
-function parseLayers(layers, searchElements) {
+function parseLayers (layers, searchElements) {
     let results = [];
 
     for (let i = 0; i < layers.length; i++) {
-        /*if (typeof layers[i].Layer !== 'undefined') {
+        /* if (typeof layers[i].Layer !== 'undefined') {
             results = results.concat(parseLayers(layers[i].Layer, searchElements));
-        } else*/
+        } else */
         if (typeof searchElements !== 'undefined' && searchElements.indexOf(layers[i].Name) > -1) {
             results.push(layers[i]);
         } else if (typeof searchElements === 'undefined') {
@@ -19,7 +19,7 @@ function parseLayers(layers, searchElements) {
     return results;
 }
 
-function GetCapabilities(url) {
+function GetCapabilities (url) {
     return fetch('/proxy?SERVICE=WMTS&REQUEST=GetCapabilities&VERSION=1.0.0&_url=' + encodeURIComponent(url))
         .then(response => response.text())
         .then((text) => {

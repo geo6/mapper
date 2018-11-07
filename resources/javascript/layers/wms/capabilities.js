@@ -2,7 +2,7 @@ import WMSCapabilities from 'ol/format/WMSCapabilities';
 
 import generateLayersList from './list';
 
-function parseLayers(layers, searchElements) {
+function parseLayers (layers, searchElements) {
     let results = [];
 
     if (Array.isArray(layers)) {
@@ -22,7 +22,7 @@ function parseLayers(layers, searchElements) {
     return results;
 }
 
-function GetCapabilities(url) {
+function GetCapabilities (url) {
     return fetch('/proxy?SERVICE=WMS&REQUEST=GetCapabilities&_url=' + encodeURIComponent(url))
         .then(response => response.text())
         .then((text) => {

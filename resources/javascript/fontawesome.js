@@ -4,7 +4,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import {
     faImage,
-	faMap,
+    faMap,
     faQuestionCircle,
     faTrashAlt
 } from '@fortawesome/free-regular-svg-icons';
@@ -15,7 +15,7 @@ import {
     faCaretLeft,
     faCodeBranch,
     faCog,
-	faDatabase,
+    faDatabase,
     faInfo,
     faInfoCircle,
     faLink,
@@ -41,7 +41,7 @@ library.add(
     faInfoCircle,
     faLink,
     faLocationArrow,
-	faMap,
+    faMap,
     faMapMarkerAlt,
     faPlusCircle,
     faQuestionCircle,

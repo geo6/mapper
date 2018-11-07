@@ -41,33 +41,33 @@ export default function () {
                 .appendTo(li);
 
             switch (extension.toLowerCase()) {
-                case 'json':
-                case 'geojson':
-                    count.geojson++;
+            case 'json':
+            case 'geojson':
+                count.geojson++;
 
-                    $(li)
-                        .attr({
-                            id: `geojson-${pointer}`
-                        })
-                        .data({
-                            name: file.fileName
-                        });
+                $(li)
+                    .attr({
+                        id: `geojson-${pointer}`
+                    })
+                    .data({
+                        name: file.fileName
+                    });
 
-                    $('#modal-layers-files-geojson > .list-group').append(li);
-                    break;
-                case 'kml':
-                    count.kml++;
+                $('#modal-layers-files-geojson > .list-group').append(li);
+                break;
+            case 'kml':
+                count.kml++;
 
-                    $(li)
-                        .attr({
-                            id: `kml-${pointer}`
-                        })
-                        .data({
-                            name: file.fileName
-                        });
+                $(li)
+                    .attr({
+                        id: `kml-${pointer}`
+                    })
+                    .data({
+                        name: file.fileName
+                    });
 
-                    $('#modal-layers-files-kml > .list-group').append(li);
-                    break;
+                $('#modal-layers-files-kml > .list-group').append(li);
+                break;
             }
         });
 
@@ -104,29 +104,29 @@ export default function () {
 
         let list = null;
         switch (extension.toLowerCase()) {
-            case 'json':
-            case 'geojson':
-                list = $('#modal-layers-files-geojson > .list-group > .list-group-item');
+        case 'json':
+        case 'geojson':
+            list = $('#modal-layers-files-geojson > .list-group > .list-group-item');
 
-                window.app.geojson.push({
-                    file: file,
-                    title: title,
-                    description: description,
-                    olLayer: null,
-                    selection: []
-                });
-                break;
-            case 'kml':
-                list = $('#modal-layers-files-kml > .list-group > .list-group-item');
+            window.app.geojson.push({
+                file: file,
+                title: title,
+                description: description,
+                olLayer: null,
+                selection: []
+            });
+            break;
+        case 'kml':
+            list = $('#modal-layers-files-kml > .list-group > .list-group-item');
 
-                window.app.kml.push({
-                    file: file,
-                    title: title,
-                    description: description,
-                    olLayer: null,
-                    selection: []
-                });
-                break;
+            window.app.kml.push({
+                file: file,
+                title: title,
+                description: description,
+                olLayer: null,
+                selection: []
+            });
+            break;
         }
 
         if (list !== null) {

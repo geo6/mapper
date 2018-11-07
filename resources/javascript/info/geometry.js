@@ -30,65 +30,65 @@ export default function (geometry) {
         .show();
 
     switch (geometryType) {
-        case 'Point':
-            let coordinates = geometry.getCoordinates();
+    case 'Point':
+        let coordinates = geometry.getCoordinates();
+
+        $(divGeometry).append(toStringXY(toLonLat(coordinates), 6));
+        break;
+    case 'MultiPoint':
+        let points = geometry.getPoints();
+
+        $(divGeometry).append([
+            points.length,
+            '<br>'
+        ]);
+
+        if (points.length === 1) {
+            let coordinates = geometry.getPoint(0).getCoordinates();
 
             $(divGeometry).append(toStringXY(toLonLat(coordinates), 6));
-            break;
-        case 'MultiPoint':
-            let points = geometry.getPoints();
+        }
+        break;
 
-            $(divGeometry).append([
-                points.length,
-                '<br>'
-            ]);
+    case 'LineString':
+        let length = Math.round(geometry.getLength());
 
-            if (points.length === 1) {
-                let coordinates = geometry.getPoint(0).getCoordinates();
+        $(divGeometry).append(`${length} m.`);
+        break;
+    case 'MultiLineString':
+        let linestrings = geometry.getLineStrings();
 
-                $(divGeometry).append(toStringXY(toLonLat(coordinates), 6));
-            }
-            break;
+        $(divGeometry).append([
+            linestrings.length,
+            '<br>'
+        ]);
 
-        case 'LineString':
-            let length = Math.round(geometry.getLength());
+        if (linestrings.length === 1) {
+            let length = Math.round(geometry.getLineString(0).getLength());
 
             $(divGeometry).append(`${length} m.`);
-            break;
-        case 'MultiLineString':
-            let linestrings = geometry.getLineStrings();
+        }
+        break;
 
-            $(divGeometry).append([
-                linestrings.length,
-                '<br>'
-            ]);
+    case 'Polygon':
+        let area = Math.round(geometry.getArea());
 
-            if (linestrings.length === 1) {
-                let length = Math.round(geometry.getLineString(0).getLength());
+        $(divGeometry).append(`${area} m&sup2;`);
+        break;
+    case 'MultiPolygon':
+        let polygons = geometry.getPolygons();
 
-                $(divGeometry).append(`${length} m.`);
-            }
-            break;
+        $(divGeometry).append([
+            polygons.length,
+            '<br>'
+        ]);
 
-        case 'Polygon':
-            let area = Math.round(geometry.getArea());
+        if (polygons.length === 1) {
+            let area = Math.round(geometry.getPolygon(0).getArea());
 
             $(divGeometry).append(`${area} m&sup2;`);
-            break;
-        case 'MultiPolygon':
-            let polygons = geometry.getPolygons();
-
-            $(divGeometry).append([
-                polygons.length,
-                '<br>'
-            ]);
-
-            if (polygons.length === 1) {
-                let area = Math.round(geometry.getPolygon(0).getArea());
-
-                $(divGeometry).append(`${area} m&sup2;`);
-            }
-            break;
+        }
+        break;
     }
 
     $('#info-details').append(divGeometry);
