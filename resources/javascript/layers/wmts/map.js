@@ -1,6 +1,6 @@
 import TileLayer from 'ol/layer/Tile';
+import WMTS from 'ol/source/WMTS';
 import {
-    WMTS,
     optionsFromCapabilities
 } from 'ol/source/WMTS';
 
