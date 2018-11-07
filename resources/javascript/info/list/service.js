@@ -51,7 +51,7 @@ export default function (service, layerName, feature, featureIndex) {
     const serviceTitle = service.capabilities.Service.Title;
     const layerTitle = service.layers[layerIndex].Title;
 
-    const ulService = createUlService(serviceType, serviceIndex, serviceTitle);
+    createUlService(serviceType, serviceIndex, serviceTitle);
     const olLayer = createOlLayer(serviceType, serviceIndex, layerIndex, layerTitle);
 
     const title = `<strong>${serviceTitle}</strong> - ${layerTitle}`;

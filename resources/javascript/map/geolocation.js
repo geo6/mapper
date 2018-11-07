@@ -6,8 +6,8 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 class GeolocationControl extends Control {
-    constructor (opt_options) {
-        const options = opt_options || {};
+    constructor (optOptions) {
+        const options = optOptions || {};
 
         const button = document.createElement('button');
         button.innerHTML = '<i class="fas fa-location-arrow"></i>';

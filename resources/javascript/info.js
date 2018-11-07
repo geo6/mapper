@@ -5,7 +5,6 @@ export default function () {
     });
 
     $('#infos-list-btn-prev').on('click', () => {
-        let items = $('#info-list ol > li');
         let { current } = $('#info-details').data();
 
         if (current - 1 >= 0) {
