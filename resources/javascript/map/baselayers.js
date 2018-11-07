@@ -1,9 +1,5 @@
-import {
-    WMTSCapabilities
-} from 'ol/format';
-import {
-    Tile as TileLayer
-} from 'ol/layer';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import TileLayer from 'ol/layer/Tile';
 import {
     TileWMS,
     WMTS,
