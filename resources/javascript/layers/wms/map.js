@@ -1,17 +1,17 @@
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 
-export default function (id, layers) {
-    if (typeof window.app.wms[id] !== 'undefined' && layers.length > 0) {
-        let service = window.app.wms[id].capabilities;
+export default function (index, layers) {
+    if (typeof window.app.wms[index] !== 'undefined' && layers.length > 0) {
+        let service = window.app.wms[index].capabilities;
 
         let names = [];
         for (let i = 0; i < layers.length; i++) {
             names.push(layers[i].Name);
         }
 
-        if (window.app.wms[id].olLayer === null) {
-            window.app.wms[id].olLayer = new TileLayer({
+        if (window.app.wms[index].olLayer === null) {
+            window.app.wms[index].olLayer = new TileLayer({
                 source: new TileWMS({
                     params: {
                         'LAYERS': names
@@ -20,10 +20,10 @@ export default function (id, layers) {
                 })
             });
 
-            window.app.map.addLayer(window.app.wms[id].olLayer);
+            window.app.map.addLayer(window.app.wms[index].olLayer);
         } else {
-            let params = window.app.wms[id].olLayer.getSource().getParams();
-            window.app.wms[id].olLayer.getSource().updateParams({
+            let params = window.app.wms[index].olLayer.getSource().getParams();
+            window.app.wms[index].olLayer.getSource().updateParams({
                 'LAYERS': params.LAYERS.concat(names)
             });
         }
@@ -31,7 +31,7 @@ export default function (id, layers) {
         /*
                 let extent = null;
 
-                // ToDo: Get extent for each layer if available and compute extent
+                // To Do: Get extent for each layer if available and compute extent
 
                 if (extent === null && typeof service.Capability.Layer.BoundingBox !== 'undefined') {
                     for (let i = 0; i < service.Capability.Layer.BoundingBox.length; i++) {

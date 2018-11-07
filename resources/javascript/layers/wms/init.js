@@ -1,6 +1,6 @@
 import initWMSAddService from './new';
 import WMSLoadGetCapabilities from './capabilities';
-import WMSAddLayerToMap from './map';
+import WMSAddLayersToMap from './map';
 import WMSAddLayerToSidebar from './sidebar';
 
 export default function () {
@@ -12,18 +12,19 @@ export default function () {
         switch (layer.type) {
             case 'wms':
                 WMSLoadGetCapabilities(layer.url)
-                    .then((id) => {
+                    .then((index) => {
                         if (typeof layer.layers !== 'undefined' && layer.layers.length > 0) {
                             let layers = [];
 
-                            for (let i = 0; i < window.app.wms[id].layers.length; i++) {
-                                if (layer.layers.indexOf(window.app.wms[id].layers[i].Name) > -1) {
-                                    layers.push(window.app.wms[id].layers[i]);
+                            for (let i = 0; i < window.app.wms[index].layers.length; i++) {
+                                if (layer.layers.indexOf(window.app.wms[index].layers[i].Name) > -1) {
+                                    layers.push(window.app.wms[index].layers[i]);
+
+                                    WMSAddLayerToSidebar(index, window.app.wms[index].layers[i]);
                                 }
                             }
 
-                            WMSAddLayerToMap(id, layers);
-                            WMSAddLayerToSidebar(id, layers);
+                            WMSAddLayersToMap(index, layers);
                         }
                     });
                 break;

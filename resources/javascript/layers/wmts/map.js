@@ -4,26 +4,26 @@ import {
     optionsFromCapabilities
 } from 'ol/source/WMTS';
 
-export default function (id, layer) {
-    if (typeof window.app.wmts[id] !== 'undefined' && typeof layer === 'object') {
-        let service = window.app.wmts[id].capabilities;
+export default function (index, layer) {
+    if (typeof window.app.wmts[index] !== 'undefined' && typeof layer === 'object') {
+        let service = window.app.wmts[index].capabilities;
 
         let name = layer.Identifier;
 
-        // ToDo: Define what to do with mutlipe layers from same WMTS
-        window.app.map.removeLayer(window.app.wmts[id].olLayer);
-        window.app.wmts[id].olLayer = null;
+        // To Do: Define what to do with mutlipe layers from same WMTS
+        window.app.map.removeLayer(window.app.wmts[index].olLayer);
+        window.app.wmts[index].olLayer = null;
 
-        if (window.app.wmts[id].olLayer === null) {
-            window.app.wmts[id].olLayer = new TileLayer({
+        if (window.app.wmts[index].olLayer === null) {
+            window.app.wmts[index].olLayer = new TileLayer({
                 source: new WMTS(optionsFromCapabilities(service, {
                     layer: name
                 }))
             });
 
-            window.app.map.addLayer(window.app.wmts[id].olLayer);
+            window.app.map.addLayer(window.app.wmts[index].olLayer);
         } else {
-            // ToDo: Define what to do with mutlipe layers from same WMTS
+            // To Do: Define what to do with mutlipe layers from same WMTS
         }
     }
 }

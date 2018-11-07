@@ -14,7 +14,7 @@ export default function () {
             window.app.map.removeLayer(window.app.wmts[i].olLayer);
             window.app.wmts[i].olLayer = null;
         } else if (wmts[i].length > 0) {
-            // ToDo: Define what to do with mutlipe layers from same WMTS
+            // To Do: Define what to do with mutlipe layers from same WMTS
         }
     }
 }
