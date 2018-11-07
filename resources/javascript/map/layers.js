@@ -1,6 +1,9 @@
 import initGeoJSON from '../layers/geojson/init';
 import GeoJSONApplySelection from '../layers/geojson/apply';
 
+import initKML from '../layers/kml/init';
+import KMLApplySelection from '../layers/kml/apply';
+
 import initWMS from '../layers/wms/init';
 import WMSApplySelection from '../layers/wms/apply';
 import WMSRemoveLayer from '../layers/wms/remove';
@@ -11,6 +14,7 @@ import WMTSRemoveLayer from '../layers/wmts/remove';
 
 export default function () {
     initGeoJSON();
+    initKML();
     initWMS();
     initWMTS();
 

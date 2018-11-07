@@ -1,4 +1,5 @@
 import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
+import KMLGetFeatureInfo from '../layers/kml/featureinfo';
 import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 
 import displayServiceFeatureInfoList from '../info/list/service';
@@ -20,6 +21,15 @@ export default function () {
         // GeoJSON
         window.app.geojson.forEach((file) => {
             const features = GeoJSONGetFeatureInfo(file, event.coordinate);
+
+            file.selection = features;
+
+            features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+        });
+
+        // KML
+        window.app.kml.forEach((file) => {
+            const features = KMLGetFeatureInfo(file, event.coordinate);
 
             file.selection = features;
 
