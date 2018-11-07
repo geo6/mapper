@@ -1,10 +1,10 @@
 import initWMS from '../layers/wms/init';
 import WMSApplySelection from '../layers/wms/apply';
-// import WMSUpdateLayers from '../layers/wms/sidebar';
+import WMSRemoveLayer from '../layers/wms/remove';
 
 import initWMTS from '../layers/wmts/init';
 import WMTSApplySelection from '../layers/wmts/apply';
-// import WMTSUpdateLayers from '../layers/wmts/sidebar';
+import WMTSRemoveLayer from '../layers/wmts/remove';
 
 export default function () {
     initWMS();
@@ -44,22 +44,23 @@ export default function () {
         }
     });
 
-    // $(document).on('click', '.btn-layer-remove', (event) => {
-    //     event.preventDefault();
+    $(document).on('click', '.btn-layer-remove', (event) => {
+        event.preventDefault();
 
-    //     let data = $(event.target).closest('li').data();
+        let data = $(event.target).closest('li').data();
 
-    //     $(event.target).closest('li').remove();
+        $(event.target).closest('li').remove();
 
-    //     switch (data.type) {
-    //         case 'wms':
-    //             WMSUpdateLayers();
-    //             break;
-    //         case 'wmts':
-    //             WMTSUpdateLayers();
-    //             break;
-    //     }
-    // });
+        switch (data.type) {
+            case 'wms':
+                WMSRemoveLayer();
+                break;
+            case 'wmts':
+                WMTSRemoveLayer();
+                break;
+        }
+    });
+
     $(document).on('click', '.btn-layer-legend', (event) => {
         event.preventDefault();
 
