@@ -78,8 +78,6 @@ export default function () {
 
         $(event.target).closest('li').remove();
 
-        console.log(type, index);
-
         switch (type) {
             case 'geojson':
                 GeoJSONRemoveLayer(index);

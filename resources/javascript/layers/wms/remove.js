@@ -1,6 +1,6 @@
 export default function () {
     let wms = [];
-    for (const i = 0; i < window.app.wms.length; i++) {
+    for (let i = 0; i < window.app.wms.length; i++) {
         wms[i] = [];
     }
 
@@ -13,7 +13,7 @@ export default function () {
         wms[index].push(layer);
     });
 
-    for (const i = 0; i < window.app.wms.length; i++) {
+    for (let i = 0; i < window.app.wms.length; i++) {
         if (wms[i].length === 0 && window.app.wms[i].olLayer !== null) {
             window.app.map.removeLayer(window.app.wms[i].olLayer);
             window.app.wms[i].olLayer = null;
