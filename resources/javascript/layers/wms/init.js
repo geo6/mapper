@@ -1,4 +1,4 @@
-import initWMSAddService from './add';
+import initWMSAddService from './new';
 import WMSLoadGetCapabilities from './capabilities';
 import WMSAddLayerToMap from './map';
 import WMSAddLayerToSidebar from './sidebar';

@@ -1,4 +1,4 @@
-import initWMTSAddService from './add';
+import initWMTSAddService from './new';
 import WMTSLoadGetCapabilities from './capabilities';
 import WMTSAddLayerToMap from './map';
 import WMTSAddLayerToSidebar from './sidebar';
