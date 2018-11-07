@@ -8,6 +8,8 @@ import displayLocation from '../info/location';
 
 export default function () {
     window.app.map.on('singleclick', (event) => {
+        window.app.marker.setGeometry(null);
+
         displayLocation(event.coordinate);
 
         $('#info-list').empty().show();
