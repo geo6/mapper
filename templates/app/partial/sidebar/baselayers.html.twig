@@ -1,6 +1,6 @@
 <div class="list-group mt-3">
-{% for id, baselayer in baselayers %}
-    <button type="button" class="list-group-item list-group-item-action" data-id="{{ id }}">
+{% for index, baselayer in baselayers %}
+    <button type="button" class="list-group-item list-group-item-action" data-index="{{ index }}">
         {{ baselayer.name }}
     </button>
 {% endfor %}

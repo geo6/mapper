@@ -9,7 +9,7 @@ export default function (index, file) {
     $(li)
         .data({
             type: 'geojson',
-            id: index,
+            index: index,
             layer: fileName
         })
         .attr({

@@ -1,4 +1,4 @@
-export default function (id, layers) {
+export default function (index, layers) {
     let ul = document.createElement('ul');
 
     $(ul).addClass('list-group mb-3');
@@ -9,7 +9,7 @@ export default function (id, layers) {
         let badge = $(document.createElement('span')).addClass('badge badge-light ml-1');
 
         $(li)
-            .attr('id', 'wms-' + id + '-' + layers[i].Name)
+            .attr('id', 'wms-' + index + '-' + layers[i].Name)
             .data({
                 name: layers[i].Name
             })
@@ -39,7 +39,7 @@ export default function (id, layers) {
         }
 
         if (typeof layers[i].Layer !== 'undefined') {
-            $(li).append(generateLayersList(id, layers[i].Layer));
+            $(li).append(generateLayersList(index, layers[i].Layer));
         }
     }
 

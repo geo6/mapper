@@ -1,14 +1,19 @@
 export default function () {
     let wms = [];
-    for (let i = 0; i < window.app.wms.length; i++) {
+    for (const i = 0; i < window.app.wms.length; i++) {
         wms[i] = [];
     }
-    $('#layers-list > li[id^=layers-wms]:visible').each((index, element) => {
-        let data = $(element).data();
-        wms[data.id].push(data.layer);
+
+    $('#layers-list > li[id^=layers-wms]:visible').each((i, element) => {
+        const {
+            index,
+            layer
+        } = $(element).data();
+
+        wms[index].push(layer);
     });
 
-    for (let i = 0; i < window.app.wms.length; i++) {
+    for (const i = 0; i < window.app.wms.length; i++) {
         if (wms[i].length === 0 && window.app.wms[i].olLayer !== null) {
             window.app.map.removeLayer(window.app.wms[i].olLayer);
             window.app.wms[i].olLayer = null;

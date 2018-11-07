@@ -7,7 +7,7 @@ export default function (index, layer) {
     $(li)
         .data({
             type: 'wms',
-            id: index,
+            index: index,
             layer: name
         })
         .attr({

@@ -13,9 +13,9 @@ import {
     optionsFromCapabilities
 } from 'ol/source/WMTS';
 
-function loadBaselayer(id) {
-    if (typeof window.app.baselayers[id] !== 'undefined') {
-        let baselayer = window.app.baselayers[id];
+function loadBaselayer(index) {
+    if (typeof window.app.baselayers[index] !== 'undefined') {
+        let baselayer = window.app.baselayers[index];
 
         switch (baselayer.mode) {
             case 'wms':
@@ -69,16 +69,16 @@ function loadBaselayer(id) {
 
 export default function () {
     $('#baselayers button').on('click', (event) => {
-        let id = $(event.target).data('id');
+        const { index } = $(event.target).data();
 
         $('#baselayers button.active').removeClass('active');
         $(event.target).addClass('active');
 
-        loadBaselayer(id);
+        loadBaselayer(index);
     });
 
     let keys = Object.keys(window.app.baselayers);
 
-    $('#baselayers button[data-id=' + keys[0] + ']').addClass('active');
+    $('#baselayers button[data-index=' + keys[0] + ']').addClass('active');
     loadBaselayer(keys[0]);
 }

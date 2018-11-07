@@ -1,8 +1,10 @@
 import initGeoJSON from '../layers/geojson/init';
 import GeoJSONApplySelection from '../layers/geojson/apply';
+import GeoJSONRemoveLayer from '../layers/geojson/remove';
 
 import initKML from '../layers/kml/init';
 import KMLApplySelection from '../layers/kml/apply';
+import KMLRemoveLayer from '../layers/kml/remove';
 
 import initWMS from '../layers/wms/init';
 import WMSApplySelection from '../layers/wms/apply';
@@ -69,11 +71,22 @@ export default function () {
     $(document).on('click', '.btn-layer-remove', (event) => {
         event.preventDefault();
 
-        let data = $(event.target).closest('li').data();
+        const {
+            type,
+            index
+        } = $(event.target).closest('li').data();
 
         $(event.target).closest('li').remove();
 
-        switch (data.type) {
+        console.log(type, index);
+
+        switch (type) {
+            case 'geojson':
+                GeoJSONRemoveLayer(index);
+                break;
+            case 'kml':
+                KMLRemoveLayer(index);
+                break;
             case 'wms':
                 WMSRemoveLayer();
                 break;

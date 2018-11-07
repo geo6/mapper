@@ -4,9 +4,9 @@ export default function () {
 
         if (url !== null && url !== '') {
             WMSLoadGetCapabilities(url)
-                .then((id) => {
+                .then((index) => {
                     $('#modal-layers-services')
-                        .val('wms:' + id)
+                        .val('wms:' + index)
                         .trigger('change');
                 });
         }
