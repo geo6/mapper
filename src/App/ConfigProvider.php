@@ -33,6 +33,7 @@ class ConfigProvider
     {
         return [
             'invokables' => [
+                Handler\FileHandler::class => Handler\FileHandler::class,
                 Handler\ProxyHandler::class => Handler\ProxyHandler::class,
                 Handler\UploadHandler::class => Handler\UploadHandler::class,
             ],

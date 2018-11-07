@@ -35,6 +35,7 @@ use Zend\Expressive\MiddlewareFactory;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
     $app->get('/', App\Handler\HomeHandler::class, 'home');
 
+    $app->get('/file/{identifier}', App\Handler\FileHandler::class, 'file');
     $app->get('/proxy', App\Handler\ProxyHandler::class, 'proxy');
 
     $app->post('/upload', App\Handler\UploadHandler::class, 'upload');

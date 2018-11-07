@@ -1,6 +1,6 @@
 import displayGeometry from './geometry';
 
-export default function (serviceTitle, layerTitle, feature, li) {
+export default function (title, feature, liElement) {
     $('#info-list').hide();
     $('#info-details').show();
 
@@ -8,7 +8,7 @@ export default function (serviceTitle, layerTitle, feature, li) {
     $('#info-details-geometry').empty().hide();
 
     let items = $('#info-list ol > li');
-    let current = $(items).index(li);
+    let current = $(items).index(liElement);
 
     $('#info-details').data({
         current
@@ -23,11 +23,7 @@ export default function (serviceTitle, layerTitle, feature, li) {
     }
 
     $('#info-details > table > caption')
-        .append([
-            `<strong>${serviceTitle}</strong>`,
-            ' - ',
-            layerTitle
-        ]);
+        .html(title);
 
     let properties = feature.getProperties();
     for (const key in properties) {

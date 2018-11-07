@@ -45,18 +45,26 @@ export default function () {
                 case 'geojson':
                     count.geojson++;
 
-                    $(li).attr({
-                        id: `geojson-${pointer}`
-                    });
+                    $(li)
+                        .attr({
+                            id: `geojson-${pointer}`
+                        })
+                        .data({
+                            name: file.fileName
+                        });
 
                     $('#modal-layers-files-geojson > .list-group').append(li);
                     break;
                 case 'kml':
                     count.kml++;
 
-                    $(li).attr({
-                        id: `kml-${pointer}`
-                    });
+                    $(li)
+                        .attr({
+                            id: `kml-${pointer}`
+                        })
+                        .data({
+                            name: file.fileName
+                        });
 
                     $('#modal-layers-files-kml > .list-group').append(li);
                     break;
@@ -99,9 +107,25 @@ export default function () {
             case 'json':
             case 'geojson':
                 list = $('#modal-layers-files-geojson > .list-group > .list-group-item');
+
+                window.app.geojson.push({
+                    file: file,
+                    title: title,
+                    description: description,
+                    olLayer: null,
+                    selection: []
+                });
                 break;
             case 'kml':
                 list = $('#modal-layers-files-kml > .list-group > .list-group-item');
+
+                window.app.kml.push({
+                    file: file,
+                    title: title,
+                    description: description,
+                    olLayer: null,
+                    selection: []
+                });
                 break;
         }
 

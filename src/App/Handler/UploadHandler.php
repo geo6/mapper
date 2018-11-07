@@ -11,7 +11,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 use SimpleXMLElement;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
-// use Zend\Expressive\Session\SessionMiddleware;
 
 /**
  * @see https://github.com/23/resumable.js/blob/master/samples/Backend%20on%20PHP.md
@@ -31,9 +30,9 @@ class UploadHandler implements RequestHandlerInterface
         $resumableFilename = $params['resumableFilename'] ?? '';
         $resumableChunkNumber = $params['resumableChunkNumber'] ?? 0;
 
-        $tempDirectory = sys_get_temp_dir().'/'.$resumableIdentifier;
+        $tempDirectory = sys_get_temp_dir().'/mapper/'.$resumableIdentifier;
         if (!file_exists($tempDirectory) || !is_dir($tempDirectory)) {
-            $mkdir = mkdir($tempDirectory);
+            $mkdir = mkdir($tempDirectory, 0777, true);
         }
 
         $chunk = $tempDirectory.'/'.$resumableFilename.'.part.'.$resumableChunkNumber;
@@ -41,9 +40,9 @@ class UploadHandler implements RequestHandlerInterface
         switch ($method) {
             case 'GET':
                 if (file_exists($chunk)) {
-                    return (new EmptyResponse())->withStatus(200);
+                    return (new EmptyResponse(200));
                 } else {
-                    return (new EmptyResponse())->withStatus(404);
+                    return (new EmptyResponse(404));
                 }
                 break;
 
@@ -54,11 +53,6 @@ class UploadHandler implements RequestHandlerInterface
                     'filename' => $resumableFilename,
                     'chunk'    => $resumableChunkNumber,
                 ];
-
-                // $directory = $session->get('tempDirectory');
-                // if (!file_exists($directory) || !is_dir($directory)) {
-                //     mkdir($directory, 0777, true);
-                // }
 
                 try {
                     foreach ($files as $file) {
@@ -95,24 +89,6 @@ class UploadHandler implements RequestHandlerInterface
 
                                 fclose($handle);
 
-                                // $i = 1;
-                                // $new = $directory.'/'.$resumableFilename;
-                                // $path = pathinfo($new);
-                                // while (file_exists($new)) {
-                                //     $new = $path['dirname'].'/'.$path['filename'].'.'.($i++).'.'.$path['extension'];
-                                // }
-
-                                // $rename = rename(
-                                //     $tempDirectory.'/'.$resumableFilename,
-                                //     $new
-                                // );
-
-                                // if ($rename === false) {
-                                //     throw new Exception(
-                                //         sprintf('Unable to move file to directory "%s".', $directory)
-                                //     );
-                                // }
-
                                 $data['success'] = true;
 
                                 $data['mime'] = mime_content_type($tempDirectory.'/'.$resumableFilename);
@@ -145,9 +121,6 @@ class UploadHandler implements RequestHandlerInterface
                                         }
                                     }
                                 }
-
-
-                                // rmdir($tempDirectory);
                             } else {
                                 throw new Exception(
                                     sprintf('Unable to write file "%s" in temporary folder.', $resumableFilename)
@@ -160,11 +133,11 @@ class UploadHandler implements RequestHandlerInterface
                 } catch (Exception $e) {
                     $data['error'] = $e->getMessage();
 
-                    return (new JsonResponse($data))->withStatus(500);
+                    return (new JsonResponse($data, 500));
                 }
                 break;
         }
 
-        return (new EmptyResponse())->withStatus(400);
+        return (new EmptyResponse(400));
     }
 }

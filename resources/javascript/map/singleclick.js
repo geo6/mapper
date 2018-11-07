@@ -1,6 +1,8 @@
+import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
 import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 
-import displayFeatureInfoList from '../info/list';
+import displayServiceFeatureInfoList from '../info/list/service';
+import displayFileFeatureInfoList from '../info/list/file';
 import displayLocation from '../info/location';
 
 export default function () {
@@ -15,6 +17,15 @@ export default function () {
         $('#infos-list-btn-prev, #infos-list-btn-next').prop('disabled', true);
         $('#infos-details-btn-locate').off().prop('disabled', true);
 
+        // GeoJSON
+        window.app.geojson.forEach((file) => {
+            const features = GeoJSONGetFeatureInfo(file, event.coordinate);
+
+            file.selection = features;
+
+            features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+        });
+
         // WMS
         window.app.wms.forEach((service) => {
             if (service.olLayer !== null) {
@@ -26,7 +37,7 @@ export default function () {
                         results.forEach((result) => {
                             service.selection = result.features;
 
-                            result.features.forEach((feature, index) => displayFeatureInfoList(service, result.layerName, feature, index));
+                            result.features.forEach((feature, index) => displayServiceFeatureInfoList(service, result.layerName, feature, index));
                         });
 
                         $('#info-loading').hide();

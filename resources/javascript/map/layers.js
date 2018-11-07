@@ -1,3 +1,6 @@
+import initGeoJSON from '../layers/geojson/init';
+import GeoJSONApplySelection from '../layers/geojson/apply';
+
 import initWMS from '../layers/wms/init';
 import WMSApplySelection from '../layers/wms/apply';
 import WMSRemoveLayer from '../layers/wms/remove';
@@ -7,6 +10,7 @@ import WMTSApplySelection from '../layers/wmts/apply';
 import WMTSRemoveLayer from '../layers/wmts/remove';
 
 export default function () {
+    initGeoJSON();
     initWMS();
     initWMTS();
 
@@ -30,6 +34,20 @@ export default function () {
         const id = $(option).closest('optgroup').attr('id');
 
         switch (id) {
+            case 'modal-layers-files':
+                const type = $('#modal-layers-services').val();
+
+                switch (type) {
+                    case 'geojson':
+                        GeoJSONApplySelection();
+                        break;
+
+                    case 'kml':
+                        KMLApplySelection();
+                        break;
+                }
+                break;
+
             case 'modal-layers-services-wms':
                 const indexWMS = $('#modal-layers-services-wms > option').index(option);
 
