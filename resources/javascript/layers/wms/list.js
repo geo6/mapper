@@ -1,4 +1,4 @@
-export default function (index, layers) {
+function generateLayersList (index, layers) {
     let ul = document.createElement('ul');
 
     $(ul).addClass('list-group mb-3');
@@ -45,3 +45,5 @@ export default function (index, layers) {
 
     return ul;
 }
+
+export default generateLayersList;
