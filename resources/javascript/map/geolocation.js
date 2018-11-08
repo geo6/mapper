@@ -41,7 +41,7 @@ class GeolocationControl extends Control {
             })
         });
 
-        this.initGeolocation.call(this);
+        this.initGeolocation();
     }
 
     handleGeolocation () {
