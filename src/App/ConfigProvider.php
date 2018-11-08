@@ -34,6 +34,7 @@ class ConfigProvider
         return [
             'invokables' => [
                 Handler\FileHandler::class => Handler\FileHandler::class,
+                Handler\Gocoder\AddressHandler::class => Handler\Gocoder\AddressHandler::class,
                 Handler\ProxyHandler::class => Handler\ProxyHandler::class,
                 Handler\UploadHandler::class => Handler\UploadHandler::class,
             ],

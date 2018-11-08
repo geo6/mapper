@@ -11,12 +11,13 @@ import {
     ScaleLine
 } from 'ol/control';
 
+import initGeocoder from './geocoder';
+import initInfo from './info';
 import initBaselayers from './map/baselayers';
 import GeolocationControl from './map/geolocation';
 import initMarker from './map/marker';
 import initPermalink from './map/permalink';
 import initSingleClick from './map/singleclick';
-import initInfo from './info';
 
 require('sidebar-v2/js/jquery-sidebar.js');
 
@@ -49,6 +50,7 @@ export default function () {
         initInfo();
         initBaselayers();
         initMarker();
+        initGeocoder();
     });
 
     window.app.sidebar = $('#sidebar').sidebar();

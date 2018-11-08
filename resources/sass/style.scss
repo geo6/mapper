@@ -30,3 +30,11 @@
         caption-side: top;
     }
 }
+
+#geocoder-address-results ol>li {
+    cursor: pointer;
+
+    &:hover {
+        font-weight: bold;
+    }
+}
