@@ -14,9 +14,9 @@
     <!-- Nav tabs -->
     <div class="sidebar-tabs">
         <ul role="tablist">
-            <li><a href="#baselayers" role="tab"><i class="far fa-map"></i></a></li>
-            <li><a href="#layers" role="tab"><i class="fas fa-database"></i></a></li>
-            <li class="disabled"><a href="#info" role="tab"><i class="fas fa-info-circle"></i></a></li>
+            <li><a href="#baselayers" title="Baselayers" role="tab"><i class="far fa-map"></i></a></li>
+            <li><a href="#layers" title="Layers" role="tab"><i class="fas fa-database"></i></a></li>
+            <li class="disabled"><a href="#info" title="Info" role="tab"><i class="fas fa-info-circle"></i></a></li>
         </ul>
 
         <ul role="tablist">
@@ -26,45 +26,10 @@
 
     <!-- Tab panes -->
     <div class="sidebar-content">
-        <div class="sidebar-pane" id="baselayers">
-            <h1 class="sidebar-header">
-                Baselayers
-                <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
-            </h1>
-            {{ include('@app/partial/sidebar/baselayers.html.twig') }}
-        </div>
-
-        <div class="sidebar-pane" id="layers">
-            <h1 class="sidebar-header">
-                Layers
-                <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
-            </h1>
-            {{ include('@app/partial/sidebar/layers.html.twig') }}
-        </div>
-
-        <div class="sidebar-pane" id="info">
-            <h1 class="sidebar-header">
-                Info
-                <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
-            </h1>
-            {{ include('@app/partial/sidebar/info.html.twig') }}
-        </div>
-
-        <div class="sidebar-pane" id="about">
-            <h1 class="sidebar-header">
-                About
-                <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
-            </h1>
-            <p class="mt-3">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In mollis pretium luctus. Maecenas id magna quam. Cras aliquet magna a lectus tempor, non scelerisque lacus porttitor. Nam condimentum arcu quis ex dictum dapibus. Curabitur ut purus augue. Etiam sem nunc, tincidunt vel justo in, cursus faucibus nulla. Mauris posuere, turpis sollicitudin accumsan mollis, nisi sem cursus lacus, ac dapibus lorem nisl ut nisi. Morbi vestibulum dui eget suscipit semper. Fusce magna mi, convallis vel erat sit amet, efficitur gravida ipsum. Curabitur ullamcorper, velit nec pulvinar ultrices, dolor erat maximus leo, consequat tempus purus est sed turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin lobortis iaculis justo, vitae euismod quam mollis nec. Donec luctus volutpat elit in luctus.
-            </p>
-            <p class="small text-info">
-                <i class="fas fa-code-branch"></i>
-                Version: {{ version }}<br>
-                <i class="fab fa-github"></i>
-                <a href="https://github.com/geo6/mapper/" target="_blank">Fork, Submit issue, or suggestion on GitHub</a>
-            </p>
-        </div>
+        {{ include('@app/partial/sidebar/baselayers.html.twig') }}
+        {{ include('@app/partial/sidebar/layers.html.twig') }}
+        {{ include('@app/partial/sidebar/info.html.twig') }}
+        {{ include('@app/partial/sidebar/about.html.twig') }}
     </div>
 </div>
 

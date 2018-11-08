@@ -1,19 +1,30 @@
-<div class="mt-3">
-    <button type="button" class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-layers">
-        <i class="fas fa-plus-circle"></i>
-        Add a layer
-    </button>
-    <ul id="layers-list" class="list-group mt-3">
-        <li id="layers-new" class="list-group-item" style="line-height: 31px; display: none !important;">
-            <div class="d-flex w-100 justify-content-between">
-                <div class="layer-name"></div>
-                <div class="btn-group btn-group-sm" role="group">
-                    <button type="button" class="btn btn-outline-secondary btn-layer-remove" title="Remove"><i class="far fa-trash-alt fa-fw"></i></button>
-                    <button type="button" class="btn btn-outline-secondary btn-layer-legend disabled" title="Legend" disabled><i class="far fa-image"></i></button>
-                    <!-- <button type="button" class="btn btn-outline-secondary btn-layer-info" title="Information"><i class="fas fa-info fa-fw"></i></button> -->
+<div class="sidebar-pane" id="layers">
+    <h1 class="sidebar-header">
+        Layers
+        <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
+    </h1>
+
+    <div class="mt-3">
+        <button type="button" class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-layers">
+            <i class="fas fa-plus-circle"></i>
+            Add a layer
+        </button>
+        <ul id="layers-list" class="list-group mt-3">
+            <li id="layers-new" class="list-group-item" style="line-height: 31px; display: none !important;">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="layer-name"></div>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-outline-secondary btn-layer-remove" title="Remove">
+                            <i class="far fa-trash-alt fa-fw"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-layer-legend disabled" title="Legend"
+                            disabled>
+                            <i class="far fa-image"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="layer-legend" style="display: none !important;"></div>
-        </li>
-    </ul>
+                <div class="layer-legend" style="display: none !important;"></div>
+            </li>
+        </ul>
+    </div>
 </div>

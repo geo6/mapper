@@ -1,37 +1,44 @@
-<div class="mt-3">
-    <div id="info-location">
-        <i class="fas fa-map-marker-alt"></i>
-        <span id="info-location-coordinates"></span>
-    </div>
-    <hr>
-    <div id="info-loading" style="font-style: italic;">
-        <i class="fas fa-spinner fa-spin"></i>
-        Loading ...
-    </div>
-    <ul id="info-list" class="list-unstyled"></ul>
-    <div id="info-details">
-        <div>
-            <div class="btn-group" role="group">
-                <button id="infos-list-btn-prev" type="button" class="btn btn-outline-secondary btn-sm">
-                    <i class="fas fa-angle-double-left"></i>
+<div class="sidebar-pane" id="info">
+    <h1 class="sidebar-header">
+        Info
+        <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
+    </h1>
+
+    <div class="mt-3">
+        <div id="info-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="info-location-coordinates"></span>
+        </div>
+        <hr>
+        <div id="info-loading" style="font-style: italic;">
+            <i class="fas fa-spinner fa-spin"></i>
+            Loading ...
+        </div>
+        <ul id="info-list" class="list-unstyled"></ul>
+        <div id="info-details">
+            <div>
+                <div class="btn-group" role="group">
+                    <button id="infos-list-btn-prev" type="button" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-angle-double-left"></i>
+                    </button>
+                    <button id="infos-list-btn-next" type="button" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                </div>
+                <button id="infos-list-btn-back" type="button" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-angle-double-up"></i>
+                    List
                 </button>
-                <button id="infos-list-btn-next" type="button" class="btn btn-outline-secondary btn-sm">
-                    <i class="fas fa-angle-double-right"></i>
+                <button id="infos-details-btn-locate" type="button" class="btn btn-outline-secondary btn-sm float-right">
+                    <i class="fas fa-location-arrow"></i>
+                    Locate
                 </button>
             </div>
-            <button id="infos-list-btn-back" type="button" class="btn btn-outline-secondary btn-sm">
-                <i class="fas fa-angle-double-up"></i>
-                List
-            </button>
-            <button id="infos-details-btn-locate" type="button" class="btn btn-outline-secondary btn-sm float-right">
-                <i class="fas fa-location-arrow"></i>
-                Locate
-            </button>
+            <table class="table table-bordered table-sm">
+                <caption></caption>
+                <tbody></tbody>
+            </table>
+            <div id="info-details-geometry" class="text-info"></div>
         </div>
-        <table class="table table-bordered table-sm">
-            <caption></caption>
-            <tbody></tbody>
-        </table>
-        <div id="info-details-geometry" class="text-info"></div>
     </div>
 </div>

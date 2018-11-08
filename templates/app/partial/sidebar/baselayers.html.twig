@@ -1,7 +1,14 @@
-<div class="list-group mt-3">
-{% for index, baselayer in baselayers %}
-    <button type="button" class="list-group-item list-group-item-action" data-index="{{ index }}">
-        {{ baselayer.name }}
-    </button>
-{% endfor %}
+<div class="sidebar-pane" id="baselayers">
+    <h1 class="sidebar-header">
+        Baselayers
+        <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
+    </h1>
+
+    <div class="list-group mt-3">
+        {% for index, baselayer in baselayers %}
+        <button type="button" class="list-group-item list-group-item-action" data-index="{{ index }}">
+            {{ baselayer.name }}
+        </button>
+        {% endfor %}
+    </div>
 </div>
