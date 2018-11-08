@@ -23,7 +23,7 @@ export default function () {
     $('#modal-layers-services').on('change', (event) => {
         let { target, upload } = $(event.target).find('option:selected').data();
 
-        if (upload == true) {
+        if (upload === true) {
             $('#progress-upload').show();
         } else {
             $('#progress-upload').hide();
