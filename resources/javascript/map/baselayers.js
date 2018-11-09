@@ -36,13 +36,14 @@ function loadBaselayer (index) {
                 .then((text) => {
                     let capabilities = (new WMTSCapabilities()).read(text);
 
+                    let options = optionsFromCapabilities(capabilities, {
+                        layer: baselayer.layer
+                    });
+                    options.attributions = baselayer.attributions;
+
                     window.app.map.getLayers().setAt(0,
                         new TileLayer({
-                            source: new WMTS(optionsFromCapabilities(capabilities, {
-                                attributions: baselayer.attributions,
-                                layer: baselayer.layer,
-                                url: baselayer.url
-                            }))
+                            source: new WMTS(options)
                         })
                     );
                 });
