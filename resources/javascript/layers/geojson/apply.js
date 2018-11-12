@@ -11,10 +11,8 @@ export default function () {
 
     for (let i = 0; i < window.app.geojson.length; i++) {
         if (names.indexOf(window.app.geojson[i].file.fileName) > -1) {
-            GeoJSONAddFileToMap(i, window.app.geojson[i])
-                .then(() => {
-                    GeoJSONAddFileToSidebar(i, window.app.geojson[i].file);
-                });
+            GeoJSONAddFileToMap(i, window.app.geojson[i]);
+            GeoJSONAddFileToSidebar(i, window.app.geojson[i].file);
         }
     }
 }

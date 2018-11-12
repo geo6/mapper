@@ -7,17 +7,12 @@ export default function (index, file) {
         uniqueIdentifier
     } = file.file;
 
-    return fetch(`/file/${uniqueIdentifier}`)
-        .then(response => response.json())
-        .then((json) => {
-            window.app.geojson[index].olLayer = new VectorLayer({
-                source: new VectorSource({
-                    features: (new GeoJSON()).readFeatures(json, {
-                        featureProjection: window.app.map.getView().getProjection()
-                    })
-                })
-            });
+    window.app.geojson[index].olLayer = new VectorLayer({
+        source: new VectorSource({
+            url: `/file/${uniqueIdentifier}`,
+            format: new GeoJSON()
+        })
+    });
 
-            window.app.map.addLayer(window.app.geojson[index].olLayer);
-        });
+    window.app.map.addLayer(window.app.geojson[index].olLayer);
 }
