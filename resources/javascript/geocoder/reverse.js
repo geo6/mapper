@@ -11,7 +11,7 @@ export default function (longitude, latitude) {
     ];
 
     providers.forEach((provider) => {
-        fetch(`/geocoder/${provider}/reverse/${Math.round(longitude)}/${Math.round(latitude)}`)
+        fetch(`/geocoder/${provider}/reverse/${longitude}/${latitude}`)
             .then(response => response.json())
             .then(geojson => {
                 const features = (new GeoJSON()).readFeatures(geojson, {
