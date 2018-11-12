@@ -5,6 +5,7 @@ export default function () {
         fileType: [
             'json',
             'geojson',
+            'gpx',
             'kml'
         ],
         target: '/upload'
@@ -19,6 +20,7 @@ export default function () {
 
         let count = {
             geojson: 0,
+            gpx: 0,
             kml: 0
         };
 
@@ -55,6 +57,19 @@ export default function () {
 
                 $('#modal-layers-files-geojson > .list-group').append(li);
                 break;
+            case 'gpx':
+                count.gpx++;
+
+                $(li)
+                    .attr({
+                        id: `gpx-${pointer}`
+                    })
+                    .data({
+                        name: file.fileName
+                    });
+
+                $('#modal-layers-files-gpx > .list-group').append(li);
+                break;
             case 'kml':
                 count.kml++;
 
@@ -74,6 +89,10 @@ export default function () {
         if (Math.max(...Object.values(count)) === count.geojson) {
             $('#modal-layers-services')
                 .val('geojson')
+                .trigger('change');
+        } else if (Math.max(...Object.values(count)) === count.gpx) {
+            $('#modal-layers-services')
+                .val('gpx')
                 .trigger('change');
         } else if (Math.max(...Object.values(count)) === count.kml) {
             $('#modal-layers-services')
@@ -109,6 +128,17 @@ export default function () {
             list = $('#modal-layers-files-geojson > .list-group > .list-group-item');
 
             window.app.geojson.push({
+                file: file,
+                title: title,
+                description: description,
+                olLayer: null,
+                selection: []
+            });
+            break;
+        case 'gpx':
+            list = $('#modal-layers-files-gpx > .list-group > .list-group-item');
+
+            window.app.gpx.push({
                 file: file,
                 title: title,
                 description: description,

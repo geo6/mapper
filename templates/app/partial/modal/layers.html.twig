@@ -18,6 +18,7 @@
                     </optgroup>
                     <optgroup label="Files" id="modal-layers-files">
                         <option value="geojson" data-upload="true" data-target="#modal-layers-files-geojson" selected>GeoJSON</option>
+                        <option value="gpx" data-upload="true" data-target="#modal-layers-files-gpx">GPX</option>
                         <option value="kml" data-upload="true" data-target="#modal-layers-files-kml">KML</option>
                     </optgroup>
                 </select>
@@ -27,6 +28,9 @@
                 <hr>
                 <div id="modal-layers-layers">
                     <div id="modal-layers-files-geojson">
+                        <ul class="list-group"></ul>
+                    </div>
+                    <div id="modal-layers-files-gpx">
                         <ul class="list-group"></ul>
                     </div>
                     <div id="modal-layers-files-kml">

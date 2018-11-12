@@ -1,4 +1,5 @@
 import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
+import GPXGetFeatureInfo from '../layers/gpx/featureinfo';
 import KMLGetFeatureInfo from '../layers/kml/featureinfo';
 import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 
@@ -23,6 +24,15 @@ export default function () {
         // GeoJSON
         window.app.geojson.forEach((file) => {
             const features = GeoJSONGetFeatureInfo(file, event.coordinate);
+
+            file.selection = features;
+
+            features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+        });
+
+        // GPX
+        window.app.gpx.forEach((file) => {
+            const features = GPXGetFeatureInfo(file, event.coordinate);
 
             file.selection = features;
 

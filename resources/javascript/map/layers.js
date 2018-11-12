@@ -2,6 +2,10 @@ import initGeoJSON from '../layers/geojson/init';
 import GeoJSONApplySelection from '../layers/geojson/apply';
 import GeoJSONRemoveLayer from '../layers/geojson/remove';
 
+import initGPX from '../layers/gpx/init';
+import GPXApplySelection from '../layers/gpx/apply';
+import GPXRemoveLayer from '../layers/gpx/remove';
+
 import initKML from '../layers/kml/init';
 import KMLApplySelection from '../layers/kml/apply';
 import KMLRemoveLayer from '../layers/kml/remove';
@@ -16,6 +20,7 @@ import WMTSRemoveLayer from '../layers/wmts/remove';
 
 export default function () {
     initGeoJSON();
+    initGPX();
     initKML();
     initWMS();
     initWMTS();
@@ -46,6 +51,10 @@ export default function () {
             switch (type) {
             case 'geojson':
                 GeoJSONApplySelection();
+                break;
+
+            case 'gpx':
+                GPXApplySelection();
                 break;
 
             case 'kml':
@@ -81,6 +90,9 @@ export default function () {
         switch (type) {
         case 'geojson':
             GeoJSONRemoveLayer(index);
+            break;
+        case 'gpx':
+            GPXRemoveLayer(index);
             break;
         case 'kml':
             KMLRemoveLayer(index);

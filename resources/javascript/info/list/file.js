@@ -23,6 +23,9 @@ export default function (file, feature, featureIndex) {
     if (window.app.geojson.indexOf(file) > -1) {
         fileIndex = window.app.geojson.indexOf(file);
         fileType = 'geojson';
+    } else if (window.app.gpx.indexOf(file) > -1) {
+        fileIndex = window.app.gpx.indexOf(file);
+        fileType = 'gpx';
     } else if (window.app.kml.indexOf(file) > -1) {
         fileIndex = window.app.kml.indexOf(file);
         fileType = 'kml';
