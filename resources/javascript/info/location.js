@@ -6,7 +6,14 @@ import {
 } from 'ol/coordinate';
 
 export default function (coordinates) {
-    $('#info-location-coordinates').text(toStringXY(toLonLat(coordinates), 6));
+    const lonlat = toLonLat(coordinates);
+
+    $('#info-location-coordinates').text(toStringXY(lonlat, 6));
+
+    $('#info-location a[href="#reverse-geocode"]').data({
+        longitude: lonlat[0],
+        latitude: lonlat[1]
+    });
 
     $('.sidebar-tabs > ul > li:has(a[href="#info"])').removeClass('disabled');
     window.app.sidebar.open('info');

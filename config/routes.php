@@ -37,6 +37,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->get('/file/{identifier}', App\Handler\FileHandler::class, 'file');
     $app->get('/geocoder/{provider}/address/{address}', App\Handler\Geocoder\AddressHandler::class, 'geocoder.address');
+    $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', App\Handler\Geocoder\ReverseHandler::class, 'geocoder.reverse');
     $app->get('/proxy', App\Handler\ProxyHandler::class, 'proxy');
 
     $app->post('/upload', App\Handler\UploadHandler::class, 'upload');

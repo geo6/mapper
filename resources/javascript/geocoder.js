@@ -1,4 +1,5 @@
 import geocodeAddress from './geocoder/address';
+import geocodeReverse from './geocoder/reverse';
 
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -15,5 +16,15 @@ export default function () {
         event.preventDefault();
 
         geocodeAddress();
+    });
+
+    $('#info-location a[href="#reverse-geocode"]').on('click', (event) => {
+        event.preventDefault();
+
+        const { longitude, latitude } = $(event.currentTarget).data();
+
+        geocodeReverse(longitude, latitude);
+
+        window.app.sidebar.open('geocoder');
     });
 }
