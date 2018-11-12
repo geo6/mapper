@@ -32,9 +32,11 @@ class AddressHandler implements RequestHandlerInterface
             \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer($adapter, $_SERVER['HTTP_USER_AGENT']),
         ]);
 
+        $query = GeocodeQuery::create($address);
+
         $result = $geocoder
             ->using($provider)
-            ->geocodeQuery(GeocodeQuery::create($address));
+            ->geocodeQuery($query);
 
         $dumper = new GeoJSON();
         $formatter = new StringFormatter();
@@ -46,7 +48,17 @@ class AddressHandler implements RequestHandlerInterface
         foreach ($result->all() as $location) {
             $json = json_decode($dumper->dump($location));
 
-            $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
+            switch ($provider) {
+                case 'nominatim':
+                    $json->properties->type = $location->getType();
+                    $json->properties->formattedAddress = $location->getDisplayName();
+                    break;
+
+                default:
+                    $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
+                    break;
+            }
+
 
             $locations['features'][] = $json;
         }
