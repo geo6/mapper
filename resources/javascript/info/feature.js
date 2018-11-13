@@ -8,7 +8,7 @@ export default function (feature, featureIndex, title, olElement, selection) {
 
     delete properties[geometryName];
 
-    let label = typeof geometry !== 'undefined' ? '<i class="fas fa-vector-square"></i> ' : '';
+    let label = geometry !== null ? '<i class="fas fa-vector-square"></i> ' : '';
 
     if (typeof id !== 'undefined') {
         label += id;
