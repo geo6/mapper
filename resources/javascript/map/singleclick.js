@@ -2,9 +2,11 @@ import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
 import GPXGetFeatureInfo from '../layers/gpx/featureinfo';
 import KMLGetFeatureInfo from '../layers/kml/featureinfo';
 import WMSGetFeatureInfo from '../layers/wms/featureinfo';
+import WMTSGetFeatureInfo from '../layers/wmts/featureinfo';
 
 import displayFileFeatureInfoList from '../info/list/file';
 import displayWMSFeatureInfoList from '../info/list/wms';
+import displayWMTSFeatureInfoList from '../info/list/wmts';
 import displayLocation from '../info/location';
 
 export default function () {
@@ -70,7 +72,24 @@ export default function () {
 
         // WMTS
         window.app.wmts.forEach((service) => {
-            // console.log(service);
+            const getfeatureinfo = typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
+
+            if (getfeatureinfo === true && Object.keys(service.olLayers).length > 0) {
+                $('#info-loading').show();
+
+                let fetch = WMTSGetFeatureInfo(service, event.coordinate);
+                if (fetch !== null) {
+                    fetch.then((results) => {
+                        results.forEach((result) => {
+                            service.selection = result.features;
+
+                            result.features.forEach((feature, index) => displayWMTSFeatureInfoList(service, result.layerName, feature, index));
+                        });
+
+                        $('#info-loading').hide();
+                    });
+                }
+            }
         });
     });
 }

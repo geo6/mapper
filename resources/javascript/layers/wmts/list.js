@@ -1,9 +1,22 @@
 function generateLayersList (index, layers) {
+    const getfeatureinfo = typeof window.app.wmts[index].capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
+
     let ul = document.createElement('ul');
 
     $(ul).addClass('list-group mb-3');
 
     for (let i = 0; i < layers.length; i++) {
+        let queryable = false;
+        if (typeof layers[i].ResourceURL !== 'undefined') {
+            layers[i].ResourceURL.forEach((resource) => {
+                if (resource.resourceType === 'FeatureInfo' && resource.format === 'application/json') {
+                    queryable = true;
+
+                    return false;
+                }
+            });
+        }
+
         let li = document.createElement('li');
         let div = document.createElement('div');
         let badge = $(document.createElement('span')).addClass('badge badge-light ml-1');
@@ -23,7 +36,7 @@ function generateLayersList (index, layers) {
 
         $(div)
             .append([
-                (layers[i].queryable === true ? '<i class="fas fa-info-circle"></i> ' : ''),
+                (getfeatureinfo === true && queryable === true ? '<i class="fas fa-info-circle"></i> ' : ''),
                 layers[i].Title,
                 $(badge).text(layers[i].Identifier)
             ])

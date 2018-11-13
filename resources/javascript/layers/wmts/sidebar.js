@@ -1,4 +1,17 @@
 export default function (index, layer) {
+    const getfeatureinfo = typeof window.app.wmts[index].capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
+
+    let queryable = false;
+    if (typeof layer.ResourceURL !== 'undefined') {
+        layer.ResourceURL.forEach((resource) => {
+            if (resource.resourceType === 'FeatureInfo' && resource.format === 'application/json') {
+                queryable = true;
+
+                return false;
+            }
+        });
+    }
+
     const li = $('#layers-new').clone();
 
     const name = layer.Name || layer.Identifier;
@@ -22,7 +35,7 @@ export default function (index, layer) {
             title: name
         })
         .html(
-            (layer.queryable === true ? '<i class="fas fa-info-circle"></i> ' : '') +
+            (getfeatureinfo === true && queryable === true ? '<i class="fas fa-info-circle"></i> ' : '') +
             layer.Title
         );
 
