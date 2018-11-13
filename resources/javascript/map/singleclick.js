@@ -5,8 +5,10 @@ import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 import WMTSGetFeatureInfo from '../layers/wmts/featureinfo';
 
 import displayFileFeatureInfoList from '../info/list/file';
-import displayWMSFeatureInfoList from '../info/list/wms';
-import displayWMTSFeatureInfoList from '../info/list/wmts';
+import {
+    displayWMSFeatureInfoList,
+    displayWMTSFeatureInfoList
+} from '../info/list/service';
 import displayLocation from '../info/location';
 
 export default function () {
