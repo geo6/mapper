@@ -18,7 +18,5 @@ export default function (index, layer) {
             });
             window.app.map.addLayer(window.app.wmts[index].olLayers[name]);
         }
-
-        console.log(window.app.wmts[index].olLayers);
     }
 }
