@@ -3,8 +3,8 @@ import GPXGetFeatureInfo from '../layers/gpx/featureinfo';
 import KMLGetFeatureInfo from '../layers/kml/featureinfo';
 import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 
-import displayServiceFeatureInfoList from '../info/list/service';
 import displayFileFeatureInfoList from '../info/list/file';
+import displayWMSFeatureInfoList from '../info/list/wms';
 import displayLocation from '../info/location';
 
 export default function () {
@@ -59,7 +59,7 @@ export default function () {
                         results.forEach((result) => {
                             service.selection = result.features;
 
-                            result.features.forEach((feature, index) => displayServiceFeatureInfoList(service, result.layerName, feature, index));
+                            result.features.forEach((feature, index) => displayWMSFeatureInfoList(service, result.layerName, feature, index));
                         });
 
                         $('#info-loading').hide();

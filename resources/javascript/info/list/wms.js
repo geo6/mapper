@@ -33,22 +33,11 @@ function createOlLayer (serviceType, serviceIndex, layerIndex, title) {
 }
 
 export default function (service, layerName, feature, featureIndex) {
-    let serviceIndex = null;
-    let serviceType = null;
-
-    if (window.app.wms.indexOf(service) > -1) {
-        serviceIndex = window.app.wms.indexOf(service);
-        serviceType = 'wms';
-    } else if (window.app.wmts.indexOf(service) > -1) {
-        serviceIndex = window.app.wmts.indexOf(service);
-        serviceType = 'wmts';
-    } else {
-        // To Do : error because service was not found
-    }
+    const serviceIndex = window.app.wms.indexOf(service);
+    const serviceType = 'wms';
+    const serviceTitle = service.capabilities.Service.Title;
 
     const layerIndex = service.layers.findIndex(element => element.Name === layerName);
-
-    const serviceTitle = service.capabilities.Service.Title;
     const layerTitle = service.layers[layerIndex].Title;
 
     createUlService(serviceType, serviceIndex, serviceTitle);
