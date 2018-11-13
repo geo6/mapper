@@ -1,10 +1,9 @@
 import GeoJSON from 'ol/format/GeoJSON';
 
-export default function () {
+export default function (address) {
     window.app.geocoder.getSource().clear();
-    $('#geocoder-address-results').empty();
+    $('#geocoder-results').empty();
 
-    const address = $('#geocoder-address-search').val();
     const providers = [
         'bpost',
         'urbis',
@@ -16,6 +15,17 @@ export default function () {
         window.app.sidebar.close('geocoder');
     } else {
         providers.forEach((provider) => {
+            $(document.createElement('div'))
+                .attr({
+                    id: `geocoder-results-${provider}`
+                })
+                .append([
+                    `Results from <strong>${provider}</strong>`,
+                    '<div class="loading text-muted"><i class="fas fa-spinner fa-spin"></i> Loading ...</div>',
+                    '<hr>'
+                ])
+                .appendTo('#geocoder-results');
+
             fetch(`/geocoder/${provider}/address/${address}`)
                 .then(response => response.json())
                 .then(geojson => {
@@ -44,12 +54,9 @@ export default function () {
                                 .appendTo(ol);
                         });
 
-                        $(document.createElement('div'))
-                            .append([
-                                `Results from <strong>${provider}</strong>`,
-                                ol
-                            ])
-                            .appendTo('#geocoder-address-results');
+                        $(`#geocoder-results-${provider} > .loading`).replaceWith(ol);
+                    } else {
+                        $(`#geocoder-results-${provider}`).remove();
                     }
                 });
         });
