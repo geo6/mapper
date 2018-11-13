@@ -9,20 +9,16 @@ export default function (index, layer) {
 
         let name = layer.Identifier;
 
-        // To Do: Define what to do with mutlipe layers from same WMTS
-        window.app.map.removeLayer(window.app.wmts[index].olLayer);
-        window.app.wmts[index].olLayer = null;
-
-        if (window.app.wmts[index].olLayer === null) {
-            window.app.wmts[index].olLayer = new TileLayer({
+        if (typeof window.app.wmts[index].olLayers[name] === 'undefined') {
+            window.app.wmts[index].olLayers[name] = new TileLayer({
                 source: new WMTS(optionsFromCapabilities(service, {
-                    layer: name
+                    layer: name,
+                    projection: window.app.map.getView().getProjection()
                 }))
             });
-
-            window.app.map.addLayer(window.app.wmts[index].olLayer);
-        } else {
-            // To Do: Define what to do with mutlipe layers from same WMTS
+            window.app.map.addLayer(window.app.wmts[index].olLayers[name]);
         }
+
+        console.log(window.app.wmts[index].olLayers);
     }
 }

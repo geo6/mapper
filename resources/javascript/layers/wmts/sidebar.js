@@ -32,7 +32,7 @@ export default function (index, layer) {
     ) {
         let img = document.createElement('img');
 
-        img.src = layer.Style[0].LegendURL[0].OnlineResource;
+        img.src = layer.Style[0].LegendURL[0].href;
         img.alt = `Legend "${name}"`;
 
         img.classList.add('img-fluid');

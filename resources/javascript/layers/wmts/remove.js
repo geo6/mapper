@@ -13,11 +13,12 @@ export default function () {
     });
 
     for (let i = 0; i < window.app.wmts.length; i++) {
-        if (wmts[i].length === 0 && window.app.wmts[i].olLayer !== null) {
-            window.app.map.removeLayer(window.app.wmts[i].olLayer);
-            window.app.wmts[i].olLayer = null;
-        } else if (wmts[i].length > 0) {
-            // To Do: Define what to do with mutlipe layers from same WMTS
-        }
+        Object.keys(window.app.wmts[i].olLayers)
+            .forEach((name) => {
+                if (wmts[i].indexOf(name) === -1) {
+                    window.app.map.removeLayer(window.app.wmts[i].olLayers[name]);
+                    delete window.app.wmts[i].olLayers[name];
+                }
+            });
     }
 }

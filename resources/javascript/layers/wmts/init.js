@@ -1,6 +1,6 @@
 import initWMTSAddService from './new';
 import WMTSLoadGetCapabilities from './capabilities';
-import WMTSAddLayersToMap from './map';
+import WMTSAddLayerToMap from './map';
 import WMTSAddLayerToSidebar from './sidebar';
 
 export default function () {
@@ -13,21 +13,13 @@ export default function () {
         case 'wmts':
             WMTSLoadGetCapabilities(layer.url)
                 .then((index) => {
-                    if (typeof layer.layer !== 'undefined') {
-                        let layers = [];
-
+                    if (typeof layer.layers !== 'undefined') {
                         for (let i = 0; i < window.app.wmts[index].layers.length; i++) {
-                            if (window.app.wmts[index].layers[i].Identifier === layer.layer) {
-                                layers.push(window.app.wmts[index].layers[i]);
-
+                            if (layer.layers.indexOf(window.app.wmts[index].layers[i].Identifier) > -1) {
                                 WMTSAddLayerToSidebar(index, window.app.wmts[index].layers[i]);
-                                break;
+                                WMTSAddLayerToMap(index, window.app.wmts[index].layers[i]);
                             }
                         }
-
-                        // To Do: Define what to do with mutlipe layers from same WMTS
-
-                        WMTSAddLayersToMap(index, layers[0]);
                     }
                 });
             break;

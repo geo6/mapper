@@ -37,7 +37,9 @@ export default function (url) {
         .then((result) => {
             let crs = [];
             for (let m = 0; m < result.capabilities.Contents.TileMatrixSet.length; m++) {
-                crs.push(result.capabilities.Contents.TileMatrixSet[m].SupportedCRS);
+                const supportedCRS = result.capabilities.Contents.TileMatrixSet[m].SupportedCRS.replace(/urn:ogc:def:crs:(\w+):(.*:)?(\w+)$/, '$1:$3');
+
+                crs.push(supportedCRS);
             }
 
             if (crs.indexOf('EPSG:3857') === -1) {
@@ -48,7 +50,7 @@ export default function (url) {
                 let i = window.app.wmts.push({
                     capabilities: result.capabilities,
                     layers: result.layers,
-                    olLayer: null,
+                    olLayers: {},
                     selection: []
                 });
 

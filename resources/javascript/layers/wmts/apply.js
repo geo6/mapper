@@ -1,4 +1,4 @@
-import WMTSAddLayersToMap from './map';
+import WMTSAddLayerToMap from './map';
 import WMTSAddLayerToSidebar from './sidebar';
 
 export default function (index) {
@@ -9,17 +9,10 @@ export default function (index) {
         $(element).removeClass('list-group-item-primary');
     });
 
-    let layers = [];
     for (let i = 0; i < window.app.wmts[index].layers.length; i++) {
         if (names.indexOf(window.app.wmts[index].layers[i].Identifier) > -1) {
-            layers.push(window.app.wmts[index].layers[i]);
-
             WMTSAddLayerToSidebar(index, window.app.wmts[index].layers[i]);
-            break;
+            WMTSAddLayerToMap(index, window.app.wmts[index].layers[i]);
         }
     }
-
-    // To Do: Define what to do with mutlipe layers from same WMTS
-
-    WMTSAddLayersToMap(index, layers[0]);
 }
