@@ -9,7 +9,7 @@ export default function (index, file) {
 
     window.app.geojson[index].olLayer = new VectorLayer({
         source: new VectorSource({
-            url: `/file/${uniqueIdentifier}`,
+            url: `${window.app.baseUrl}file/${uniqueIdentifier}`,
             format: new GeoJSON()
         })
     });
