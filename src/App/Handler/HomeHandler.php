@@ -9,12 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
-use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
-use Zend\Expressive\Twig\TwigRenderer;
-use Zend\Expressive\ZendView\ZendViewRenderer;
 
 class HomeHandler implements RequestHandlerInterface
 {
@@ -29,8 +25,8 @@ class HomeHandler implements RequestHandlerInterface
         Template\TemplateRendererInterface $template = null,
         string $containerName
     ) {
-        $this->router        = $router;
-        $this->template      = $template;
+        $this->router = $router;
+        $this->template = $template;
         $this->containerName = $containerName;
     }
 
@@ -40,8 +36,8 @@ class HomeHandler implements RequestHandlerInterface
 
         $data = [
             'baselayers' => $config['baselayers'] ?? [],
-            'layers' => $config['layers'] ?? [],
-            'version' => $config['version'],
+            'layers'     => $config['layers'] ?? [],
+            'version'    => $config['version'],
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));

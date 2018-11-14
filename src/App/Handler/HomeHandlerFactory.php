@@ -13,7 +13,7 @@ class HomeHandlerFactory
 {
     public function __invoke(ContainerInterface $container) : RequestHandlerInterface
     {
-        $router   = $container->get(RouterInterface::class);
+        $router = $container->get(RouterInterface::class);
         $template = $container->has(TemplateRendererInterface::class)
             ? $container->get(TemplateRendererInterface::class)
             : null;

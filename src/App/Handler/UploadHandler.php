@@ -40,9 +40,9 @@ class UploadHandler implements RequestHandlerInterface
         switch ($method) {
             case 'GET':
                 if (file_exists($chunk)) {
-                    return (new EmptyResponse(200));
+                    return new EmptyResponse(200);
                 } else {
-                    return (new EmptyResponse(404));
+                    return new EmptyResponse(404);
                 }
                 break;
 
@@ -133,11 +133,11 @@ class UploadHandler implements RequestHandlerInterface
                 } catch (Exception $e) {
                     $data['error'] = $e->getMessage();
 
-                    return (new JsonResponse($data, 500));
+                    return new JsonResponse($data, 500);
                 }
                 break;
         }
 
-        return (new EmptyResponse(400));
+        return new EmptyResponse(400);
     }
 }

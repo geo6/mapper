@@ -8,7 +8,6 @@ use Geocoder\Dumper\GeoJSON;
 use Geocoder\Formatter\StringFormatter;
 use Geocoder\ProviderAggregator;
 use Geocoder\Query\ReverseQuery;
-use Geocoder\StatefulGeocoder;
 use Http\Adapter\Guzzle6\Client;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -43,7 +42,7 @@ class ReverseHandler implements RequestHandlerInterface
         $formatter = new StringFormatter();
 
         $locations = [
-            'type' => 'FeatureCollection',
+            'type'     => 'FeatureCollection',
             'features' => [],
         ];
         foreach ($result->all() as $location) {
@@ -59,7 +58,6 @@ class ReverseHandler implements RequestHandlerInterface
                     $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
                     break;
             }
-
 
             $locations['features'][] = $json;
         }

@@ -137,7 +137,7 @@ class ProxyHandler implements RequestHandlerInterface
 
         $headers = [
             'Content-Length' => $content->getSize(),
-            'Content-Type' => $response->getHeader('Content-Type'),
+            'Content-Type'   => $response->getHeader('Content-Type'),
         ];
         if (!is_null($encoding)) {
             $headers['Content-Encoding'] = $encoding;
@@ -182,7 +182,7 @@ class ProxyHandler implements RequestHandlerInterface
 
         $response = $client->request('GET', $url, [
             'query' => $query,
-            'auth' => $authentication
+            'auth'  => $authentication,
         ]);
 
         return self::buildResponse($response, $acceptEncoding, $callback);
