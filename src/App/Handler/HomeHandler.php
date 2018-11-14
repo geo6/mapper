@@ -36,8 +36,8 @@ class HomeHandler implements RequestHandlerInterface
 
         $defaultBaselayer = [
             'osm' => [
-                'name' => 'OpenStreetMap',
-                'url' => 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                'name'         => 'OpenStreetMap',
+                'url'          => 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 'attributions' => [
                     '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
                 ],
