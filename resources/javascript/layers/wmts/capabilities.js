@@ -20,7 +20,7 @@ function parseLayers (layers, searchElements) {
 }
 
 function GetCapabilities (url) {
-    return fetch('/proxy?SERVICE=WMTS&REQUEST=GetCapabilities&VERSION=1.0.0&_url=' + encodeURIComponent(url))
+    return fetch(`${window.app.baseUrl}proxy?SERVICE=WMTS&REQUEST=GetCapabilities&VERSION=1.0.0&_url=${encodeURIComponent(url)}`)
         .then(response => response.text())
         .then((text) => {
             let capabilities = (new WMTSCapabilities()).read(text);

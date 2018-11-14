@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use App\Middleware\ConfigMiddleware;
+use Blast\BaseUrl\BaseUrlMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -19,6 +20,9 @@ class ProxyHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
+
+        $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
+        $baseUrl = rtrim($baseUrl, '/') . '/';
 
         $params = $request->getQueryParams();
 
@@ -37,7 +41,7 @@ class ProxyHandler implements RequestHandlerInterface
                 $localHTTPS = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']);
                 $localHost = $_SERVER['HTTP_HOST'];
 
-                $proxy = 'http'.($localHTTPS ? 's' : '').'://'.$localHost.'/proxy';
+                $proxy = 'http'.($localHTTPS ? 's' : '').'://'.$localHost.$baseUrl.'proxy';
 
                 $callback = function ($body) use ($host, $path, $proxy) {
                     return preg_replace_callback(

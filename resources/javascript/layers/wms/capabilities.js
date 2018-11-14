@@ -23,7 +23,7 @@ function parseLayers (layers, searchElements) {
 }
 
 function GetCapabilities (url) {
-    return fetch('/proxy?SERVICE=WMS&REQUEST=GetCapabilities&_url=' + encodeURIComponent(url))
+    return fetch(`${window.app.baseUrl}proxy?SERVICE=WMS&REQUEST=GetCapabilities&_url=${encodeURIComponent(url)}`)
         .then(response => response.text())
         .then((text) => {
             let capabilities = (new WMSCapabilities()).read(text);

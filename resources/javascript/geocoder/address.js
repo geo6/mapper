@@ -26,7 +26,7 @@ export default function (address) {
                 ])
                 .appendTo('#geocoder-results');
 
-            fetch(`/geocoder/${provider}/address/${address}`)
+            fetch(`${window.app.baseUrl}geocoder/${provider}/address/${address}`)
                 .then(response => response.json())
                 .then(geojson => {
                     const features = (new GeoJSON()).readFeatures(geojson, {

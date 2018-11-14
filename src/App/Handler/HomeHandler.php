@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use App\Middleware\ConfigMiddleware;
+use Blast\BaseUrl\BaseUrlMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -34,6 +35,9 @@ class HomeHandler implements RequestHandlerInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
+        $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
+        $baseUrl = rtrim($baseUrl, '/') . '/';
+
         $defaultBaselayer = [
             'osm' => [
                 'name'         => 'OpenStreetMap',
@@ -47,6 +51,7 @@ class HomeHandler implements RequestHandlerInterface
 
         $data = [
             'baselayers' => $config['baselayers'] ?? $defaultBaselayer,
+            'baseUrl'    => $baseUrl,
             'layers'     => $config['layers'] ?? [],
             'version'    => $config['version'],
         ];

@@ -22,7 +22,7 @@ export default function (longitude, latitude) {
             ])
             .appendTo('#geocoder-results');
 
-        fetch(`/geocoder/${provider}/reverse/${longitude}/${latitude}`)
+        fetch(`${window.app.baseUrl}geocoder/${provider}/reverse/${longitude}/${latitude}`)
             .then(response => response.json())
             .then(geojson => {
                 const features = (new GeoJSON()).readFeatures(geojson, {

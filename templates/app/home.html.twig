@@ -5,6 +5,7 @@
     window.app = {};
     window.app.baselayers = {{ baselayers | json_encode() | raw }};
     window.app.layers = {{ layers | json_encode() | raw }};
+    window.app.baseUrl = '{{ baseUrl }}';
 </script>
 <script src="{{ asset('/js/mapper.min.js') }}"></script>
 {% endblock %}
