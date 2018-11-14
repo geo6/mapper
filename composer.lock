@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3353146e08dc3ead048dcf5adfd5fb6e",
+    "content-hash": "4e3550ff79bfb62d824189f5c4e5c031",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -591,6 +591,67 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "mtymek/blast-base-url",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtymek/blast-base-url.git",
+                "reference": "43c0cc0eb7ceff65909f8426521b590f3627149a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtymek/blast-base-url/zipball/43c0cc0eb7ceff65909f8426521b590f3627149a",
+                "reference": "43c0cc0eb7ceff65909f8426521b590f3627149a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "psr/http-message": "^1.0",
+                "psr/http-server-handler": "^1.0",
+                "psr/http-server-middleware": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0",
+                "squizlabs/php_codesniffer": "^2.3",
+                "zendframework/zend-diactoros": "^1.3",
+                "zendframework/zend-expressive-helpers": "^1.4 || ^2.0",
+                "zendframework/zend-expressive-zendviewrenderer": "^1.0",
+                "zendframework/zend-servicemanager": "^2.6"
+            },
+            "type": "library",
+            "extra": {
+                "zf": {
+                    "component": "Blast\\BaseUrl",
+                    "config-provider": "Blast\\BaseUrl\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Blast\\BaseUrl\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Mateusz Tymek",
+                    "email": "mtymek@gmail.com"
+                }
+            ],
+            "description": "PSR-7 middleware and helpers for working with base URL.",
+            "keywords": [
+                "base url",
+                "baseurl",
+                "expressive",
+                "middleware",
+                "psr-7",
+                "psr7"
+            ],
+            "time": "2018-05-15T14:41:46+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -4576,5 +4637,7 @@
         "php": "^7.1",
         "ext-curl": "*"
     },
-    "platform-dev": []
+    "platform-dev": {
+        "ext-mbstring": "*"
+    }
 }
