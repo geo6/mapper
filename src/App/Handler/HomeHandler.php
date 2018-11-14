@@ -34,8 +34,19 @@ class HomeHandler implements RequestHandlerInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
+        $defaultBaselayer = [
+            'osm' => [
+                'name' => 'OpenStreetMap',
+                'url' => 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                'attributions' => [
+                    '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
+                ],
+                'maxZoom' => 19,
+            ],
+        ];
+
         $data = [
-            'baselayers' => $config['baselayers'] ?? [],
+            'baselayers' => $config['baselayers'] ?? $defaultBaselayer,
             'layers'     => $config['layers'] ?? [],
             'version'    => $config['version'],
         ];
