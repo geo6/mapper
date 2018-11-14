@@ -22,7 +22,7 @@ class ProxyHandler implements RequestHandlerInterface
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/') . '/';
+        $baseUrl = rtrim($baseUrl, '/').'/';
 
         $params = $request->getQueryParams();
 
