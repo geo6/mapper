@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\Geocoder;
 
-use Geocoder\Dumper\GeoJSON;
+use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
 use Geocoder\ProviderAggregator;
 use Geocoder\Query\ReverseQuery;
@@ -38,7 +38,7 @@ class ReverseHandler implements RequestHandlerInterface
             ->using($provider)
             ->reverseQuery($query);
 
-        $dumper = new GeoJSON();
+        $dumper = new GeoJson();
         $formatter = new StringFormatter();
 
         $locations = [
