@@ -8,7 +8,7 @@ export default function () {
             'gpx',
             'kml'
         ],
-        target: '/upload'
+        target: `${window.app.baseUrl}upload`
     });
 
     resumable.assignBrowse(document.getElementById('btn-layers-upload'));
