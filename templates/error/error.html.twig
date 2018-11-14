@@ -3,6 +3,7 @@
 {% block title %}{{ status }} {{ reason }}{% endblock %}
 
 {% block content %}
+<div class="container">
     <h1>Oops!</h1>
     <h2>This is awkward.</h2>
     <p>We encountered a {{ status }} {{ reason }} error.</p>
@@ -12,4 +13,5 @@
             or head back to <a href="{{ path('home') }}">Home</a>.
         </p>
     {% endif %}
+</div>
 {% endblock %}
