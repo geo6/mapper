@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\Geocoder;
 
-use Geocoder\Dumper\GeoJSON;
+use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
 use Geocoder\ProviderAggregator;
 use Geocoder\Query\GeocodeQuery;
@@ -37,7 +37,7 @@ class AddressHandler implements RequestHandlerInterface
             ->using($provider)
             ->geocodeQuery($query);
 
-        $dumper = new GeoJSON();
+        $dumper = new GeoJson();
         $formatter = new StringFormatter();
 
         $locations = [
