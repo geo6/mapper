@@ -21,7 +21,7 @@ class ConfigMiddleware implements MiddlewareInterface
         $config = new ConfigAggregator([
             ConfigProvider::class,
             new ZendConfigProvider('./composer.json'),
-            new ZendConfigProvider('./config/application/*.{php,ini,xml,json,yaml}'),
+            new ZendConfigProvider('./config/application/*.{php,ini,xml,json}'),
         ]);
 
         return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $config->getMergedConfig()));

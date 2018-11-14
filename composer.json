@@ -8,7 +8,6 @@
     "require": {
         "php": "^7.1",
         "ext-curl": "*",
-        "ext-yaml": "*",
         "geo6/geocoder-php-bpost-provider": "^1.2",
         "geo6/geocoder-php-geopunt-provider": "^1.1",
         "geo6/geocoder-php-urbis-provider": "^1.1",
