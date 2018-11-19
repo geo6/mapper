@@ -4,6 +4,8 @@ import KMLGetFeatureInfo from '../layers/kml/featureinfo';
 import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 import WMTSGetFeatureInfo from '../layers/wmts/featureinfo';
 
+import MeasureControl from './measure';
+
 import displayFileFeatureInfoList from '../info/list/file';
 import {
     displayWMSFeatureInfoList,
@@ -13,6 +15,13 @@ import displayLocation from '../info/location';
 
 export default function () {
     window.app.map.on('singleclick', (event) => {
+        const activeControls = window.app.map.getControls().getArray().filter((control) => {
+            return (control instanceof MeasureControl && control.active === true);
+        });
+        if (activeControls.length > 0) {
+            return false;
+        }
+
         window.app.marker.setGeometry(null);
 
         displayLocation(event.coordinate);

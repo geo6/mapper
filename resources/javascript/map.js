@@ -16,6 +16,7 @@ import initInfo from './info';
 import initBaselayers from './map/baselayers';
 import GeolocationControl from './map/geolocation';
 import initMarker from './map/marker';
+import MeasureControl from './map/measure';
 import initPermalink from './map/permalink';
 import initSingleClick from './map/singleclick';
 
@@ -36,7 +37,8 @@ export default function () {
                 collapsible: false
             }),
             new ScaleLine(),
-            new GeolocationControl()
+            new GeolocationControl(),
+            new MeasureControl()
         ]),
         layers: [],
         view: new View({

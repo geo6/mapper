@@ -1,10 +1,12 @@
+$position-top: 70px;
+
 .ol-geolocation {
-    top: 70px;
+    top: $position-top;
     left: .5em;
 }
 
 .ol-touch .ol-geolocation {
-    top: 85px;
+    top: $position-top + 15px;
 }
 
 .sidebar-left~.sidebar-map .ol-geolocation {
