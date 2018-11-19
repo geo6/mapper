@@ -15,9 +15,12 @@ import displayLocation from '../info/location';
 
 export default function () {
     window.app.map.on('singleclick', (event) => {
-        const activeControls = window.app.map.getControls().getArray().filter((control) => {
+        let activeControls = window.app.map.getControls().getArray().filter((control) => {
             return (control instanceof MeasureControl && control.active === true);
         });
+        if (window.app.draw.active === true) {
+            activeControls.push(window.app.draw.active);
+        }
         if (activeControls.length > 0) {
             return false;
         }

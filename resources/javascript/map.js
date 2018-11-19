@@ -11,6 +11,7 @@ import {
     ScaleLine
 } from 'ol/control';
 
+import initDraw from './draw';
 import initGeocoder from './geocoder';
 import initInfo from './info';
 import initBaselayers from './map/baselayers';
@@ -53,6 +54,7 @@ export default function () {
         initBaselayers();
         initMarker();
         initGeocoder();
+        initDraw();
     });
 
     window.app.sidebar = $('#sidebar').sidebar();
