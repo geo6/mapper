@@ -49,11 +49,21 @@ class HomeHandler implements RequestHandlerInterface
             ],
         ];
 
+        $providers = [];
+        foreach ($config['geocoder']['providers'] as $key => $provider) {
+            $providers[$key] = [
+                'attribution' => $provider['attribution'] ?? null,
+                'reverse' => $provider['reverse'] ?? true,
+                'title' => $provider['title'] ?? $key,
+            ];
+        }
+
         $data = [
-            'baselayers' => $config['baselayers'] ?? $defaultBaselayer,
-            'baseUrl'    => $baseUrl,
-            'layers'     => $config['layers'] ?? [],
-            'version'    => $config['version'],
+            'baselayers'        => $config['baselayers'] ?? $defaultBaselayer,
+            'baseUrl'           => $baseUrl,
+            'geocoderProviders' => $providers,
+            'layers'            => $config['layers'] ?? [],
+            'version'           => $config['version'],
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));

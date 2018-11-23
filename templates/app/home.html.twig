@@ -3,9 +3,10 @@
 {% block javascript %}
 <script>
     window.app = {};
-    window.app.baselayers = {{ baselayers | json_encode() | raw }};
-    window.app.layers = {{ layers | json_encode() | raw }};
+    window.app.baselayers = {{ baselayers | json_encode | raw }};
     window.app.baseUrl = '{{ baseUrl }}';
+    window.app.geocoderProviders = {{ geocoderProviders | json_encode | raw }};
+    window.app.layers = {{ layers | json_encode | raw }};
 </script>
 <script src="{{ asset('/js/mapper.min.js') }}"></script>
 {% endblock %}

@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\ConfigAggregator\ConfigAggregator;
+use Zend\ConfigAggregator\PhpFileProvider;
 use Zend\ConfigAggregator\ZendConfigProvider;
 
 class ConfigMiddleware implements MiddlewareInterface
@@ -19,7 +20,7 @@ class ConfigMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $config = new ConfigAggregator([
-            ConfigProvider::class,
+            new PhpFileProvider('./config/config.php'),
             new ZendConfigProvider('./composer.json'),
             new ZendConfigProvider('./config/application/*.{php,ini,xml,json,yaml}'),
         ]);

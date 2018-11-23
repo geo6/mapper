@@ -4,26 +4,34 @@ export default function (longitude, latitude) {
     window.app.geocoder.getSource().clear();
     $('#geocoder-results').empty();
 
-    const providers = [
-        'urbis',
-        'geopunt',
-        'nominatim'
-    ];
+    for (let key in window.app.geocoderProviders) {
+        const provider = window.app.geocoderProviders[key];
 
-    providers.forEach((provider) => {
+        if (provider.reverse === false) {
+            continue;
+        }
+
         $(document.createElement('div'))
             .attr({
-                id: `geocoder-results-${provider}`
+                id: `geocoder-results-${key}`
             })
             .append([
-                `Results from <strong>${provider}</strong>`,
+                `Results from <strong>${provider.title}</strong>`,
                 '<div class="loading text-muted"><i class="fas fa-spinner fa-spin"></i> Loading ...</div>',
                 '<hr>'
             ])
             .appendTo('#geocoder-results');
 
-        fetch(`${window.app.baseUrl}geocoder/${provider}/reverse/${longitude}/${latitude}`)
-            .then(response => response.json())
+        fetch(`${window.app.baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}`)
+            .then((response) => {
+                if (response.ok !== true) {
+                    $(`#geocoder-results-${key}`).remove();
+
+                    return false;
+                }
+
+                return response.json();
+            })
             .then(geojson => {
                 const features = (new GeoJSON()).readFeatures(geojson, {
                     featureProjection: window.app.map.getView().getProjection()
@@ -50,10 +58,14 @@ export default function (longitude, latitude) {
                             .appendTo(ol);
                     });
 
-                    $(`#geocoder-results-${provider} > .loading`).replaceWith(ol);
+                    $(`#geocoder-results-${key} > .loading`).replaceWith(ol);
+
+                    if (provider.attribution !== null) {
+                        $(ol).after(`<div class="small text-right text-muted">${provider.attribution}</div>`);
+                    }
                 } else {
-                    $(`#geocoder-results-${provider}`).remove();
+                    $(`#geocoder-results-${key}`).remove();
                 }
             });
-    });
+    }
 }
