@@ -34,8 +34,8 @@ class AddressHandler implements RequestHandlerInterface
             case 'geo6-poi':
                 $geocoder = new \Geocoder\Provider\Geo6\POI\Geo6POI(
                     $adapter,
-                    $config['geocoder']['providers']['geo6-poi']['customerId'],
-                    $config['geocoder']['providers']['geo6-poi']['privateKey']
+                    $config['geocoder']['providers']['geo6-poi']['customerId'] ?? '',
+                    $config['geocoder']['providers']['geo6-poi']['privateKey'] ?? ''
                 );
                 break;
 
