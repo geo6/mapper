@@ -11,11 +11,6 @@ class DrawPoint extends Draw {
             const count = parseInt($('#draw-count-point').text());
 
             $('#draw-count-point').text(count + 1);
-
-            $('#draw button.list-group-item-action[data-type="point"]').removeClass('active');
-
-            window.app.draw.type = null;
-            window.app.draw.disable();
         });
     }
 }

@@ -11,11 +11,6 @@ class DrawPolygon extends Draw {
             const count = parseInt($('#draw-count-polygon').text());
 
             $('#draw-count-polygon').text(count + 1);
-
-            $('#draw button.list-group-item-action[data-type="polygon"]').removeClass('active');
-
-            window.app.draw.type = null;
-            window.app.draw.disable();
         });
     }
 }

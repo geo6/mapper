@@ -16,15 +16,28 @@ export default function () {
         $('.draw-count').text(0);
     });
     $('#draw button.list-group-item-action').on('click', (event) => {
-        const { type } = $(event.currentTarget).data();
+        const {
+            type
+        } = $(event.currentTarget).data();
+        const active = $(event.currentTarget).hasClass('active');
 
-        $(event.currentTarget).addClass('active');
+        if (active === true) {
+            $(event.currentTarget).removeClass('active');
 
-        if (window.app.draw.type !== null) {
+            window.app.draw.type = null;
             window.app.draw.disable();
-        }
+        } else {
+            if (window.app.draw.type !== null) {
+                $(`#draw button.list-group-item-action[data-type=${window.app.draw.type}]`).removeClass('active');
 
-        window.app.draw.type = type;
-        window.app.draw.enable();
+                window.app.draw.type = null;
+                window.app.draw.disable();
+            }
+
+            $(event.currentTarget).addClass('active');
+
+            window.app.draw.type = type;
+            window.app.draw.enable();
+        }
     });
 }
