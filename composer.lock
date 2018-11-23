@@ -192,16 +192,16 @@
         },
         {
             "name": "geo6/geocoder-php-geo6-poi-provider",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geo6/geocoder-php-geo6-poi-provider.git",
-                "reference": "015dd054d4c8e89724fae624c540e982deab06b0"
+                "reference": "c554b867575d40310fe0c8368f8fd6b0901ff400"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geo6/geocoder-php-geo6-poi-provider/zipball/015dd054d4c8e89724fae624c540e982deab06b0",
-                "reference": "015dd054d4c8e89724fae624c540e982deab06b0",
+                "url": "https://api.github.com/repos/geo6/geocoder-php-geo6-poi-provider/zipball/c554b867575d40310fe0c8368f8fd6b0901ff400",
+                "reference": "c554b867575d40310fe0c8368f8fd6b0901ff400",
                 "shasum": ""
             },
             "require": {
@@ -239,7 +239,7 @@
                 }
             ],
             "description": "Geocoder Geo-6 POI adapter",
-            "time": "2018-11-20T14:50:50+00:00"
+            "time": "2018-11-23T15:04:06+00:00"
         },
         {
             "name": "geo6/geocoder-php-geopunt-provider",
