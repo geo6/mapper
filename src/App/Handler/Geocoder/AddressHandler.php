@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Handler\Geocoder;
 
+use App\Middleware\ConfigMiddleware;
 use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
-use Geocoder\ProviderAggregator;
+use Geocoder\StatefulGeocoder;
 use Geocoder\Query\GeocodeQuery;
 use Http\Adapter\Guzzle6\Client;
 use Psr\Http\Message\ResponseInterface;
@@ -18,23 +19,45 @@ class AddressHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
+        $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
+
         $address = $request->getAttribute('address');
         $provider = $request->getAttribute('provider');
 
         $adapter = new Client();
 
-        $geocoder = new ProviderAggregator();
-        $geocoder->registerProviders([
-            new \Geocoder\Provider\bpost\bpost($adapter),
-            new \Geocoder\Provider\Geopunt\Geopunt($adapter),
-            new \Geocoder\Provider\UrbIS\UrbIS($adapter),
-            \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer($adapter, $_SERVER['HTTP_USER_AGENT']),
-        ]);
+        switch ($provider) {
+            case 'bpost':
+                $geocoder = new \Geocoder\Provider\bpost\bpost($adapter);
+                break;
+
+            case 'geo6-poi':
+                $geocoder = new \Geocoder\Provider\Geo6\POI\Geo6POI(
+                    $adapter,
+                    $config['geocoder']['providers']['geo6-poi']['customerId'],
+                    $config['geocoder']['providers']['geo6-poi']['privateKey']
+                );
+                break;
+
+            case 'geopunt':
+                $geocoder = new \Geocoder\Provider\Geopunt\Geopunt($adapter);
+                break;
+
+            case 'urbis':
+                $geocoder = new \Geocoder\Provider\UrbIS\UrbIS($adapter);
+                break;
+
+            case 'nominatim':
+                $geocoder = \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer(
+                    $adapter,
+                    $_SERVER['HTTP_USER_AGENT']
+                );
+                break;
+        }
 
         $query = GeocodeQuery::create($address);
 
-        $result = $geocoder
-            ->using($provider)
+        $result = (new StatefulGeocoder($geocoder))
             ->geocodeQuery($query);
 
         $dumper = new GeoJson();
@@ -48,6 +71,15 @@ class AddressHandler implements RequestHandlerInterface
             $json = json_decode($dumper->dump($location));
 
             switch ($provider) {
+                case 'geo6-poi':
+                    $json->properties->type = $location->getType();
+                    $json->properties->formattedAddress = sprintf(
+                        '%s: %s',
+                        $location->getType(),
+                        $location->getName()
+                    );
+                    break;
+
                 case 'nominatim':
                     $json->properties->type = $location->getType();
                     $json->properties->formattedAddress = $location->getDisplayName();

@@ -24,18 +24,26 @@ class ReverseHandler implements RequestHandlerInterface
 
         $adapter = new Client();
 
-        $geocoder = new ProviderAggregator();
-        $geocoder->registerProviders([
-            // new \Geocoder\Provider\bpost\bpost($adapter),
-            new \Geocoder\Provider\Geopunt\Geopunt($adapter),
-            new \Geocoder\Provider\UrbIS\UrbIS($adapter),
-            \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer($adapter, $_SERVER['HTTP_USER_AGENT']),
-        ]);
+        switch ($provider) {
+            case 'geopunt':
+                $geocoder = new \Geocoder\Provider\Geopunt\Geopunt($adapter);
+                break;
+
+            case 'urbis':
+                $geocoder = new \Geocoder\Provider\UrbIS\UrbIS($adapter);
+                break;
+
+            case 'nominatim':
+                $geocoder = \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer(
+                    $adapter,
+                    $_SERVER['HTTP_USER_AGENT']
+                );
+                break;
+        }
 
         $query = ReverseQuery::fromCoordinates($latitude, $longitude);
 
-        $result = $geocoder
-            ->using($provider)
+        $result = (new StatefulGeocoder($geocoder))
             ->reverseQuery($query);
 
         $dumper = new GeoJson();
