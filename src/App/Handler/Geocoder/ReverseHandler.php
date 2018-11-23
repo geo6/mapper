@@ -7,6 +7,7 @@ namespace App\Handler\Geocoder;
 use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
 use Geocoder\Query\ReverseQuery;
+use Geocoder\StatefulGeocoder;
 use Http\Adapter\Guzzle6\Client;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
