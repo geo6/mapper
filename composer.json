@@ -36,6 +36,10 @@
         "zendframework/zend-expressive-tooling": "^1.0",
         "zfcampus/zf-development-mode": "^3.1"
     },
+    "suggest": {
+        "ext-xml": "Needed to support XML configuration files.",
+        "ext-yaml": "Needed to support YAML configuration files."
+    },
     "config": {
         "sort-packages": true
     },
