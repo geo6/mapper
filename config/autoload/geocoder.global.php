@@ -7,7 +7,7 @@ return [
         'providers' => [
             'geo6-poi' => [
                 'reverse' => false,
-                'title' => 'GEO-6 (POI)',
+                'title'   => 'GEO-6 (POI)',
             ],
             'bpost' => [
                 'reverse' => false,
@@ -19,7 +19,7 @@ return [
                 'title' => 'CIRB/CIBG UrbIS',
             ],
             'nominatim' => [
-                'title' => 'OpenStreetMap Nominatim',
+                'title'       => 'OpenStreetMap Nominatim',
                 'attribution' => '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
             ],
         ],

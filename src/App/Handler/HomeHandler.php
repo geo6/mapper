@@ -53,8 +53,8 @@ class HomeHandler implements RequestHandlerInterface
         foreach ($config['geocoder']['providers'] as $key => $provider) {
             $providers[$key] = [
                 'attribution' => $provider['attribution'] ?? null,
-                'reverse' => $provider['reverse'] ?? true,
-                'title' => $provider['title'] ?? $key,
+                'reverse'     => $provider['reverse'] ?? true,
+                'title'       => $provider['title'] ?? $key,
             ];
         }
 
