@@ -10,3 +10,5 @@ rules:
   semi:
     - error
     - always
+  valid-jsdoc:
+    - error
