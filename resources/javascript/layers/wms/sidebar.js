@@ -1,5 +1,6 @@
-export default function (index, layer) {
+export default function (wms, layer) {
     const li = $('#layers-new').clone();
+    const index = wms.getIndex();
 
     const name = layer.Name || layer.Identifier;
     const pointer = $(`#layers .list-group > li[id^="layers-wms-${index}-"]`).length;

@@ -12,7 +12,6 @@ import KMLRemoveLayer from '../layers/kml/remove';
 
 import initWMS from '../layers/wms/init';
 import WMSApplySelection from '../layers/wms/apply';
-import WMSRemoveLayer from '../layers/wms/remove';
 
 import initWMTS from '../layers/wmts/init';
 import WMTSApplySelection from '../layers/wmts/apply';
@@ -64,9 +63,9 @@ export default function () {
             break;
 
         case 'modal-layers-services-wms':
-            const indexWMS = $('#modal-layers-services-wms > option').index(option);
+            const { index } = $(option).data();
 
-            WMSApplySelection(indexWMS);
+            WMSApplySelection(index);
             break;
 
         case 'modal-layers-services-wmts':
@@ -82,7 +81,8 @@ export default function () {
 
         const {
             type,
-            index
+            index,
+            layer
         } = $(event.target).closest('li').data();
 
         $(event.target).closest('li').remove();
@@ -98,7 +98,7 @@ export default function () {
             KMLRemoveLayer(index);
             break;
         case 'wms':
-            WMSRemoveLayer();
+            window.app.wms[index].removeLayer(layer);
             break;
         case 'wmts':
             WMTSRemoveLayer();

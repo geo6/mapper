@@ -1,7 +1,6 @@
 import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
 import GPXGetFeatureInfo from '../layers/gpx/featureinfo';
 import KMLGetFeatureInfo from '../layers/kml/featureinfo';
-import WMSGetFeatureInfo from '../layers/wms/featureinfo';
 import WMTSGetFeatureInfo from '../layers/wmts/featureinfo';
 
 import MeasureControl from './measure';
@@ -9,7 +8,6 @@ import MeasureControl from './measure';
 import displayFileFeatureInfoList from '../info/list/file';
 import {
     createUlService,
-    displayWMSFeatureInfoList,
     displayWMTSFeatureInfoList
 } from '../info/list/service';
 import displayLocation from '../info/location';
@@ -68,24 +66,7 @@ export default function () {
         // WMS
         window.app.wms.forEach((service) => {
             if (service.olLayer !== null) {
-                const serviceIndex = window.app.wms.indexOf(service);
-
-                createUlService(
-                    'wms',
-                    serviceIndex,
-                    service.capabilities.Service.Title
-                );
-
-                let fetch = WMSGetFeatureInfo(service, event.coordinate);
-                if (fetch !== null) {
-                    fetch.then((results) => {
-                        results.forEach((result) => {
-                            service.selection = result.features;
-
-                            result.features.forEach((feature, index) => displayWMSFeatureInfoList(service, result.layerName, feature, index));
-                        });
-                    });
-                }
+                service.getFeatureInfo(event.coordinate);
             }
         });
 

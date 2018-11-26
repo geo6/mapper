@@ -16,9 +16,7 @@ export default function (service, coordinate) {
     }
 
     if (format === null) {
-        console.error(`Unable to GetFeatureInfo on the WMS service "${service.capabilities.Service.Title}" ! It supports only "${formats.join('", "')}".`);
-
-        return null;
+        throw new Error(`Unable to GetFeatureInfo on the WMS service "${service.capabilities.Service.Title}" ! It supports only "${formats.join('", "')}".`);
     }
 
     let url = source.getGetFeatureInfoUrl(
