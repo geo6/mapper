@@ -5,6 +5,13 @@ import {
     toStringXY
 } from 'ol/coordinate';
 
+/**
+ * Display selected Feature geometry.
+ *
+ * @param {object} geometry Feature geometry.
+ *
+ * @returns {void}
+ */
 export default function (geometry) {
     let divGeometry = $('#info-details-geometry');
     let geometryType = geometry.getType();

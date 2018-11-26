@@ -1,5 +1,14 @@
 import displayGeometry from './geometry';
 
+/**
+ * Display details of a feature in the sidebar.
+ *
+ * @param {string} title     Layer title.
+ * @param {object} feature   Feature object.
+ * @param {object} liElement Clicked li DOM element in the features list.
+ *
+ * @returns {void}
+ */
 export default function (title, feature, liElement) {
     $('#info-list').hide();
     $('#info-details').show();

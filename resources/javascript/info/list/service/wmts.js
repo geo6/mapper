@@ -3,6 +3,16 @@ import {
     createOlLayer
 } from '../service';
 
+/**
+ * Generate list with the result of GetFeatureInfo request on a WMTS service for each queried layers in the sidebar.
+ *
+ * @param {object} service   WMTS service object.
+ * @param {string} layerName Name of the layer.
+ * @param {object} feature   Feature to display.
+ * @param {int} featureIndex Index of the feature (in result) to display.
+ *
+ * @returns {void}
+ */
 export default function (service, layerName, feature, featureIndex) {
     const serviceIndex = window.app.wmts.indexOf(service);
     const serviceType = 'wmts';

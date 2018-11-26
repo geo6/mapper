@@ -5,6 +5,13 @@ import {
     toStringXY
 } from 'ol/coordinate';
 
+/**
+ * Display clicked location and open info sidebar.
+ *
+ * @param {object} coordinates Coordinates object.
+ *
+ * @returns {void}
+ */
 export default function (coordinates) {
     const lonlat = toLonLat(coordinates);
 

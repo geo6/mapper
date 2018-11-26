@@ -1,5 +1,14 @@
 import displayFeatureInList from '../feature';
 
+/**
+ * Create ol DOM element for a specific file in the sidebar.
+ *
+ * @param {string} fileType File type (geojson|kml|gpx).
+ * @param {int} fileIndex   File index (in array of its own type).
+ * @param {string} title    File title.
+ *
+ * @returns {object} ol DOM element.
+ */
 function createOlFile (fileType, fileIndex, title) {
     if ($(`#info-layer-${fileType}-${fileIndex}`).length === 0) {
         const ol = document.createElement('ol');
@@ -16,6 +25,14 @@ function createOlFile (fileType, fileIndex, title) {
     return $(`#info-layer-${fileType}-${fileIndex} > ol`);
 }
 
+/**
+ * Generate list with the result of GetFeatureInfo request on a file in the sidebar.
+ *
+ * @param {object} file      File object.
+ * @param {object} feature   Feature to display.
+ * @param {int} featureIndex Index of the feature (in result) to display.
+ * @returns {void}
+ */
 export default function (file, feature, featureIndex) {
     let fileIndex = null;
     let fileType = null;
