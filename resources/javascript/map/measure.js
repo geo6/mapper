@@ -24,7 +24,7 @@ import {
 } from 'ol/style';
 
 class MeasureControl extends Control {
-    constructor(optOptions) {
+    constructor (optOptions) {
         const options = optOptions || {};
 
         const button = document.createElement('button');
@@ -66,7 +66,7 @@ class MeasureControl extends Control {
         this.initMeasure();
     }
 
-    handleMeasure() {
+    handleMeasure () {
         this.active = !this.active;
 
         this.layer.getSource().clear();
@@ -101,7 +101,7 @@ class MeasureControl extends Control {
      * Handle pointer move.
      * @param {module:ol/MapBrowserEvent~MapBrowserEvent} event The event.
      */
-    pointerMoveHandler(event) {
+    pointerMoveHandler (event) {
         if (event.dragging) {
             return;
         }
@@ -126,7 +126,7 @@ class MeasureControl extends Control {
     /**
      * Creates a new help tooltip
      */
-    createHelpTooltip() {
+    createHelpTooltip () {
         if (this.helpTooltipElement) {
             this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
         }
@@ -142,7 +142,7 @@ class MeasureControl extends Control {
     /**
      * Creates a new measure tooltip
      */
-    createMeasureTooltip() {
+    createMeasureTooltip () {
         if (this.measureTooltipElement) {
             this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
         }
@@ -160,7 +160,7 @@ class MeasureControl extends Control {
      * @param {module:ol/geom/LineString~LineString} line The line.
      * @return {string} The formatted length.
      */
-    formatLength(line) {
+    formatLength (line) {
         var length = getLength(line);
         var output;
         if (length > 100) {
@@ -178,7 +178,7 @@ class MeasureControl extends Control {
      * @param {module:ol/geom/Polygon~Polygon} polygon The polygon.
      * @return {string} Formatted area.
      */
-    formatArea(polygon) {
+    formatArea (polygon) {
         var area = getArea(polygon);
         var output;
         if (area > 10000) {
@@ -191,7 +191,7 @@ class MeasureControl extends Control {
         return output;
     };
 
-    initMeasure() {
+    initMeasure () {
         const type = 'LineString'; // can also be Polygon
 
         this.draw = new Draw({

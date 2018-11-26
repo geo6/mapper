@@ -1,7 +1,7 @@
 import Draw from 'ol/interaction/Draw';
 
 class DrawLineString extends Draw {
-    constructor() {
+    constructor () {
         super({
             source: window.app.draw.layer.getSource(),
             type: 'LineString'

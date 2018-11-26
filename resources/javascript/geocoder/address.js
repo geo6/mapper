@@ -68,7 +68,6 @@ export default function (address) {
                         $(`#geocoder-results-${key}`).remove();
                     }
                 });
-
         }
     }
 }
