@@ -105,14 +105,29 @@ export default function (service, coordinate) {
             view.getResolution()
         );
 
-        // To Do : handle error (4xx, 5xx)
+        const serviceIndex = window.app.wmts.indexOf(service);
+
         return fetch(url)
-            .then(response => response.json())
             .then((response) => {
-                result.push({
-                    name,
-                    features: (new GeoJSON()).readFeatures(response)
-                });
+                if (response.ok !== true) {
+                    $(`#info-service-wmts-${serviceIndex}`).remove();
+
+                    return false;
+                }
+
+                return response.json();
+            })
+            .then((response) => {
+                let layerFeatures = (new GeoJSON()).readFeatures(response);
+
+                if (layerFeatures.length > 0) {
+                    result.push({
+                        name,
+                        features: layerFeatures
+                    });
+                } else {
+                    $(`#info-service-wmts-${serviceIndex}`).remove();
+                }
 
                 return result;
             });

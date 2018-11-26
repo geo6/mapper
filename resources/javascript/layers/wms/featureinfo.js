@@ -32,23 +32,38 @@ export default function (service, coordinate) {
 
     let layers = source.getParams().LAYERS;
 
-    // To Do : handle error (4xx, 5xx)
+    const serviceIndex = window.app.wms.indexOf(service);
+
     return fetch(url)
-        .then(response => response.text())
         .then((response) => {
-            let result = [];
+            if (response.ok !== true) {
+                $(`#info-service-wms-${serviceIndex}`).remove();
+
+                return false;
+            }
+
+            return response.text();
+        })
+        .then((response) => {
+            let results = [];
 
             layers.forEach(layerName => {
                 let layerFeatures = (new WMSGetFeatureInfo({
                     layers: [layerName]
                 })).readFeatures(response);
 
-                result.push({
-                    layerName,
-                    features: layerFeatures
-                });
+                if (layerFeatures.length > 0) {
+                    results.push({
+                        layerName,
+                        features: layerFeatures
+                    });
+                }
             });
 
-            return result;
+            if (results.length === 0) {
+                $(`#info-service-wms-${serviceIndex}`).remove();
+            }
+
+            return results;
         });
 }

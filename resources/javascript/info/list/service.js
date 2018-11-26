@@ -5,6 +5,7 @@ export function createUlService (serviceType, serviceIndex, title) {
         $(document.createElement('li'))
             .attr('id', `info-service-${serviceType}-${serviceIndex}`)
             .append(`<strong>${title}</strong>`)
+            .append('<div class="loading text-muted"><i class="fas fa-spinner fa-spin"></i> Loading ...</div>')
             .append(ul)
             .appendTo('#info-list');
 

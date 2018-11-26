@@ -8,6 +8,7 @@ import MeasureControl from './measure';
 
 import displayFileFeatureInfoList from '../info/list/file';
 import {
+    createUlService,
     displayWMSFeatureInfoList,
     displayWMTSFeatureInfoList
 } from '../info/list/service';
@@ -67,7 +68,13 @@ export default function () {
         // WMS
         window.app.wms.forEach((service) => {
             if (service.olLayer !== null) {
-                $('#info-loading').show();
+                const serviceIndex = window.app.wms.indexOf(service);
+
+                createUlService(
+                    'wms',
+                    serviceIndex,
+                    service.capabilities.Service.Title
+                );
 
                 let fetch = WMSGetFeatureInfo(service, event.coordinate);
                 if (fetch !== null) {
@@ -77,8 +84,6 @@ export default function () {
 
                             result.features.forEach((feature, index) => displayWMSFeatureInfoList(service, result.layerName, feature, index));
                         });
-
-                        $('#info-loading').hide();
                     });
                 }
             }
@@ -89,7 +94,13 @@ export default function () {
             const getfeatureinfo = typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
 
             if (getfeatureinfo === true && Object.keys(service.olLayers).length > 0) {
-                $('#info-loading').show();
+                const serviceIndex = window.app.wmts.indexOf(service);
+
+                createUlService(
+                    'wmts',
+                    serviceIndex,
+                    service.capabilities.ServiceIdentification.Title
+                );
 
                 let fetch = WMTSGetFeatureInfo(service, event.coordinate);
                 if (fetch !== null) {
@@ -99,8 +110,6 @@ export default function () {
 
                             result.features.forEach((feature, index) => displayWMTSFeatureInfoList(service, result.layerName, feature, index));
                         });
-
-                        $('#info-loading').hide();
                     });
                 }
             }
