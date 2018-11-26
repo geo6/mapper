@@ -8,6 +8,7 @@ export default function () {
 
         if (window.app.draw.active === false) {
             window.app.draw.disable();
+            window.app.draw.type = null;
         }
     });
 
@@ -22,19 +23,13 @@ export default function () {
         const active = $(event.currentTarget).hasClass('active');
 
         if (active === true) {
-            $(event.currentTarget).removeClass('active');
-
-            window.app.draw.type = null;
             window.app.draw.disable();
+            window.app.draw.type = null;
         } else {
             if (window.app.draw.type !== null) {
-                $(`#draw button.list-group-item-action[data-type=${window.app.draw.type}]`).removeClass('active');
-
-                window.app.draw.type = null;
                 window.app.draw.disable();
+                window.app.draw.type = null;
             }
-
-            $(event.currentTarget).addClass('active');
 
             window.app.draw.type = type;
             window.app.draw.enable();

@@ -48,6 +48,8 @@ class DrawControl {
     }
 
     enable() {
+        $(`#draw button.list-group-item-action[data-type=${this.type}]`).addClass('active');
+
         window.app.map.addInteraction(this.modify);
 
         switch (this.type) {
@@ -70,6 +72,8 @@ class DrawControl {
     }
 
     disable() {
+        $(`#draw button.list-group-item-action[data-type=${this.type}]`).removeClass('active');
+
         if (this.snap !== null) {
             window.app.map.removeInteraction(this.snap);
             this.snap = null;
