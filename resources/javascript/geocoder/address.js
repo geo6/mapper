@@ -1,5 +1,12 @@
 import GeoJSON from 'ol/format/GeoJSON';
 
+/**
+ * Launch geocoding query on every API configured and display result in sidebar.
+ *
+ * @param {string} address Address string sent to APIs.
+ *
+ * @returns {void}
+ */
 export default function (address) {
     window.app.geocoder.getSource().clear();
     $('#geocoder-results').empty();

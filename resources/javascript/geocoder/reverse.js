@@ -1,5 +1,13 @@
 import GeoJSON from 'ol/format/GeoJSON';
 
+/**
+ * Launch reverse geocoding query on every API configured and display result in sidebar.
+ *
+ * @param {float} longitude Longitude sent to APIs.
+ * @param {float} latitude  Latitude sent to APIs.
+ *
+ * @returns {void}
+ */
 export default function (longitude, latitude) {
     window.app.geocoder.getSource().clear();
     $('#geocoder-results').empty();
