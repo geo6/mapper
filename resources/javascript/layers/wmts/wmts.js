@@ -1,10 +1,10 @@
 'use strict';
 
-import WMTSGetCapabilities from './capabilities';
-import WMTSGetFeatureInfo from './featureinfo';
-import generateLayersList from './list';
-import WMTSAddLayersToMap from './map';
-import WMTSAddLayerToSidebar from './sidebar';
+import WMTSGetCapabilities from './class/capabilities';
+import WMTSGetFeatureInfo from './class/featureinfo';
+import generateLayersList from './class/list';
+import WMTSAddLayersToMap from './class/map';
+import WMTSAddLayerToSidebar from './class/sidebar';
 
 import {
     createUlService,
