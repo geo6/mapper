@@ -33,6 +33,13 @@ class WMS {
     }
 
     /**
+     * @returns {Number} WMS service index in `window.app.wms` array.
+     */
+    getIndex () {
+        return window.app.wms.indexOf(this);
+    }
+
+    /**
      *
      * @param {Function} callback Callback called after GetCapabilities().
      *
@@ -161,13 +168,6 @@ class WMS {
                 this.olLayer = null;
             }
         }
-    }
-
-    /**
-     * @returns {Number} WMS service index in `window.app.wms` array.
-     */
-    getIndex () {
-        return window.app.wms.indexOf(this);
     }
 }
 
