@@ -3,8 +3,6 @@ import TileWMS from 'ol/source/TileWMS';
 
 export default function (wms, layers) {
     if (typeof wms !== 'undefined' && layers.length > 0) {
-        let service = wms.capabilities;
-
         let names = [];
         for (let i = 0; i < layers.length; i++) {
             names.push(layers[i].Name);
@@ -16,7 +14,7 @@ export default function (wms, layers) {
                     params: {
                         'LAYERS': names
                     },
-                    url: service.Service.OnlineResource
+                    url: wms.capabilities.Service.OnlineResource
                 })
             });
 
@@ -33,9 +31,9 @@ export default function (wms, layers) {
 
                 // To Do: Get extent for each layer if available and compute extent
 
-                if (extent === null && typeof service.Capability.Layer.BoundingBox !== 'undefined') {
-                    for (let i = 0; i < service.Capability.Layer.BoundingBox.length; i++) {
-                        let bbox = service.Capability.Layer.BoundingBox[i];
+                if (extent === null && typeof wms.capabilities.Capability.Layer.BoundingBox !== 'undefined') {
+                    for (let i = 0; i < wms.capabilities.Capability.Layer.BoundingBox.length; i++) {
+                        let bbox = wms.capabilities.Capability.Layer.BoundingBox[i];
 
                         if (bbox.crs === 'EPSG:3857') {
                             extent = bbox.extent;
