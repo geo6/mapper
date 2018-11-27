@@ -1,7 +1,5 @@
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
-import generateLayersList from './list';
-
 function parseLayers (layers, searchElements) {
     let results = [];
 
@@ -19,71 +17,26 @@ function parseLayers (layers, searchElements) {
     return results;
 }
 
-function GetCapabilities (url) {
+export default function (url) {
     return fetch(`${window.app.baseUrl}proxy?SERVICE=WMTS&REQUEST=GetCapabilities&VERSION=1.0.0&_url=${encodeURIComponent(url)}`)
         .then(response => response.text())
-        .then((text) => {
-            let capabilities = (new WMTSCapabilities()).read(text);
+        .then(response => {
+            let capabilities = (new WMTSCapabilities()).read(response);
 
-            return {
-                capabilities: capabilities,
-                layers: parseLayers(capabilities.Contents.Layer)
-            };
-        });
-}
-
-export default function (url) {
-    return GetCapabilities(url)
-        .then((result) => {
             let crs = [];
-            for (let m = 0; m < result.capabilities.Contents.TileMatrixSet.length; m++) {
-                const supportedCRS = result.capabilities.Contents.TileMatrixSet[m].SupportedCRS.replace(/urn:ogc:def:crs:(\w+):(.*:)?(\w+)$/, '$1:$3');
+            for (let m = 0; m < capabilities.Contents.TileMatrixSet.length; m++) {
+                const supportedCRS = capabilities.Contents.TileMatrixSet[m].SupportedCRS.replace(/urn:ogc:def:crs:(\w+):(.*:)?(\w+)$/, '$1:$3');
 
                 crs.push(supportedCRS);
             }
 
             if (crs.indexOf('EPSG:3857') === -1) {
-                console.error('The WMTS service "' + url + '" does not support EPSG:3857 ! It supports only ' + crs.join(', ') + '.');
-
-                return null;
-            } else {
-                let i = window.app.wmts.push({
-                    capabilities: result.capabilities,
-                    layers: result.layers,
-                    olLayers: {},
-                    selection: []
-                });
-
-                let option = document.createElement('option');
-
-                $(option)
-                    .text(result.capabilities.ServiceIdentification.Title)
-                    .attr('value', 'wmts:' + (i - 1))
-                    .data('target', '#modal-layers-services-wmts-' + (i - 1));
-
-                $('#modal-layers-services-wmts')
-                    .append(option)
-                    .show();
-
-                let div = document.createElement('div');
-                let title = document.createElement('strong');
-                let description = document.createElement('p');
-
-                $(title)
-                    .text(result.capabilities.ServiceIdentification.Title)
-                    .appendTo(div);
-                $(description)
-                    .addClass('text-info small')
-                    .text(result.capabilities.ServiceIdentification.Abstract)
-                    .appendTo(div);
-                $(div)
-                    .append(generateLayersList((i - 1), result.capabilities.Contents.Layer))
-                    .attr('id', 'modal-layers-services-wmts-' + (i - 1))
-                    .hide();
-
-                $('#modal-layers-layers').append(div);
-
-                return (i - 1);
+                throw new Error(`The WMTS service "${url}" does not support EPSG:3857 ! It supports only ${crs.join(', ')}.`);
             }
+
+            return {
+                capabilities: capabilities,
+                layers: parseLayers(capabilities.Contents.Layer)
+            };
         });
 }

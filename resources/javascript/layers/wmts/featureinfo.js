@@ -93,9 +93,7 @@ export default function (service, coordinate) {
         });
 
         if (template === null) {
-            console.error(`Unable to GetFeatureInfo on the layer "${name}" of the WMTS service "${service.capabilities.ServiceIdentification.Title}" !`);
-
-            return null;
+            throw new Error(`Unable to GetFeatureInfo on the layer "${name}" of the WMTS service "${service.capabilities.ServiceIdentification.Title}" !`);
         }
 
         const url = WMTSGetFeatureInfoUrl(

@@ -1,5 +1,6 @@
-export default function (index, layer) {
-    const getfeatureinfo = typeof window.app.wmts[index].capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
+export default function (wmts, layer) {
+    const getfeatureinfo = typeof wmts.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
+    const index = wmts.getIndex();
 
     let queryable = false;
     if (typeof layer.ResourceURL !== 'undefined') {

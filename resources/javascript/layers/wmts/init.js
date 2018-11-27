@@ -1,7 +1,6 @@
 import initWMTSAddService from './new';
-import WMTSLoadGetCapabilities from './capabilities';
-import WMTSAddLayerToMap from './map';
-import WMTSAddLayerToSidebar from './sidebar';
+
+import WMTS from './wmts';
 
 export default function () {
     window.app.wmts = [];
@@ -11,17 +10,14 @@ export default function () {
 
         switch (layer.type) {
         case 'wmts':
-            WMTSLoadGetCapabilities(layer.url)
-                .then((index) => {
-                    if (typeof layer.layers !== 'undefined') {
-                        for (let i = 0; i < window.app.wmts[index].layers.length; i++) {
-                            if (layer.layers.indexOf(window.app.wmts[index].layers[i].Identifier) > -1) {
-                                WMTSAddLayerToSidebar(index, window.app.wmts[index].layers[i]);
-                                WMTSAddLayerToMap(index, window.app.wmts[index].layers[i]);
-                            }
-                        }
-                    }
-                });
+            const wmts = new WMTS(layer.url, (service) => {
+                service.displayCapabilities();
+
+                if (typeof layer.layers !== 'undefined' && layer.layers.length > 0) {
+                    service.addToMap(layer.layers);
+                    service.addToSidebar(layer.layers);
+                }
+            });
             break;
         }
     }

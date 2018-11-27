@@ -1,15 +1,10 @@
 import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
 import GPXGetFeatureInfo from '../layers/gpx/featureinfo';
 import KMLGetFeatureInfo from '../layers/kml/featureinfo';
-import WMTSGetFeatureInfo from '../layers/wmts/featureinfo';
 
 import MeasureControl from './measure';
 
 import displayFileFeatureInfoList from '../info/list/file';
-import {
-    createUlService,
-    displayWMTSFeatureInfoList
-} from '../info/list/service';
 import displayLocation from '../info/location';
 
 export default function () {
@@ -37,7 +32,7 @@ export default function () {
         $('#infos-details-btn-locate').off().prop('disabled', true);
 
         // GeoJSON
-        window.app.geojson.forEach((file) => {
+        window.app.geojson.forEach(file => {
             const features = GeoJSONGetFeatureInfo(file, event.coordinate);
 
             file.selection = features;
@@ -46,7 +41,7 @@ export default function () {
         });
 
         // GPX
-        window.app.gpx.forEach((file) => {
+        window.app.gpx.forEach(file => {
             const features = GPXGetFeatureInfo(file, event.coordinate);
 
             file.selection = features;
@@ -55,7 +50,7 @@ export default function () {
         });
 
         // KML
-        window.app.kml.forEach((file) => {
+        window.app.kml.forEach(file => {
             const features = KMLGetFeatureInfo(file, event.coordinate);
 
             file.selection = features;
@@ -64,35 +59,18 @@ export default function () {
         });
 
         // WMS
-        window.app.wms.forEach((service) => {
+        window.app.wms.forEach(service => {
             if (service.olLayer !== null) {
                 service.getFeatureInfo(event.coordinate);
             }
         });
 
         // WMTS
-        window.app.wmts.forEach((service) => {
+        window.app.wmts.forEach(service => {
             const getfeatureinfo = typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
 
             if (getfeatureinfo === true && Object.keys(service.olLayers).length > 0) {
-                const serviceIndex = window.app.wmts.indexOf(service);
-
-                createUlService(
-                    'wmts',
-                    serviceIndex,
-                    service.capabilities.ServiceIdentification.Title
-                );
-
-                let fetch = WMTSGetFeatureInfo(service, event.coordinate);
-                if (fetch !== null) {
-                    fetch.then((results) => {
-                        results.forEach((result) => {
-                            service.selection = result.features;
-
-                            result.features.forEach((feature, index) => displayWMTSFeatureInfoList(service, result.layerName, feature, index));
-                        });
-                    });
-                }
+                service.getFeatureInfo(event.coordinate);
             }
         });
     });

@@ -15,7 +15,6 @@ import WMSApplySelection from '../layers/wms/apply';
 
 import initWMTS from '../layers/wmts/init';
 import WMTSApplySelection from '../layers/wmts/apply';
-import WMTSRemoveLayer from '../layers/wmts/remove';
 
 export default function () {
     initGeoJSON();
@@ -101,7 +100,7 @@ export default function () {
             window.app.wms[index].removeLayer(layer);
             break;
         case 'wmts':
-            WMTSRemoveLayer();
+            window.app.wmts[index].removeLayer(layer);
             break;
         }
     });

@@ -22,7 +22,7 @@ function generateLayersList (index, layers) {
         let badge = $(document.createElement('span')).addClass('badge badge-light ml-1');
 
         $(li)
-            .attr('id', 'wmts-' + index + '-' + layers[i].Identifier)
+            .attr('id', `wmts-${index}-${layers[i].Identifier}`)
             .data({
                 name: layers[i].Identifier
             })
