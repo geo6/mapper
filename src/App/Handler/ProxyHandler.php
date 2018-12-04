@@ -164,8 +164,6 @@ class ProxyHandler implements RequestHandlerInterface
             //'timeout'  => 2.0,
         ]);
 
-        // var_dump($query); exit();
-
         $response = $client->request('GET', $url, [
             'query'   => $query,
             'headers' => [
