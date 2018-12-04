@@ -168,6 +168,10 @@ class ProxyHandler implements RequestHandlerInterface
 
         $response = $client->request('GET', $url, [
             'query' => $query,
+            'headers' => [
+                'User-Agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'GEO-6 Mapper',
+                'Referer'    => 'http'.(!empty($_SERVER['HTTPS']) ? 's' : '').'://'.($_SERVER['SERVER_NAME'] ?? 'localhost').'/',
+            ],
         ]);
 
         return self::buildResponse($response, $acceptEncoding, $callback);
@@ -185,8 +189,12 @@ class ProxyHandler implements RequestHandlerInterface
         ]);
 
         $response = $client->request('GET', $url, [
-            'query' => $query,
-            'auth'  => $authentication,
+            'auth'    => $authentication,
+            'query'   => $query,
+            'headers' => [
+                'User-Agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'GEO-6 Mapper',
+                'Referer'    => 'http'.(!empty($_SERVER['HTTPS']) ? 's' : '').'://'.($_SERVER['SERVER_NAME'] ?? 'localhost').'/',
+            ],
         ]);
 
         return self::buildResponse($response, $acceptEncoding, $callback);
