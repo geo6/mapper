@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b8e1cc667e68041230159dc0cd9df47",
+    "content-hash": "8aa48beeaf7953cbdd056989a727eba2",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -240,6 +240,57 @@
             ],
             "description": "Geocoder Geo-6 POI adapter",
             "time": "2018-11-23T15:04:06+00:00"
+        },
+        {
+            "name": "geo6/geocoder-php-geo6-provider",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geo6/geocoder-php-geo6-provider.git",
+                "reference": "81b837814c2ea8c1ad94ac50caf08e2221f5c3af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geo6/geocoder-php-geo6-provider/zipball/81b837814c2ea8c1ad94ac50caf08e2221f5c3af",
+                "reference": "81b837814c2ea8c1ad94ac50caf08e2221f5c3af",
+                "shasum": ""
+            },
+            "require": {
+                "geocoder-php/common-http": "^4.1",
+                "php": "^7.0",
+                "willdurand/geocoder": "^4.0"
+            },
+            "provide": {
+                "geocoder-php/provider-implementation": "1.0"
+            },
+            "require-dev": {
+                "geocoder-php/provider-integration-tests": "^1.0",
+                "nyholm/psr7": "^0.2.2",
+                "php-http/curl-client": "^1.7",
+                "php-http/message": "^1.0",
+                "phpunit/phpunit": "6.3.* || 6.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Geocoder\\Provider\\Geo6\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Beliën",
+                    "email": "jbe@geo6.be"
+                }
+            ],
+            "description": "Geocoder Geo-6 adapter",
+            "time": "2018-12-07T12:46:54+00:00"
         },
         {
             "name": "geo6/geocoder-php-geopunt-provider",
@@ -4689,6 +4740,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "geo6/geocoder-php-geo6-provider": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,

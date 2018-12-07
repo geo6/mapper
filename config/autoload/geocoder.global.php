@@ -5,6 +5,10 @@ declare(strict_types=1);
 return [
     'geocoder' => [
         'providers' => [
+            'geo6' => [
+                'reverse' => false,
+                'title'   => 'GEO-6',
+            ],
             'geo6-poi' => [
                 'reverse' => false,
                 'title'   => 'GEO-6 (POI)',

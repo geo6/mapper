@@ -27,6 +27,14 @@ class AddressHandler implements RequestHandlerInterface
         $adapter = new Client();
 
         switch ($provider) {
+            case 'geo6':
+                $geocoder = new \Geocoder\Provider\Geo6\Geo6(
+                    $adapter,
+                    $config['geocoder']['providers']['geo6']['customerId'] ?? '',
+                    $config['geocoder']['providers']['geo6']['privateKey'] ?? ''
+                );
+                break;
+
             case 'bpost':
                 $geocoder = new \Geocoder\Provider\bpost\bpost($adapter);
                 break;

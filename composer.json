@@ -10,6 +10,7 @@
         "ext-curl": "*",
         "geo6/geocoder-php-bpost-provider": "^1.2",
         "geo6/geocoder-php-geo6-poi-provider": "^1.0",
+        "geo6/geocoder-php-geo6-provider": "dev-master",
         "geo6/geocoder-php-geopunt-provider": "^1.1",
         "geo6/geocoder-php-urbis-provider": "^1.1",
         "geocoder-php/nominatim-provider": "^5.0",
