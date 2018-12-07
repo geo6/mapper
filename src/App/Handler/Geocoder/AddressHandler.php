@@ -9,7 +9,8 @@ use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\StatefulGeocoder;
-use Http\Adapter\Guzzle6\Client;
+use GuzzleHttp\Client as GuzzleClient;
+use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -24,7 +25,10 @@ class AddressHandler implements RequestHandlerInterface
         $address = $request->getAttribute('address');
         $provider = $request->getAttribute('provider');
 
-        $adapter = new Client();
+        $guzzle = new GuzzleClient([
+            'timeout' => 1.0,
+        ]);
+        $adapter = new GuzzleAdapter($guzzle);
 
         switch ($provider) {
             case 'geo6':
