@@ -49,7 +49,3 @@ export function createOlLayer (serviceType, serviceIndex, layerIndex, title) {
 
     return $(`#info-layer-${serviceType}-${serviceIndex}-${layerIndex} > ol`);
 }
-
-export {
-    default as displayWMTSFeatureInfoList
-} from './service/wmts';

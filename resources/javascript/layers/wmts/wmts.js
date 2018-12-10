@@ -2,13 +2,13 @@
 
 import WMTSGetCapabilities from './class/capabilities';
 import WMTSGetFeatureInfo from './class/featureinfo';
+import WMTSDisplayFeatureList from './class/featurelist';
 import generateLayersList from './class/list';
 import WMTSAddLayersToMap from './class/map';
 import WMTSAddLayerToSidebar from './class/sidebar';
 
 import {
-    createUlService,
-    displayWMTSFeatureInfoList
+    createUlService
 } from '../../info/list/service';
 
 /**
@@ -48,13 +48,16 @@ class WMTS {
     getCapabilities (callback) {
         let that = this;
 
-        WMTSGetCapabilities(this.url)
-            .then(response => {
-                that.capabilities = response.capabilities;
-                that.layers = response.layers;
+        const getCapabilities = WMTSGetCapabilities(this.url);
+        if (getCapabilities instanceof Promise) {
+            getCapabilities
+                .then(response => {
+                    that.capabilities = response.capabilities;
+                    that.layers = response.layers;
 
-                callback.call(this, this);
-            });
+                    callback.call(this, this);
+                });
+        }
     }
 
     /**
@@ -106,14 +109,21 @@ class WMTS {
 
         let that = this;
 
-        WMTSGetFeatureInfo(this, coordinate)
-            .then(response => {
-                response.forEach((result) => {
-                    that.selection = result.features;
+        const getFeatureInfo = WMTSGetFeatureInfo(this, coordinate);
+        if (getFeatureInfo instanceof Promise) {
+            getFeatureInfo
+                .then(response => {
+                    $(`#info-service-wmts-${this.getIndex()} > .loading`).remove();
 
-                    result.features.forEach((feature, index) => displayWMTSFeatureInfoList(that, result.layerName, feature, index));
+                    response.forEach((result) => {
+                        that.selection = result.features;
+
+                        result.features.forEach((feature, index) => WMTSDisplayFeatureList(that, result.layerName, feature, index));
+                    });
                 });
-            });
+        } else {
+            $(`#info-service-wmts-${this.getIndex()}`).remove();
+        }
     }
 
     /**

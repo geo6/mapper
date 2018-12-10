@@ -103,7 +103,7 @@ export default function (service, coordinate) {
             view.getResolution()
         );
 
-        const serviceIndex = window.app.wmts.indexOf(service);
+        const serviceIndex = service.getIndex();
 
         return fetch(url)
             .then((response) => {
