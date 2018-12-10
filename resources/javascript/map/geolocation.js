@@ -10,7 +10,7 @@ class GeolocationControl extends Control {
         const options = optOptions || {};
 
         const button = document.createElement('button');
-        button.innerHTML = '<i class="fas fa-location-arrow"></i>';
+        button.innerHTML = '<i class="fas fa-fw fa-location-arrow"></i>';
         button.title = 'Show my location';
 
         const element = document.createElement('div');
