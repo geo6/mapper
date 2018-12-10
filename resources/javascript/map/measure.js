@@ -27,20 +27,26 @@ class MeasureControl extends Control {
     constructor (optOptions) {
         const options = optOptions || {};
 
-        const button = document.createElement('button');
-        button.innerHTML = '<i class="fas fa-ruler"></i>';
-        button.title = 'Measuring tool';
+        const buttonDistance = document.createElement('button');
+        buttonDistance.innerHTML = '<i class="fas fa-ruler"></i>';
+        buttonDistance.title = 'Measuring tool: Distance';
+
+        const buttonArea = document.createElement('button');
+        buttonArea.innerHTML = '<i class="fas fa-draw-polygon"></i>';
+        buttonArea.title = 'Measuring tool: Area';
 
         const element = document.createElement('div');
         element.className = 'ol-measure ol-unselectable ol-control';
-        element.appendChild(button);
+        element.appendChild(buttonDistance);
+        element.appendChild(buttonArea);
 
         super({
             element: element,
             target: options.target
         });
 
-        button.addEventListener('click', this.handleMeasure.bind(this), false);
+        buttonDistance.addEventListener('click', this.handleMeasure.bind(this, 'LineString'), false);
+        buttonArea.addEventListener('click', this.handleMeasure.bind(this, 'Polygon'), false);
 
         this.active = false;
 
@@ -62,141 +68,15 @@ class MeasureControl extends Control {
                 })
             })
         });
-
-        this.initMeasure();
-    }
-
-    handleMeasure () {
-        this.active = !this.active;
-
-        this.layer.getSource().clear();
-
-        if (this.active === true) {
-            this.createHelpTooltip();
-            this.createMeasureTooltip();
-
-            this.getMap().addOverlay(this.helpTooltip);
-            this.getMap().addOverlay(this.measureTooltip);
-            this.getMap().addInteraction(this.draw);
-            this.getMap().addLayer(this.layer);
-
-            this.getMap().on('pointermove', this.pointerMoveHandler.bind(this));
-            this.getMap().getViewport().addEventListener('mouseout', () => {
-                this.helpTooltipElement.classList.add('hidden');
-            });
-        } else {
-            this.getMap().removeOverlay(this.helpTooltip);
-            this.getMap().removeOverlay(this.measureTooltip);
-            this.getMap().removeInteraction(this.draw);
-            this.getMap().removeLayer(this.layer);
-
-            this.getMap().un('pointermove', this.pointerMoveHandler);
-            this.getMap().getViewport().removeEventListener('mouseout', () => {
-                this.helpTooltipElement.classList.remove('hidden');
-            });
-        }
     }
 
     /**
-     * Handle pointer move.
-     * @param {module:ol/MapBrowserEvent~MapBrowserEvent} event The event.
+     * @returns {void}
      */
-    pointerMoveHandler (event) {
-        if (event.dragging) {
-            return;
-        }
-        /** @type {string} */
-        var helpMsg = 'Click to start drawing';
-
-        if (this.sketch) {
-            var geom = (this.sketch.getGeometry());
-            if (geom instanceof Polygon) {
-                helpMsg = 'Click to continue drawing the polygon';
-            } else if (geom instanceof LineString) {
-                helpMsg = 'Click to continue drawing the line';
-            }
-        }
-
-        this.helpTooltipElement.innerHTML = helpMsg;
-        this.helpTooltip.setPosition(event.coordinate);
-
-        this.helpTooltipElement.classList.remove('hidden');
-    };
-
-    /**
-     * Creates a new help tooltip
-     */
-    createHelpTooltip () {
-        if (this.helpTooltipElement) {
-            this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
-        }
-        this.helpTooltipElement = document.createElement('div');
-        this.helpTooltipElement.className = 'tooltip hidden';
-        this.helpTooltip = new Overlay({
-            element: this.helpTooltipElement,
-            offset: [15, 0],
-            positioning: 'center-left'
-        });
-    }
-
-    /**
-     * Creates a new measure tooltip
-     */
-    createMeasureTooltip () {
-        if (this.measureTooltipElement) {
-            this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
-        }
-        this.measureTooltipElement = document.createElement('div');
-        this.measureTooltipElement.className = 'tooltip tooltip-measure';
-        this.measureTooltip = new Overlay({
-            element: this.measureTooltipElement,
-            offset: [0, -15],
-            positioning: 'bottom-center'
-        });
-    }
-
-    /**
-     * Format length output.
-     * @param {module:ol/geom/LineString~LineString} line The line.
-     * @return {string} The formatted length.
-     */
-    formatLength (line) {
-        var length = getLength(line);
-        var output;
-        if (length > 100) {
-            output = (Math.round(length / 1000 * 100) / 100) +
-                ' ' + 'km';
-        } else {
-            output = (Math.round(length * 100) / 100) +
-                ' ' + 'm';
-        }
-        return output;
-    };
-
-    /**
-     * Format area output.
-     * @param {module:ol/geom/Polygon~Polygon} polygon The polygon.
-     * @return {string} Formatted area.
-     */
-    formatArea (polygon) {
-        var area = getArea(polygon);
-        var output;
-        if (area > 10000) {
-            output = (Math.round(area / 1000000 * 100) / 100) +
-                ' ' + 'km<sup>2</sup>';
-        } else {
-            output = (Math.round(area * 100) / 100) +
-                ' ' + 'm<sup>2</sup>';
-        }
-        return output;
-    };
-
     initMeasure () {
-        const type = 'LineString'; // can also be Polygon
-
         this.draw = new Draw({
             source: this.layer.getSource(),
-            type: type,
+            type: this.type,
             style: new Style({
                 fill: new Fill({
                     color: 'rgba(255, 255, 255, 0.2)'
@@ -255,6 +135,150 @@ class MeasureControl extends Control {
             this.getMap().un('pointermove', this.pointerMoveHandler);
         }, this);
     }
+
+    /**
+     * @param {string} type LineString|Polygon
+     *
+     * @returns {void}
+     */
+    handleMeasure (type) {
+        this.type = type;
+        this.active = !this.active;
+
+        this.initMeasure();
+
+        this.layer.getSource().clear();
+
+        if (this.active === true) {
+            this.createHelpTooltip();
+            this.createMeasureTooltip();
+
+            this.getMap().addOverlay(this.helpTooltip);
+            this.getMap().addOverlay(this.measureTooltip);
+            this.getMap().addInteraction(this.draw);
+            this.getMap().addLayer(this.layer);
+
+            this.getMap().on('pointermove', this.pointerMoveHandler.bind(this));
+            this.getMap().getViewport().addEventListener('mouseout', () => {
+                this.helpTooltipElement.classList.add('hidden');
+            });
+        } else {
+            this.getMap().removeOverlay(this.helpTooltip);
+            this.getMap().removeOverlay(this.measureTooltip);
+            this.getMap().removeInteraction(this.draw);
+            this.getMap().removeLayer(this.layer);
+
+            this.getMap().un('pointermove', this.pointerMoveHandler);
+            this.getMap().getViewport().removeEventListener('mouseout', () => {
+                this.helpTooltipElement.classList.remove('hidden');
+            });
+        }
+    }
+
+    /**
+     * Handle pointer move.
+     *
+     * @param {module:ol/MapBrowserEvent~MapBrowserEvent} event The event.
+     *
+     * @returns {void}
+     */
+    pointerMoveHandler (event) {
+        if (event.dragging) {
+            return;
+        }
+        /** @type {string} */
+        var helpMsg = 'Click to start drawing';
+
+        if (this.sketch) {
+            var geom = (this.sketch.getGeometry());
+            if (geom instanceof Polygon) {
+                helpMsg = 'Click to continue drawing the polygon';
+            } else if (geom instanceof LineString) {
+                helpMsg = 'Click to continue drawing the line';
+            }
+        }
+
+        this.helpTooltipElement.innerHTML = helpMsg;
+        this.helpTooltip.setPosition(event.coordinate);
+
+        this.helpTooltipElement.classList.remove('hidden');
+    };
+
+    /**
+     * Creates a new help tooltip
+     *
+     * @returns {void}
+     */
+    createHelpTooltip () {
+        if (this.helpTooltipElement) {
+            this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement);
+        }
+        this.helpTooltipElement = document.createElement('div');
+        this.helpTooltipElement.className = 'tooltip hidden';
+        this.helpTooltip = new Overlay({
+            element: this.helpTooltipElement,
+            offset: [15, 0],
+            positioning: 'center-left'
+        });
+    }
+
+    /**
+     * Creates a new measure tooltip
+     *
+     * @returns {void}
+     */
+    createMeasureTooltip () {
+        if (this.measureTooltipElement) {
+            this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement);
+        }
+        this.measureTooltipElement = document.createElement('div');
+        this.measureTooltipElement.className = 'tooltip tooltip-measure';
+        this.measureTooltip = new Overlay({
+            element: this.measureTooltipElement,
+            offset: [0, -15],
+            positioning: 'bottom-center'
+        });
+    }
+
+    /**
+     * Format length output.
+     *
+     * @param {module:ol/geom/LineString~LineString} line The line.
+     *
+     * @return {string} The formatted length.
+     */
+    formatLength (line) {
+        var length = getLength(line);
+        var output;
+        if (length > 100) {
+            output = (Math.round(length / 1000 * 100) / 100) +
+                ' ' + 'km';
+        } else {
+            output = (Math.round(length * 100) / 100) +
+                ' ' + 'm';
+        }
+        return output;
+    };
+
+    /**
+     * Format area output.
+     *
+     * @param {module:ol/geom/Polygon~Polygon} polygon The polygon.
+     *
+     * @return {string} Formatted area.
+     */
+    formatArea (polygon) {
+        var area = getArea(polygon);
+        var output;
+        if (area > 10000) {
+            output = (Math.round(area / 1000000 * 100) / 100) +
+                ' ' + 'km<sup>2</sup>';
+        } else {
+            output = (Math.round(area * 100) / 100) +
+                ' ' + 'm<sup>2</sup>';
+        }
+        return output;
+    };
 }
 
 export {
