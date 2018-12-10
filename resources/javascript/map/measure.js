@@ -145,11 +145,11 @@ class MeasureControl extends Control {
         this.type = type;
         this.active = !this.active;
 
-        this.initMeasure();
-
         this.layer.getSource().clear();
 
         if (this.active === true) {
+            this.initMeasure();
+
             this.createHelpTooltip();
             this.createMeasureTooltip();
 
