@@ -29,15 +29,19 @@ class ReverseHandler implements RequestHandlerInterface
                 $geocoder = new \Geocoder\Provider\Geopunt\Geopunt($adapter);
                 break;
 
-            case 'urbis':
-                $geocoder = new \Geocoder\Provider\UrbIS\UrbIS($adapter);
-                break;
-
             case 'nominatim':
                 $geocoder = \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer(
                     $adapter,
                     $_SERVER['HTTP_USER_AGENT']
                 );
+                break;
+
+            case 'spw':
+                $geocoder = new \Geocoder\Provider\SPW\SPW($adapter);
+                break;
+
+            case 'urbis':
+                $geocoder = new \Geocoder\Provider\UrbIS\UrbIS($adapter);
                 break;
         }
 

@@ -31,16 +31,16 @@ class AddressHandler implements RequestHandlerInterface
         $adapter = new GuzzleAdapter($guzzle);
 
         switch ($provider) {
+            case 'bpost':
+                $geocoder = new \Geocoder\Provider\bpost\bpost($adapter);
+                break;
+
             case 'geo6':
                 $geocoder = new \Geocoder\Provider\Geo6\Geo6(
                     $adapter,
                     $config['geocoder']['providers']['geo6']['customerId'] ?? '',
                     $config['geocoder']['providers']['geo6']['privateKey'] ?? ''
                 );
-                break;
-
-            case 'bpost':
-                $geocoder = new \Geocoder\Provider\bpost\bpost($adapter);
                 break;
 
             case 'geo6-poi':
@@ -55,15 +55,19 @@ class AddressHandler implements RequestHandlerInterface
                 $geocoder = new \Geocoder\Provider\Geopunt\Geopunt($adapter);
                 break;
 
-            case 'urbis':
-                $geocoder = new \Geocoder\Provider\UrbIS\UrbIS($adapter);
-                break;
-
             case 'nominatim':
                 $geocoder = \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer(
                     $adapter,
                     $_SERVER['HTTP_USER_AGENT']
                 );
+                break;
+
+            case 'spw':
+                $geocoder = new \Geocoder\Provider\SPW\SPW($adapter);
+                break;
+
+            case 'urbis':
+                $geocoder = new \Geocoder\Provider\UrbIS\UrbIS($adapter);
                 break;
         }
 
