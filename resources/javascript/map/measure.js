@@ -28,11 +28,11 @@ class MeasureControl extends Control {
         const options = optOptions || {};
 
         const buttonDistance = document.createElement('button');
-        buttonDistance.innerHTML = '<i class="fas fa-ruler"></i>';
+        buttonDistance.innerHTML = '<i class="fas fa-fw fa-ruler"></i>';
         buttonDistance.title = 'Measuring tool: Distance';
 
         const buttonArea = document.createElement('button');
-        buttonArea.innerHTML = '<i class="fas fa-draw-polygon"></i>';
+        buttonArea.innerHTML = '<i class="fas fa-fw fa-draw-polygon"></i>';
         buttonArea.title = 'Measuring tool: Area';
 
         const element = document.createElement('div');
