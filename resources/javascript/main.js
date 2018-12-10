@@ -8,4 +8,6 @@ $(document).ready(() => {
     initMap();
     initLayers();
     initUpload();
+
+    $('body').addClass('loaded');
 });
