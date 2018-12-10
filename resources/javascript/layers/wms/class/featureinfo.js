@@ -46,7 +46,7 @@ export default function (service, coordinate) {
 
     let layers = source.getParams().LAYERS;
 
-    const serviceIndex = window.app.wms.indexOf(service);
+    const serviceIndex = service.getIndex();
 
     return fetch(url)
         .then((response) => {
