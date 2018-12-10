@@ -41,6 +41,7 @@ export default function () {
 
         const option = $('#modal-layers option:selected');
         const id = $(option).closest('optgroup').attr('id');
+        const { index } = $(option).data();
 
         switch (id) {
         case 'modal-layers-files':
@@ -62,15 +63,11 @@ export default function () {
             break;
 
         case 'modal-layers-wms':
-            const { indexWMS } = $(option).data();
-
-            WMSApplySelection(indexWMS);
+            WMSApplySelection(index);
             break;
 
         case 'modal-layers-wmts':
-            const { indexWMTS } = $(option).data();
-
-            WMTSApplySelection(indexWMTS);
+            WMTSApplySelection(index);
             break;
         }
     });
