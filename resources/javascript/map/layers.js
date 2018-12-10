@@ -23,7 +23,7 @@ export default function () {
     initWMS();
     initWMTS();
 
-    $('#modal-layers-services').on('change', (event) => {
+    $('#modal-layers').on('change', (event) => {
         let { target, upload } = $(event.target).find('option:selected').data();
 
         if (upload === true) {
@@ -39,12 +39,12 @@ export default function () {
     $('#btn-layers-apply').on('click', (event) => {
         event.preventDefault();
 
-        const option = $('#modal-layers-services option:selected');
+        const option = $('#modal-layers option:selected');
         const id = $(option).closest('optgroup').attr('id');
 
         switch (id) {
         case 'modal-layers-files':
-            const type = $('#modal-layers-services').val();
+            const type = $('#modal-layers').val();
 
             switch (type) {
             case 'geojson':
@@ -61,14 +61,14 @@ export default function () {
             }
             break;
 
-        case 'modal-layers-services-wms':
-            const { index } = $(option).data();
+        case 'modal-layers-wms':
+            const { indexWMS } = $(option).data();
 
-            WMSApplySelection(index);
+            WMSApplySelection(indexWMS);
             break;
 
-        case 'modal-layers-services-wmts':
-            const indexWMTS = $('#modal-layers-services-wmts > option').index(option);
+        case 'modal-layers-wmts':
+            const { indexWMTS } = $(option).data();
 
             WMTSApplySelection(indexWMTS);
             break;

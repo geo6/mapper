@@ -8,7 +8,7 @@ export default function () {
             const wmts = new WMTS(url, (service) => {
                 service.displayCapabilities();
 
-                $('#modal-layers-services')
+                $('#modal-layers')
                     .val('wmts:' + service.getIndex())
                     .trigger('change');
             });

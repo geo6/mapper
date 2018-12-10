@@ -87,15 +87,15 @@ export default function () {
         });
 
         if (Math.max(...Object.values(count)) === count.geojson) {
-            $('#modal-layers-services')
+            $('#modal-layers')
                 .val('geojson')
                 .trigger('change');
         } else if (Math.max(...Object.values(count)) === count.gpx) {
-            $('#modal-layers-services')
+            $('#modal-layers')
                 .val('gpx')
                 .trigger('change');
         } else if (Math.max(...Object.values(count)) === count.kml) {
-            $('#modal-layers-services')
+            $('#modal-layers')
                 .val('kml')
                 .trigger('change');
         }

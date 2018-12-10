@@ -68,11 +68,11 @@ class WMTS {
             .attr('value', `wmts:${index}`)
             .data({
                 index: index,
-                target: `#modal-layers-services-wmts-${index}`
+                target: `#modal-layers-wmts-${index}`
             })
-            .appendTo('#modal-layers-services-wmts');
+            .appendTo('#modal-layers-wmts');
 
-        $('#modal-layers-services-wmts').show();
+        $('#modal-layers-wmts').show();
 
         let div = document.createElement('div');
 
@@ -85,7 +85,7 @@ class WMTS {
             .appendTo(div);
         $(div)
             .append(generateLayersList(index, this.layers))
-            .attr('id', `modal-layers-services-wmts-${index}`)
+            .attr('id', `modal-layers-wmts-${index}`)
             .hide();
 
         $('#modal-layers-layers').append(div);
