@@ -86,7 +86,7 @@ class GeolocationControl extends Control {
             this.features.position.setGeometry(coordinates ? new Point(coordinates) : null);
         });
         this.geolocation.on('error', (error) => {
-            console.error(error.message);
+            throw new Error(error.message);
         });
     }
 }
