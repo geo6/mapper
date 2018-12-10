@@ -2,13 +2,13 @@
 
 import WMSGetCapabilities from './class/capabilities';
 import WMSGetFeatureInfo from './class/featureinfo';
+import WMSDisplayFeatureList from './class/featurelist';
 import generateLayersList from './class/list';
 import WMSAddLayersToMap from './class/map';
 import WMSAddLayerToSidebar from './class/sidebar';
 
 import {
-    createUlService,
-    displayWMSFeatureInfoList
+    createUlService
 } from '../../info/list/service';
 
 /**
@@ -48,13 +48,16 @@ class WMS {
     getCapabilities (callback) {
         let that = this;
 
-        WMSGetCapabilities(this.url)
-            .then(response => {
-                that.capabilities = response.capabilities;
-                that.layers = response.layers;
+        const getCapabilities = WMSGetCapabilities(this.url);
+        if (getCapabilities instanceof Promise) {
+            getCapabilities
+                .then(response => {
+                    that.capabilities = response.capabilities;
+                    that.layers = response.layers;
 
-                callback.call(this, this);
-            });
+                    callback.call(this, this);
+                });
+        }
     }
 
     /**
@@ -106,14 +109,21 @@ class WMS {
 
         let that = this;
 
-        WMSGetFeatureInfo(this, coordinate)
-            .then(response => {
-                response.forEach((result) => {
-                    that.selection = result.features;
+        const getFeatureInfo = WMSGetFeatureInfo(this, coordinate);
+        if (getFeatureInfo instanceof Promise) {
+            getFeatureInfo
+                .then(response => {
+                    $(`#info-service-wms-${this.getIndex()} > .loading`).remove();
 
-                    result.features.forEach((feature, index) => displayWMSFeatureInfoList(that, result.layerName, feature, index));
+                    response.forEach((result) => {
+                        that.selection = result.features;
+
+                        result.features.forEach((feature, index) => WMSDisplayFeatureList(that, result.layerName, feature, index));
+                    });
                 });
-            });
+        } else {
+            $(`#info-service-wms-${this.getIndex()}`).remove();
+        }
     }
 
     /**

@@ -51,8 +51,5 @@ export function createOlLayer (serviceType, serviceIndex, layerIndex, title) {
 }
 
 export {
-    default as displayWMSFeatureInfoList
-} from './service/wms';
-export {
     default as displayWMTSFeatureInfoList
 } from './service/wmts';

@@ -19,6 +19,22 @@ export default function (service, coordinate) {
         throw new Error(`Unable to GetFeatureInfo on the WMS service "${service.capabilities.Service.Title}" ! It supports only "${formats.join('", "')}".`);
     }
 
+    let activeLayers = service.olLayer.getSource().getParams().LAYERS || [];
+    let queryableLayers = [];
+    activeLayers.forEach(layerName => {
+        let layer = service.layers.filter(layer => {
+            return (layer.Name === layerName);
+        });
+
+        if (layer.length > 0 && layer[0].queryable === true) {
+            queryableLayers.push(layer);
+        }
+    });
+
+    if (queryableLayers.length === 0) {
+        return null;
+    }
+
     let url = source.getGetFeatureInfoUrl(
         coordinate,
         view.getResolution(),
