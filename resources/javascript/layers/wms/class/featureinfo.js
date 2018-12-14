@@ -23,7 +23,7 @@ export default function (service, coordinate) {
 
     const activeLayers = service.olLayer.getSource().getParams().LAYERS || [];
     activeLayers.forEach(layerName => {
-        let layer = service.layers.filter(layer => {
+        const layer = service.layers.filter(layer => {
             return (layer.Name === layerName);
         });
 
