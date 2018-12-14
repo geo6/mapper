@@ -73,9 +73,9 @@ class WMTS {
                 index: index,
                 target: `#modal-layers-wmts-${index}`
             })
-            .appendTo('#modal-layers-wmts');
+            .appendTo('#modal-layers-optgroup-wmts');
 
-        $('#modal-layers-wmts').show();
+        $('#modal-layers-optgroup-wmts').show();
 
         let div = document.createElement('div');
 

@@ -11,13 +11,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <select class="form-control" id="modal-layers" autocomplete="off">
-                    <optgroup label="WMS Services" id="modal-layers-wms" style="display:none;">
+                <select class="form-control" id="modal-layers-select" autocomplete="off">
+                    <optgroup label="WMS Services" id="modal-layers-optgroup-wms" style="display:none;">
                     </optgroup>
-                    <optgroup label="WMTS Services" id="modal-layers-wmts" style="display:none;">
+                    <optgroup label="WMTS Services" id="modal-layers-optgroup-wmts" style="display:none;">
                     </optgroup>
-                    <optgroup label="Files" id="modal-layers-files">
-                        <option value="geojson" data-upload="true" data-target="#modal-layers-files-geojson" selected>GeoJSON</option>
+                    <optgroup label="Files" id="modal-layers-optgroup-files">
+                        <option value="geojson" data-upload="true" data-target="#modal-layers-files-geojson">GeoJSON</option>
                         <option value="gpx" data-upload="true" data-target="#modal-layers-files-gpx">GPX</option>
                         <option value="kml" data-upload="true" data-target="#modal-layers-files-kml">KML</option>
                     </optgroup>

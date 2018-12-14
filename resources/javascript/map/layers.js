@@ -39,12 +39,12 @@ export default function () {
     $('#btn-layers-apply').on('click', (event) => {
         event.preventDefault();
 
-        const option = $('#modal-layers option:selected');
+        const option = $('#modal-layers-select > optgroup > option:selected');
         const id = $(option).closest('optgroup').attr('id');
         const { index } = $(option).data();
 
         switch (id) {
-        case 'modal-layers-files':
+        case 'modal-layers-optgroup-files':
             const type = $('#modal-layers').val();
 
             switch (type) {
@@ -62,11 +62,11 @@ export default function () {
             }
             break;
 
-        case 'modal-layers-wms':
+        case 'modal-layers-optgroup-wms':
             WMSApplySelection(index);
             break;
 
-        case 'modal-layers-wmts':
+        case 'modal-layers-optgroup-wmts':
             WMTSApplySelection(index);
             break;
         }
