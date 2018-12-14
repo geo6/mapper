@@ -8,20 +8,21 @@ import {
  *
  * @param {object} service   WMTS service object.
  * @param {string} layerName Name of the layer.
- * @param {object} feature   Feature to display.
- * @param {int} featureIndex Index of the feature (in result) to display.
+ * @param {array}  features  Features to display.
  *
  * @returns {void}
  */
-export default function (service, layerName, feature, featureIndex) {
+export default function (service, layerName, features) {
     const serviceTitle = service.capabilities.ServiceIdentification.Title;
 
     const layerIndex = service.layers.findIndex(element => element.Name === layerName);
     const layerTitle = service.layers[layerIndex].Title;
 
-    const olLayer = createOlLayer('wmts', service.getIndex(), layerIndex, layerTitle);
+    const olElement = createOlLayer('wmts', service.getIndex(), layerIndex, layerTitle);
 
     const title = `<strong>${serviceTitle}</strong> - ${layerTitle}`;
 
-    displayFeatureInList(feature, featureIndex, title, olLayer, service.selection);
+    features.forEach((feature, index) => {
+        displayFeatureInList(feature, index, title, olElement, service.selection);
+    });
 }

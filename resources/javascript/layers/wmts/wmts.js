@@ -107,23 +107,19 @@ class WMTS {
             this.capabilities.ServiceIdentification.Title
         );
 
-        let that = this;
+        const requests = WMTSGetFeatureInfo(this, coordinate);
+        Promise.all(requests)
+            .then(responses => {
+                $(`#info-service-wmts-${this.getIndex()} > .loading`).remove();
 
-        const getFeatureInfo = WMTSGetFeatureInfo(this, coordinate);
-        if (getFeatureInfo instanceof Promise) {
-            getFeatureInfo
-                .then(response => {
-                    $(`#info-service-wmts-${this.getIndex()} > .loading`).remove();
+                this.selection = responses;
 
-                    response.forEach((result) => {
-                        that.selection = result.features;
-
-                        result.features.forEach((feature, index) => WMTSDisplayFeatureList(that, result.layerName, feature, index));
-                    });
+                responses.forEach(response => {
+                    if (response.features.length > 0) {
+                        WMTSDisplayFeatureList(this, response.layer, response.features);
+                    }
                 });
-        } else {
-            $(`#info-service-wmts-${this.getIndex()}`).remove();
-        }
+            });
     }
 
     /**

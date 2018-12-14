@@ -72,62 +72,51 @@ function WMTSGetFeatureInfoUrl (template, coordinate, source, resolution) {
 export default function (service, coordinate) {
     const view = window.app.map.getView();
 
-    let result = [];
+    let requests = [];
 
-    for (const key in service.olLayers) {
-        const name = service.olLayers[key].getSource().getLayer();
+    Object.values(service.olLayers).forEach(olLayer => {
+        const layerIdentifier = olLayer.getSource().getLayer();
 
-        let template = null;
-        service.capabilities.Contents.Layer.forEach((layer) => {
-            if (layer.Identifier === name && typeof layer.ResourceURL !== 'undefined') {
-                layer.ResourceURL.forEach((resource) => {
-                    if (resource.resourceType === 'FeatureInfo' && resource.format === 'application/json') {
-                        template = resource.template;
-
-                        return false;
-                    }
-                });
-
-                return false;
-            }
+        const layer = service.layers.find(layer => {
+            return (layer.Identifier === layerIdentifier);
         });
 
-        if (template === null) {
-            throw new Error(`Unable to GetFeatureInfo on the layer "${name}" of the WMTS service "${service.capabilities.ServiceIdentification.Title}" !`);
-        }
-
-        const url = WMTSGetFeatureInfoUrl(
-            template,
-            coordinate,
-            service.olLayers[key].getSource(),
-            view.getResolution()
-        );
-
-        const serviceIndex = service.getIndex();
-
-        return fetch(url)
-            .then((response) => {
-                if (response.ok !== true) {
-                    $(`#info-service-wmts-${serviceIndex}`).remove();
-
-                    return false;
-                }
-
-                return response.json();
-            })
-            .then((response) => {
-                let layerFeatures = (new GeoJSON()).readFeatures(response);
-
-                if (layerFeatures.length > 0) {
-                    result.push({
-                        name,
-                        features: layerFeatures
-                    });
-                } else {
-                    $(`#info-service-wmts-${serviceIndex}`).remove();
-                }
-
-                return result;
+        if (typeof layer !== 'undefined') {
+            const resourceJSON = layer.ResourceURL.find(resource => {
+                return (resource.resourceType === 'FeatureInfo' && resource.format === 'application/json');
             });
-    }
+
+            if (typeof resourceJSON === 'undefined') {
+                throw new Error(`Unable to GetFeatureInfo on the layer "${layer.Identifier}" of the WMTS service "${service.capabilities.ServiceIdentification.Title}" !`);
+            } else {
+                const url = WMTSGetFeatureInfoUrl(
+                    resourceJSON.template,
+                    coordinate,
+                    olLayer.getSource(),
+                    view.getResolution()
+                );
+
+                console.log(url);
+
+                const promise = fetch(url)
+                    .then(response => {
+                        if (response.ok !== true) {
+                            return null;
+                        }
+
+                        return response.json();
+                    })
+                    .then(response => {
+                        return {
+                            layer: layer.Identifier,
+                            features: response === null ? [] : (new GeoJSON()).readFeatures(response)
+                        };
+                    });
+
+                requests.push(promise);
+            }
+        }
+    });
+
+    return requests;
 }
