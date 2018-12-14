@@ -23,18 +23,18 @@ export default function (service, coordinate) {
 
     const activeLayers = service.olLayer.getSource().getParams().LAYERS || [];
     activeLayers.forEach(layerName => {
-        const layer = service.layers.filter(layer => {
+        const layer = service.layers.find(layer => {
             return (layer.Name === layerName);
         });
 
-        if (layer.length > 0 && layer[0].queryable === true) {
+        if (typeof layer !== 'undefined' && layer.queryable === true) {
             const url = source.getGetFeatureInfoUrl(
                 coordinate,
                 view.getResolution(),
                 view.getProjection(), {
                     'FEATURE_COUNT': 99,
                     'INFO_FORMAT': format,
-                    'QUERY_LAYERS': [layer[0].Name]
+                    'QUERY_LAYERS': [layer.Name]
                 }
             );
 
@@ -48,7 +48,7 @@ export default function (service, coordinate) {
                 })
                 .then(response => {
                     return {
-                        layer: layer[0].Name,
+                        layer: layer.Name,
                         features: response === null ? [] : (new WMSGetFeatureInfo()).readFeatures(response)
                     };
                 });
