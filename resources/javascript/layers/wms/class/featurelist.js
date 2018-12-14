@@ -9,7 +9,6 @@ import {
  * @param {object} service   WMS service object.
  * @param {string} layerName Name of the layer.
  * @param {array}  features  Features to display.
- * @param {int} featureIndex Index of the feature (in result) to display.
  *
  * @returns {void}
  */
