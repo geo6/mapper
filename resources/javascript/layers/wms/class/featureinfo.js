@@ -19,65 +19,43 @@ export default function (service, coordinate) {
         throw new Error(`Unable to GetFeatureInfo on the WMS service "${service.capabilities.Service.Title}" ! It supports only "${formats.join('", "')}".`);
     }
 
-    let activeLayers = service.olLayer.getSource().getParams().LAYERS || [];
-    let queryableLayers = [];
+    let requests = [];
+
+    const activeLayers = service.olLayer.getSource().getParams().LAYERS || [];
     activeLayers.forEach(layerName => {
         let layer = service.layers.filter(layer => {
             return (layer.Name === layerName);
         });
 
-        if (layer.length > 0 && layer[0].queryable === true) {
-            queryableLayers.push(layer);
+        if (layer.length > 0 && layer[0].queryable === true === true) {
+            const url = source.getGetFeatureInfoUrl(
+                coordinate,
+                view.getResolution(),
+                view.getProjection(), {
+                    'FEATURE_COUNT': 99,
+                    'INFO_FORMAT': format,
+                    'QUERY_LAYERS': [layer[0].Name]
+                }
+            );
+
+            const promise = fetch(url)
+                .then(response => {
+                    if (response.ok !== true) {
+                        return null;
+                    }
+
+                    return response.text();
+                })
+                .then(response => {
+                    return {
+                        layer: layer[0].Name,
+                        features: response === null ? [] : (new WMSGetFeatureInfo()).readFeatures(response)
+                    };
+                });
+
+            requests.push(promise);
         }
     });
 
-    if (queryableLayers.length === 0) {
-        return null;
-    }
-
-    let url = source.getGetFeatureInfoUrl(
-        coordinate,
-        view.getResolution(),
-        view.getProjection(), {
-            'INFO_FORMAT': format,
-            'FEATURE_COUNT': 99
-        }
-    );
-
-    let layers = source.getParams().LAYERS;
-
-    const serviceIndex = service.getIndex();
-
-    return fetch(url)
-        .then((response) => {
-            if (response.ok !== true) {
-                $(`#info-service-wms-${serviceIndex}`).remove();
-
-                return false;
-            }
-
-            return response.text();
-        })
-        .then((response) => {
-            let results = [];
-
-            layers.forEach(layerName => {
-                let layerFeatures = (new WMSGetFeatureInfo({
-                    layers: [layerName]
-                })).readFeatures(response);
-
-                if (layerFeatures.length > 0) {
-                    results.push({
-                        layerName,
-                        features: layerFeatures
-                    });
-                }
-            });
-
-            if (results.length === 0) {
-                $(`#info-service-wms-${serviceIndex}`).remove();
-            }
-
-            return results;
-        });
+    return requests;
 }

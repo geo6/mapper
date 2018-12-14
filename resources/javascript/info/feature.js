@@ -38,16 +38,7 @@ export default function (feature, featureIndex, title, olElement, selection) {
     $(li)
         .append(label)
         .appendTo(olElement)
-        .data({
-            featureIndex
-        })
         .on('click', event => {
-            let li = event.currentTarget;
-            let {
-                featureIndex
-            } = $(li).data();
-            let feature = selection[featureIndex];
-
             displayDetails(title, feature, li);
 
             window.app.marker.setGeometry(feature.getGeometry());

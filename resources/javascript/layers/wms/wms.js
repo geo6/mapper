@@ -107,23 +107,19 @@ class WMS {
             this.capabilities.Service.Title
         );
 
-        let that = this;
+        const requests = WMSGetFeatureInfo(this, coordinate);
+        Promise.all(requests)
+            .then(responses => {
+                $(`#info-service-wms-${this.getIndex()} > .loading`).remove();
 
-        const getFeatureInfo = WMSGetFeatureInfo(this, coordinate);
-        if (getFeatureInfo instanceof Promise) {
-            getFeatureInfo
-                .then(response => {
-                    $(`#info-service-wms-${this.getIndex()} > .loading`).remove();
+                this.selection = responses;
 
-                    response.forEach((result) => {
-                        that.selection = result.features;
-
-                        result.features.forEach((feature, index) => WMSDisplayFeatureList(that, result.layerName, feature, index));
-                    });
+                responses.forEach(response => {
+                    if (response.features.length > 0) {
+                        WMSDisplayFeatureList(this, response.layer, response.features);
+                    }
                 });
-        } else {
-            $(`#info-service-wms-${this.getIndex()}`).remove();
-        }
+            });
     }
 
     /**
