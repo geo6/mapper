@@ -34,8 +34,8 @@ class ProxyHandler implements RequestHandlerInterface
             $host = parse_url($url, PHP_URL_HOST);
             $path = parse_url($url, PHP_URL_PATH);
 
-            $auth = self::getHostAuthentication($config['layers'], $host, $path);
-            $proxied = self::isHostProxied($config['layers'], $host, $path);
+            $auth = isset($config['layers']) ? self::getHostAuthentication($config['layers'], $host, $path) : null;
+            $proxied = isset($config['layers']) ? self::isHostProxied($config['layers'], $host, $path) : false;
 
             if ($proxied === true) {
                 $localHTTPS = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']);

@@ -30,7 +30,8 @@ export default function (longitude, latitude) {
             ])
             .appendTo('#geocoder-results');
 
-        fetch(`${window.app.baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}`)
+        const url = `${window.app.baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}` + '?' + $.param({ c: window.app.custom });
+        fetch(url)
             .then((response) => {
                 if (response.ok !== true) {
                     $(`#geocoder-results-${key}`).remove();

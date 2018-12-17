@@ -17,8 +17,15 @@ function parseLayers (layers, searchElements) {
     return results;
 }
 
-export default function (url) {
-    return fetch(`${window.app.baseUrl}proxy?SERVICE=WMTS&REQUEST=GetCapabilities&VERSION=1.0.0&_url=${encodeURIComponent(url)}`)
+export default function (origUrl) {
+    const url = `${window.app.baseUrl}proxy` + '?' + $.param({
+        c: window.app.custom,
+        SERVICE: 'WMTS',
+        REQUEST: 'GetCapabilities',
+        VERSION: '1.0.0',
+        _url: origUrl
+    });
+    return fetch(url)
         .then(response => response.text())
         .then(response => {
             let capabilities = (new WMTSCapabilities()).read(response);
@@ -31,7 +38,7 @@ export default function (url) {
             }
 
             if (crs.indexOf('EPSG:3857') === -1) {
-                throw new Error(`The WMTS service "${url}" does not support EPSG:3857 ! It supports only ${crs.join(', ')}.`);
+                throw new Error(`The WMTS service "${origUrl}" does not support EPSG:3857 ! It supports only ${crs.join(', ')}.`);
             }
 
             return {

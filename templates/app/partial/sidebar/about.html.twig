@@ -3,14 +3,16 @@
         About
         <span class="sidebar-close"><i class="fas fa-caret-left"></i></span>
     </h1>
+    <h2 class="h3 mt-3">
+        Mapper
+        {% if config is defined and config.custom %}
+        :
+        {{ config.title ?? config.custom }}
+        {% endif %}
+    </h2>
+    {% if config is defined and config.description %}
     <p class="mt-3">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In mollis pretium luctus. Maecenas id magna quam. Cras
-        aliquet magna a lectus tempor, non scelerisque lacus porttitor. Nam condimentum arcu quis ex dictum dapibus.
-        Curabitur ut purus augue. Etiam sem nunc, tincidunt vel justo in, cursus faucibus nulla. Mauris posuere, turpis
-        sollicitudin accumsan mollis, nisi sem cursus lacus, ac dapibus lorem nisl ut nisi. Morbi vestibulum dui eget
-        suscipit semper. Fusce magna mi, convallis vel erat sit amet, efficitur gravida ipsum. Curabitur ullamcorper,
-        velit nec pulvinar ultrices, dolor erat maximus leo, consequat tempus purus est sed turpis. Interdum et
-        malesuada fames ac ante ipsum primis in faucibus. Proin lobortis iaculis justo, vitae euismod quam mollis nec.
-        Donec luctus volutpat elit in luctus.
+        {{ config.description | nl2br }}
     </p>
+    {% endif %}
 </div>

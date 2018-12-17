@@ -25,6 +25,8 @@ class UIMiddleware implements MiddlewareInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
 
+        $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
+
         if ($session->has(UserInterface::class)) {
             $user = $session->get(UserInterface::class);
 
@@ -34,6 +36,16 @@ class UIMiddleware implements MiddlewareInterface
                 $user
             );
         }
+
+        $this->template->addDefaultParam(
+            $this->template::TEMPLATE_ALL,
+            'config',
+            [
+                'custom'      => $config['custom'] ?? null,
+                'title'       => $config['title'] ?? null,
+                'description' => $config['description'] ?? null,
+            ]
+        );
 
         return $handler->handle($request);
     }

@@ -1,4 +1,1 @@
 development.config.php
-application/*
-!application/
-!application/.gitkeep

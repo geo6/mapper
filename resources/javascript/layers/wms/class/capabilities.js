@@ -20,8 +20,14 @@ function parseLayers (layers, searchElements) {
     return results;
 }
 
-export default function (url) {
-    return fetch(`${window.app.baseUrl}proxy?SERVICE=WMS&REQUEST=GetCapabilities&_url=${encodeURIComponent(url)}`)
+export default function (origUrl) {
+    const url = `${window.app.baseUrl}proxy` + '?' + $.param({
+        c: window.app.custom,
+        SERVICE: 'WMS',
+        REQUEST: 'GetCapabilities',
+        _url: origUrl
+    });
+    return fetch(url)
         .then(response => response.text())
         .then(response => {
             let capabilities = (new WMSCapabilities()).read(response);
@@ -29,7 +35,7 @@ export default function (url) {
             if (typeof capabilities.Capability.Layer.CRS !== 'undefined' && capabilities.Capability.Layer.CRS.indexOf('EPSG:3857') === -1) {
                 const crs = capabilities.Capability.Layer.CRS.join(', ');
 
-                throw new Error(`The WMS service "${url}" does not support EPSG:3857 ! It supports only ${crs}.`);
+                throw new Error(`The WMS service "${origUrl}" does not support EPSG:3857 ! It supports only ${crs}.`);
             }
 
             return {

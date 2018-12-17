@@ -31,7 +31,12 @@ function loadBaselayer (index) {
             break;
 
         case 'wmts':
-            fetch(baselayer.url + '?service=wmts&request=GetCapabilities&version=1.1.0')
+            const url = baselayer.url + '?' + $.param({
+                SERVICE: 'WMTS',
+                REQUEST: 'GetCapabilities',
+                VERSION: '1.0.0'
+            });
+            fetch(url)
                 .then(response => response.text())
                 .then((text) => {
                     let capabilities = (new WMTSCapabilities()).read(text);

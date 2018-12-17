@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -11,6 +12,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Zend\ConfigAggregator\ConfigAggregator;
 use Zend\ConfigAggregator\PhpFileProvider;
 use Zend\ConfigAggregator\ZendConfigProvider;
+use Zend\Expressive\Authentication\UserInterface;
+use Zend\Expressive\Session\SessionMiddleware;
 
 class ConfigMiddleware implements MiddlewareInterface
 {
@@ -18,12 +21,55 @@ class ConfigMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $config = new ConfigAggregator([
-            new PhpFileProvider('./config/config.php'),
-            new ZendConfigProvider('./composer.json'),
-            new ZendConfigProvider('./config/application/*.{php,ini,xml,json,yaml}'),
-        ]);
+        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
 
-        return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $config->getMergedConfig()));
+        $available = glob('config/application/public/*', GLOB_ONLYDIR);
+
+        if ($session->has(UserInterface::class)) {
+            $user = $session->get(UserInterface::class);
+
+            foreach ($user['roles'] as $role) {
+                $directory = 'config/application/roles/'.$role;
+                if (file_exists($directory) && is_dir($directory)) {
+                    $available = array_merge($available, glob($directory.'/*', GLOB_ONLYDIR));
+                }
+            }
+
+            $directory = 'config/application/users/'.$user['username'];
+            if (file_exists($directory) && is_dir($directory)) {
+                $available = array_merge($available, glob($directory.'/*', GLOB_ONLYDIR));
+            }
+        }
+
+        $query = $request->getQueryParams();
+
+        if (isset($query['c']) && strlen($query['c']) > 0) {
+            $enabled = array_filter($available, function ($directory) use ($query) {
+                return basename($directory) === $query['c'];
+            });
+
+            if (count($enabled) > 0) {
+                $configProviders = [
+                    new PhpFileProvider('config/config.php'),
+                    new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
+                ];
+
+                foreach ($enabled as $directory) {
+                    $configProviders[] = new ZendConfigProvider($directory.'/*.{php,ini,xml,json,yaml}');
+                }
+
+                $config = (new ConfigAggregator($configProviders))->getMergedConfig();
+                $config['custom'] = $query['c'];
+            } else {
+                throw new Exception(sprintf('Unable to find settings for "%s".', $query['c']));
+            }
+        } else {
+            $config = (new ConfigAggregator([
+                new PhpFileProvider('config/config.php'),
+                new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
+            ]))->getMergedConfig();
+        }
+
+        return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $config));
     }
 }

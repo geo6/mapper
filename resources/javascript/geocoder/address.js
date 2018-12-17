@@ -28,7 +28,8 @@ export default function (address) {
                 ])
                 .appendTo('#geocoder-results');
 
-            fetch(`${window.app.baseUrl}geocoder/${key}/address/${address}`)
+            const url = `${window.app.baseUrl}geocoder/${key}/address/${address}` + '?' + $.param({ c: window.app.custom });
+            fetch(url)
                 .then((response) => {
                     if (response.ok !== true) {
                         $(`#geocoder-results-${key}`).remove();
