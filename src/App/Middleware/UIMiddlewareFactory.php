@@ -6,7 +6,6 @@ namespace App\Middleware;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\MiddlewareInterface;
-use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 class UIMiddlewareFactory
