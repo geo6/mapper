@@ -63,7 +63,6 @@ class HomeHandler implements RequestHandlerInterface
             'baseUrl'           => $baseUrl,
             'geocoderProviders' => $providers,
             'layers'            => $config['layers'] ?? [],
-            'version'           => $config['version'],
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));
