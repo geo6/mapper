@@ -1,10 +1,22 @@
 {
     "name": "geo6/mapper",
     "type": "project",
-    "description": "",
-    "homepage": "https://github.com/geo6/mapper",
-    "version": "4.0.0",
-    "license": "",
+    "description": "Display (and query) geographical data (WMS, WMTS, GeoJSON, KML, GPX).",
+    "keywords": [
+        "zend-expressive",
+        "zend-framework",
+        "zend",
+        "mapper",
+        "wms",
+        "wmts",
+        "geojson",
+        "kml",
+        "gpx",
+        "viewer",
+        "geocoder",
+        "expressive"
+    ],
+    "license": "GPL-3.0-or-later",
     "require": {
         "php": "^7.1",
         "ext-curl": "*",
