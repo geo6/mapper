@@ -43,10 +43,10 @@ class ProxyHandler implements RequestHandlerInterface
 
                 $proxy = 'http'.($localHTTPS ? 's' : '').'://'.$localHost.$baseUrl.'proxy';
 
-                $callback = function ($body) use ($host, $path, $proxy) {
+                $callback = function ($body) use ($config, $host, $path, $proxy) {
                     return preg_replace_callback(
                         '/xlink:href="(https?:\/\/.+?)"/',
-                        function ($matches) use ($host, $path, $proxy) {
+                        function ($matches) use ($config, $host, $path, $proxy) {
                             $url = parse_url($matches[1]);
 
                             if ($url['host'] === $host && $url['path'] === $path) {
@@ -61,7 +61,8 @@ class ProxyHandler implements RequestHandlerInterface
                                 return 'xlink:href='.
                                     '"'
                                     .$proxy
-                                    .'?_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'])
+                                    .'?c='.$config['custom']
+                                    .'&amp;_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'])
                                     .(isset($query) ? htmlentities('&'.$query) : '')
                                     .'"';
                             }
@@ -164,6 +165,8 @@ class ProxyHandler implements RequestHandlerInterface
             //'timeout'  => 2.0,
         ]);
 
+        unset($query['_url'], $query['c']);
+
         $response = $client->request('GET', $url, [
             'query'   => $query,
             'headers' => [
@@ -185,6 +188,8 @@ class ProxyHandler implements RequestHandlerInterface
         $client = new Client([
             //'timeout'  => 2.0,
         ]);
+
+        unset($query['_url'], $query['c']);
 
         $response = $client->request('GET', $url, [
             'auth'    => $authentication,
