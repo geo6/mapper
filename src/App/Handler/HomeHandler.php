@@ -58,11 +58,20 @@ class HomeHandler implements RequestHandlerInterface
             ];
         }
 
+        $layers = array_map(
+            function ($layer) {
+                unset($layer['auth']);
+
+                return $layer;
+            },
+            $config['layers'] ?? []
+        );
+
         $data = [
             'baselayers'        => $config['baselayers'] ?? $defaultBaselayer,
             'baseUrl'           => $baseUrl,
             'geocoderProviders' => $providers,
-            'layers'            => $config['layers'] ?? [],
+            'layers'            => $layers,
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));
