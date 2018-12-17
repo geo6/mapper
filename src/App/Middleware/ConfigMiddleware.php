@@ -44,9 +44,9 @@ class ConfigMiddleware implements MiddlewareInterface
         $query = $request->getQueryParams();
 
         if (isset($query['c']) && strlen($query['c']) > 0) {
-            $enabled = array_filter($available, function ($directory) use ($query) {
+            $enabled = array_values(array_filter($available, function ($directory) use ($query) {
                 return basename($directory) === $query['c'];
-            });
+            }));
 
             if (count($enabled) > 0) {
                 $configProviders = [
