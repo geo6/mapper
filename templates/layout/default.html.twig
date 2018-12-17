@@ -42,7 +42,14 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-circle"></i> {{ user.details.fullname }}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            {% if config.available | length > 0 %}
+                            <strong class="dropdown-header"><i class="fas fa-cogs"></i> Projects</strong>
+                            {% for key, title in config.available %}
+                            <a class="dropdown-item" href="{{ path('home') }}?c={{ key }}">{{ title }}</a>
+                            {% endfor %}
+                            <div class="dropdown-divider"></div>
+                            {% endif %}
                             <a href="{{ path('logout') }}" class="dropdown-item">
                                 <i class="fas fa-sign-out-alt"></i> Log out
                             </a>

@@ -57,18 +57,31 @@ class ConfigMiddleware implements MiddlewareInterface
                 foreach ($enabled as $directory) {
                     $configProviders[] = new ZendConfigProvider($directory.'/*.{php,ini,xml,json,yaml}');
                 }
-
-                $config = (new ConfigAggregator($configProviders))->getMergedConfig();
-                $config['custom'] = $query['c'];
             } else {
                 throw new Exception(sprintf('Unable to find settings for "%s".', $query['c']));
             }
         } else {
-            $config = (new ConfigAggregator([
+            $configProviders = [
                 new PhpFileProvider('config/config.php'),
                 new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
-            ]))->getMergedConfig();
+            ];
         }
+
+        $config = (new ConfigAggregator($configProviders))->getMergedConfig();
+        $config['custom'] = $query['c'] ?? null;
+        $config['available'] = [];
+
+        foreach ($available as $a) {
+            $k = basename($a);
+            $c = (new ConfigAggregator([new ZendConfigProvider($a.'/*.{php,ini,xml,json,yaml}')]))->getMergedConfig();
+
+            if (isset($c['title']) && strlen($c['title']) > 0) {
+                $config['available'][$k] = $c['title'];
+            } else {
+                $config['available'][$k] = strtoupper($k);
+            }
+        }
+        asort($config['available']);
 
         return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $config));
     }

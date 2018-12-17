@@ -41,6 +41,7 @@ class UIMiddleware implements MiddlewareInterface
             $this->template::TEMPLATE_ALL,
             'config',
             [
+                'available'   => $config['available'] ?? [],
                 'custom'      => $config['custom'] ?? null,
                 'title'       => $config['title'] ?? null,
                 'description' => $config['description'] ?? null,
