@@ -39,7 +39,10 @@ class ConfigProvider
                 Handler\UploadHandler::class          => Handler\UploadHandler::class,
             ],
             'factories'  => [
-                Handler\HomeHandler::class => Handler\HomeHandlerFactory::class,
+                Middleware\UIMiddleware::class => Middleware\UIMiddlewareFactory::class,
+
+                Handler\HomeHandler::class  => Handler\HomeHandlerFactory::class,
+                Handler\LoginHandler::class => Handler\LoginHandlerFactory::class,
             ],
         ];
     }

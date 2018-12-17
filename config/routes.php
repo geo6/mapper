@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
+use Zend\Expressive\Authentication\AuthenticationMiddleware;
 use Zend\Expressive\MiddlewareFactory;
 
 /*
@@ -33,12 +34,29 @@ use Zend\Expressive\MiddlewareFactory;
  * );
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    $app->get('/', App\Handler\HomeHandler::class, 'home');
+    $loadAuthenticationMiddleware = function ($middleware) use ($container) {
+        if (isset($container->get('config')['authentication']['pdo'])) {
+            return [
+                AuthenticationMiddleware::class,
+                $middleware,
+            ];
+        }
 
-    $app->get('/file/{identifier}', App\Handler\FileHandler::class, 'file');
-    $app->get('/geocoder/{provider}/address/{address}', App\Handler\Geocoder\AddressHandler::class, 'geocoder.address');
-    $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', App\Handler\Geocoder\ReverseHandler::class, 'geocoder.reverse');
-    $app->get('/proxy', App\Handler\ProxyHandler::class, 'proxy');
+        return $middleware;
+    };
 
-    $app->post('/upload', App\Handler\UploadHandler::class, 'upload');
+    $app->get('/', $loadAuthenticationMiddleware(App\Handler\HomeHandler::class), 'home');
+
+    $app->get('/file/{identifier}', $loadAuthenticationMiddleware(App\Handler\FileHandler::class), 'file');
+    $app->get('/geocoder/{provider}/address/{address}', $loadAuthenticationMiddleware(App\Handler\Geocoder\AddressHandler::class), 'geocoder.address');
+    $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', $loadAuthenticationMiddleware(App\Handler\Geocoder\ReverseHandler::class), 'geocoder.reverse');
+    $app->get('/proxy', $loadAuthenticationMiddleware(App\Handler\ProxyHandler::class), 'proxy');
+
+    $app->post('/upload', $loadAuthenticationMiddleware(App\Handler\UploadHandler::class), 'upload');
+
+    $app->route('/login', [
+        App\Handler\LoginHandler::class,
+        AuthenticationMiddleware::class,
+    ], ['GET', 'POST'], 'login');
+    $app->get('/logout', $loadAuthenticationMiddleware(App\Handler\LoginHandler::class), 'logout');
 };
