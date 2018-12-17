@@ -5,10 +5,7 @@
     </h1>
     <h2 class="h3 mt-3">
         Mapper
-        {% if config is defined and config.custom %}
-        :
-        {{ config.title ?? config.custom }}
-        {% endif %}
+        {% if config.custom %}: {{ config.title ?? config.custom | upper }}{% endif %}
     </h2>
     {% if config is defined and config.description %}
     <p class="mt-3">
