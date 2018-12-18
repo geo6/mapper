@@ -8,7 +8,8 @@ use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
 use Geocoder\Query\ReverseQuery;
 use Geocoder\StatefulGeocoder;
-use Http\Adapter\Guzzle6\Client;
+use GuzzleHttp\Client as GuzzleClient;
+use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -22,7 +23,10 @@ class ReverseHandler implements RequestHandlerInterface
         $latitude = $request->getAttribute('latitude');
         $provider = $request->getAttribute('provider');
 
-        $adapter = new Client();
+        $guzzle = new GuzzleClient([
+            'timeout' => 1.0,
+        ]);
+        $adapter = new GuzzleAdapter($guzzle);
 
         switch ($provider) {
             case 'geopunt':

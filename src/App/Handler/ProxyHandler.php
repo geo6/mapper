@@ -6,7 +6,7 @@ namespace App\Handler;
 
 use App\Middleware\ConfigMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -161,8 +161,8 @@ class ProxyHandler implements RequestHandlerInterface
         ?string $acceptEncoding = null,
         ?callable $callback = null
     ): Response {
-        $client = new Client([
-            //'timeout'  => 2.0,
+        $client = new GuzzleClient([
+            'timeout' => 5.0,
         ]);
 
         unset($query['_url'], $query['c']);
@@ -185,8 +185,8 @@ class ProxyHandler implements RequestHandlerInterface
         ?string $acceptEncoding = null,
         ?callable $callback = null
     ): Response {
-        $client = new Client([
-            //'timeout'  => 2.0,
+        $client = new GuzzleClient([
+            'timeout' => 5.0,
         ]);
 
         unset($query['_url'], $query['c']);
