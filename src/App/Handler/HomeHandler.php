@@ -34,6 +34,7 @@ class HomeHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
+        $server = $request->getServerParams();
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
         $baseUrl = rtrim($baseUrl, '/').'/';
@@ -72,6 +73,7 @@ class HomeHandler implements RequestHandlerInterface
             'baseUrl'           => $baseUrl,
             'geocoderProviders' => $providers,
             'layers'            => $layers,
+            'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));

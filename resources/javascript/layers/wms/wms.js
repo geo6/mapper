@@ -26,6 +26,7 @@ class WMS {
         this.layers = null;
         this.olLayer = null;
         this.selection = [];
+        this.mixedContent = false;
 
         this.getCapabilities(callback);
 
@@ -46,14 +47,13 @@ class WMS {
      * @returns {void}
      */
     getCapabilities (callback) {
-        let that = this;
-
         const getCapabilities = WMSGetCapabilities(this.url);
         if (getCapabilities instanceof Promise) {
             getCapabilities
                 .then(response => {
-                    that.capabilities = response.capabilities;
-                    that.layers = response.layers;
+                    this.capabilities = response.capabilities;
+                    this.layers = response.layers;
+                    this.mixedContent = response.mixedContent;
 
                     callback.call(this, this);
                 });
@@ -86,8 +86,14 @@ class WMS {
             .addClass('text-info small')
             .text(this.capabilities.Service.Abstract)
             .appendTo(div);
+        if (this.mixedContent === true) {
+            $(document.createElement('p'))
+                .addClass('alert alert-warning small mt-3')
+                .html('Please switch to HTTPS version of this service (if available - or enable <code>proxy</code> mode throught application settings) to be able to query features (see <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#Mixed_active_content" target="_blank">Mixed Active Content</a> for more details).')
+                .appendTo(div);
+        }
         $(div)
-            .append(generateLayersList(index, this.layers))
+            .append(generateLayersList(this, this.layers))
             .attr('id', `modal-layers-wms-${index}`)
             .hide();
 

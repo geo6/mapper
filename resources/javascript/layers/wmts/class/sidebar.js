@@ -1,7 +1,4 @@
-export default function (wmts, layer) {
-    const getfeatureinfo = typeof wmts.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
-    const index = wmts.getIndex();
-
+export default function (service, layer) {
     let queryable = false;
     if (typeof layer.ResourceURL !== 'undefined') {
         layer.ResourceURL.forEach((resource) => {
@@ -16,19 +13,28 @@ export default function (wmts, layer) {
     const li = $('#layers-new').clone();
 
     const name = layer.Name || layer.Identifier;
-    const pointer = $(`#layers .list-group > li[id^="layers-wmts-${index}-"]`).length;
+    const pointer = $(`#layers .list-group > li[id^="layers-wmts-${service.getIndex()}-"]`).length;
 
     $(li)
         .data({
             type: 'wmts',
-            index: index,
+            index: service.getIndex(),
             layer: name
         })
         .attr({
-            id: `layers-wmts-${index}-${pointer}`
+            id: `layers-wmts-${service.getIndex()}-${pointer}`
         })
         .show()
         .appendTo('#layers .list-group');
+
+    let icon = '';
+    if (typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined' && queryable === true) {
+        if (service.mixedContent === true) {
+            icon = '<i class="fas fa-info-circle text-light" style="cursor:help;" title="GetFeatureInfo is disabled because of Mixed Active Content."></i> ';
+        } else {
+            icon = '<i class="fas fa-info-circle"></i> ';
+        }
+    }
 
     $(li).find('div.layer-name')
         .addClass('text-nowrap text-truncate')
@@ -36,7 +42,7 @@ export default function (wmts, layer) {
             title: name
         })
         .html(
-            (getfeatureinfo === true && queryable === true ? '<i class="fas fa-info-circle"></i> ' : '') +
+            icon +
             layer.Title
         );
 

@@ -43,7 +43,8 @@ export default function (origUrl) {
 
             return {
                 capabilities: capabilities,
-                layers: parseLayers(capabilities.Contents.Layer)
+                layers: parseLayers(capabilities.Contents.Layer),
+                mixedContent: window.app.https === true && RegExp('^http://').test(origUrl)
             };
         });
 }

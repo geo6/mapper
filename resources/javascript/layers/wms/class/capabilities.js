@@ -40,7 +40,8 @@ export default function (origUrl) {
 
             return {
                 capabilities: capabilities,
-                layers: typeof capabilities.Capability.Layer.Layer !== 'undefined' ? parseLayers(capabilities.Capability.Layer.Layer) : parseLayers(capabilities.Capability.Layer)
+                layers: typeof capabilities.Capability.Layer.Layer !== 'undefined' ? parseLayers(capabilities.Capability.Layer.Layer) : parseLayers(capabilities.Capability.Layer),
+                mixedContent: window.app.https === true && RegExp('^http://').test(capabilities.Service.OnlineResource)
             };
         });
 }

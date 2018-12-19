@@ -27,7 +27,7 @@ export default function (service, coordinate) {
             return (layer.Name === layerName);
         });
 
-        if (typeof layer !== 'undefined' && layer.queryable === true) {
+        if (typeof layer !== 'undefined' && layer.queryable === true && service.mixedContent === false) {
             const url = source.getGetFeatureInfoUrl(
                 coordinate,
                 view.getResolution(),

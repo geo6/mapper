@@ -4,14 +4,12 @@ import displayDetails from './details';
  * Display list of selected features.
  *
  * @param {object} feature   Feature object.
- * @param {int} featureIndex Feature index (in result features array).
  * @param {string} title     Layer title.
  * @param {object} olElement ol DOM element (of the layer).
- * @param {array} selection  Features selected.
  *
  * @returns {void}
  */
-export default function (feature, featureIndex, title, olElement, selection) {
+export default function (feature, title, olElement) {
     let id = feature.getId();
     let properties = feature.getProperties();
     let geometryName = feature.getGeometryName();

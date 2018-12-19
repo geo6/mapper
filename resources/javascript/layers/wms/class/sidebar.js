@@ -1,21 +1,29 @@
-export default function (wms, layer) {
+export default function (service, layer) {
     const li = $('#layers-new').clone();
-    const index = wms.getIndex();
 
     const name = layer.Name || layer.Identifier;
-    const pointer = $(`#layers .list-group > li[id^="layers-wms-${index}-"]`).length;
+    const pointer = $(`#layers .list-group > li[id^="layers-wms-${service.getIndex()}-"]`).length;
 
     $(li)
         .data({
             type: 'wms',
-            index: index,
+            index: service.getIndex(),
             layer: name
         })
         .attr({
-            id: `layers-wms-${index}-${pointer}`
+            id: `layers-wms-${service.getIndex()}-${pointer}`
         })
         .show()
         .appendTo('#layers .list-group');
+
+    let icon = '';
+    if (layer.queryable === true) {
+        if (service.mixedContent === true) {
+            icon = '<i class="fas fa-info-circle text-light" style="cursor:help;" title="GetFeatureInfo is disabled because of Mixed Active Content."></i> ';
+        } else {
+            icon = '<i class="fas fa-info-circle"></i> ';
+        }
+    }
 
     $(li).find('div.layer-name')
         .addClass('text-nowrap text-truncate')
@@ -23,7 +31,7 @@ export default function (wms, layer) {
             title: name
         })
         .html(
-            (layer.queryable === true ? '<i class="fas fa-info-circle"></i> ' : '') +
+            icon +
             layer.Title
         );
 

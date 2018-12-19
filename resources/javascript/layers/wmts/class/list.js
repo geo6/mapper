@@ -1,6 +1,4 @@
-function generateLayersList (index, layers) {
-    const getfeatureinfo = typeof window.app.wmts[index].capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
-
+function generateLayersList (service, layers) {
     let ul = document.createElement('ul');
 
     $(ul).addClass('list-group mb-3');
@@ -22,7 +20,7 @@ function generateLayersList (index, layers) {
         let badge = $(document.createElement('span')).addClass('badge badge-light ml-1');
 
         $(li)
-            .attr('id', `wmts-${index}-${layers[i].Identifier}`)
+            .attr('id', `wmts-${service.getIndex()}-${layers[i].Identifier}`)
             .data({
                 name: layers[i].Identifier
             })
@@ -34,9 +32,18 @@ function generateLayersList (index, layers) {
             })
             .appendTo(ul);
 
+        let icon = '';
+        if (typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined' && queryable === true) {
+            if (service.mixedContent === true) {
+                icon = '<i class="fas fa-info-circle text-light" style="cursor:help;" title="GetFeatureInfo is disabled because of Mixed Active Content."></i> ';
+            } else {
+                icon = '<i class="fas fa-info-circle"></i> ';
+            }
+        }
+
         $(div)
             .append([
-                (getfeatureinfo === true && queryable === true ? '<i class="fas fa-info-circle"></i> ' : ''),
+                icon,
                 layers[i].Title,
                 $(badge).text(layers[i].Identifier)
             ])
@@ -52,7 +59,7 @@ function generateLayersList (index, layers) {
         }
 
         /* if (typeof layers[i].Layer !== 'undefined') {
-            $(li).append(generateLayersList(index, layers[i].Layer));
+            $(li).append(generateLayersList(service.getIndex(), layers[i].Layer));
         } */
     }
 

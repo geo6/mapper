@@ -88,15 +88,15 @@ export default function (service, coordinate) {
 
             if (typeof resourceJSON === 'undefined') {
                 throw new Error(`Unable to GetFeatureInfo on the layer "${layer.Identifier}" of the WMTS service "${service.capabilities.ServiceIdentification.Title}" !`);
-            } else {
+            }
+
+            if (service.mixedContent === false) {
                 const url = WMTSGetFeatureInfoUrl(
                     resourceJSON.template,
                     coordinate,
                     olLayer.getSource(),
                     view.getResolution()
                 );
-
-                console.log(url);
 
                 const promise = fetch(url)
                     .then(response => {
