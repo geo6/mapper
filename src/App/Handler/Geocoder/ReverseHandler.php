@@ -24,7 +24,7 @@ class ReverseHandler implements RequestHandlerInterface
         $provider = $request->getAttribute('provider');
 
         $guzzle = new GuzzleClient([
-            'timeout' => 1.0,
+            'timeout' => 5.0,
         ]);
         $adapter = new GuzzleAdapter($guzzle);
 
