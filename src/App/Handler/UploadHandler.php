@@ -106,6 +106,9 @@ class UploadHandler implements RequestHandlerInterface
                                                 $data['description'] = $json->description ?? null;
                                                 break;
 
+                                            case 'application/gpx+xml':
+                                            case 'application/vnd.google-earth.kml+xml':
+                                            // case 'application/vnd.google-earth.kmz':
                                             case 'application/xml':
                                             case 'text/xml':
                                                 $xml = new SimpleXMLElement($content);

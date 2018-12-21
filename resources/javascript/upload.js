@@ -1,5 +1,7 @@
 import Resumable from 'resumablejs/resumable';
 
+import File from './file';
+
 export default function () {
     const resumable = new Resumable({
         fileType: [
@@ -47,39 +49,36 @@ export default function () {
             case 'geojson':
                 count.geojson++;
 
-                $(li)
-                    .attr({
-                        id: `geojson-${pointer}`
-                    })
+                $(li).attr({id: `file-geojson-${pointer}`});
+/*
                     .data({
                         name: file.fileName
                     });
+*/
 
                 $('#modal-layers-files-geojson > .list-group').append(li);
                 break;
             case 'gpx':
                 count.gpx++;
 
-                $(li)
-                    .attr({
-                        id: `gpx-${pointer}`
-                    })
+                $(li).attr({id: `file-gpx-${pointer}`});
+/*
                     .data({
                         name: file.fileName
                     });
+*/
 
                 $('#modal-layers-files-gpx > .list-group').append(li);
                 break;
             case 'kml':
                 count.kml++;
 
-                $(li)
-                    .attr({
-                        id: `kml-${pointer}`
-                    })
+                $(li).attr({id: `file-kml-${pointer}`});
+/*
                     .data({
                         name: file.fileName
                     });
+*/
 
                 $('#modal-layers-files-kml > .list-group').append(li);
                 break;
@@ -121,6 +120,29 @@ export default function () {
             description
         } = JSON.parse(message);
 
+        let f = null;
+        switch (extension.toLowerCase()) {
+        case 'json':
+        case 'geojson':
+            f = new File('geojson', file.uniqueIdentifier, file.fileName, title, description);
+            break;
+
+        case 'gpx':
+            f = new File('gpx', file.uniqueIdentifier, file.fileName, title, description);
+            break;
+
+        case 'kml':
+            f = new File('kml', file.uniqueIdentifier, file.fileName, title, description);
+            break;
+        }
+
+        if (f instanceof File) {
+            const li = $(`#file-${f.type}-${f.getIndex()}`);
+            console.log(f.type, f.getIndex(), li);
+
+            f.displayInList(li);
+        }
+/*
         let list = null;
         switch (extension.toLowerCase()) {
         case 'json':
@@ -192,6 +214,7 @@ export default function () {
                 }
             });
         }
+*/
     });
 
     // resumable.on('complete', () => {
