@@ -14,10 +14,9 @@ class GeoJSON extends SplFileInfo implements FileInterface
         $mime = mime_content_type($this->getPathname());
         $extension = strtolower(pathinfo($this->getPathname(), PATHINFO_EXTENSION));
 
-        return (
+        return
             in_array($extension, ['json', 'geojson'], true) &&
-            in_array($mime, ['text/plain', 'application/json'], true)
-        );
+            in_array($mime, ['text/plain', 'application/json'], true);
     }
 
     public function getInfo() : ?ArrayObject

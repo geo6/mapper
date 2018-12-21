@@ -13,10 +13,9 @@ class XML extends SplFileInfo implements FileInterface
         $mime = mime_content_type($this->getPathname());
         $extension = strtolower(pathinfo($this->getPathname(), PATHINFO_EXTENSION));
 
-        return (
+        return
             in_array($extension, ['xml'], true) &&
-            in_array($mime, ['text/xml', 'application/xml'], true)
-        );
+            in_array($mime, ['text/xml', 'application/xml'], true);
     }
 
     public function getInfo() : ?ArrayObject

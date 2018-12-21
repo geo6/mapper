@@ -9,15 +9,15 @@ use App\File\GPX;
 use App\File\KML;
 use App\Middleware\ConfigMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
+use FilesystemIterator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use FilesystemIterator;
 
 class HomeHandler implements RequestHandlerInterface
 {

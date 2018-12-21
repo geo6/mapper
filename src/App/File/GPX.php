@@ -11,9 +11,8 @@ class GPX extends XML implements FileInterface
         $mime = mime_content_type($this->getPathname());
         $extension = strtolower(pathinfo($this->getPathname(), PATHINFO_EXTENSION));
 
-        return (
+        return
             in_array($extension, ['gpx'], true) &&
-            in_array($mime, ['text/xml', 'application/xml', 'application/gpx+xml'], true)
-        );
+            in_array($mime, ['text/xml', 'application/xml', 'application/gpx+xml'], true);
     }
 }
