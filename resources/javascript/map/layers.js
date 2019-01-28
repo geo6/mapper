@@ -23,13 +23,18 @@ export default function () {
     initWMS();
     initWMTS();
 
-    $('#modal-layers').on('change', (event) => {
-        let { target, upload } = $(event.target).find('option:selected').data();
+    $('#modal-layers-select').on('change', (event) => {
+        const type = $(event.target).val();
+        const { target, upload } = $(event.target).find('option:selected').data();
+
+        $('#modal-layers-format-help > div').hide();
 
         if (upload === true) {
             $('#progress-upload').show();
+            $(`#modal-layers-format-help, #modal-layers-format-help-${type}`).show();
         } else {
             $('#progress-upload').hide();
+            $('#modal-layers-format-help').hide();
         }
 
         $('#modal-layers-layers > div').hide();

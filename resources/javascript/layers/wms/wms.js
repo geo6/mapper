@@ -75,8 +75,6 @@ class WMS {
             })
             .appendTo('#modal-layers-optgroup-wms');
 
-        $('#modal-layers-optgroup-wms').show();
-
         let div = document.createElement('div');
 
         $(document.createElement('strong'))

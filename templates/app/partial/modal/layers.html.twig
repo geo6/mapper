@@ -12,9 +12,9 @@
             </div>
             <div class="modal-body">
                 <select class="form-control" id="modal-layers-select" autocomplete="off">
-                    <optgroup label="WMS Services" id="modal-layers-optgroup-wms" style="display:none;">
+                    <optgroup label="WMS services" id="modal-layers-optgroup-wms">
                     </optgroup>
-                    <optgroup label="WMTS Services" id="modal-layers-optgroup-wmts" style="display:none;">
+                    <optgroup label="WMTS services" id="modal-layers-optgroup-wmts">
                     </optgroup>
                     <optgroup label="Files" id="modal-layers-optgroup-files">
                         <option value="geojson" data-upload="true" data-target="#modal-layers-files-geojson">GeoJSON</option>
@@ -22,6 +22,24 @@
                         <option value="kml" data-upload="true" data-target="#modal-layers-files-kml">KML</option>
                     </optgroup>
                 </select>
+                <div id="modal-layers-format-help" class="mt-2 small text-muted" style="display:none;">
+                    <div id="modal-layers-format-help-geojson">
+                        Your files must be compatible with GeoJSON specification
+                        (<a target="_blank" href="https://tools.ietf.org/html/rfc7946">RFC 7946</a>):
+                        <ul>
+                            <li>Coordinates must use World Geodetic System 1984 (WGS 84) datum</li>
+                            <li>Text must be encoded using UTF-8</li>
+                        </ul>
+                    </div>
+                    <div id="modal-layers-format-help-gpx">
+                        Your files must be compatible with
+                        <a target="_blank" href="https://www.topografix.com/gpx.asp">GPX specification</a>.
+                    </div>
+                    <div id="modal-layers-format-help-kml">
+                        Your files must be compatible with
+                        <a target="_blank" href="https://www.opengeospatial.org/standards/kml/">OGC KML specification</a>.
+                    </div>
+                </div>
                 <div id="progress-upload" class="progress mt-3">
                     <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
