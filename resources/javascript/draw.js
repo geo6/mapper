@@ -14,8 +14,12 @@ export default function () {
 
     $('#btn-draw-clear').on('click', () => {
         window.app.draw.clear();
-        $('.draw-count').text(0);
     });
+
+    $('#btn-draw-export').on('click', () => {
+        window.app.draw.export();
+    });
+
     $('#draw button.list-group-item-action').on('click', (event) => {
         const {
             type

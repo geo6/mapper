@@ -4,6 +4,7 @@ import {
     Modify,
     Snap
 } from 'ol/interaction';
+import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {
@@ -12,6 +13,8 @@ import {
     Stroke,
     Style
 } from 'ol/style';
+
+import saveAs from 'file-saver';
 
 import DrawPoint from './draw/point';
 import DrawLineString from './draw/linestring';
@@ -88,7 +91,29 @@ class DrawControl {
     }
 
     clear () {
+        $('#btn-draw-export').prop('disabled', true);
+        $('.draw-count').text(0);
+
         this.layer.getSource().clear();
+    }
+
+    export () {
+        const features = this.layer.getSource().getFeatures();
+        const geojson = (new GeoJSON()).writeFeatures(features, {
+            dataProjection: 'EPSG:4326',
+            decimals: 6,
+            featureProjection: window.app.map.getView().getProjection()
+        });
+
+        const blob = new Blob([geojson], {
+            type: 'application/json'
+        });
+
+        if (window.app.custom !== null) {
+            saveAs(blob, `mapper-${window.app.custom}.json`);
+        } else {
+            saveAs(blob, 'mapper.json');
+        }
     }
 }
 
