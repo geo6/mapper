@@ -68,12 +68,18 @@ class HomeHandler implements RequestHandlerInterface
             $config['layers'] ?? []
         );
 
+        $map = [
+            'center' => $config['map']['center'] ?? [0, 0],
+            'zoom'   => $config['map']['zoom'] ?? 0,
+        ];
+
         $data = [
             'baselayers'        => $config['baselayers'] ?? $defaultBaselayer,
             'baseUrl'           => $baseUrl,
             'geocoderProviders' => $providers,
             'layers'            => $layers,
             'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
+            'map'               => $map,
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));

@@ -10,6 +10,9 @@ import {
     Attribution,
     ScaleLine
 } from 'ol/control';
+import {
+    fromLonLat
+} from 'ol/proj';
 
 import initDraw from './draw';
 import initGeocoder from './geocoder';
@@ -43,8 +46,8 @@ export default function () {
         ]),
         layers: [],
         view: new View({
-            center: [0, 0],
-            zoom: 2
+            center: fromLonLat(window.app.center),
+            zoom: window.app.zoom
         })
     });
     window.app.map.once('rendercomplete', () => {

@@ -9,6 +9,8 @@
     window.app.geocoderProviders = {{ geocoderProviders | json_encode | raw }};
     window.app.layers = {{ layers | json_encode | raw }};
     window.app.https = {{ https == true ? 'true' : 'false' }};
+    window.app.center = {{ map.center | json_encode }};
+    window.app.zoom = {{ map.zoom }};
 </script>
 <script src="{{ asset('/js/mapper.min.js') }}"></script>
 {% endblock %}
