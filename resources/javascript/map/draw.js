@@ -38,7 +38,8 @@ class DrawControl {
                         color: '#ffcc33'
                     })
                 })
-            })
+            }),
+            zIndex: Infinity
         });
         window.app.map.addLayer(this.layer);
 
