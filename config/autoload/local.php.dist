@@ -9,4 +9,19 @@
 declare(strict_types=1);
 
 return [
+    'authentication' => [
+        'pdo' => [
+            'dsn' => '',
+            'username' => '',
+            'password' => '',
+            'table' => '',
+            'field' => [
+                'identity' => '',
+                'password' => '',
+            ],
+            'sql_get_roles' => '',
+            'sql_get_details' => '',
+        ],
+    ],
+
 ];
