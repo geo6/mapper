@@ -3,9 +3,10 @@ import Resumable from 'resumablejs/resumable';
 export default function () {
     const resumable = new Resumable({
         fileType: [
-            'json',
+            'csv',
             'geojson',
             'gpx',
+            'json',
             'kml'
         ],
         target: `${window.app.baseUrl}upload`
@@ -19,6 +20,7 @@ export default function () {
             .css('width', '0%');
 
         let count = {
+            csv: 0,
             geojson: 0,
             gpx: 0,
             kml: 0
@@ -43,6 +45,19 @@ export default function () {
                 .appendTo(li);
 
             switch (extension.toLowerCase()) {
+            case 'csv':
+                count.csv++;
+
+                $(li)
+                    .attr({
+                        id: `csv-${pointer}`
+                    })
+                    .data({
+                        name: file.fileName
+                    });
+
+                $('#modal-layers-files-csv > .list-group').append(li);
+                break;
             case 'json':
             case 'geojson':
                 count.geojson++;
@@ -90,6 +105,10 @@ export default function () {
             $('#modal-layers-select')
                 .val('geojson')
                 .trigger('change');
+        } else if (Math.max(...Object.values(count)) === count.csv) {
+            $('#modal-layers-select')
+                .val('csv')
+                .trigger('change');
         } else if (Math.max(...Object.values(count)) === count.gpx) {
             $('#modal-layers-select')
                 .val('gpx')
@@ -123,6 +142,17 @@ export default function () {
 
         let list = null;
         switch (extension.toLowerCase()) {
+        case 'csv':
+            list = $('#modal-layers-files-csv > .list-group > .list-group-item');
+
+            window.app.csv.push({
+                file: file,
+                title: title,
+                description: description,
+                olLayer: null,
+                selection: []
+            });
+            break;
         case 'json':
         case 'geojson':
             list = $('#modal-layers-files-geojson > .list-group > .list-group-item');

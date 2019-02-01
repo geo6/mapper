@@ -17,12 +17,22 @@
                     <optgroup label="WMTS services" id="modal-layers-optgroup-wmts">
                     </optgroup>
                     <optgroup label="Files" id="modal-layers-optgroup-files">
-                        <option value="geojson" data-upload="true" data-target="#modal-layers-files-geojson">GeoJSON</option>
+                        <option value="csv" data-upload="true" data-target="#modal-layers-files-csv">CSV</option>
+                        <option value="geojson" data-upload="true" data-target="#modal-layers-files-geojson" selected>GeoJSON</option>
                         <option value="gpx" data-upload="true" data-target="#modal-layers-files-gpx">GPX</option>
                         <option value="kml" data-upload="true" data-target="#modal-layers-files-kml">KML</option>
                     </optgroup>
                 </select>
                 <div id="modal-layers-format-help" class="mt-2 small text-muted" style="display:none;">
+                    <div id="modal-layers-format-help-csv">
+                        <ul>
+                            <li>Columns must be separated by a comma <kbd>,</kbd></li>
+                            <li>First line must contain columns name</li>
+                            <li>Coordinates must be in columns: <var>Longitude</var>, <var>Latitude</var></li>
+                            <li>Coordinates must use World Geodetic System 1984 (WGS 84) datum</li>
+                            <li>Text must be encoded using UTF-8</li>
+                        </ul>
+                    </div>
                     <div id="modal-layers-format-help-geojson">
                         Your files must be compatible with GeoJSON specification
                         (<a target="_blank" href="https://tools.ietf.org/html/rfc7946">RFC 7946</a>):
@@ -45,6 +55,9 @@
                 </div>
                 <hr>
                 <div id="modal-layers-layers">
+                    <div id="modal-layers-files-csv">
+                        <ul class="list-group"></ul>
+                    </div>
                     <div id="modal-layers-files-geojson">
                         <ul class="list-group"></ul>
                     </div>

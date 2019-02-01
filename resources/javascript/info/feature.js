@@ -9,7 +9,7 @@ import displayDetails from './details';
  *
  * @returns {void}
  */
-export default function (feature, title, olElement) {
+export default function (feature, featureIndex, title, olElement, selection) {
     let id = feature.getId();
     let properties = feature.getProperties();
     let geometryName = feature.getGeometryName();
