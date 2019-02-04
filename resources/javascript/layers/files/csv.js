@@ -7,17 +7,13 @@ import { fromLonLat } from 'ol/proj';
 
 import Papa from 'papaparse';
 
-export default function (index, file) {
-    const {
-        uniqueIdentifier
-    } = file.file;
-
-    Papa.parse(`${window.app.baseUrl}file/${uniqueIdentifier}`, {
+export default function (file) {
+    Papa.parse(`${window.app.baseUrl}file/${file.identifier}`, {
         dynamicTyping: true,
         download: true,
         header: true,
         skipEmptyLines: true,
-        complete: (results, file) => {
+        complete: (results) => {
             if (results.errors.length > 0) {
                 let errors = '';
                 for (let i = 0; i < results.errors.length; i++) {
@@ -42,7 +38,7 @@ export default function (index, file) {
                 throw new Error('Longitude or Latitude column missing !');
             }
 
-            window.app.csv[index].olLayer = new VectorLayer({
+            file.olLayer = new VectorLayer({
                 source: new VectorSource()
             });
 
@@ -50,11 +46,10 @@ export default function (index, file) {
                 const feature = new Feature(result);
                 feature.setGeometry(new Point(fromLonLat([result[lngColumn], result[latColumn]])));
 
-                window.app.csv[index].olLayer.getSource().addFeature(feature);
+                file.olLayer.getSource().addFeature(feature);
             });
 
-            window.app.map.addLayer(window.app.csv[index].olLayer);
-
+            window.app.map.addLayer(file.olLayer);
         }
     });
 }

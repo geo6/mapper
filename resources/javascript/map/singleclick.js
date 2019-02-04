@@ -1,11 +1,5 @@
-import CSVGetFeatureInfo from '../layers/csv/featureinfo';
-import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
-import GPXGetFeatureInfo from '../layers/gpx/featureinfo';
-import KMLGetFeatureInfo from '../layers/kml/featureinfo';
-
 import MeasureControl from './measure';
 
-import displayFileFeatureInfoList from '../info/list/file';
 import displayLocation from '../info/location';
 
 export default function () {
@@ -34,45 +28,45 @@ export default function () {
 
         // CSV
         window.app.csv.forEach(file => {
-            const features = CSVGetFeatureInfo(file, event.coordinate);
+            const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+                file.displayFeaturesList(features);
             }
         });
 
         // GeoJSON
         window.app.geojson.forEach(file => {
-            const features = GeoJSONGetFeatureInfo(file, event.coordinate);
+            const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+                file.displayFeaturesList(features);
             }
         });
 
         // GPX
         window.app.gpx.forEach(file => {
-            const features = GPXGetFeatureInfo(file, event.coordinate);
+            const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+                file.displayFeaturesList(features);
             }
         });
 
         // KML
         window.app.kml.forEach(file => {
-            const features = KMLGetFeatureInfo(file, event.coordinate);
+            const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+                file.displayFeaturesList(features);
             }
         });
 

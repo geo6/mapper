@@ -1,18 +1,9 @@
-import initCSV from '../layers/csv/init';
-import CSVApplySelection from '../layers/csv/apply';
-import CSVRemoveLayer from '../layers/csv/remove';
+'use strict';
 
-import initGeoJSON from '../layers/geojson/init';
-import GeoJSONApplySelection from '../layers/geojson/apply';
-import GeoJSONRemoveLayer from '../layers/geojson/remove';
-
-import initGPX from '../layers/gpx/init';
-import GPXApplySelection from '../layers/gpx/apply';
-import GPXRemoveLayer from '../layers/gpx/remove';
-
-import initKML from '../layers/kml/init';
-import KMLApplySelection from '../layers/kml/apply';
-import KMLRemoveLayer from '../layers/kml/remove';
+import {
+    init as initFile,
+    apply as FileApplySelection
+} from '../layers/files';
 
 import initWMS from '../layers/wms/init';
 import WMSApplySelection from '../layers/wms/apply';
@@ -21,10 +12,11 @@ import initWMTS from '../layers/wmts/init';
 import WMTSApplySelection from '../layers/wmts/apply';
 
 export default function () {
-    initCSV();
-    initGeoJSON();
-    initGPX();
-    initKML();
+    initFile('csv');
+    initFile('geojson');
+    initFile('gpx');
+    initFile('kml');
+
     initWMS();
     initWMTS();
 
@@ -57,23 +49,7 @@ export default function () {
         case 'modal-layers-optgroup-files':
             const type = $('#modal-layers-select').val();
 
-            switch (type) {
-            case 'csv':
-                CSVApplySelection();
-                break;
-
-            case 'geojson':
-                GeoJSONApplySelection();
-                break;
-
-            case 'gpx':
-                GPXApplySelection();
-                break;
-
-            case 'kml':
-                KMLApplySelection();
-                break;
-            }
+            FileApplySelection(type);
             break;
 
         case 'modal-layers-optgroup-wms':
@@ -99,16 +75,16 @@ export default function () {
 
         switch (type) {
         case 'csv':
-            CSVRemoveLayer(index);
+            window.app.csv[index].removeFromMap();
             break;
         case 'geojson':
-            GeoJSONRemoveLayer(index);
+            window.app.geojson[index].removeFromMap();
             break;
         case 'gpx':
-            GPXRemoveLayer(index);
+            window.app.gpx[index].removeFromMap();
             break;
         case 'kml':
-            KMLRemoveLayer(index);
+            window.app.kml[index].removeFromMap();
             break;
         case 'wms':
             window.app.wms[index].removeLayer(layer);

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-use App\File\GeoJSON;
-use App\File\GPX;
-use App\File\KML;
+use App\File;
 use App\Middleware\ConfigMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use FilesystemIterator;
@@ -115,13 +113,14 @@ class HomeHandler implements RequestHandlerInterface
     private static function getFiles(array $configFiles) : array
     {
         $files = [
+            'csv'     => [],
             'geojson' => [],
             'gpx'     => [],
             'kml'     => [],
         ];
 
         foreach ($configFiles as $file) {
-            if (in_array($file['type'], ['geojson', 'gpx', 'kml']) && file_exists($file['path']) && is_readable($file['path'])) {
+            if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml']) && file_exists($file['path']) && is_readable($file['path'])) {
                 if (is_dir($file['path'])) {
                     $directory = new RecursiveDirectoryIterator(
                         $file['path'],
@@ -159,16 +158,20 @@ class HomeHandler implements RequestHandlerInterface
     private static function getFile(string $type, string $path) : ?array
     {
         switch ($type) {
+            case 'csv':
+                $file = new File\CSV($path);
+                break;
+
             case 'geojson':
-                $file = new GeoJSON($path);
+                $file = new File\GeoJSON($path);
                 break;
 
             case 'gpx':
-                $file = new GPX($path);
+                $file = new File\GPX($path);
                 break;
 
             case 'kml':
-                $file = new KML($path);
+                $file = new File\KML($path);
                 break;
 
             default:
