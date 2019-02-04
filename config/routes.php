@@ -53,6 +53,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/', $loadAuthenticationMiddleware(App\Handler\HomeHandler::class), 'home');
 
     $app->get('/file/{identifier}', $loadAuthenticationMiddleware(App\Handler\FileHandler::class), 'file');
+    $app->get('/file/local/{identifier}', $loadAuthenticationMiddleware(App\Handler\FileHandler::class), 'file.local');
     $app->get('/geocoder/{provider}/address/{address}', $loadAuthenticationMiddleware(App\Handler\Geocoder\AddressHandler::class), 'geocoder.address');
     $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', $loadAuthenticationMiddleware(App\Handler\Geocoder\ReverseHandler::class), 'geocoder.reverse');
     $app->get('/proxy', $loadAuthenticationMiddleware(App\Handler\ProxyHandler::class), 'proxy');

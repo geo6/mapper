@@ -19,8 +19,9 @@ class File {
      * @param {String} name File name.
      * @param {String} title File title.
      * @param {String} description File description.
+     * @param {bool}   local Is the file stored initially on the server.
      */
-    constructor (type, identifier, name, title, description) {
+    constructor (type, identifier, name, title, description, local) {
         this.type = type;
         this.identifier = identifier;
         this.name = name;
@@ -28,6 +29,7 @@ class File {
         this.description = description;
         this.olLayer = null;
         this.selection = [];
+        this.local = local || false;
 
         if (['csv', 'geojson', 'gpx', 'kml'].indexOf(this.type) === -1) {
             throw new Error('Invalid file type.');

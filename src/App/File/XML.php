@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\File;
 
+use ArrayObject;
+use SimpleXMLElement;
 use SplFileInfo;
 
 class XML extends SplFileInfo implements FileInterface

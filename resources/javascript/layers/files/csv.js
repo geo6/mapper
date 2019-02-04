@@ -8,7 +8,9 @@ import { fromLonLat } from 'ol/proj';
 import Papa from 'papaparse';
 
 export default function (file) {
-    Papa.parse(`${window.app.baseUrl}file/${file.identifier}`, {
+    const url = window.app.baseUrl + 'file/' + (file.local ? 'local/' : '') + file.identifier + '?' + $.param({ c: window.app.custom });
+
+    Papa.parse(url, {
         dynamicTyping: true,
         download: true,
         header: true,

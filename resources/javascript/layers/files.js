@@ -6,7 +6,7 @@ export function init (type) {
     window.app[type] = [];
 
     window.app.files[type].forEach(file => {
-        const f = new File(type, file.identifier, file.name, file.title, file.description);
+        const f = new File(type, file.identifier, file.name, file.title, file.description, true);
 
         f.displayInList();
     });

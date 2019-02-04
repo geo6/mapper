@@ -182,11 +182,13 @@ class HomeHandler implements RequestHandlerInterface
         if (!is_null($file) && $file->checkType() === true) {
             $info = $file->getInfo();
 
+            $identifier = filesize($path).'-'.preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($path));
+
             return [
-                'identifier'  => uniqid(),
+                'identifier'  => $identifier,
                 'name'        => basename($path),
-                'title'       => $info->title,
-                'description' => $info->description,
+                'title'       => $info->title ?? null,
+                'description' => $info->description ?? null,
             ];
         }
 

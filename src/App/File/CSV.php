@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\File;
 
+use ArrayObject;
 use SplFileInfo;
 
 class CSV extends SplFileInfo implements FileInterface
