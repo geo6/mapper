@@ -74,8 +74,6 @@ class WMTS {
             })
             .appendTo('#modal-layers-optgroup-wmts');
 
-        $('#modal-layers-optgroup-wmts').show();
-
         let div = document.createElement('div');
 
         $(document.createElement('strong'))
@@ -119,11 +117,17 @@ class WMTS {
 
                 this.selection = responses;
 
+                let total = 0;
+
                 responses.forEach(response => {
                     if (response.features.length > 0) {
                         WMTSDisplayFeatureList(this, response.layer, response.features);
                     }
                 });
+
+                if (total === 0) {
+                    $(`#info-service-wmts-${this.getIndex()}`).remove();
+                }
             });
     }
 

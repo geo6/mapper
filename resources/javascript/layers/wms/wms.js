@@ -75,8 +75,6 @@ class WMS {
             })
             .appendTo('#modal-layers-optgroup-wms');
 
-        $('#modal-layers-optgroup-wms').show();
-
         let div = document.createElement('div');
 
         $(document.createElement('strong'))
@@ -120,11 +118,19 @@ class WMS {
 
                 this.selection = responses;
 
+                let total = 0;
+
                 responses.forEach(response => {
                     if (response.features.length > 0) {
                         WMSDisplayFeatureList(this, response.layer, response.features);
                     }
+
+                    total += response.features.length;
                 });
+
+                if (total === 0) {
+                    $(`#info-service-wms-${this.getIndex()}`).remove();
+                }
             });
     }
 

@@ -45,6 +45,11 @@ class HomeHandler implements RequestHandlerInterface
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
         $baseUrl = rtrim($baseUrl, '/').'/';
 
+        $map = [
+            'center' => $config['map']['center'] ?? [0, 0],
+            'zoom'   => $config['map']['zoom'] ?? 0,
+        ];
+
         $data = [
             'baselayers'        => self::getLayers($config['baselayers'] ?? []),
             'baseUrl'           => $baseUrl,
@@ -52,6 +57,7 @@ class HomeHandler implements RequestHandlerInterface
             'layers'            => self::getLayers($config['layers'] ?? []),
             'files'             => self::getFiles($config['files'] ?? []),
             'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
+            'map'               => $map,
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));

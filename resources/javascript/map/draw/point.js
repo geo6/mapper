@@ -1,3 +1,5 @@
+'use strict';
+
 import Draw from 'ol/interaction/Draw';
 
 class DrawPoint extends Draw {
@@ -10,6 +12,9 @@ class DrawPoint extends Draw {
         this.on('drawend', (event) => {
             const count = parseInt($('#draw-count-point').text());
 
+            event.feature.setId(`point-${count + 1}`);
+
+            $('#btn-draw-export').prop('disabled', false);
             $('#draw-count-point').text(count + 1);
         });
     }

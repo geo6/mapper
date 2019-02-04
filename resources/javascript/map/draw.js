@@ -1,9 +1,15 @@
 'use strict';
 
 import {
+    LineString,
+    Point,
+    Polygon
+} from 'ol/geom';
+import {
     Modify,
     Snap
 } from 'ol/interaction';
+import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {
@@ -12,6 +18,8 @@ import {
     Stroke,
     Style
 } from 'ol/style';
+
+import saveAs from 'file-saver';
 
 import DrawPoint from './draw/point';
 import DrawLineString from './draw/linestring';
@@ -22,8 +30,33 @@ class DrawControl {
         this.active = false;
         this.type = null;
 
+        if (window.app.custom !== null) {
+            this.storageKey = `mapper.${window.app.custom}.draw`;
+        } else {
+            this.storageKey = 'mapper.draw'
+        }
+
+        const storage = localStorage.getItem(this.storageKey);
+        let features = [];
+        if (storage !== null) {
+            features = (new GeoJSON()).readFeatures(storage, {
+                featureProjection: window.app.map.getView().getProjection()
+            });
+            features.forEach((feature) => {
+                const type = feature.getGeometry().getType();
+                const count = parseInt($(`#draw-count-${type.toLowerCase()}`).text());
+                $(`#draw-count-${type.toLowerCase()}`).text(count + 1);
+            });
+
+            if (features.length > 0) {
+                $('#btn-draw-export').prop('disabled', false);
+            }
+        }
+
         this.layer = new VectorLayer({
-            source: new VectorSource(),
+            source: new VectorSource({
+                features: features
+            }),
             style: new Style({
                 fill: new Fill({
                     color: 'rgba(255, 255, 255, 0.2)'
@@ -38,7 +71,8 @@ class DrawControl {
                         color: '#ffcc33'
                     })
                 })
-            })
+            }),
+            zIndex: Infinity
         });
         window.app.map.addLayer(this.layer);
 
@@ -72,6 +106,8 @@ class DrawControl {
     }
 
     disable () {
+        this.saveLocalStorage();
+
         $(`#draw button.list-group-item-action[data-type=${this.type}]`).removeClass('active');
 
         if (this.snap !== null) {
@@ -87,7 +123,42 @@ class DrawControl {
     }
 
     clear () {
+        $('#btn-draw-export').prop('disabled', true);
+        $('.draw-count').text(0);
+
         this.layer.getSource().clear();
+
+        this.clearLocalStorage();
+    }
+
+    saveLocalStorage () {
+        localStorage.setItem(this.storageKey, this.toGeoJSON());
+    }
+    clearLocalStorage () {
+        localStorage.removeItem(this.storageKey);
+    }
+
+    export () {
+        const blob = new Blob([this.toGeoJSON()], {
+            type: 'application/json'
+        });
+
+        if (window.app.custom !== null) {
+            saveAs(blob, `mapper-${window.app.custom}.json`);
+        } else {
+            saveAs(blob, 'mapper.json');
+        }
+    }
+
+    toGeoJSON () {
+        const features = this.layer.getSource().getFeatures();
+        const geojson = (new GeoJSON()).writeFeatures(features, {
+            dataProjection: 'EPSG:4326',
+            decimals: 6,
+            featureProjection: window.app.map.getView().getProjection()
+        });
+
+        return geojson;
     }
 }
 

@@ -37,7 +37,10 @@ export default function (file, feature, featureIndex) {
     let fileIndex = null;
     let fileType = null;
 
-    if (window.app.geojson.indexOf(file) > -1) {
+    if (window.app.csv.indexOf(file) > -1) {
+        fileIndex = window.app.csv.indexOf(file);
+        fileType = 'csv';
+    } else if (window.app.geojson.indexOf(file) > -1) {
         fileIndex = window.app.geojson.indexOf(file);
         fileType = 'geojson';
     } else if (window.app.gpx.indexOf(file) > -1) {

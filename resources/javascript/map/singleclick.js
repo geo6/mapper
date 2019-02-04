@@ -1,3 +1,4 @@
+import CSVGetFeatureInfo from '../layers/csv/featureinfo';
 import GeoJSONGetFeatureInfo from '../layers/geojson/featureinfo';
 import GPXGetFeatureInfo from '../layers/gpx/featureinfo';
 import KMLGetFeatureInfo from '../layers/kml/featureinfo';
@@ -31,13 +32,26 @@ export default function () {
         $('#infos-list-btn-prev, #infos-list-btn-next').prop('disabled', true);
         $('#infos-details-btn-locate').off().prop('disabled', true);
 
+        // CSV
+        window.app.csv.forEach(file => {
+            const features = CSVGetFeatureInfo(file, event.coordinate);
+
+            file.selection = features;
+
+            if (features !== null && features.length > 0) {
+                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+            }
+        });
+
         // GeoJSON
         window.app.geojson.forEach(file => {
             const features = GeoJSONGetFeatureInfo(file, event.coordinate);
 
             file.selection = features;
 
-            features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+            if (features !== null && features.length > 0) {
+                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+            }
         });
 
         // GPX
@@ -46,7 +60,9 @@ export default function () {
 
             file.selection = features;
 
-            features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+            if (features !== null && features.length > 0) {
+                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+            }
         });
 
         // KML
@@ -55,7 +71,9 @@ export default function () {
 
             file.selection = features;
 
-            features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+            if (features !== null && features.length > 0) {
+                features.forEach((feature, index) => displayFileFeatureInfoList(file, feature, index));
+            }
         });
 
         // WMS

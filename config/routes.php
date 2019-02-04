@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Middleware\ConfigMiddleware;
+use App\Middleware\UIMiddleware;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\Authentication\AuthenticationMiddleware;
@@ -35,14 +37,17 @@ use Zend\Expressive\MiddlewareFactory;
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
     $loadAuthenticationMiddleware = function ($middleware) use ($container) {
+        $applicationMiddleware = [
+            ConfigMiddleware::class,
+            UIMiddleware::class,
+            $middleware,
+        ];
+
         if (isset($container->get('config')['authentication']['pdo'])) {
-            return [
-                AuthenticationMiddleware::class,
-                $middleware,
-            ];
+            array_unshift($applicationMiddleware, AuthenticationMiddleware::class);
         }
 
-        return $middleware;
+        return $applicationMiddleware;
     };
 
     $app->get('/', $loadAuthenticationMiddleware(App\Handler\HomeHandler::class), 'home');
@@ -55,6 +60,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->post('/upload', $loadAuthenticationMiddleware(App\Handler\UploadHandler::class), 'upload');
 
     $app->route('/login', [
+        ConfigMiddleware::class,
         App\Handler\LoginHandler::class,
         AuthenticationMiddleware::class,
     ], ['GET', 'POST'], 'login');

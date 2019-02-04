@@ -1,3 +1,5 @@
+'use strict';
+
 import Draw from 'ol/interaction/Draw';
 
 class DrawLineString extends Draw {
@@ -10,6 +12,9 @@ class DrawLineString extends Draw {
         this.on('drawend', (event) => {
             const count = parseInt($('#draw-count-linestring').text());
 
+            event.feature.setId(`linestring-${count + 1}`);
+
+            $('#btn-draw-export').prop('disabled', false);
             $('#draw-count-linestring').text(count + 1);
         });
     }

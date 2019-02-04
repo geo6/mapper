@@ -1,3 +1,7 @@
+import initCSV from '../layers/csv/init';
+import CSVApplySelection from '../layers/csv/apply';
+import CSVRemoveLayer from '../layers/csv/remove';
+
 import initGeoJSON from '../layers/geojson/init';
 import GeoJSONApplySelection from '../layers/geojson/apply';
 import GeoJSONRemoveLayer from '../layers/geojson/remove';
@@ -17,19 +21,25 @@ import initWMTS from '../layers/wmts/init';
 import WMTSApplySelection from '../layers/wmts/apply';
 
 export default function () {
+    initCSV();
     initGeoJSON();
     initGPX();
     initKML();
     initWMS();
     initWMTS();
 
-    $('#modal-layers').on('change', (event) => {
-        let { target, upload } = $(event.target).find('option:selected').data();
+    $('#modal-layers-select').on('change', (event) => {
+        const type = $(event.target).val();
+        const { target, upload } = $(event.target).find('option:selected').data();
+
+        $('#modal-layers-format-help > div').hide();
 
         if (upload === true) {
             $('#progress-upload').show();
+            $(`#modal-layers-format-help, #modal-layers-format-help-${type}`).show();
         } else {
             $('#progress-upload').hide();
+            $('#modal-layers-format-help').hide();
         }
 
         $('#modal-layers-layers > div').hide();
@@ -45,9 +55,13 @@ export default function () {
 
         switch (id) {
         case 'modal-layers-optgroup-files':
-            const type = $('#modal-layers').val();
+            const type = $('#modal-layers-select').val();
 
             switch (type) {
+            case 'csv':
+                CSVApplySelection();
+                break;
+
             case 'geojson':
                 GeoJSONApplySelection();
                 break;
@@ -84,6 +98,9 @@ export default function () {
         $(event.target).closest('li').remove();
 
         switch (type) {
+        case 'csv':
+            CSVRemoveLayer(index);
+            break;
         case 'geojson':
             GeoJSONRemoveLayer(index);
             break;

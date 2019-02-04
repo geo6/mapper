@@ -23,6 +23,6 @@ export default function (service, layerName, features) {
     const title = `<strong>${serviceTitle}</strong> - ${layerTitle}`;
 
     features.forEach((feature, index) => {
-        displayFeatureInList(feature, title, olElement);
+        displayFeatureInList(feature, index, title, olElement, service.selection);
     });
 }

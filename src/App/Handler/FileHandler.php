@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\EmptyResponse;
 use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\Response\TextResponse;
 use Zend\Diactoros\Response\XmlResponse;
 
 class FileHandler implements RequestHandlerInterface
@@ -27,8 +28,11 @@ class FileHandler implements RequestHandlerInterface
                 $content = file_get_contents($glob[0]);
 
                 switch ($mime) {
-                    case 'application/json':
                     case 'text/plain':
+                    case 'text/csv':
+                        return new TextResponse($content);
+
+                    case 'application/json':
                         return new JsonResponse(json_decode($content));
 
                     case 'application/xml':
