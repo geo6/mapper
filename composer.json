@@ -12,6 +12,7 @@
         "geojson",
         "kml",
         "gpx",
+        "csv",
         "viewer",
         "geocoder",
         "expressive"
