@@ -8,7 +8,16 @@ export function init (type) {
     window.app.files[type].forEach(file => {
         const f = new File(type, file.identifier, file.name, file.title, file.description, true);
 
-        f.displayInList();
+        if (f.type === 'geojson') {
+            fetch(f.url)
+                .then(response => response.json())
+                .then(json => {
+                    f.content = json;
+                    f.displayInList();
+                });
+        } else {
+            f.displayInList();
+        }
     });
 }
 

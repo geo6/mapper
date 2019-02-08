@@ -34,6 +34,7 @@ class File {
         this.olLayer = null;
         this.selection = [];
         this.local = local || false;
+        this.content = null;
 
         if (['csv', 'geojson', 'gpx', 'kml'].indexOf(this.type) === -1) {
             throw new Error('Invalid file type.');
@@ -124,23 +125,15 @@ class File {
             );
 
         if (this.type === 'geojson') {
-            const url = window.app.baseUrl + 'file/' + (this.local ? 'local/' : '') + this.identifier + '?' + $.param({
-                c: window.app.custom
-            });
+            if (typeof this.content.legend === 'object' && Array.isArray(this.content.legend)) {
+                const canvas = GeoJSONLegend(this.content.legend);
 
-            fetch(url)
-                .then(response => response.json())
-                .then(json => {
-                    if (typeof json.legend === 'object' && Array.isArray(json.legend)) {
-                        const canvas = GeoJSONLegend(json.legend);
+                $(li).find('div.layer-legend').html(canvas);
 
-                        $(li).find('div.layer-legend').html(canvas);
-
-                        $(li).find('.btn-layer-legend')
-                            .removeClass('disabled')
-                            .prop('disabled', false);
-                    }
-                });
+                $(li).find('.btn-layer-legend')
+                    .removeClass('disabled')
+                    .prop('disabled', false);
+            }
         }
     }
 

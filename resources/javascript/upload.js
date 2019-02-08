@@ -126,12 +126,15 @@ export default function () {
         case 'json':
         case 'geojson':
             f = new File('geojson', file.uniqueIdentifier, file.fileName, title, description);
+            fetch(f.url)
+                .then(response => response.json())
+                .then(json => {
+                    f.content = json;
+                });
             break;
-
         case 'gpx':
             f = new File('gpx', file.uniqueIdentifier, file.fileName, title, description);
             break;
-
         case 'kml':
             f = new File('kml', file.uniqueIdentifier, file.fileName, title, description);
             break;
