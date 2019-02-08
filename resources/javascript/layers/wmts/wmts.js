@@ -150,9 +150,7 @@ class WMTS {
      */
     addToSidebar (layersName) {
         layersName.forEach(layerName => {
-            const layer = this.layers.filter(layer => {
-                return layerName === layer.Identifier;
-            })[0];
+            const layer = this.layers.find(layer => layer.Identifier === layerName);
 
             WMTSAddLayerToSidebar(this, layer);
         });

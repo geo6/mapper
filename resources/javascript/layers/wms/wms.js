@@ -153,9 +153,7 @@ class WMS {
      */
     addToSidebar (layersName) {
         layersName.forEach(layerName => {
-            const layer = this.layers.filter(layer => {
-                return layerName === layer.Name;
-            })[0];
+            const layer = this.layers.find(layer => layer.Name === layerName);
 
             WMSAddLayerToSidebar(this, layer);
         });
