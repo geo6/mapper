@@ -3,12 +3,8 @@ import VectorSource from 'ol/source/Vector';
 import { asArray as colorAsArray } from 'ol/color';
 
 export function add (file) {
-    const url = window.app.baseUrl + 'file/' + (file.local ? 'local/' : '') + file.identifier + '?' + $.param({
-        c: window.app.custom
-    });
-
     return new VectorSource({
-        url: url,
+        url: file.url,
         format: new GeoJSON()
     });
 }

@@ -39,6 +39,10 @@ class File {
             throw new Error('Invalid file type.');
         }
 
+        this.url = window.app.baseUrl + 'file/' + (this.local ? 'local/' : '') + this.identifier + '?' + $.param({
+            c: window.app.custom
+        });
+
         window.app[this.type].push(this);
     }
 
