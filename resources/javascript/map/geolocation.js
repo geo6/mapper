@@ -93,8 +93,4 @@ class GeolocationControl extends Control {
     }
 }
 
-export {
-    GeolocationControl
-    as
-    default
-};
+export { GeolocationControl as default };

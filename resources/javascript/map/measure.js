@@ -279,8 +279,4 @@ class MeasureControl extends Control {
     };
 }
 
-export {
-    MeasureControl
-    as
-    default
-};
+export { MeasureControl as default };

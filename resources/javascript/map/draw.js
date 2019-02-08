@@ -157,8 +157,4 @@ class DrawControl {
     }
 }
 
-export {
-    DrawControl
-    as
-    default
-};
+export { DrawControl as default };

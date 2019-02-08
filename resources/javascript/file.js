@@ -208,8 +208,4 @@ class File {
     }
 }
 
-export {
-    File
-    as
-    default
-};
+export { File as default };

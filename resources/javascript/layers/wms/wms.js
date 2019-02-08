@@ -186,8 +186,4 @@ class WMS {
     }
 }
 
-export {
-    WMS
-    as
-    default
-};
+export { WMS as default };

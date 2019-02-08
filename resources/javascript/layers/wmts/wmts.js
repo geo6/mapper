@@ -172,8 +172,4 @@ class WMTS {
     }
 }
 
-export {
-    WMTS
-    as
-    default
-};
+export { WMTS as default };
