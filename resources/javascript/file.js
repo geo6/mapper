@@ -9,7 +9,8 @@ import KMLAddFileToMap from './layers/files/kml';
 
 import {
     add as GeoJSONAddFileToMap,
-    legend as GeoJSONLegend
+    legend as GeoJSONLegend,
+    style as GeoJSONStyle
 } from './layers/files/geojson';
 
 /**
@@ -138,28 +139,29 @@ class File {
     }
 
     addToMap () {
-        let source = null;
-
         switch (this.type) {
         case 'csv':
             CSVAddFileToMap(this); // async
             break;
         case 'geojson':
-            source = GeoJSONAddFileToMap(this);
+            this.olLayer = new VectorLayer({
+                source: GeoJSONAddFileToMap(this),
+                style: (feature, resolution) => GeoJSONStyle(feature, resolution)
+            });
             break;
         case 'gpx':
-            source = GPXAddFileToMap(this);
+            this.olLayer = new VectorLayer({
+                source: GPXAddFileToMap(this)
+            });
             break;
         case 'kml':
-            source = KMLAddFileToMap(this);
+            this.olLayer = new VectorLayer({
+                source: KMLAddFileToMap(this)
+            });
             break;
         }
 
-        if (source !== null) {
-            this.olLayer = new VectorLayer({
-                source: source
-            });
-
+        if (this.olLayer !== null) {
             window.app.map.addLayer(this.olLayer);
         }
     }
