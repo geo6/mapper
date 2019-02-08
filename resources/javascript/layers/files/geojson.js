@@ -3,46 +3,12 @@ import {
 } from 'ol/color';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorSource from 'ol/source/Vector';
-import {
-    Fill,
-    Circle as CircleStyle,
-    Stroke,
-    Style
-} from 'ol/style';
 
 export function add (file) {
     return new VectorSource({
         url: file.url,
         format: new GeoJSON()
     });
-}
-
-export function style (feature, resolution) {
-    const { color } = feature.getProperties();
-
-    const fill = new Fill({
-        color: 'rgba(255,255,255,0.4)'
-    });
-    const stroke = new Stroke({
-        color: '#3399CC',
-        width: 1.25
-    });
-
-    if (typeof color !== 'undefined') {
-        stroke.setColor(colorAsArray(color));
-    }
-
-    return [
-        new Style({
-            image: new CircleStyle({
-                fill: fill,
-                stroke: stroke,
-                radius: 5
-            }),
-            fill: fill,
-            stroke: stroke
-        })
-    ];
 }
 
 export function legend (legend) {

@@ -4,15 +4,13 @@ import VectorLayer from 'ol/layer/Vector';
 
 import displayFeatureInList from './info/feature';
 import CSVAddFileToMap from './layers/files/csv';
-import GPXAddFileToMap from './layers/files/gpx';
-import KMLAddFileToMap from './layers/files/kml';
-
 import {
     add as GeoJSONAddFileToMap,
-    legend as GeoJSONLegend,
-    style as GeoJSONStyle
+    legend as GeoJSONLegend
 } from './layers/files/geojson';
-
+import GPXAddFileToMap from './layers/files/gpx';
+import KMLAddFileToMap from './layers/files/kml';
+import layerStyleFunction from './map/style';
 /**
  *
  */
@@ -146,7 +144,7 @@ class File {
         case 'geojson':
             this.olLayer = new VectorLayer({
                 source: GeoJSONAddFileToMap(this),
-                style: (feature, resolution) => GeoJSONStyle(feature, resolution)
+                style: (feature, resolution) => layerStyleFunction(feature, resolution)
             });
             break;
         case 'gpx':
