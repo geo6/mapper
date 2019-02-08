@@ -4,9 +4,13 @@ import VectorLayer from 'ol/layer/Vector';
 
 import displayFeatureInList from './info/feature';
 import CSVAddFileToMap from './layers/files/csv';
-import GeoJSONAddFileToMap from './layers/files/geojson';
 import GPXAddFileToMap from './layers/files/gpx';
 import KMLAddFileToMap from './layers/files/kml';
+
+import {
+    add as GeoJSONAddFileToMap,
+    legend as GeoJSONLegend
+} from './layers/files/geojson';
 
 /**
  *
@@ -114,6 +118,26 @@ class File {
                 '<i class="fas fa-info-circle"></i> ' +
                 (this.title || this.name)
             );
+
+        if (this.type === 'geojson') {
+            const url = window.app.baseUrl + 'file/' + (this.local ? 'local/' : '') + this.identifier + '?' + $.param({
+                c: window.app.custom
+            });
+
+            fetch(url)
+                .then(response => response.json())
+                .then(json => {
+                    if (typeof json.legend === 'object' && Array.isArray(json.legend)) {
+                        const canvas = GeoJSONLegend(json.legend);
+
+                        $(li).find('div.layer-legend').html(canvas);
+
+                        $(li).find('.btn-layer-legend')
+                            .removeClass('disabled')
+                            .prop('disabled', false);
+                    }
+                });
+        }
     }
 
     addToMap () {
