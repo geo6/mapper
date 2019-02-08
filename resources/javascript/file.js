@@ -123,6 +123,10 @@ class File {
                 (this.title || this.name)
             );
 
+        $(li).find('.btn-layer-zoom')
+            .removeClass('disabled')
+            .prop('disabled', false);
+
         if (this.type === 'geojson') {
             if (typeof this.content.legend === 'object' && Array.isArray(this.content.legend)) {
                 const canvas = GeoJSONLegend(this.content.legend);
@@ -169,6 +173,17 @@ class File {
 
         this.olLayer = null;
         this.selection = [];
+    }
+
+    zoom () {
+        const extent = this.olLayer.getSource().getExtent();
+
+        window.app.map.getView().fit(extent, {
+            maxZoom: 18,
+            padding: [15, 15, 15, 15]
+        });
+
+        window.app.sidebar.close();
     }
 
     getFeatureInfo (coordinates) {

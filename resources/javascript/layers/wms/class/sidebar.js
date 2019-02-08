@@ -37,6 +37,14 @@ export default function (service, layer) {
             layer.Title
         );
 
+    // OL doesn't read correctly CRS from WMS Capabilites < 1.3.0 (SRS instead of CRS)
+    // See https://github.com/openlayers/openlayers/issues/5476
+    if (service.capabilities.version >= '1.3.0') {
+        $(li).find('.btn-layer-zoom')
+            .removeClass('disabled')
+            .prop('disabled', false);
+    }
+
     if (
         typeof layer.Style !== 'undefined' && layer.Style.length > 0 &&
         typeof layer.Style[0].LegendURL !== 'undefined' && layer.Style[0].LegendURL.length > 0

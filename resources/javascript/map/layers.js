@@ -95,6 +95,37 @@ export default function () {
         }
     });
 
+    $(document).on('click', '.btn-layer-zoom', (event) => {
+        event.preventDefault();
+
+        const {
+            type,
+            index,
+            layer
+        } = $(event.target).closest('li').data();
+
+        switch (type) {
+        case 'csv':
+            window.app.csv[index].zoom();
+            break;
+        case 'geojson':
+            window.app.geojson[index].zoom();
+            break;
+        case 'gpx':
+            window.app.gpx[index].zoom();
+            break;
+        case 'kml':
+            window.app.kml[index].zoom();
+            break;
+        case 'wms':
+            window.app.wms[index].zoom(layer);
+            break;
+        case 'wmts':
+            // window.app.wmts[index].zoom(layer);
+            break;
+        }
+    });
+
     $(document).on('click', '.btn-layer-legend', (event) => {
         event.preventDefault();
 

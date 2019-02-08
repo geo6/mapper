@@ -182,6 +182,28 @@ class WMS {
             }
         }
     }
+
+    /**
+     *
+     * @param {String} layerName Name of the layer to zoom on.
+     *
+     * @returns {void}
+     */
+    zoom (layerName) {
+        const projection = window.app.map.getView().getProjection().getCode();
+
+        const layer = this.layers.find(layer => layer.Name === layerName);
+        const extent = layer.BoundingBox.find(bbox => bbox.crs === projection);
+
+        if (typeof extent !== 'undefined') {
+            window.app.map.getView().fit(extent.extent, {
+                maxZoom: 18,
+                padding: [15, 15, 15, 15]
+            });
+
+            window.app.sidebar.close();
+        }
+    }
 }
 
 export { WMS as default };
