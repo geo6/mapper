@@ -34,10 +34,11 @@ export default function (origUrl) {
         .then(response => {
             let capabilities = (new WMSCapabilities()).read(response);
 
-            if (typeof capabilities.Capability.Layer.CRS !== 'undefined' && capabilities.Capability.Layer.CRS.indexOf('EPSG:3857') === -1) {
+            const projection = window.app.map.getView().getProjection().getCode();
+            if (typeof capabilities.Capability.Layer.CRS !== 'undefined' && capabilities.Capability.Layer.CRS.indexOf(projection) === -1) {
                 const crs = capabilities.Capability.Layer.CRS.join(', ');
 
-                throw new Error(`The WMS service "${origUrl}" does not support EPSG:3857 ! It supports only ${crs}.`);
+                throw new Error(`The WMS service "${origUrl}" does not support ${projection} ! It supports only ${crs}.`);
             }
 
             return {

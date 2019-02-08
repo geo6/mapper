@@ -39,8 +39,9 @@ export default function (origUrl) {
                 crs.push(supportedCRS);
             }
 
-            if (crs.indexOf('EPSG:3857') === -1) {
-                throw new Error(`The WMTS service "${origUrl}" does not support EPSG:3857 ! It supports only ${crs.join(', ')}.`);
+            const projection = window.app.map.getView().getProjection().getCode();
+            if (crs.indexOf(projection) === -1) {
+                throw new Error(`The WMTS service "${origUrl}" does not support ${projection} ! It supports only ${crs.join(', ')}.`);
             }
 
             return {
