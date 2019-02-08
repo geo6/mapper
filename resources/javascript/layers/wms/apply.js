@@ -1,3 +1,5 @@
+'use strict';
+
 export default function (index) {
     let names = [];
 

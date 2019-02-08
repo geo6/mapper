@@ -1,3 +1,5 @@
+'use strict';
+
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import VectorLayer from 'ol/layer/Vector';

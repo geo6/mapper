@@ -1,3 +1,5 @@
+'use strict';
+
 import GPX from 'ol/format/GPX';
 import VectorSource from 'ol/source/Vector';
 

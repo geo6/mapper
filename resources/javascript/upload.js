@@ -1,3 +1,5 @@
+'use strict';
+
 import Resumable from 'resumablejs/resumable';
 
 import File from './file';

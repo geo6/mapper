@@ -1,3 +1,5 @@
+'use strict';
+
 function generateLayersList (service, layers) {
     let ul = document.createElement('ul');
 

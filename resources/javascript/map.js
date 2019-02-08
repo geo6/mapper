@@ -1,3 +1,5 @@
+'use strict';
+
 import 'ol/ol.css';
 import 'sidebar-v2/css/ol3-sidebar.css';
 

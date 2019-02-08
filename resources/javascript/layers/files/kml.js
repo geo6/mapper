@@ -1,3 +1,5 @@
+'use strict';
+
 import KML from 'ol/format/KML';
 import VectorSource from 'ol/source/Vector';
 

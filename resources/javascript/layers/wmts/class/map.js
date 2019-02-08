@@ -1,3 +1,5 @@
+'use strict';
+
 import TileLayer from 'ol/layer/Tile';
 import WMTS, {
     optionsFromCapabilities

@@ -1,3 +1,5 @@
+'use strict';
+
 import displayFeatureInList from '../../../info/feature';
 import {
     createOlLayer

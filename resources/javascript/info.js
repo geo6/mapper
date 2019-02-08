@@ -1,3 +1,5 @@
+'use strict';
+
 export default function () {
     $('#infos-list-btn-back').on('click', () => {
         $('#info-details').hide();

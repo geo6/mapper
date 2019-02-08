@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Create ul DOM element for a specific service (WMS/WMTS) in the sidebar.
  *

@@ -1,3 +1,5 @@
+'use strict';
+
 import {
     toLonLat
 } from 'ol/proj';

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * See https://github.com/openlayers/openlayers/issues/2368
  * See https://github.com/openlayers/openlayers/pull/2373

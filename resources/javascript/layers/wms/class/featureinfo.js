@@ -1,3 +1,5 @@
+'use strict';
+
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
 
 export default function (service, coordinate) {

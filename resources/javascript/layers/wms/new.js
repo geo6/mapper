@@ -1,3 +1,5 @@
+'use strict';
+
 import WMS from './wms';
 
 export default function () {

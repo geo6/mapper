@@ -1,3 +1,5 @@
+'use strict';
+
 export default function (service, layer) {
     const li = $('#layers-new').clone();
 

@@ -1,3 +1,5 @@
+'use strict';
+
 import WMSCapabilities from 'ol/format/WMSCapabilities';
 
 function parseLayers (layers, searchElements) {

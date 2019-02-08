@@ -1,3 +1,5 @@
+'use strict';
+
 import Control from 'ol/control/Control';
 import Feature from 'ol/Feature';
 import Geolocation from 'ol/Geolocation';

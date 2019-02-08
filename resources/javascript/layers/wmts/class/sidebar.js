@@ -1,3 +1,5 @@
+'use strict';
+
 export default function (service, layer) {
     let queryable = false;
     if (typeof layer.ResourceURL !== 'undefined') {

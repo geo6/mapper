@@ -1,3 +1,5 @@
+'use strict';
+
 import DrawControl from './map/draw';
 
 export default function () {

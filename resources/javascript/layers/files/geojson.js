@@ -1,3 +1,5 @@
+'use strict';
+
 import {
     asArray as colorAsArray
 } from 'ol/color';

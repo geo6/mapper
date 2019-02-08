@@ -1,3 +1,5 @@
+'use strict';
+
 import initMap from './map';
 import initLayers from './map/layers';
 import initUpload from './upload';

@@ -1,3 +1,5 @@
+'use strict';
+
 import geocodeAddress from './geocoder/address';
 import geocodeReverse from './geocoder/reverse';
 

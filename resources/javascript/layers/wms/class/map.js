@@ -1,3 +1,5 @@
+'use strict';
+
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 

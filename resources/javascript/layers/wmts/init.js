@@ -1,3 +1,5 @@
+'use strict';
+
 import initWMTSAddService from './new';
 
 import WMTS from './wmts';

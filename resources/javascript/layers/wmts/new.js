@@ -1,3 +1,5 @@
+'use strict';
+
 import WMTS from './wmts';
 
 export default function () {
