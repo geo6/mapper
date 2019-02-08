@@ -1,9 +1,7 @@
 'use strict';
 
 import TileLayer from 'ol/layer/Tile';
-import WMTS, {
-    optionsFromCapabilities
-} from 'ol/source/WMTS';
+import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS';
 
 export default function (wmts, layers) {
     if (typeof wmts !== 'undefined' && layers.length > 0) {

@@ -1,8 +1,6 @@
 'use strict';
 
-import {
-    asArray as colorAsArray
-} from 'ol/color';
+import { asArray as colorAsArray } from 'ol/color';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorSource from 'ol/source/Vector';
 

@@ -20,8 +20,4 @@ class DrawPoint extends Draw {
     }
 }
 
-export {
-    DrawPoint
-    as
-    default
-};
+export { DrawPoint as default };

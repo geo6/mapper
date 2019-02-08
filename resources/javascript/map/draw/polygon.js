@@ -20,8 +20,4 @@ class DrawPolygon extends Draw {
     }
 }
 
-export {
-    DrawPolygon
-    as
-    default
-};
+export { DrawPolygon as default };

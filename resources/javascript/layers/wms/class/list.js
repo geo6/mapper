@@ -1,6 +1,6 @@
 'use strict';
 
-function generateLayersList (service, layers) {
+export default function generateLayersList (service, layers) {
     let ul = document.createElement('ul');
 
     $(ul).addClass('list-group mb-3');
@@ -56,5 +56,3 @@ function generateLayersList (service, layers) {
 
     return ul;
 }
-
-export default generateLayersList;

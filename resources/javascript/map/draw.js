@@ -1,11 +1,6 @@
 'use strict';
 
 import {
-    LineString,
-    Point,
-    Polygon
-} from 'ol/geom';
-import {
     Modify,
     Snap
 } from 'ol/interaction';
@@ -33,7 +28,7 @@ class DrawControl {
         if (window.app.custom !== null) {
             this.storageKey = `mapper.${window.app.custom}.draw`;
         } else {
-            this.storageKey = 'mapper.draw'
+            this.storageKey = 'mapper.draw';
         }
 
         const storage = localStorage.getItem(this.storageKey);

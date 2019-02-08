@@ -1,11 +1,7 @@
 'use strict';
 
-import {
-    toLonLat
-} from 'ol/proj';
-import {
-    toStringXY
-} from 'ol/coordinate';
+import { toLonLat } from 'ol/proj';
+import { toStringXY } from 'ol/coordinate';
 
 /**
  * Display clicked location and open info sidebar.

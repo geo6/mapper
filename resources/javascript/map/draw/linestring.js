@@ -20,8 +20,4 @@ class DrawLineString extends Draw {
     }
 }
 
-export {
-    DrawLineString
-    as
-    default
-};
+export { DrawLineString as default };

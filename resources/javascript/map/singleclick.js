@@ -1,7 +1,6 @@
 'use strict';
 
 import MeasureControl from './measure';
-
 import displayLocation from '../info/location';
 
 export default function () {

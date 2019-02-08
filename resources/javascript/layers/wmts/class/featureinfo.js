@@ -7,9 +7,6 @@
  */
 
 import GeoJSON from 'ol/format/GeoJSON';
-// import {
-//     appendParams
-// } from 'ol/uri';
 
 function WMTSGetFeatureInfoUrl (template, coordinate, source, resolution) {
     const tilegrid = source.getTileGrid();
@@ -53,22 +50,6 @@ function WMTSGetFeatureInfoUrl (template, coordinate, source, resolution) {
     url = url.replace('{J}', tileJ);
 
     return url;
-
-    // return appendParams(url, {
-    //     SERVICE: 'WMTS',
-    //     REQUEST: 'GetFeatureInfo',
-    //     VERSION: source.getVersion(),
-    //     LAYER: source.getLayer(),
-    //     INFOFORMAT: 'application/json',
-    //     STYLE: source.getStyle(),
-    //     FORMAT: source.getFormat(),
-    //     TileCol: tileCol,
-    //     TileRow: tileRow,
-    //     TileMatrix: matrixIds,
-    //     TileMatrixSet: matrixSet,
-    //     I: tileI,
-    //     J: tileJ
-    // });
 }
 
 export default function (service, coordinate) {

@@ -1,9 +1,7 @@
 'use strict';
 
 import displayFeatureInList from '../../../info/feature';
-import {
-    createOlLayer
-} from '../../../info/list/service';
+import { createOlLayer } from '../../../info/list/service';
 
 /**
  * Generate list with the result of GetFeatureInfo request on a WMS service for each queried layers in the sidebar.

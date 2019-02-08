@@ -12,9 +12,7 @@ import {
     Attribution,
     ScaleLine
 } from 'ol/control';
-import {
-    fromLonLat
-} from 'ol/proj';
+import { fromLonLat } from 'ol/proj';
 
 import initDraw from './draw';
 import initGeocoder from './geocoder';

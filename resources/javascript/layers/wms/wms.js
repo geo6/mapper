@@ -6,10 +6,7 @@ import WMSDisplayFeatureList from './class/featurelist';
 import generateLayersList from './class/list';
 import WMSAddLayersToMap from './class/map';
 import WMSAddLayerToSidebar from './class/sidebar';
-
-import {
-    createUlService
-} from '../../info/list/service';
+import { createUlService } from '../../info/list/service';
 
 /**
  *

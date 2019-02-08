@@ -7,15 +7,13 @@ import {
 } from 'ol/geom';
 import Draw from 'ol/interaction/Draw';
 import VectorLayer from 'ol/layer/Vector';
-import {
-    unByKey
-} from 'ol/Observable.js';
+import { unByKey } from 'ol/Observable.js';
 import Overlay from 'ol/Overlay';
 import VectorSource from 'ol/source/Vector';
 import {
     getArea,
     getLength
-} from 'ol/sphere.js';
+} from 'ol/sphere';
 import {
     Circle as CircleStyle,
     Fill,

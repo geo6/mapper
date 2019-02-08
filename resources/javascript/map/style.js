@@ -1,11 +1,9 @@
 'use strict';
 
+import { asArray as colorAsArray } from 'ol/color';
 import {
-    asArray as colorAsArray
-} from 'ol/color';
-import {
-    Fill,
     Circle as CircleStyle,
+    Fill,
     Stroke,
     Style
 } from 'ol/style';

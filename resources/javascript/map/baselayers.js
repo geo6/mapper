@@ -7,9 +7,7 @@ import {
     WMTS,
     XYZ
 } from 'ol/source';
-import {
-    optionsFromCapabilities
-} from 'ol/source/WMTS';
+import { optionsFromCapabilities } from 'ol/source/WMTS';
 
 function loadBaselayer (index) {
     if (typeof window.app.baselayers[index] !== 'undefined') {

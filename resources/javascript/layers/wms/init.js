@@ -1,7 +1,6 @@
 'use strict';
 
 import initWMSAddService from './new';
-
 import WMS from './wms';
 
 export default function () {

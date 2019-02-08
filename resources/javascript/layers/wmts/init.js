@@ -1,7 +1,6 @@
 'use strict';
 
 import initWMTSAddService from './new';
-
 import WMTS from './wmts';
 
 export default function () {
