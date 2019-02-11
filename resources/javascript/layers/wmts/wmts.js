@@ -76,6 +76,10 @@ class WMTS {
         $(document.createElement('strong'))
             .text(this.capabilities.ServiceIdentification.Title)
             .appendTo(div);
+        $(document.createElement('span'))
+            .text(this.capabilities.version)
+            .addClass('badge badge-pill badge-info float-right')
+            .appendTo(div);
         $(document.createElement('p'))
             .addClass('text-info small')
             .text(this.capabilities.ServiceIdentification.Abstract)
