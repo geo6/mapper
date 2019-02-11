@@ -26,6 +26,15 @@ export default function () {
             window.app.map.getView().setCenter(center);
             window.app.map.getView().setZoom(zoom);
         }
+    } else if (typeof window.app.cache.map !== 'undefined' && window.app.cache.map !== null) {
+        zoom = parseInt(window.app.cache.map.zoom, 10);
+        center = fromLonLat([
+            parseFloat(window.app.cache.map.longitude),
+            parseFloat(window.app.cache.map.latitude)
+        ]);
+
+        window.app.map.getView().setCenter(center);
+        window.app.map.getView().setZoom(zoom);
     }
 
     var shouldUpdate = true;
@@ -37,15 +46,18 @@ export default function () {
             return;
         }
 
-        let center = toLonLat(view.getCenter());
-        let hash = '#map=' +
-            view.getZoom() + '/' +
-            Math.round(center[1] * 1000000) / 1000000 + '/' +
-            Math.round(center[0] * 1000000) / 1000000;
-        let state = {
+        const center = toLonLat(view.getCenter());
+        const longitude = Math.round(center[0] * 1000000) / 1000000;
+        const latitude = Math.round(center[1] * 1000000) / 1000000;
+        const zoom = view.getZoom();
+
+        const hash = `#map=${zoom}/${latitude}/${longitude}`;
+        const state = {
             zoom: view.getZoom(),
             center: view.getCenter()
         };
+
+        window.app.cache.setMap(zoom, longitude, latitude);
 
         window.history.pushState(state, 'map', hash);
     });

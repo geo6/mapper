@@ -77,10 +77,15 @@ export default function () {
         $(event.target).addClass('active');
 
         loadBaselayer(index);
+
+        window.app.cache.setBaselayer(index);
     });
 
-    let keys = Object.keys(window.app.baselayers);
+    const keys = Object.keys(window.app.baselayers);
+    if (typeof window.app.cache.baselayer === 'undefined' || window.app.cache.baselayer === null) {
+        window.app.cache.setBaselayer(keys[0]);
+    }
 
-    $('#baselayers button[data-index=' + keys[0] + ']').addClass('active');
-    loadBaselayer(keys[0]);
+    $('#baselayers button[data-index=' + window.app.cache.baselayer + ']').addClass('active');
+    loadBaselayer(window.app.cache.baselayer);
 }
