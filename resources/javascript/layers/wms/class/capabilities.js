@@ -27,6 +27,7 @@ export default function (origUrl) {
         c: window.app.custom,
         SERVICE: 'WMS',
         REQUEST: 'GetCapabilities',
+        VERSION: '1.3.0',
         _url: origUrl
     });
     return fetch(url)
