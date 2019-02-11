@@ -7,6 +7,7 @@ import {
     Stroke,
     Style
 } from 'ol/style';
+import Text from 'ol/style/Text';
 
 export default function style (feature, resolution) {
     const { color } = feature.getProperties();
@@ -31,7 +32,61 @@ export default function style (feature, resolution) {
                 radius: 5
             }),
             fill: fill,
-            stroke: stroke
+            stroke: stroke,
+            text: text(feature)
         })
     ];
+}
+
+function getLabel (feature) {
+    const { label } = feature.getProperties();
+
+    if (typeof label !== 'undefined') {
+        return label;
+    }
+
+    return null;
+}
+
+function text (feature) {
+    const type = feature.getGeometry().getType();
+    const label = getLabel(feature);
+
+    if (label !== null) {
+        let textOptions = {
+            stroke: new Stroke({
+                color: '#fff',
+                width: 2
+            }),
+            text: label
+        };
+
+        switch (type) {
+        case 'Point':
+        case 'MultiPoint':
+            $.extend(textOptions, {
+                offsetY: 12
+            });
+            break;
+
+        case 'LineString':
+        case 'MultiLineString':
+            $.extend(textOptions, {
+                overflow: true,
+                placement: 'line'
+            });
+            break;
+
+        case 'Polygon':
+        case 'MultiPolygon':
+            $.extend(textOptions, {
+                overflow: true
+            });
+            break;
+        }
+
+        return new Text(textOptions);
+    }
+
+    return null;
 }

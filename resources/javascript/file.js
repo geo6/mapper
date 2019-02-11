@@ -141,29 +141,28 @@ class File {
     }
 
     addToMap () {
+        let source = null;
         switch (this.type) {
         case 'csv':
             CSVAddFileToMap(this); // async
             break;
         case 'geojson':
-            this.olLayer = new VectorLayer({
-                source: GeoJSONAddFileToMap(this),
-                style: (feature, resolution) => layerStyleFunction(feature, resolution)
-            });
+            source = GeoJSONAddFileToMap(this);
             break;
         case 'gpx':
-            this.olLayer = new VectorLayer({
-                source: GPXAddFileToMap(this)
-            });
+            source = GPXAddFileToMap(this);
             break;
         case 'kml':
-            this.olLayer = new VectorLayer({
-                source: KMLAddFileToMap(this)
-            });
+            source = KMLAddFileToMap(this);
             break;
         }
 
-        if (this.olLayer !== null) {
+        if (source !== null) {
+            this.olLayer = new VectorLayer({
+                source: source,
+                style: (feature, resolution) => layerStyleFunction(feature, resolution)
+            });
+
             window.app.map.addLayer(this.olLayer);
         }
     }
