@@ -1,7 +1,11 @@
 'use strict';
 
-import { toLonLat } from 'ol/proj';
 import { toStringXY } from 'ol/coordinate';
+import { toLonLat } from 'ol/proj';
+import {
+    getArea,
+    getLength
+} from 'ol/sphere';
 
 /**
  * Display selected Feature geometry.
@@ -56,7 +60,7 @@ export default function (geometry) {
         break;
 
     case 'LineString':
-        let length = Math.round(geometry.getLength());
+        let length = Math.round(getLength(geometry));
 
         $(divGeometry).append(`${length} m.`);
         break;
@@ -69,14 +73,14 @@ export default function (geometry) {
         ]);
 
         if (linestrings.length === 1) {
-            let length = Math.round(geometry.getLineString(0).getLength());
+            let length = Math.round(getLength(geometry.getLineString(0)));
 
             $(divGeometry).append(`${length} m.`);
         }
         break;
 
     case 'Polygon':
-        let area = Math.round(geometry.getArea());
+        let area = Math.round(getArea(geometry));
 
         $(divGeometry).append(`${area} m&sup2;`);
         break;
@@ -89,7 +93,7 @@ export default function (geometry) {
         ]);
 
         if (polygons.length === 1) {
-            let area = Math.round(geometry.getPolygon(0).getArea());
+            let area = Math.round(getArea(geometry.getPolygon(0)));
 
             $(divGeometry).append(`${area} m&sup2;`);
         }
