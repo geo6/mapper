@@ -46,6 +46,10 @@ class AuthMiddleware implements MiddlewareInterface
 
         // No authentication configured
         if (is_null($this->auth)) {
+            if (isset($query['c']) && !in_array($query['c'], $public)) {
+                throw new Exception(sprintf('Access denied for "%s". You need to configure authentication to use roles/users configuration.', $query['c']));
+            }
+
             return $handler->handle($request);
         }
 
