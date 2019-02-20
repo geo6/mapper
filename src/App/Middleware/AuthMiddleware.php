@@ -24,7 +24,10 @@ class AuthMiddleware implements MiddlewareInterface
     /** @var array */
     protected $config;
 
-    public function __construct(array $config, AuthenticationInterface $auth, RouterInterface $router)
+    /** @var RouterInterface */
+    protected $router;
+
+    public function __construct(RouterInterface $router, array $config, ?AuthenticationInterface $auth = null)
     {
         $this->auth = $auth;
         $this->config = $config;
@@ -38,8 +41,7 @@ class AuthMiddleware implements MiddlewareInterface
         $query = $request->getQueryParams();
 
         // No authentication configured
-        if (!isset($this->config['pdo'], $this->config['pdo']['dsn']) &&
-            strlen($this->config['pdo']['dsn'])) {
+        if (!isset($this->config['pdo'], $this->config['pdo']['dsn']) && is_null($this->auth)) {
             return $handler->handle($request);
         }
 

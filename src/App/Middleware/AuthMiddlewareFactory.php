@@ -19,15 +19,15 @@ class AuthMiddlewareFactory
         $router = $container->get(RouterInterface::class);
         $config = $container->get('config')['authentication'] ?? [];
 
-        $authentication = $container->has(AuthenticationInterface::class) ?
-                          $container->get(AuthenticationInterface::class) :
-                          null;
-        if (null === $authentication) {
-            throw new InvalidConfigException(
-                'AuthenticationInterface service is missing'
-            );
+        if (isset($this->config['pdo'], $this->config['pdo']['dsn'])) {
+            $authentication = $container->has(AuthenticationInterface::class) ? $container->get(AuthenticationInterface::class) : null;
+            if (null === $authentication) {
+                throw new InvalidConfigException(
+                    'AuthenticationInterface service is missing'
+                );
+            }
         }
 
-        return new AuthMiddleware($config, $authentication, $router);
+        return new AuthMiddleware($router, $config, $authentication ?? null);
     }
 }
