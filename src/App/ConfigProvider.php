@@ -61,14 +61,4 @@ class ConfigProvider
             ],
         ];
     }
-
-    /**
-     * Returns the Plates extentsions configuration.
-     */
-    public function getPlatesExentions() : array
-    {
-        return [
-            Extension\TranslateExtension::class,
-        ];
-    }
 }
