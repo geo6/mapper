@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 return [
     'authentication' => [
+        'protect_public' => false,
         'pdo' => [
             'dsn' => '',
             'username' => '',

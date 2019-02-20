@@ -44,16 +44,16 @@ class HomeHandler implements RequestHandlerInterface
         $baseUrl = rtrim($baseUrl, '/').'/';
 
         $map = [
-            'center' => $config['map']['center'] ?? [0, 0],
-            'zoom'   => $config['map']['zoom'] ?? 0,
+            'center' => $config['config']['map']['center'] ?? [0, 0],
+            'zoom'   => $config['config']['map']['zoom'] ?? 0,
         ];
 
         $data = [
-            'baselayers'        => self::getLayers($config['baselayers'] ?? []),
+            'baselayers'        => self::getBaselayers($config['global']['baselayers'] ?? []),
             'baseUrl'           => $baseUrl,
-            'geocoderProviders' => self::getProviders($config['geocoder']['providers'] ?? []),
-            'layers'            => self::getLayers($config['layers'] ?? []),
-            'files'             => self::getFiles($config['files'] ?? []),
+            'geocoderProviders' => self::getProviders($config['global']['geocoder']['providers'] ?? []),
+            'layers'            => self::getLayers($config['config']['layers'] ?? []),
+            'files'             => self::getFiles($config['config']['files'] ?? []),
             'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
             'map'               => $map,
         ];

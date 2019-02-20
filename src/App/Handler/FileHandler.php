@@ -29,8 +29,8 @@ class FileHandler implements RequestHandlerInterface
 
         $local = $route->getMatchedRouteName() === 'file.local';
 
-        if ($local === true && isset($config['files'])) {
-            foreach ($config['files'] as $file) {
+        if ($local === true && isset($config['config']['files'])) {
+            foreach ($config['config']['files'] as $file) {
                 if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml']) && file_exists($file['path']) && is_readable($file['path'])) {
                     if (is_dir($file['path'])) {
                         $directory = new RecursiveDirectoryIterator(

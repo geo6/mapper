@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Middleware\AuthMiddleware;
 use App\Middleware\ConfigMiddleware;
 use App\Middleware\UIMiddleware;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
-use Zend\Expressive\Authentication\AuthenticationMiddleware;
 use Zend\Expressive\MiddlewareFactory;
 
 /*
@@ -36,34 +36,19 @@ use Zend\Expressive\MiddlewareFactory;
  * );
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    $loadAuthenticationMiddleware = function ($middleware) use ($container) {
-        $applicationMiddleware = [
-            ConfigMiddleware::class,
-            UIMiddleware::class,
-            $middleware,
-        ];
+    $app->get('/', [AuthMiddleware::class, App\Handler\HomeHandler::class], 'home');
 
-        if (isset($container->get('config')['authentication']['pdo'])) {
-            array_unshift($applicationMiddleware, AuthenticationMiddleware::class);
-        }
+    $app->get('/file/{identifier}', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file');
+    $app->get('/file/local/{identifier}', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file.local');
+    $app->get('/geocoder/{provider}/address/{address}', [AuthMiddleware::class, App\Handler\Geocoder\AddressHandler::class], 'geocoder.address');
+    $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', [AuthMiddleware::class, App\Handler\Geocoder\ReverseHandler::class], 'geocoder.reverse');
+    $app->get('/proxy', [AuthMiddleware::class, App\Handler\ProxyHandler::class], 'proxy');
 
-        return $applicationMiddleware;
-    };
-
-    $app->get('/', $loadAuthenticationMiddleware(App\Handler\HomeHandler::class), 'home');
-
-    $app->get('/file/{identifier}', $loadAuthenticationMiddleware(App\Handler\FileHandler::class), 'file');
-    $app->get('/file/local/{identifier}', $loadAuthenticationMiddleware(App\Handler\FileHandler::class), 'file.local');
-    $app->get('/geocoder/{provider}/address/{address}', $loadAuthenticationMiddleware(App\Handler\Geocoder\AddressHandler::class), 'geocoder.address');
-    $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', $loadAuthenticationMiddleware(App\Handler\Geocoder\ReverseHandler::class), 'geocoder.reverse');
-    $app->get('/proxy', $loadAuthenticationMiddleware(App\Handler\ProxyHandler::class), 'proxy');
-
-    $app->post('/upload', $loadAuthenticationMiddleware(App\Handler\UploadHandler::class), 'upload');
+    $app->post('/upload', [AuthMiddleware::class, App\Handler\UploadHandler::class], 'upload');
 
     $app->route('/login', [
-        ConfigMiddleware::class,
         App\Handler\LoginHandler::class,
-        AuthenticationMiddleware::class,
+        AuthMiddleware::class,
     ], ['GET', 'POST'], 'login');
-    $app->get('/logout', $loadAuthenticationMiddleware(App\Handler\LoginHandler::class), 'logout');
+    $app->get('/logout', App\Handler\LoginHandler::class, 'logout');
 };

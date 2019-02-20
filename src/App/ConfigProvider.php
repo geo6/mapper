@@ -39,6 +39,7 @@ class ConfigProvider
                 Handler\UploadHandler::class          => Handler\UploadHandler::class,
             ],
             'factories'  => [
+                Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
                 Middleware\UIMiddleware::class => Middleware\UIMiddlewareFactory::class,
 
                 Handler\HomeHandler::class  => Handler\HomeHandlerFactory::class,

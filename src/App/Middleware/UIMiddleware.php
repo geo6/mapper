@@ -27,6 +27,10 @@ class UIMiddleware implements MiddlewareInterface
 
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
+        $projects = array_map(function (string $path) {
+            return basename($path);
+        }, glob('config/application/public/*'));
+
         if ($session->has(UserInterface::class)) {
             $user = $session->get(UserInterface::class);
 
@@ -35,16 +39,18 @@ class UIMiddleware implements MiddlewareInterface
                 'user',
                 $user
             );
+
+            $projects = AuthMiddleware::getProjects($user['username'], $user['roles']);
         }
 
         $this->template->addDefaultParam(
             $this->template::TEMPLATE_ALL,
-            'config',
+            'ui',
             [
-                'available'   => $config['available'] ?? [],
-                'custom'      => $config['custom'] ?? null,
-                'title'       => $config['title'] ?? null,
-                'description' => $config['description'] ?? null,
+                'projects'    => $projects,
+                'custom'      => $config['custom'],
+                'title'       => $config['config']['title'] ?? null,
+                'description' => $config['config']['description'] ?? null,
             ]
         );
 

@@ -34,8 +34,8 @@ class ProxyHandler implements RequestHandlerInterface
             $host = parse_url($url, PHP_URL_HOST);
             $path = parse_url($url, PHP_URL_PATH);
 
-            $auth = isset($config['layers']) ? self::getHostAuthentication($config['layers'], $host, $path) : null;
-            $proxied = isset($config['layers']) ? self::isHostProxied($config['layers'], $host, $path) : false;
+            $auth = isset($config['config']['layers']) ? self::getHostAuthentication($config['config']['layers'], $host, $path) : null;
+            $proxied = isset($config['config']['layers']) ? self::isHostProxied($config['config']['layers'], $host, $path) : false;
 
             if ($proxied === true) {
                 $localHTTPS = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']);
@@ -60,9 +60,9 @@ class ProxyHandler implements RequestHandlerInterface
 
                                 return 'xlink:href='.
                                     '"'
-                                    .$proxy
-                                    .'?c='.$config['custom']
-                                    .'&amp;_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'])
+                                    .$proxy.'?'
+                                    .($config['custom'] !== null ? 'c='.$config['custom'].'&amp;' : '')
+                                    .'_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'])
                                     .(isset($query) ? htmlentities('&'.$query) : '')
                                     .'"';
                             }

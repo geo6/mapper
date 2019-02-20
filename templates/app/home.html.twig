@@ -3,9 +3,9 @@
 {% block javascript %}
 <script>
     window.app = {};
-    window.app.custom = {% if config.custom %}'{{ config.custom }}'{% else %}null{% endif %};
+    window.app.custom = {% if ui.custom %}"{{ ui.custom}}"{% else %}null{% endif %};
     window.app.baselayers = {{ baselayers | json_encode | raw }};
-    window.app.baseUrl = '{{ baseUrl }}';
+    window.app.baseUrl = "{{ baseUrl }}";
     window.app.geocoderProviders = {{ geocoderProviders | json_encode | raw }};
     window.app.layers = {{ layers | json_encode | raw }};
     window.app.files = {{ files | json_encode | raw }};

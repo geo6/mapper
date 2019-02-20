@@ -23,66 +23,71 @@ class ConfigMiddleware implements MiddlewareInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
 
-        $available = glob('config/application/public/*', GLOB_ONLYDIR);
-
-        if ($session->has(UserInterface::class)) {
-            $user = $session->get(UserInterface::class);
-
-            foreach ($user['roles'] as $role) {
-                $directory = 'config/application/roles/'.$role;
-                if (file_exists($directory) && is_dir($directory)) {
-                    $available = array_merge($available, glob($directory.'/*', GLOB_ONLYDIR));
-                }
-            }
-
-            $directory = 'config/application/users/'.$user['username'];
-            if (file_exists($directory) && is_dir($directory)) {
-                $available = array_merge($available, glob($directory.'/*', GLOB_ONLYDIR));
-            }
-        }
-
         $query = $request->getQueryParams();
 
+        $projects = [
+            'public' => array_map(function (string $path) {
+                return basename($path);
+            }, glob('config/application/public/*')),
+            'roles' => array_map(function (string $path) {
+                return basename($path);
+            }, glob('config/application/roles/*/*')),
+            'users' => array_map(function (string $path) {
+                return basename($path);
+            }, glob('config/application/users/*/*')),
+        ];
+
+        $data = [
+            'global'   => self::getGlobalConfig(),
+            'custom'   => null,
+            'config'   => null,
+        ];
+
         if (isset($query['c']) && strlen($query['c']) > 0) {
-            $enabled = array_values(array_filter($available, function ($directory) use ($query) {
-                return basename($directory) === $query['c'];
-            }));
+            $public = in_array($query['c'], $projects['public']);
+            $roles = in_array($query['c'], $projects['roles']);
+            $users = in_array($query['c'], $projects['users']);
 
-            if (count($enabled) > 0) {
-                $configProviders = [
-                    new PhpFileProvider('config/config.php'),
-                    new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
-                ];
-
-                foreach ($enabled as $directory) {
-                    $configProviders[] = new ZendConfigProvider($directory.'/*.{php,ini,xml,json,yaml}');
-                }
-            } else {
-                throw new Exception(sprintf('Unable to find settings for "%s".', $query['c']));
+            if (!$public && !$roles && !$users) {
+                throw new Exception(sprintf('Unable to find configuration file for "%s".', $query['c']));
             }
-        } else {
-            $configProviders = [
-                new PhpFileProvider('config/config.php'),
-                new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
-            ];
+
+            if (!($public xor $roles xor $users)) {
+                throw new Exception(sprintf('Multiple configuration files found for "%s".', $query['c']));
+            }
+
+            $data['custom'] = $query['c'];
+            $data['config'] = self::getCustomConfig($query['c']);
         }
 
-        $config = (new ConfigAggregator($configProviders))->getMergedConfig();
-        $config['custom'] = $query['c'] ?? null;
-        $config['available'] = [];
+        return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $data));
+    }
 
-        foreach ($available as $a) {
-            $k = basename($a);
-            $c = (new ConfigAggregator([new ZendConfigProvider($a.'/*.{php,ini,xml,json,yaml}')]))->getMergedConfig();
+    private static function getGlobalConfig() : array
+    {
+        return (new ConfigAggregator([
+            new PhpFileProvider('config/config.php'),
+            new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}')
+        ]))->getMergedConfig();
+    }
 
-            if (isset($c['title']) && strlen($c['title']) > 0) {
-                $config['available'][$k] = $c['title'];
-            } else {
-                $config['available'][$k] = strtoupper($k);
-            }
+    private static function getCustomConfig(string $custom) : array
+    {
+        $glob = array_merge(
+            glob('config/application/public/*'),
+            glob('config/application/{roles,users}/*/*', GLOB_BRACE)
+        );
+
+        $directory = array_values(array_filter($glob, function ($directory) use ($custom) {
+            return basename($directory) === $custom;
+        }));
+
+        if (count($directory) === 0) {
+            throw new Exception(sprintf('Unable to find configuration file for "%s".', $custom));
         }
-        asort($config['available']);
 
-        return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $config));
+        return (new ConfigAggregator([
+            new ZendConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml}'),
+        ]))->getMergedConfig();
     }
 }

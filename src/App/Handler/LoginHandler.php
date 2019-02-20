@@ -46,11 +46,13 @@ class LoginHandler implements MiddlewareInterface
         $route = $request->getAttribute(RouteResult::class);
         $basePath = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
 
+        $query = $request->getQueryParams();
+
         if ($this->authentication === false) {
             $redirect = ($basePath !== '/' ? $basePath : '');
             $redirect .= $this->router->generateUri('home');
 
-            return new RedirectResponse($redirect);
+            return new RedirectResponse($redirect.'?'.http_build_query($query));
         }
 
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
@@ -63,7 +65,7 @@ class LoginHandler implements MiddlewareInterface
             $redirect = ($basePath !== '/' ? $basePath : '');
             $redirect .= $this->router->generateUri('home');
 
-            return new RedirectResponse($redirect);
+            return new RedirectResponse($redirect.'?'.http_build_query($query));
         }
 
         $error = '';
@@ -78,7 +80,7 @@ class LoginHandler implements MiddlewareInterface
                 $redirect = ($basePath !== '/' ? $basePath : '');
                 $redirect .= $this->router->generateUri('home');
 
-                return new RedirectResponse($redirect);
+                return new RedirectResponse($redirect.'?'.http_build_query($query));
             }
 
             // (new Log())->write('User "{username}" failed to log in.', ['username' => $_POST['username']], Logger::WARN);
