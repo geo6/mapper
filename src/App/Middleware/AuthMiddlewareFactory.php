@@ -19,7 +19,7 @@ class AuthMiddlewareFactory
         $router = $container->get(RouterInterface::class);
         $config = $container->get('config')['authentication'] ?? [];
 
-        if (isset($this->config['pdo'], $this->config['pdo']['dsn'])) {
+        if (isset($config['pdo'], $config['pdo']['dsn'])) {
             $authentication = $container->has(AuthenticationInterface::class) ? $container->get(AuthenticationInterface::class) : null;
             if (null === $authentication) {
                 throw new InvalidConfigException(
