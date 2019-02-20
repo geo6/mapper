@@ -40,18 +40,22 @@ class AuthMiddleware implements MiddlewareInterface
 
         $query = $request->getQueryParams();
 
+        $public = array_map(function (string $path) {
+            return basename($path);
+        }, glob('config/application/public/*'));
+
         // No authentication configured
-        if (!isset($this->config['pdo'], $this->config['pdo']['dsn']) && is_null($this->auth)) {
+        if (is_null($this->auth)) {
             return $handler->handle($request);
         }
 
-        // Public configuration NOT protected
-        if (isset($query['c']) && strlen($query['c']) > 0) {
-            $public = array_map(function (string $path) {
-                return basename($path);
-            }, glob('config/application/public/*'));
+        // Default configuration and public not protected
+        if (!isset($query['c']) && $this->config['protect_public'] === false) {
+            return $handler->handle($request);
         }
-        if ((!isset($query['c']) || in_array($query['c'], $public)) && $this->config['protect_public'] === false) {
+
+        // Custom public configuration and public not protected
+        if (isset($query['c']) && in_array($query['c'], $public) && $this->config['protect_public'] === false) {
             return $handler->handle($request);
         }
 
