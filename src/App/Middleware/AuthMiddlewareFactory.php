@@ -27,6 +27,7 @@ class AuthMiddlewareFactory
                 'AuthenticationInterface service is missing'
             );
         }
+
         return new AuthMiddleware($config, $authentication, $router);
     }
 }

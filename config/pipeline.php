@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Middleware\AuthMiddleware;
 use App\Middleware\ConfigMiddleware;
 use App\Middleware\UIMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;

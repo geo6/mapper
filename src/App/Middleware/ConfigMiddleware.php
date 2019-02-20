@@ -12,7 +12,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Zend\ConfigAggregator\ConfigAggregator;
 use Zend\ConfigAggregator\PhpFileProvider;
 use Zend\ConfigAggregator\ZendConfigProvider;
-use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Session\SessionMiddleware;
 
 class ConfigMiddleware implements MiddlewareInterface
@@ -67,7 +66,7 @@ class ConfigMiddleware implements MiddlewareInterface
     {
         return (new ConfigAggregator([
             new PhpFileProvider('config/config.php'),
-            new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}')
+            new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
         ]))->getMergedConfig();
     }
 

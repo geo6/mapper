@@ -40,7 +40,7 @@ class ConfigProvider
             ],
             'factories'  => [
                 Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
-                Middleware\UIMiddleware::class => Middleware\UIMiddlewareFactory::class,
+                Middleware\UIMiddleware::class   => Middleware\UIMiddlewareFactory::class,
 
                 Handler\HomeHandler::class  => Handler\HomeHandlerFactory::class,
                 Handler\LoginHandler::class => Handler\LoginHandlerFactory::class,
