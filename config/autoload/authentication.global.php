@@ -8,7 +8,7 @@ return [
         'username'       => 'username',
         'password'       => 'password',
         'redirect'       => 'login',
-        'protect_public' => true,
+        'protect_public' => false,
     ],
 
 ];
