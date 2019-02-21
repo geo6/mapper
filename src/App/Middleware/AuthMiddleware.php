@@ -40,6 +40,10 @@ class AuthMiddleware implements MiddlewareInterface
 
         $query = $request->getQueryParams();
 
+        if (isset($query['c']) && strlen($query['c']) === 0) {
+            unset($query['c']);
+        }
+
         $public = array_map(function (string $path) {
             return basename($path);
         }, glob('config/application/public/*'));
