@@ -29,8 +29,8 @@
         <ul role="tablist">
             <li><a href="#baselayers" title="Baselayers" role="tab"><i class="far fa-map"></i></a></li>
             <li><a href="#layers" title="Layers" role="tab"><i class="fas fa-database"></i></a></li>
-            <li><a href="#geocoder" title="Geocode" role="tab"><i class="fas fa-map-marker-alt"></i></a></li>
             <li class="disabled"><a href="#info" title="Info" role="tab"><i class="fas fa-info-circle"></i></a></li>
+            <li><a href="#geocoder" title="Geocode" role="tab"><i class="fas fa-map-marker-alt"></i></a></li>
             <li class="d-none d-md-block"><a href="#draw" title="Draw" role="tab"><i class="fas fa-pencil-alt"></i></a></li>
         </ul>
 
@@ -43,8 +43,8 @@
     <div class="sidebar-content">
         {{ include('@app/partial/sidebar/baselayers.html.twig') }}
         {{ include('@app/partial/sidebar/layers.html.twig') }}
-        {{ include('@app/partial/sidebar/geocoder.html.twig') }}
         {{ include('@app/partial/sidebar/info.html.twig') }}
+        {{ include('@app/partial/sidebar/geocoder.html.twig') }}
         {{ include('@app/partial/sidebar/draw.html.twig') }}
         {{ include('@app/partial/sidebar/about.html.twig') }}
     </div>
