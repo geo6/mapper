@@ -1,6 +1,7 @@
 'use strict';
 
 import Feature from 'ol/Feature';
+import WKT from 'ol/format/WKT';
 import Point from 'ol/geom/Point';
 import VectorLayer from 'ol/layer/Vector';
 import { fromLonLat } from 'ol/proj';
@@ -27,6 +28,7 @@ export default function (file) {
 
             let lngColumn = null;
             let latColumn = null;
+            let wktColumn = null;
 
             results.meta.fields.forEach((column) => {
                 if (['lon', 'lng', 'longitude'].indexOf(column.toLowerCase()) > -1) {
@@ -35,10 +37,13 @@ export default function (file) {
                 if (['lat', 'latitude'].indexOf(column.toLowerCase()) > -1) {
                     latColumn = column;
                 }
+                if (column.toLowerCase() === 'wkt') {
+                    wktColumn = column;
+                }
             });
 
-            if (lngColumn === null || latColumn === null) {
-                throw new Error('Longitude or Latitude column missing !');
+            if (wktColumn === null && (lngColumn === null || latColumn === null)) {
+                throw new Error('Geometry column(s) missing (Longitude/Latitude or WKT) !');
             }
 
             file.olLayer = new VectorLayer({
@@ -48,7 +53,15 @@ export default function (file) {
 
             results.data.forEach(result => {
                 const feature = new Feature(result);
-                feature.setGeometry(new Point(fromLonLat([result[lngColumn], result[latColumn]])));
+
+                if (wktColumn !== null) {
+                    feature.setGeometry((new WKT()).readGeometry(result[wktColumn], {
+                        dataProjection: 'EPSG:4326',
+                        featureProjection: window.app.map.getView().getProjection()
+                    }));
+                } else {
+                    feature.setGeometry(new Point(fromLonLat([result[lngColumn], result[latColumn]])));
+                }
 
                 file.olLayer.getSource().addFeature(feature);
             });
