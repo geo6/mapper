@@ -20,7 +20,7 @@ export default function (service, layerName, features) {
 
     const olElement = createOlLayer('wmts', service.getIndex(), layerIndex, layerTitle);
 
-    const title = `<strong>${serviceTitle}</strong> - ${layerTitle}`;
+    const title = `${serviceTitle}<br>${layerTitle}`;
 
     features.forEach((feature, index) => {
         displayFeatureInList(feature, title, olElement);

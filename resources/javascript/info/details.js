@@ -34,7 +34,7 @@ export default function (title, feature, liElement) {
     }
 
     $('#info-details > table > caption')
-        .html(title);
+        .html(`<strong>${title}</strong>`);
 
     const id = feature.getId();
     if (typeof id !== 'undefined') {
