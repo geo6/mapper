@@ -22,7 +22,7 @@ export default function (feature, title, olElement) {
     let label = geometry !== null ? '<i class="fas fa-vector-square"></i> ' : '';
 
     if (typeof id !== 'undefined') {
-        label += id;
+        label += `Feature id: ${id}`;
     } else {
         for (const prop in properties) {
             if (typeof properties[prop] === 'number' || typeof properties[prop] === 'string') {
