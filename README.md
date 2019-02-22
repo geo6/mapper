@@ -22,7 +22,7 @@ The *Mapper* supports the following services and file formats :
   - WMS: <http://www.opengeospatial.org/standards/wms/>
   - WMTS: <http://www.opengeospatial.org/standards/wmts/>
 - File formats:
-  - CSV: <https://tools.ietf.org/html/rfc4180> (RFC4180)
+  - CSV: <https://tools.ietf.org/html/rfc4180> (RFC4180) (with WKT support)
   - GeoJSON: <https://tools.ietf.org/html/rfc7946> (RFC7946)
   - GPX: <https://www.topografix.com/gpx.asp>
   - KML: <https://www.opengeospatial.org/standards/kml/>
