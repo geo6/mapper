@@ -18,8 +18,8 @@ export default function (title, feature, liElement) {
     $('#info-details > table > caption, #info-details > table > tbody').empty();
     $('#info-details-geometry').empty().hide();
 
-    let items = $('#info-list ol > li');
-    let current = $(items).index(liElement);
+    const items = $('#info-list ol > li');
+    const current = $(items).index(liElement);
 
     $('#info-details').data({
         current
@@ -42,7 +42,7 @@ export default function (title, feature, liElement) {
             .append(`<br><br><i class="fas fa-bookmark"></i> Feature id: ${id}</strong>`);
     }
 
-    let properties = feature.getProperties();
+    const properties = feature.getProperties();
     for (const key in properties) {
         if (key === feature.getGeometryName() || key === 'boundedBy') {
             continue;
@@ -61,7 +61,7 @@ export default function (title, feature, liElement) {
             .appendTo(tr);
     }
 
-    let geometry = feature.getGeometry();
+    const geometry = feature.getGeometry();
 
     if (typeof geometry !== 'undefined') {
         displayGeometry(geometry);
