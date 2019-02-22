@@ -12,10 +12,10 @@ import displayDetails from './details';
  * @returns {void}
  */
 export default function (feature, title, olElement) {
-    let id = feature.getId();
-    let properties = feature.getProperties();
-    let geometryName = feature.getGeometryName();
-    let geometry = feature.getGeometry();
+    const id = feature.getId();
+    const properties = feature.getProperties();
+    const geometryName = feature.getGeometryName();
+    const geometry = feature.getGeometry();
 
     delete properties[geometryName];
 
@@ -33,7 +33,7 @@ export default function (feature, title, olElement) {
         }
     }
 
-    let li = document.createElement('li');
+    const li = document.createElement('li');
 
     $(li)
         .append(label)
