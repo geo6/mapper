@@ -36,6 +36,12 @@ export default function (title, feature, liElement) {
     $('#info-details > table > caption')
         .html(title);
 
+    const id = feature.getId();
+    if (typeof id !== 'undefined') {
+        $('#info-details > table > caption')
+            .append(`<br><br><i class="fas fa-bookmark"></i> Feature id: ${id}</strong>`);
+    }
+
     let properties = feature.getProperties();
     for (const key in properties) {
         if (key === feature.getGeometryName() || key === 'boundedBy') {
