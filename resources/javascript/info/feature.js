@@ -21,7 +21,16 @@ export default function (feature, title, olElement) {
 
     let label = geometry !== null ? '<i class="fas fa-vector-square"></i> ' : '';
 
-    if (typeof id !== 'undefined') {
+    let labelKey = null;
+    const keys = Object.keys(properties);
+    const labelKeyPosition = keys.map(key => key.toLowerCase()).indexOf('label');
+    if (labelKeyPosition > -1) {
+        labelKey = keys[labelKeyPosition];
+    }
+
+    if (labelKey !== null && properties[labelKey].length > 0) {
+        label += properties[labelKey];
+    } else if (typeof id !== 'undefined') {
         label += `Feature id: ${id}`;
     } else {
         for (const prop in properties) {
