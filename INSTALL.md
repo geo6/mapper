@@ -37,13 +37,15 @@ You can write your configuration files using any format compatible with [`Zend\C
 
 The geocoding uses [Geocoder PHP library](https://github.com/geocoder-php/Geocoder). A list of providers is available [here](https://github.com/geocoder-php/Geocoder#providers).
 
-1. Install the new provider:
+1. Install the new provider
 
     ```shell
     composer install <geocoder-provider-package>
     ```
 
-2. Then, declare the newly installed provider in `config/autoload/geocoder.global.php` file:
+2. Add the new provider in `src/App/Handler/Geocoder/AddressHandler.php` (and in `src/App/Handler/Geocoder/ReverseHandler.php` if reverse geocoding is available)
+
+2. Then, declare the newly installed provider in `config/autoload/geocoder.global.php` file
 
     ```php
     '<provider-name>' => [
