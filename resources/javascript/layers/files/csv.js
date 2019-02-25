@@ -4,7 +4,7 @@ import Feature from 'ol/Feature';
 import WKT from 'ol/format/WKT';
 import Point from 'ol/geom/Point';
 import VectorLayer from 'ol/layer/Vector';
-import { fromLonLat } from 'ol/proj';
+import { transform } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
 
 import Papa from 'papaparse';
@@ -60,7 +60,7 @@ export default function (file, projection) {
                         featureProjection: window.app.map.getView().getProjection()
                     }));
                 } else {
-                    feature.setGeometry(new Point(fromLonLat([result[xColumn], result[yColumn]])));
+                    feature.setGeometry(new Point(transform([result[xColumn], result[yColumn]], projection, window.app.map.getView().getProjection())));
                 }
 
                 file.olLayer.getSource().addFeature(feature);
