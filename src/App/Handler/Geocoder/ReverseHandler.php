@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Handler\Geocoder;
 
+use App\Middleware\ConfigMiddleware;
+use ErrorException;
 use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
 use Geocoder\Query\ReverseQuery;
+use Geocoder\Provider\Provider;
 use Geocoder\StatefulGeocoder;
 use GuzzleHttp\Client as GuzzleClient;
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
@@ -17,8 +20,18 @@ use Zend\Diactoros\Response\JsonResponse;
 
 class ReverseHandler implements RequestHandlerInterface
 {
+    /**
+     * Given a Geocoder provider name, a Longitude, and a Latitude as parameters,
+     * reverse geocode the location and return the matched addresses.
+     *
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     */
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
+        $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
+
         $longitude = $request->getAttribute('longitude');
         $latitude = $request->getAttribute('latitude');
         $provider = $request->getAttribute('provider');
@@ -28,59 +41,92 @@ class ReverseHandler implements RequestHandlerInterface
         ]);
         $adapter = new GuzzleAdapter($guzzle);
 
-        switch ($provider) {
+        $geocoder = self::getGeocoder(
+            $provider,
+            $adapter,
+            $config['geocoder']['providers'][$provider]['customerId'] ?? null,
+            $config['geocoder']['providers'][$provider]['customerId'] ?? null
+        );
+
+        $locations = self::geocode($geocoder, floatval($longitude), floatval($latitude));
+
+        return new JsonResponse([
+            'type'     => 'FeatureCollection',
+            'features' => $locations,
+        ]);
+    }
+
+    /**
+     * Instantiate the Geocoder Provider.
+     *
+     * @param string $name Provider name.
+     * @param GuzzleAdapter $adapter
+     * @param string|null $customerId
+     * @param string|null $privateKey
+     *
+     * @return Provider
+     */
+    private static function getGeocoder(
+        string $name,
+        GuzzleAdapter $adapter,
+        ? string $customerId = null,
+        ? string $privateKey = null
+    ) : Provider {
+        switch ($name) {
             case 'geopunt':
-                $geocoder = new \Geocoder\Provider\Geopunt\Geopunt($adapter);
-                break;
+                return new \Geocoder\Provider\Geopunt\Geopunt($adapter);
 
             case 'nominatim':
-                $geocoder = \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer(
+                return \Geocoder\Provider\Nominatim\Nominatim::withOpenStreetMapServer(
                     $adapter,
                     $_SERVER['HTTP_USER_AGENT']
                 );
-                break;
 
             case 'spw':
-                $geocoder = new \Geocoder\Provider\SPW\SPW($adapter);
-                break;
+                return new \Geocoder\Provider\SPW\SPW($adapter);
 
             case 'urbis':
-                $geocoder = new \Geocoder\Provider\UrbIS\UrbIS($adapter);
-                break;
+                return new \Geocoder\Provider\UrbIS\UrbIS($adapter);
+
+            default:
+                throw new ErrorException(sprintf('The "%s" provider is not installed or configured.', $name));
         }
+    }
 
-        $locations = [
-            'type'     => 'FeatureCollection',
-            'features' => [],
-        ];
+    /**
+     * Geocode a location with a given Geocoder provider.
+     *
+     * @param Provider $geocoder
+     * @param float $longitude
+     * @param float $latitude
+     *
+     * @return array
+     */
+    private static function geocode(Provider $geocoder, float $longitude, float $latitude) : array
+    {
+        $query = ReverseQuery::fromCoordinates($latitude, $longitude);
 
-        if (isset($geocoder)) {
-            $query = ReverseQuery::fromCoordinates($latitude, $longitude);
+        $result = (new StatefulGeocoder($geocoder))->reverseQuery($query);
 
-            $result = (new StatefulGeocoder($geocoder))
-                ->reverseQuery($query);
+        $locations = [];
 
-            $dumper = new GeoJson();
-            $formatter = new StringFormatter();
+        foreach ($result->all() as $location) {
+            $json = json_decode((new GeoJson())->dump($location));
 
-            foreach ($result->all() as $location) {
-                $json = json_decode($dumper->dump($location));
+            switch ($geocoder->getName()) {
+                case 'nominatim':
+                    $json->properties->type = $location->getType();
+                    $json->properties->formattedAddress = $location->getDisplayName();
+                    break;
 
-                switch ($provider) {
-                    case 'nominatim':
-                        $json->properties->type = $location->getType();
-                        $json->properties->formattedAddress = $location->getDisplayName();
-                        break;
-
-                    default:
-                        $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
-                        break;
-                }
-
-                $locations['features'][] = $json;
+                default:
+                    $json->properties->formattedAddress = (new StringFormatter())->format($location, '%S %n, %z %L');
+                    break;
             }
+
+            $locations[] = $json;
         }
 
-        return new JsonResponse($locations);
+        return $locations;
     }
 }
