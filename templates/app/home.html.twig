@@ -12,6 +12,7 @@
     window.app.https = {{ https == true ? 'true' : 'false' }};
     window.app.center = {{ map.center | json_encode }};
     window.app.zoom = {{ map.zoom }};
+    window.app.epsg = {{ epsg | json_encode | raw }};
 </script>
 <script src="{{ asset('/js/mapper.min.js') }}"></script>
 {% endblock %}

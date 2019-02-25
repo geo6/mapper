@@ -11,7 +11,7 @@ import Papa from 'papaparse';
 
 import layerStyleFunction from '../../map/style';
 
-export default function (file) {
+export default function (file, projection) {
     Papa.parse(file.url, {
         dynamicTyping: true,
         download: true,
@@ -26,23 +26,23 @@ export default function (file) {
                 throw new Error(errors);
             }
 
-            let lngColumn = null;
-            let latColumn = null;
+            let xColumn = null;
+            let yColumn = null;
             let wktColumn = null;
 
             results.meta.fields.forEach((column) => {
-                if (['lon', 'lng', 'longitude'].indexOf(column.toLowerCase()) > -1) {
-                    lngColumn = column;
+                if (['lon', 'lng', 'longitude', 'x'].indexOf(column.toLowerCase()) > -1) {
+                    xColumn = column;
                 }
-                if (['lat', 'latitude'].indexOf(column.toLowerCase()) > -1) {
-                    latColumn = column;
+                if (['lat', 'latitude', 'y'].indexOf(column.toLowerCase()) > -1) {
+                    yColumn = column;
                 }
                 if (column.toLowerCase() === 'wkt') {
                     wktColumn = column;
                 }
             });
 
-            if (wktColumn === null && (lngColumn === null || latColumn === null)) {
+            if (wktColumn === null && (xColumn === null || yColumn === null)) {
                 throw new Error('Geometry column(s) missing (Longitude/Latitude or WKT) !');
             }
 
@@ -56,11 +56,11 @@ export default function (file) {
 
                 if (wktColumn !== null) {
                     feature.setGeometry((new WKT()).readGeometry(result[wktColumn], {
-                        dataProjection: 'EPSG:4326',
+                        dataProjection: projection,
                         featureProjection: window.app.map.getView().getProjection()
                     }));
                 } else {
-                    feature.setGeometry(new Point(fromLonLat([result[lngColumn], result[latColumn]])));
+                    feature.setGeometry(new Point(fromLonLat([result[xColumn], result[yColumn]])));
                 }
 
                 file.olLayer.getSource().addFeature(feature);

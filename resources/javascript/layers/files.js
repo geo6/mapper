@@ -24,7 +24,9 @@ export function init (type) {
 export function apply (type) {
     $(`#modal-layers-files-${type} .list-group-item`).each((index, element) => {
         if ($(element).hasClass('list-group-item-primary')) {
-            window.app[type][index].addToMap();
+            const proj = $(element).find('select').val();
+
+            window.app[type][index].addToMap(proj);
             window.app[type][index].displayInSidebar();
 
             $(element).removeClass('list-group-item-primary');

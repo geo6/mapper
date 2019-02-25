@@ -11,6 +11,7 @@ import {
 import GPXAddFileToMap from './layers/files/gpx';
 import KMLAddFileToMap from './layers/files/kml';
 import layerStyleFunction from './map/style';
+
 /**
  *
  */
@@ -72,16 +73,28 @@ class File {
                 $(event.delegateTarget).toggleClass('list-group-item-primary');
             });
 
-        $(document.createElement('div'))
-            .append(`<strong>${this.name}</strong>`)
-            .appendTo(li);
+        if (this.type === 'csv') {
+            const select = document.createElement('select');
 
-        if (typeof this.title !== 'undefined') {
-            $(document.createElement('div'))
-                .text(this.title)
+            $(select)
+                .append('<option value="EPSG:4326">WGS 84 (EPSG:4326)</option>')
+                .addClass('float-right form-control form-control-sm d-inline-block w-auto')
+                .on('click', event => event.stopPropagation())
                 .appendTo(li);
+
+            for (const epsg in window.app.epsg) {
+                $(select).append(`<option value="${epsg}">${window.app.epsg[epsg].name} (${epsg})</option>`);
+            }
+
+            $(li).append(`<strong style="line-height: calc(1.8125rem + 2px);">${this.name}</strong><br>`);
+        } else {
+            $(li).append(`<strong>${this.name}</strong><br>`);
         }
-        if (typeof this.description !== 'undefined') {
+
+        if (this.title !== null) {
+            $(li).append(this.title);
+        }
+        if (this.description !== null) {
             $(document.createElement('p'))
                 .addClass('text-info small')
                 .text(this.description)
@@ -140,11 +153,11 @@ class File {
         }
     }
 
-    addToMap () {
+    addToMap (projection) {
         let source = null;
         switch (this.type) {
         case 'csv':
-            CSVAddFileToMap(this); // async
+            CSVAddFileToMap(this, projection); // async
             break;
         case 'geojson':
             source = GeoJSONAddFileToMap(this);

@@ -56,6 +56,7 @@ class HomeHandler implements RequestHandlerInterface
             'files'             => self::getFiles($config['config']['files'] ?? []),
             'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
             'map'               => $map,
+            'epsg'              => $config['global']['epsg'] ?? [],
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));
