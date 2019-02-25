@@ -7,7 +7,6 @@ namespace App\Handler;
 use App\Middleware\ConfigMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -39,7 +38,7 @@ class ProxyHandler implements RequestHandlerInterface
                 $proxied = false;
             } else {
                 $auth = self::getHostAuthentication($config['config']['layers'], $host, $path);
-                $proxied =  self::isHostProxied($config['config']['layers'], $host, $path);
+                $proxied = self::isHostProxied($config['config']['layers'], $host, $path);
             }
 
             if ($proxied === true) {
