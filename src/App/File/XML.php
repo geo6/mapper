@@ -11,7 +11,7 @@ use SplFileInfo;
 class XML extends SplFileInfo implements FileInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function checkType() : bool
     {
@@ -24,7 +24,7 @@ class XML extends SplFileInfo implements FileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getInfo() : ?ArrayObject
     {

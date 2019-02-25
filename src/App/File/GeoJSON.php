@@ -10,7 +10,7 @@ use SplFileInfo;
 class GeoJSON extends SplFileInfo implements FileInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function checkType() : bool
     {
@@ -23,7 +23,7 @@ class GeoJSON extends SplFileInfo implements FileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getInfo() : ?ArrayObject
     {

@@ -7,7 +7,7 @@ namespace App\File;
 class GPX extends XML implements FileInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function checkType() : bool
     {

@@ -10,7 +10,7 @@ use SplFileInfo;
 class CSV extends SplFileInfo implements FileInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function checkType() : bool
     {
@@ -23,7 +23,7 @@ class CSV extends SplFileInfo implements FileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getInfo() : ?ArrayObject
     {
