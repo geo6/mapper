@@ -7,7 +7,7 @@
 
 ## Features
 
-- Change baselayer
+- Baselayers
 - Address or POI geocoding
 - Location reverse geocoding
 - Draw
@@ -29,6 +29,10 @@ The *Mapper* supports the following services and file formats :
 
 ## Install
 
-```shell
-composer create-project geo6/mapper
-```
+See [INSTALL.md](INSTALL.md)
+
+## Configuration
+
+The application is configured for Belgium (geocoding services, baselayers, ...) but you can easily adapt the configuration to your use case.
+
+See [INSTALL.md#Configuration](INSTALL.md#Configuration)
