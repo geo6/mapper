@@ -6,6 +6,9 @@ namespace App\File;
 
 class GPX extends XML implements FileInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function checkType() : bool
     {
         $mime = mime_content_type($this->getPathname());

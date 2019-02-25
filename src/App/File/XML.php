@@ -10,6 +10,9 @@ use SplFileInfo;
 
 class XML extends SplFileInfo implements FileInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function checkType() : bool
     {
         $mime = mime_content_type($this->getPathname());
@@ -20,6 +23,9 @@ class XML extends SplFileInfo implements FileInterface
             in_array($mime, ['text/xml', 'application/xml'], true);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getInfo() : ?ArrayObject
     {
         $content = file_get_contents($this->getPathname());
