@@ -45,7 +45,7 @@ The geocoding uses [Geocoder PHP library](https://github.com/geocoder-php/Geocod
 
 2. Add the new provider in `src/App/Handler/Geocoder/AddressHandler.php` (and in `src/App/Handler/Geocoder/ReverseHandler.php` if reverse geocoding is available)
 
-2. Then, declare the newly installed provider in `config/autoload/geocoder.global.php` file
+3. Then, declare the newly installed provider in `config/autoload/geocoder.global.php` file
 
     ```php
     '<provider-name>' => [
