@@ -31,7 +31,7 @@ class FileHandler implements RequestHandlerInterface
 
         if ($local === true && isset($config['config']['files'])) {
             foreach ($config['config']['files'] as $file) {
-                if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml']) && file_exists($file['path']) && is_readable($file['path'])) {
+                if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml'], true) && file_exists($file['path']) && is_readable($file['path'])) {
                     if (is_dir($file['path'])) {
                         $directory = new RecursiveDirectoryIterator(
                             $file['path'],
@@ -81,6 +81,10 @@ class FileHandler implements RequestHandlerInterface
     {
         $mime = mime_content_type($path);
         $content = file_get_contents($path);
+
+        if ($content === false) {
+            return new EmptyResponse(500);
+        }
 
         switch ($mime) {
             case 'text/plain':

@@ -11,6 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
+use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Router\RouterInterface;
 
 /**
@@ -18,7 +19,7 @@ use Zend\Expressive\Router\RouterInterface;
  */
 class AuthMiddleware implements MiddlewareInterface
 {
-    /** @var AuthenticationInterface */
+    /** @var AuthenticationInterface|null */
     protected $auth;
 
     /** @var array */
@@ -50,7 +51,7 @@ class AuthMiddleware implements MiddlewareInterface
 
         // No authentication configured
         if (is_null($this->auth)) {
-            if (isset($query['c']) && !in_array($query['c'], $public)) {
+            if (isset($query['c']) && !in_array($query['c'], $public, true)) {
                 throw new Exception(sprintf('Access denied for "%s". You need to configure authentication to use roles/users configuration.', $query['c']));
             }
 
@@ -63,7 +64,7 @@ class AuthMiddleware implements MiddlewareInterface
         }
 
         // Custom public configuration and public not protected
-        if (isset($query['c']) && in_array($query['c'], $public) && $this->config['protect_public'] === false) {
+        if (isset($query['c']) && in_array($query['c'], $public, true) && $this->config['protect_public'] === false) {
             return $handler->handle($request);
         }
 
@@ -72,7 +73,7 @@ class AuthMiddleware implements MiddlewareInterface
         if (null !== $user) {
             $projects = self::getProjects($user->getIdentity(), $user->getRoles());
 
-            if (!isset($query['c']) || in_array($query['c'], $projects)) {
+            if (!isset($query['c']) || in_array($query['c'], $projects, true)) {
                 return $handler->handle($request->withAttribute(UserInterface::class, $user));
             } else {
                 throw new Exception(sprintf('Access denied for "%s".', $query['c']));
@@ -85,7 +86,7 @@ class AuthMiddleware implements MiddlewareInterface
         return $this->auth->unauthorizedResponse($request)->withHeader('Location', $redirect.'?'.http_build_query($query));
     }
 
-    public static function getProjects(string $username, array $roles = []) : array
+    public static function getProjects(string $username, iterable $roles = []) : array
     {
         $projects = array_map(function (string $path) {
             return basename($path);

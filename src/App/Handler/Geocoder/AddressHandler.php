@@ -71,42 +71,45 @@ class AddressHandler implements RequestHandlerInterface
                 break;
         }
 
-        $query = GeocodeQuery::create($address);
-
-        $result = (new StatefulGeocoder($geocoder))
-            ->geocodeQuery($query);
-
-        $dumper = new GeoJson();
-        $formatter = new StringFormatter();
-
         $locations = [
             'type'     => 'FeatureCollection',
             'features' => [],
         ];
-        foreach ($result->all() as $location) {
-            $json = json_decode($dumper->dump($location));
 
-            switch ($provider) {
-                case 'geo6-poi':
-                    $json->properties->type = $location->getType();
-                    $json->properties->formattedAddress = sprintf(
-                        '%s: %s',
-                        $location->getType(),
-                        $location->getName()
-                    );
-                    break;
+        if (isset($geocoder)) {
+            $query = GeocodeQuery::create($address);
 
-                case 'nominatim':
-                    $json->properties->type = $location->getType();
-                    $json->properties->formattedAddress = $location->getDisplayName();
-                    break;
+            $result = (new StatefulGeocoder($geocoder))
+                ->geocodeQuery($query);
 
-                default:
-                    $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
-                    break;
+            $dumper = new GeoJson();
+            $formatter = new StringFormatter();
+
+            foreach ($result->all() as $location) {
+                $json = json_decode($dumper->dump($location));
+
+                switch ($provider) {
+                    case 'geo6-poi':
+                        $json->properties->type = $location->getType();
+                        $json->properties->formattedAddress = sprintf(
+                            '%s: %s',
+                            $location->getType(),
+                            $location->getName()
+                        );
+                        break;
+
+                    case 'nominatim':
+                        $json->properties->type = $location->getType();
+                        $json->properties->formattedAddress = $location->getDisplayName();
+                        break;
+
+                    default:
+                        $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
+                        break;
+                }
+
+                $locations['features'][] = $json;
             }
-
-            $locations['features'][] = $json;
         }
 
         return new JsonResponse($locations);

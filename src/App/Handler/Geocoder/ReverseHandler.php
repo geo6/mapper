@@ -49,33 +49,36 @@ class ReverseHandler implements RequestHandlerInterface
                 break;
         }
 
-        $query = ReverseQuery::fromCoordinates($latitude, $longitude);
-
-        $result = (new StatefulGeocoder($geocoder))
-            ->reverseQuery($query);
-
-        $dumper = new GeoJson();
-        $formatter = new StringFormatter();
-
         $locations = [
             'type'     => 'FeatureCollection',
             'features' => [],
         ];
-        foreach ($result->all() as $location) {
-            $json = json_decode($dumper->dump($location));
 
-            switch ($provider) {
-                case 'nominatim':
-                    $json->properties->type = $location->getType();
-                    $json->properties->formattedAddress = $location->getDisplayName();
-                    break;
+        if (isset($geocoder)) {
+            $query = ReverseQuery::fromCoordinates($latitude, $longitude);
 
-                default:
-                    $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
-                    break;
+            $result = (new StatefulGeocoder($geocoder))
+                ->reverseQuery($query);
+
+            $dumper = new GeoJson();
+            $formatter = new StringFormatter();
+
+            foreach ($result->all() as $location) {
+                $json = json_decode($dumper->dump($location));
+
+                switch ($provider) {
+                    case 'nominatim':
+                        $json->properties->type = $location->getType();
+                        $json->properties->formattedAddress = $location->getDisplayName();
+                        break;
+
+                    default:
+                        $json->properties->formattedAddress = $formatter->format($location, '%S %n, %z %L');
+                        break;
+                }
+
+                $locations['features'][] = $json;
             }
-
-            $locations['features'][] = $json;
         }
 
         return new JsonResponse($locations);

@@ -43,9 +43,9 @@ class ConfigMiddleware implements MiddlewareInterface
         ];
 
         if (isset($query['c']) && strlen($query['c']) > 0) {
-            $public = in_array($query['c'], $projects['public']);
-            $roles = in_array($query['c'], $projects['roles']);
-            $users = in_array($query['c'], $projects['users']);
+            $public = in_array($query['c'], $projects['public'], true);
+            $roles = in_array($query['c'], $projects['roles'], true);
+            $users = in_array($query['c'], $projects['users'], true);
 
             if (!$public && !$roles && !$users) {
                 throw new Exception(sprintf('Unable to find configuration file for "%s".', $query['c']));

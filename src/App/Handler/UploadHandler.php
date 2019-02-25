@@ -19,10 +19,7 @@ class UploadHandler implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $params = array_merge(
-            $request->getParsedBody(),
-            $request->getQueryParams()
-        );
+        $params = $request->getQueryParams();
 
         $method = $request->getMethod();
 
@@ -77,7 +74,9 @@ class UploadHandler implements RequestHandlerInterface
                                     if (file_exists($uploadedChunk) && is_readable($uploadedChunk)) {
                                         $content = file_get_contents($uploadedChunk);
 
-                                        fwrite($handle, $content);
+                                        if ($content !== false) {
+                                            fwrite($handle, $content);
+                                        }
 
                                         @unlink($uploadedChunk);
                                     } else {

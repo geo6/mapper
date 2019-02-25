@@ -32,11 +32,11 @@ class ConfigProvider
     {
         return [
             'invokables' => [
-                Handler\FileHandler::class            => Handler\FileHandler::class,
-                Handler\Gocoder\AddressHandler::class => Handler\Gocoder\AddressHandler::class,
-                Handler\Gocoder\ReverseHandler::class => Handler\Gocoder\ReverseHandler::class,
-                Handler\ProxyHandler::class           => Handler\ProxyHandler::class,
-                Handler\UploadHandler::class          => Handler\UploadHandler::class,
+                Handler\FileHandler::class             => Handler\FileHandler::class,
+                Handler\Geocoder\AddressHandler::class => Handler\Geocoder\AddressHandler::class,
+                Handler\Geocoder\ReverseHandler::class => Handler\Geocoder\ReverseHandler::class,
+                Handler\ProxyHandler::class            => Handler\ProxyHandler::class,
+                Handler\UploadHandler::class           => Handler\UploadHandler::class,
             ],
             'factories'  => [
                 Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
