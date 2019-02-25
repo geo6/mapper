@@ -8,8 +8,8 @@ use App\Middleware\ConfigMiddleware;
 use ErrorException;
 use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
-use Geocoder\Query\GeocodeQuery;
 use Geocoder\Provider\Provider;
+use Geocoder\Query\GeocodeQuery;
 use Geocoder\StatefulGeocoder;
 use GuzzleHttp\Client as GuzzleClient;
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
@@ -58,10 +58,10 @@ class AddressHandler implements RequestHandlerInterface
     /**
      * Instantiate the Geocoder Provider.
      *
-     * @param string $name Provider name.
+     * @param string        $name       Provider name.
      * @param GuzzleAdapter $adapter
-     * @param string|null $customerId
-     * @param string|null $privateKey
+     * @param string|null   $customerId
+     * @param string|null   $privateKey
      *
      * @return Provider
      */
@@ -113,7 +113,7 @@ class AddressHandler implements RequestHandlerInterface
      * Geocode an address with a given Geocoder provider.
      *
      * @param Provider $geocoder
-     * @param string $address
+     * @param string   $address
      *
      * @return array
      */
