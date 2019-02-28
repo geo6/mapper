@@ -8,7 +8,6 @@ export default function generateLayersList (service, layers) {
     for (let i = 0; i < layers.length; i++) {
         let li = document.createElement('li');
         let div = document.createElement('div');
-        let badge = $(document.createElement('span')).addClass('badge badge-light ml-1');
 
         $(li)
             .attr('id', `wms-${service.getIndex()}-${layers[i].Name}`)
@@ -23,6 +22,11 @@ export default function generateLayersList (service, layers) {
             })
             .appendTo(ul);
 
+        $(document.createElement('span'))
+            .addClass('badge badge-light float-right')
+            .text(layers[i].Name)
+            .appendTo(div);
+
         let icon = '';
         if (layers[i].queryable === true) {
             if (service.mixedContent === true) {
@@ -35,8 +39,7 @@ export default function generateLayersList (service, layers) {
         $(div)
             .append([
                 icon,
-                layers[i].Title,
-                $(badge).text(layers[i].Name)
+                layers[i].Title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1')
             ])
             .appendTo(li);
 
