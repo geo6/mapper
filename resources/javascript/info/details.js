@@ -33,8 +33,9 @@ export default function (title, feature, liElement) {
         $('#infos-list-btn-next').prop('disabled', false);
     }
 
+    const titleFormatted = title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1');
     $('#info-details > table > caption')
-        .html(`<strong>${title}</strong>`);
+        .html(`<strong>${titleFormatted}</strong>`);
 
     const id = feature.getId();
     if (typeof id !== 'undefined') {

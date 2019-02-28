@@ -13,9 +13,11 @@ export function createUlService (serviceType, serviceIndex, title) {
     if ($(`#info-service-${serviceType}-${serviceIndex}`).length === 0) {
         let ul = document.createElement('ul');
 
+        const titleFormatted = title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1');
+
         $(document.createElement('li'))
             .attr('id', `info-service-${serviceType}-${serviceIndex}`)
-            .append(`<strong>${title}</strong>`)
+            .append(`<strong>${titleFormatted}</strong>`)
             .append('<div class="loading text-muted"><i class="fas fa-spinner fa-spin"></i> Loading ...</div>')
             .append(ul)
             .appendTo('#info-list');
@@ -40,9 +42,11 @@ export function createOlLayer (serviceType, serviceIndex, layerIndex, title) {
     if ($(`#info-layer-${serviceType}-${serviceIndex}-${layerIndex}`).length === 0) {
         let ol = document.createElement('ol');
 
+        const titleFormatted = title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1');
+
         $(document.createElement('li'))
             .attr('id', `info-layer-${serviceType}-${serviceIndex}-${layerIndex}`)
-            .append(`<strong>${title}</strong>`)
+            .append(`<strong>${titleFormatted}</strong>`)
             .append(ol)
             .appendTo(`#info-service-${serviceType}-${serviceIndex} > ul`);
 
