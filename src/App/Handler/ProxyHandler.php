@@ -32,6 +32,12 @@ class ProxyHandler implements RequestHandlerInterface
 
             $host = parse_url($url, PHP_URL_HOST);
             $path = parse_url($url, PHP_URL_PATH);
+            $query = parse_url($url, PHP_URL_QUERY);
+
+            if (!is_null($query)) {
+                parse_str($query, $queryArray);
+                $params = array_merge($queryArray, $params);
+            }
 
             if ($host === null || $path === null || !isset($config['config']['layers'])) {
                 $auth = null;
@@ -50,7 +56,7 @@ class ProxyHandler implements RequestHandlerInterface
                 $callback = function ($body) use ($config, $host, $path, $proxy) {
                     return preg_replace_callback(
                         '/xlink:href="(https?:\/\/.+?)"/',
-                        function ($matches) use ($config, $host, $path, $proxy) {
+                        function ($matches) use ($config, $host, $path, $query, $proxy) {
                             $url = parse_url($matches[1]);
 
                             if ($url !== false && isset($url['host'], $url['path']) && $url['host'] === $host && $url['path'] === $path) {
@@ -59,15 +65,15 @@ class ProxyHandler implements RequestHandlerInterface
                                     $urlQuery = urldecode($urlQuery);
                                     parse_str($urlQuery, $output);
 
-                                    $query = http_build_query($output);
+                                    $params = http_build_query($output);
                                 }
 
                                 return 'xlink:href='.
                                     '"'
                                     .$proxy.'?'
                                     .($config['custom'] !== null ? 'c='.$config['custom'].'&amp;' : '')
-                                    .'_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'])
-                                    .(isset($query) ? htmlentities('&'.$query) : '')
+                                    .'_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'].(!is_null($query) ? '?'.$query : ''))
+                                    .(isset($params) ? htmlentities('&'.$params) : '')
                                     .'"';
                             }
 
