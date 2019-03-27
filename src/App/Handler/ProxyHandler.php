@@ -53,7 +53,7 @@ class ProxyHandler implements RequestHandlerInterface
 
                 $proxy = 'http'.($localHTTPS ? 's' : '').'://'.$localHost.$baseUrl.'proxy';
 
-                $callback = function ($body) use ($config, $host, $path, $proxy) {
+                $callback = function ($body) use ($config, $host, $path, $query, $proxy) {
                     return preg_replace_callback(
                         '/xlink:href="(https?:\/\/.+?)"/',
                         function ($matches) use ($config, $host, $path, $query, $proxy) {
