@@ -19,7 +19,6 @@ function generateLayersList (service, layers) {
 
         let li = document.createElement('li');
         let div = document.createElement('div');
-        let badge = $(document.createElement('span')).addClass('badge badge-light ml-1');
 
         $(li)
             .attr('id', `wmts-${service.getIndex()}-${layers[i].Identifier}`)
@@ -34,6 +33,11 @@ function generateLayersList (service, layers) {
             })
             .appendTo(ul);
 
+        $(document.createElement('span'))
+            .addClass('badge badge-light float-right')
+            .text(layers[i].Identifier)
+            .appendTo(div);
+
         let icon = '';
         if (typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined' && queryable === true) {
             if (service.mixedContent === true) {
@@ -46,8 +50,7 @@ function generateLayersList (service, layers) {
         $(div)
             .append([
                 icon,
-                layers[i].Title,
-                $(badge).text(layers[i].Identifier)
+                layers[i].Title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1')
             ])
             .appendTo(li);
 

@@ -73,17 +73,21 @@ class WMTS {
 
         let div = document.createElement('div');
 
-        $(document.createElement('strong'))
-            .text(this.capabilities.ServiceIdentification.Title)
-            .appendTo(div);
         $(document.createElement('span'))
             .text(this.capabilities.version)
             .addClass('badge badge-pill badge-info float-right')
             .appendTo(div);
-        $(document.createElement('p'))
-            .addClass('text-info small')
-            .text(this.capabilities.ServiceIdentification.Abstract)
+        $(document.createElement('strong'))
+            .html(this.capabilities.ServiceIdentification.Title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1'))
             .appendTo(div);
+
+        if (typeof this.capabilities.ServiceIdentification.Abstract !== 'undefined' && this.capabilities.ServiceIdentification.Abstract !== '') {
+            $(document.createElement('p'))
+                .addClass('text-info small')
+                .html(this.capabilities.ServiceIdentification.Abstract.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1'))
+                .appendTo(div);
+        }
+
         if (this.mixedContent === true) {
             $(document.createElement('p'))
                 .addClass('alert alert-warning small mt-3')

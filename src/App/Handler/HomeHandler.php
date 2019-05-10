@@ -14,20 +14,23 @@ use Psr\Http\Server\RequestHandlerInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Expressive\Router;
-use Zend\Expressive\Template;
+use Zend\Expressive\Router\RouterInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 class HomeHandler implements RequestHandlerInterface
 {
+    /** @var string */
     private $containerName;
 
+    /** @var RouterInterface */
     private $router;
 
+    /** @var TemplateRendererInterface */
     private $template;
 
     public function __construct(
-        Router\RouterInterface $router,
-        Template\TemplateRendererInterface $template = null,
+        RouterInterface $router,
+        TemplateRendererInterface $template,
         string $containerName
     ) {
         $this->router = $router;
@@ -121,7 +124,7 @@ class HomeHandler implements RequestHandlerInterface
         ];
 
         foreach ($configFiles as $file) {
-            if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml']) && file_exists($file['path']) && is_readable($file['path'])) {
+            if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml'], true) && file_exists($file['path']) && is_readable($file['path'])) {
                 if (is_dir($file['path'])) {
                     $directory = new RecursiveDirectoryIterator(
                         $file['path'],

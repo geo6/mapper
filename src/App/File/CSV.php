@@ -9,6 +9,9 @@ use SplFileInfo;
 
 class CSV extends SplFileInfo implements FileInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function checkType() : bool
     {
         $mime = mime_content_type($this->getPathname());
@@ -19,6 +22,9 @@ class CSV extends SplFileInfo implements FileInterface
             in_array($mime, ['text/plain', 'text/csv'], true);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getInfo() : ?ArrayObject
     {
         return null;
