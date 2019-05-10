@@ -59,7 +59,7 @@ class ProxyHandler implements RequestHandlerInterface
                         function ($matches) use ($config, $host, $path, $query, $proxy) {
                             $url = parse_url($matches[1]);
 
-                            if ($url !== false && isset($url['host'], $url['path']) && $url['host'] === $host && $url['path'] === $path) {
+                            if ($url !== false && isset($url['host'], $url['path']) && strcasecmp($url['host'], $host) === 0 && strcasecmp($url['path'], $path) === 0) {
                                 if (isset($url['query']) && strlen($url['query']) > 0) {
                                     $urlQuery = html_entity_decode($url['query']);
                                     $urlQuery = urldecode($urlQuery);
@@ -83,6 +83,8 @@ class ProxyHandler implements RequestHandlerInterface
                     );
                 };
             }
+
+
 
             if (is_null($auth)) {
                 return self::forward($url, $params, $acceptEncoding, $callback ?? null);
