@@ -84,8 +84,6 @@ class ProxyHandler implements RequestHandlerInterface
                 };
             }
 
-
-
             if (is_null($auth)) {
                 return self::forward($url, $params, $acceptEncoding, $callback ?? null);
             } else {
