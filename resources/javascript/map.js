@@ -20,7 +20,7 @@ import initInfo from './info';
 import initBaselayers from './map/baselayers';
 import GeolocationControl from './map/geolocation';
 import initMarker from './map/marker';
-import MeasureControl from './map/measure';
+import MeasureControl from './map/measure/control';
 import initPermalink from './map/permalink';
 import initSingleClick from './map/singleclick';
 
