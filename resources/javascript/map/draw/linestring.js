@@ -6,6 +6,7 @@ class DrawLineString extends Draw {
     constructor () {
         super({
             source: window.app.draw.layer.getSource(),
+            stopClick: true,
             type: 'LineString'
         });
 
