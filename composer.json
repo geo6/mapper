@@ -30,7 +30,7 @@
         "geocoder-php/nominatim-provider": "^5.0",
         "guzzlehttp/guzzle": "^6.3",
         "mtymek/blast-base-url": "^1.0",
-        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/guzzle6-adapter": "^2.0",
         "php-http/message": "^1.7",
         "zendframework/zend-component-installer": "^2.1.1",
         "zendframework/zend-config": "^3.2",
