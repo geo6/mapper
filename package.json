@@ -21,7 +21,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
-    "style-loader": "^0.21.0",
+    "style-loader": "^0.23.1",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.4"
   },
