@@ -2042,16 +2042,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.11.0",
+            "version": "v2.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "c344879ae57dc1487b1df3e3d8325936125ba2cc"
+                "reference": "699ed2342557c88789a15402de5eb834dedd6792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c344879ae57dc1487b1df3e3d8325936125ba2cc",
-                "reference": "c344879ae57dc1487b1df3e3d8325936125ba2cc",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/699ed2342557c88789a15402de5eb834dedd6792",
+                "reference": "699ed2342557c88789a15402de5eb834dedd6792",
                 "shasum": ""
             },
             "require": {
@@ -2062,7 +2062,7 @@
             "require-dev": {
                 "psr/container": "^1.0",
                 "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.4.19|^4.1.8"
+                "symfony/phpunit-bridge": "^3.4.19|^4.1.8|^5.0"
             },
             "type": "library",
             "extra": {
@@ -2105,7 +2105,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-05-31T06:21:42+00:00"
+            "time": "2019-06-18T15:37:11+00:00"
         },
         {
             "name": "web-token/jwt-core",
@@ -3605,16 +3605,16 @@
         },
         {
             "name": "zendframework/zend-expressive-template",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-template.git",
-                "reference": "b8b9ece61ed598a58223638933e2fd703ae4a5e9"
+                "reference": "b79ed49791a470270d4d0f65e9b163f914c74a91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-template/zipball/b8b9ece61ed598a58223638933e2fd703ae4a5e9",
-                "reference": "b8b9ece61ed598a58223638933e2fd703ae4a5e9",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-template/zipball/b79ed49791a470270d4d0f65e9b163f914c74a91",
+                "reference": "b79ed49791a470270d4d0f65e9b163f914c74a91",
                 "shasum": ""
             },
             "require": {
@@ -3654,20 +3654,20 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-03-15T15:42:46+00:00"
+            "time": "2019-06-20T14:05:59+00:00"
         },
         {
             "name": "zendframework/zend-expressive-twigrenderer",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-twigrenderer.git",
-                "reference": "b913efdb3155d74dcd7e1909bd4f03fbe2b578e3"
+                "reference": "17df00d1025362c7bfe743e7b9f51be2838a0181"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-twigrenderer/zipball/b913efdb3155d74dcd7e1909bd4f03fbe2b578e3",
-                "reference": "b913efdb3155d74dcd7e1909bd4f03fbe2b578e3",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-twigrenderer/zipball/17df00d1025362c7bfe743e7b9f51be2838a0181",
+                "reference": "17df00d1025362c7bfe743e7b9f51be2838a0181",
                 "shasum": ""
             },
             "require": {
@@ -3689,8 +3689,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev",
-                    "dev-develop": "2.4.x-dev"
+                    "dev-master": "2.4.x-dev",
+                    "dev-develop": "2.5.x-dev"
                 },
                 "zf": {
                     "config-provider": "Zend\\Expressive\\Twig\\ConfigProvider"
@@ -3717,7 +3717,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2019-01-23T17:35:01+00:00"
+            "time": "2019-06-12T15:06:52+00:00"
         },
         {
             "name": "zendframework/zend-httphandlerrunner",
