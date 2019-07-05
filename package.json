@@ -8,8 +8,8 @@
     "sidebar-v2": "^0.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
     "babel-loader": "^8.0.6",
     "babel-minify-webpack-plugin": "^0.3.1",
     "css-loader": "^3.0.0",
@@ -22,10 +22,11 @@
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "webpack": "^4.35.0",
+    "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   },
   "scripts": {
+    "postinstall": "npm run build",
     "build": "npm run build:css & npm run build:js",
     "build:css": "node-sass --output-style compressed --output public/css resources/sass/style.scss",
     "build:js": "webpack --config webpack.config.js --mode production --progress",
