@@ -45,14 +45,15 @@ class WMTS {
     getCapabilities (callback) {
         const getCapabilities = WMTSGetCapabilities(this.url);
         if (getCapabilities instanceof Promise) {
-            getCapabilities
-                .then(response => {
-                    this.capabilities = response.capabilities;
-                    this.layers = response.layers;
-                    this.mixedContent = response.mixedContent;
+            getCapabilities.then(response => {
+                console.log(response);
 
-                    callback.call(this, this);
-                });
+                this.capabilities = response.capabilities;
+                this.layers = response.layers;
+                this.mixedContent = response.mixedContent;
+
+                callback.call(this, this);
+            });
         }
     }
 
@@ -61,9 +62,12 @@ class WMTS {
      */
     displayCapabilities () {
         const index = this.getIndex();
+        const title =
+            this.capabilities.ServiceIdentification.Title ||
+            this.layers[0].Title;
 
         $(document.createElement('option'))
-            .text(this.capabilities.ServiceIdentification.Title)
+            .text(title)
             .attr('value', `wmts:${index}`)
             .data({
                 index: index,
@@ -78,20 +82,31 @@ class WMTS {
             .addClass('badge badge-pill badge-info float-right')
             .appendTo(div);
         $(document.createElement('strong'))
-            .html(this.capabilities.ServiceIdentification.Title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1'))
+            .html(title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1'))
             .appendTo(div);
 
-        if (typeof this.capabilities.ServiceIdentification.Abstract !== 'undefined' && this.capabilities.ServiceIdentification.Abstract !== '') {
+        if (
+            typeof this.capabilities.ServiceIdentification.Abstract !==
+                'undefined' &&
+            this.capabilities.ServiceIdentification.Abstract !== ''
+        ) {
             $(document.createElement('p'))
                 .addClass('text-info small')
-                .html(this.capabilities.ServiceIdentification.Abstract.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1'))
+                .html(
+                    this.capabilities.ServiceIdentification.Abstract.replace(
+                        /(\r\n|\n\r|\r|\n)/g,
+                        '<br>' + '$1'
+                    )
+                )
                 .appendTo(div);
         }
 
         if (this.mixedContent === true) {
             $(document.createElement('p'))
                 .addClass('alert alert-warning small mt-3')
-                .html('Please switch to HTTPS version of this service (if available - or enable <code>proxy</code> mode throught application settings) to be able to query features (see <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#Mixed_active_content" target="_blank">Mixed Active Content</a> for more details).')
+                .html(
+                    'Please switch to HTTPS version of this service (if available - or enable <code>proxy</code> mode throught application settings) to be able to query features (see <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#Mixed_active_content" target="_blank">Mixed Active Content</a> for more details).'
+                )
                 .appendTo(div);
         }
         $(div)
@@ -109,31 +124,33 @@ class WMTS {
      * @returns {void}
      */
     getFeatureInfo (coordinate) {
-        createUlService(
-            'wmts',
-            this.getIndex(),
-            this.capabilities.ServiceIdentification.Title
-        );
+        const title =
+            this.capabilities.ServiceIdentification.Title ||
+            this.layers[0].Title;
+        createUlService('wmts', this.getIndex(), title);
 
         const requests = WMTSGetFeatureInfo(this, coordinate);
-        Promise.all(requests)
-            .then(responses => {
-                $(`#info-service-wmts-${this.getIndex()} > .loading`).remove();
+        Promise.all(requests).then(responses => {
+            $(`#info-service-wmts-${this.getIndex()} > .loading`).remove();
 
-                this.selection = responses;
+            this.selection = responses;
 
-                let total = 0;
+            let total = 0;
 
-                responses.forEach(response => {
-                    if (response.features.length > 0) {
-                        WMTSDisplayFeatureList(this, response.layer, response.features);
-                    }
-                });
-
-                if (total === 0) {
-                    $(`#info-service-wmts-${this.getIndex()}`).remove();
+            responses.forEach(response => {
+                if (response.features.length > 0) {
+                    WMTSDisplayFeatureList(
+                        this,
+                        response.layer,
+                        response.features
+                    );
                 }
             });
+
+            if (total === 0) {
+                $(`#info-service-wmts-${this.getIndex()}`).remove();
+            }
+        });
     }
 
     /**
@@ -158,7 +175,9 @@ class WMTS {
      */
     addToSidebar (layersName) {
         layersName.forEach(layerName => {
-            const layer = this.layers.find(layer => layer.Identifier === layerName);
+            const layer = this.layers.find(
+                layer => layer.Identifier === layerName
+            );
 
             WMTSAddLayerToSidebar(this, layer);
         });
