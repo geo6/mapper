@@ -9,6 +9,7 @@ set('application', 'mapper');
 
 // Project repository
 set('repository', 'git@github.com:geo6/mapper.git');
+set('branch', 'master');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
