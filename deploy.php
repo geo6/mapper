@@ -28,12 +28,18 @@ add('writable_dirs', [
 ]);
 set('allow_anonymous_stats', false);
 
-// Hosts
+// Files/dirs to be deleted
+set('clear_paths', [
+    'node_modules',
+    'deploy.php',
+    'Procfile',
+]);
+after('deploy:update_code', 'deploy:clear_paths');
 
+// Hosts
 inventory('hosts.yml');
 
 // Tasks
-
 task('debug:enable', 'composer run development-enable');
 task('debug:disable', 'composer run development-disable');
 
