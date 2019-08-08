@@ -9,31 +9,35 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "babel-loader": "^8.0.6",
-    "babel-minify-webpack-plugin": "^0.3.1",
-    "css-loader": "^3.1.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^6.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.38.0",
-    "webpack-cli": "^3.3.6"
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.22.9"
   },
   "scripts": {
     "postinstall": "npm run build",
-    "build": "npm run build:css & npm run build:js",
-    "build:css": "node-sass --output-style compressed --output public/css resources/sass/style.scss",
-    "build:js": "webpack --config webpack.config.js --mode production --progress",
+    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-cache --no-source-maps",
+    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-cache --no-hmr",
     "test": "eslint resources/javascript/",
-    "fix": "eslint resources/javascript/ --fix",
-    "watch": "npm run watch:css & npm run watch:js",
-    "watch:css": "node-sass --watch --output-style compressed --output public/css resources/sass/style.scss",
-    "watch:js": "webpack --watch --config webpack.config.js --mode development --progress"
+    "fix": "eslint resources/javascript/ --fix"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -1,9 +1,14 @@
 {% extends '@layout/default.html.twig' %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('mapper.css') }}">
+{% endblock %}
+
 {% block javascript %}
+<script src="{{ asset('mapper.js') }}"></script>
 <script>
     window.app = {};
-    window.app.custom = {% if ui.custom %}"{{ ui.custom}}"{% else %}null{% endif %};
+    window.app.custom = {% if ui.custom %}"{{ ui.custom}}"{% else %} null{% endif %};
     window.app.baselayers = {{ baselayers | json_encode | raw }};
     window.app.baseUrl = "{{ baseUrl }}";
     window.app.geocoderProviders = {{ geocoderProviders | json_encode | raw }};
@@ -13,8 +18,11 @@
     window.app.center = {{ map.center | json_encode }};
     window.app.zoom = {{ map.zoom }};
     window.app.epsg = {{ epsg | json_encode | raw }};
+
+    (function () {
+        map.init();
+    })();
 </script>
-<script src="{{ asset('/js/mapper.min.js') }}"></script>
 {% endblock %}
 
 {% block loader %}
@@ -32,7 +40,8 @@
             <li><a href="#layers" title="Layers" role="tab"><i class="fas fa-database"></i></a></li>
             <li class="disabled"><a href="#info" title="Info" role="tab"><i class="fas fa-info-circle"></i></a></li>
             <li><a href="#geocoder" title="Geocode" role="tab"><i class="fas fa-map-marker-alt"></i></a></li>
-            <li class="d-none d-md-block"><a href="#draw" title="Draw" role="tab"><i class="fas fa-pencil-alt"></i></a></li>
+            <li class="d-none d-md-block"><a href="#draw" title="Draw" role="tab"><i class="fas fa-pencil-alt"></i></a>
+            </li>
         </ul>
 
         <ul role="tablist">
