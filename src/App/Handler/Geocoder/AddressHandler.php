@@ -43,8 +43,8 @@ class AddressHandler implements RequestHandlerInterface
         $geocoder = self::getGeocoder(
             $provider,
             $adapter,
-            $config['geocoder']['providers'][$provider]['customerId'] ?? null,
-            $config['geocoder']['providers'][$provider]['customerId'] ?? null
+            $config['global']['geocoder']['providers'][$provider]['customerId'] ?? null,
+            $config['global']['geocoder']['providers'][$provider]['privateKey'] ?? null
         );
 
         $locations = self::geocode($geocoder, $address);
