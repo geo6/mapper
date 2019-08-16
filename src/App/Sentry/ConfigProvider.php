@@ -26,7 +26,7 @@ class ConfigProvider
     {
         return [
             'invokables' => [],
-            'factories' => [
+            'factories'  => [
                 Listener\Listener::class => Listener\ListenerFactory::class,
             ],
             'delegators' => [
