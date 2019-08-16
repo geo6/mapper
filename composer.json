@@ -32,6 +32,7 @@
         "mtymek/blast-base-url": "^1.0",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/message": "^1.7",
+        "sentry/sdk": "2.0.3",
         "zendframework/zend-component-installer": "^2.1.1",
         "zendframework/zend-config": "^3.2",
         "zendframework/zend-config-aggregator": "^1.0",
