@@ -13,7 +13,7 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
-    App\Sentry\ConfigProvider::class,
+    Geo6\Expressive\Monolog\ConfigProvider::class,
 
     // Include cache configuration
     new ArrayProvider($cacheConfig),
@@ -39,10 +39,10 @@ $aggregator = new ConfigAggregator([
     //   - `*.global.php`
     //   - `local.php`
     //   - `*.local.php`
-    new PhpFileProvider(realpath(__DIR__).'/autoload/{{,*.}global,{,*.}local}.php'),
+    new PhpFileProvider(realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'),
 
     // Load development config if it exists
-    new PhpFileProvider(realpath(__DIR__).'/development.config.php'),
+    new PhpFileProvider(realpath(__DIR__) . '/development.config.php'),
 ], $cacheConfig['config_cache_path']);
 
 return $aggregator->getMergedConfig();
