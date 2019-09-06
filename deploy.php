@@ -8,7 +8,7 @@ require 'recipe/zend_framework.php';
 set('application', 'mapper');
 
 // Project repository
-set('repository', 'git@github.com:geo6/mapper.git');
+set('repository', 'https://github.com/geo6/mapper.git');
 set('branch', 'master');
 
 // [Optional] Allocate tty for git clone. Default value is false.
@@ -20,14 +20,20 @@ add('shared_files', [
 ]);
 add('shared_dirs', [
     'config/application',
+    'data/log',
 ]);
 
 // Writable dirs by web server
 add('writable_dirs', [
     'config',
     'data/cache',
+    'data/log',
 ]);
+set('writable_mode', 'chown');
+set('writable_use_sudo', true);
+
 set('allow_anonymous_stats', false);
+set('cleanup_use_sudo', true);
 
 // Files/dirs to be deleted
 set('clear_paths', [
