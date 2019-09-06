@@ -8,7 +8,7 @@ require 'recipe/zend_framework.php';
 set('application', 'mapper');
 
 // Project repository
-set('repository', 'https://github.com/geo6/mapper.git');
+set('repository', 'git@github.com:geo6/mapper.git');
 set('branch', 'master');
 
 // [Optional] Allocate tty for git clone. Default value is false.
