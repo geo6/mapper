@@ -3505,16 +3505,16 @@
         },
         {
             "name": "zendframework/zend-component-installer",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-component-installer.git",
-                "reference": "788b74439fff056b848c47aeb3d8b63cf2fb2161"
+                "reference": "56871c43e40f92324b25d5a4d50ff51f9f556910"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-component-installer/zipball/788b74439fff056b848c47aeb3d8b63cf2fb2161",
-                "reference": "788b74439fff056b848c47aeb3d8b63cf2fb2161",
+                "url": "https://api.github.com/repos/zendframework/zend-component-installer/zipball/56871c43e40f92324b25d5a4d50ff51f9f556910",
+                "reference": "56871c43e40f92324b25d5a4d50ff51f9f556910",
                 "shasum": ""
             },
             "require": {
@@ -3524,8 +3524,8 @@
             "require-dev": {
                 "composer/composer": "^1.5.2",
                 "malukenho/docheader": "^0.1.6",
-                "mikey179/vfsstream": "^1.6.5",
-                "phpunit/phpunit": "^5.7.23 || ^6.4.3",
+                "mikey179/vfsstream": "^1.6.7",
+                "phpunit/phpunit": "^7.5.15 || ^8.3.4",
                 "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "composer-plugin",
@@ -3545,7 +3545,7 @@
             "license": [
                 "BSD-3-Clause"
             ],
-            "description": "Composer plugin for automating component registration in zend-mvc and Expressive applications",
+            "description": "Composer plugin for injecting modules and configuration providers into application configuration",
             "keywords": [
                 "ZendFramework",
                 "component installer",
@@ -3553,7 +3553,7 @@
                 "plugin",
                 "zf"
             ],
-            "time": "2018-03-21T16:53:56+00:00"
+            "time": "2019-09-04T19:10:43+00:00"
         },
         {
             "name": "zendframework/zend-config",
