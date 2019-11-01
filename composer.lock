@@ -4187,16 +4187,16 @@
         },
         {
             "name": "zendframework/zend-expressive-session",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-session.git",
-                "reference": "b869aaaf2de4d734b1955bf6f79b6da25ab5ad9c"
+                "reference": "71615ce08f3c02b49090b14a3f3f9db23aa8652b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-session/zipball/b869aaaf2de4d734b1955bf6f79b6da25ab5ad9c",
-                "reference": "b869aaaf2de4d734b1955bf6f79b6da25ab5ad9c",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-session/zipball/71615ce08f3c02b49090b14a3f3f9db23aa8652b",
+                "reference": "71615ce08f3c02b49090b14a3f3f9db23aa8652b",
                 "shasum": ""
             },
             "require": {
@@ -4219,8 +4219,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev",
-                    "dev-develop": "1.3.x-dev"
+                    "dev-master": "1.3.x-dev",
+                    "dev-develop": "1.4.x-dev"
                 },
                 "zf": {
                     "config-provider": "Zend\\Expressive\\Session\\ConfigProvider"
@@ -4245,27 +4245,27 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2019-03-05T20:57:32+00:00"
+            "time": "2019-10-16T15:28:15+00:00"
         },
         {
             "name": "zendframework/zend-expressive-session-ext",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-session-ext.git",
-                "reference": "11d05b5cc8cbe3cad6c7d5b531cdd7e9e41d8677"
+                "reference": "ba3210afb160450a7aa6139b98eda2b667c41cbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-session-ext/zipball/11d05b5cc8cbe3cad6c7d5b531cdd7e9e41d8677",
-                "reference": "11d05b5cc8cbe3cad6c7d5b531cdd7e9e41d8677",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-session-ext/zipball/ba3210afb160450a7aa6139b98eda2b667c41cbd",
+                "reference": "ba3210afb160450a7aa6139b98eda2b667c41cbd",
                 "shasum": ""
             },
             "require": {
                 "dflydev/fig-cookies": "^1.0 || ^2.0",
                 "ext-session": "*",
                 "php": "^7.1",
-                "zendframework/zend-expressive-session": "^1.2"
+                "zendframework/zend-expressive-session": "^1.3"
             },
             "conflict": {
                 "phpspec/prophecy": "<1.7.2"
@@ -4278,8 +4278,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6.x-dev",
-                    "dev-develop": "1.7.x-dev"
+                    "dev-master": "1.7.x-dev",
+                    "dev-develop": "1.8.x-dev"
                 },
                 "zf": {
                     "config-provider": "Zend\\Expressive\\Session\\Ext\\ConfigProvider"
@@ -4304,7 +4304,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2019-02-28T18:47:31+00:00"
+            "time": "2019-10-16T15:37:33+00:00"
         },
         {
             "name": "zendframework/zend-expressive-template",
