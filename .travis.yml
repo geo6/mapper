@@ -4,12 +4,23 @@ sudo: false
 matrix:
     fast_finish: true
     include:
-        - php: 7.3
+        - php: 7.4
           env: deps="low"
-        - php: 7.3
+        - php: 7.4
           env: deps="high"
+        - php: 7.3
         - php: 7.2
+          env: deps="low"
 
 install:
-    - composer install --no-interaction --no-dev
-
+  - |
+      if [[ $deps = "high" ]]; then
+        echo "> Installing HIGH deps ..."
+        travis_retry composer update -n -o
+      elif [[ $deps = "low" ]]; then
+        echo "> Installing LOW deps ..."
+        travis_retry composer update -n -o --prefer-lowest
+      else
+        echo "> Installing DEFAULT deps ..."
+        travis_retry composer install -n -o
+      fi
