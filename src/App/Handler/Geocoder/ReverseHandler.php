@@ -69,8 +69,8 @@ class ReverseHandler implements RequestHandlerInterface
     private static function getGeocoder(
         string $name,
         GuzzleAdapter $adapter,
-        ? string $customerId = null,
-        ? string $privateKey = null
+        ?string $customerId = null,
+        ?string $privateKey = null
     ) : Provider {
         switch ($name) {
             case 'geopunt':
