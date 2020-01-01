@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "file-saver": "^2.0.2",
-    "ol": "^5.3.3",
+    "ol": "^6.1.1",
     "papaparse": "^5.1.0",
     "proj4": "^2.6.0",
     "resumablejs": "^1.1.0",
