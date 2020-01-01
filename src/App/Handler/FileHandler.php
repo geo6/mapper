@@ -56,7 +56,7 @@ class FileHandler implements RequestHandlerInterface
      *
      * @return string|null Path of the file.
      */
-    private static function getLocalFile(array $files, string $identifier): ? string
+    private static function getLocalFile(array $files, string $identifier): ?string
     {
         foreach ($files as $file) {
             if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml'], true) && file_exists($file['path'])) {
@@ -101,7 +101,7 @@ class FileHandler implements RequestHandlerInterface
      *
      * @return string|null Path of the file.
      */
-    private static function getUploadedFile(string $identifier): ? string
+    private static function getUploadedFile(string $identifier): ?string
     {
         $directory = sys_get_temp_dir().'/mapper/'.$identifier;
 
