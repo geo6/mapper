@@ -28,7 +28,7 @@ class AddressHandler implements RequestHandlerInterface
      *
      * @return ResponseInterface
      */
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
@@ -70,7 +70,7 @@ class AddressHandler implements RequestHandlerInterface
         GuzzleAdapter $adapter,
         ?string $customerId = null,
         ?string $privateKey = null
-    ) : Provider {
+    ): Provider {
         switch ($name) {
             case 'bpost':
                 return new \Geocoder\Provider\bpost\bpost($adapter);
@@ -117,7 +117,7 @@ class AddressHandler implements RequestHandlerInterface
      *
      * @return array
      */
-    private static function geocode(Provider $geocoder, string $address) : array
+    private static function geocode(Provider $geocoder, string $address): array
     {
         $query = GeocodeQuery::create($address);
 

@@ -38,7 +38,7 @@ class HomeHandler implements RequestHandlerInterface
         $this->containerName = $containerName;
     }
 
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
         $server = $request->getServerParams();
@@ -65,7 +65,7 @@ class HomeHandler implements RequestHandlerInterface
         return new HtmlResponse($this->template->render('app::home', $data));
     }
 
-    private static function getProviders(array $configProviders) : array
+    private static function getProviders(array $configProviders): array
     {
         $providers = [];
 
@@ -80,7 +80,7 @@ class HomeHandler implements RequestHandlerInterface
         return $providers;
     }
 
-    private static function getBaselayers(array $configBaselayers) : array
+    private static function getBaselayers(array $configBaselayers): array
     {
         $baselayers = $configBaselayers;
 
@@ -100,7 +100,7 @@ class HomeHandler implements RequestHandlerInterface
         return $baselayers;
     }
 
-    private static function getLayers(array $configLayers) : array
+    private static function getLayers(array $configLayers): array
     {
         $layers = array_map(
             function ($layer) {
@@ -114,7 +114,7 @@ class HomeHandler implements RequestHandlerInterface
         return $layers;
     }
 
-    private static function getFiles(array $configFiles) : array
+    private static function getFiles(array $configFiles): array
     {
         $files = [
             'csv'     => [],
@@ -159,7 +159,7 @@ class HomeHandler implements RequestHandlerInterface
         return $files;
     }
 
-    private static function getFile(string $type, string $path) : ?array
+    private static function getFile(string $type, string $path): ?array
     {
         switch ($type) {
             case 'csv':

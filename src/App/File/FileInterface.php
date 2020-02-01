@@ -13,12 +13,12 @@ interface FileInterface
      *
      * @return bool
      */
-    public function checkType() : bool;
+    public function checkType(): bool;
 
     /**
      * Return title and description from file content (if possible).
      *
      * @return ArrayObject|null
      */
-    public function getInfo() : ?ArrayObject;
+    public function getInfo(): ?ArrayObject;
 }

@@ -33,7 +33,7 @@ use Zend\Expressive\MiddlewareFactory;
  *     'contact'
  * );
  */
-return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', [AuthMiddleware::class, App\Handler\HomeHandler::class], 'home');
 
     $app->get('/file/{identifier}', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file');
