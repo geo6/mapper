@@ -14,7 +14,7 @@ use Zend\Expressive\Router\RouterInterface;
  */
 class AuthMiddlewareFactory
 {
-    public function __invoke(ContainerInterface $container) : AuthMiddleware
+    public function __invoke(ContainerInterface $container): AuthMiddleware
     {
         $router = $container->get(RouterInterface::class);
         $config = $container->get('config')['authentication'] ?? [];

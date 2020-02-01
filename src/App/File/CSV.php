@@ -12,7 +12,7 @@ class CSV extends SplFileInfo implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function checkType() : bool
+    public function checkType(): bool
     {
         $mime = mime_content_type($this->getPathname());
         $extension = strtolower(pathinfo($this->getPathname(), PATHINFO_EXTENSION));
@@ -25,7 +25,7 @@ class CSV extends SplFileInfo implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function getInfo() : ?ArrayObject
+    public function getInfo(): ?ArrayObject
     {
         return null;
     }

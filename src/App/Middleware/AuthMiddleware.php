@@ -35,7 +35,7 @@ class AuthMiddleware implements MiddlewareInterface
         $this->router = $router;
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $basePath = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
 
@@ -86,7 +86,7 @@ class AuthMiddleware implements MiddlewareInterface
         return $this->auth->unauthorizedResponse($request)->withHeader('Location', $redirect.'?'.http_build_query($query));
     }
 
-    public static function getProjects(string $username, iterable $roles = []) : array
+    public static function getProjects(string $username, iterable $roles = []): array
     {
         $projects = array_map(function (string $path) {
             return basename($path);
