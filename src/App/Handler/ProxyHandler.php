@@ -16,7 +16,7 @@ use Zend\Diactoros\Stream;
 
 class ProxyHandler implements RequestHandlerInterface
 {
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 

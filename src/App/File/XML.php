@@ -13,7 +13,7 @@ class XML extends SplFileInfo implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function checkType() : bool
+    public function checkType(): bool
     {
         $mime = mime_content_type($this->getPathname());
         $extension = strtolower(pathinfo($this->getPathname(), PATHINFO_EXTENSION));
@@ -26,7 +26,7 @@ class XML extends SplFileInfo implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function getInfo() : ?ArrayObject
+    public function getInfo(): ?ArrayObject
     {
         $content = file_get_contents($this->getPathname());
 
