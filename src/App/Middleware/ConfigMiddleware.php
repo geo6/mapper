@@ -18,7 +18,7 @@ class ConfigMiddleware implements MiddlewareInterface
 {
     public const CONFIG_ATTRIBUTE = 'config';
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
 
@@ -62,7 +62,7 @@ class ConfigMiddleware implements MiddlewareInterface
         return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $data));
     }
 
-    private static function getGlobalConfig() : array
+    private static function getGlobalConfig(): array
     {
         return (new ConfigAggregator([
             new PhpFileProvider('config/config.php'),
@@ -70,7 +70,7 @@ class ConfigMiddleware implements MiddlewareInterface
         ]))->getMergedConfig();
     }
 
-    private static function getCustomConfig(string $custom) : array
+    private static function getCustomConfig(string $custom): array
     {
         $glob = array_merge(
             glob('config/application/public/*'),

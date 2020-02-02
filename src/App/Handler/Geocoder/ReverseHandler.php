@@ -28,7 +28,7 @@ class ReverseHandler implements RequestHandlerInterface
      *
      * @return ResponseInterface
      */
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
@@ -71,7 +71,7 @@ class ReverseHandler implements RequestHandlerInterface
         GuzzleAdapter $adapter,
         ?string $customerId = null,
         ?string $privateKey = null
-    ) : Provider {
+    ): Provider {
         switch ($name) {
             case 'geopunt':
                 return new \Geocoder\Provider\Geopunt\Geopunt($adapter);
@@ -102,7 +102,7 @@ class ReverseHandler implements RequestHandlerInterface
      *
      * @return array
      */
-    private static function geocode(Provider $geocoder, float $longitude, float $latitude) : array
+    private static function geocode(Provider $geocoder, float $longitude, float $latitude): array
     {
         $query = ReverseQuery::fromCoordinates($latitude, $longitude);
 

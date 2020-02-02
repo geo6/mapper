@@ -11,7 +11,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 class HomeHandlerFactory
 {
-    public function __invoke(ContainerInterface $container) : RequestHandlerInterface
+    public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
         $router = $container->get(RouterInterface::class);
         $template = $container->get(TemplateRendererInterface::class);
