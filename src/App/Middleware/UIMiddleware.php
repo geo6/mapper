@@ -8,9 +8,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Authentication\UserInterface;
-use Zend\Expressive\Session\SessionMiddleware;
-use Zend\Expressive\Template\TemplateRendererInterface;
+use Mezzio\Authentication\UserInterface;
+use Mezzio\Session\SessionMiddleware;
+use Mezzio\Template\TemplateRendererInterface;
 
 class UIMiddleware implements MiddlewareInterface
 {

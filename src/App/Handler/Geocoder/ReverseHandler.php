@@ -16,7 +16,7 @@ use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 
 class ReverseHandler implements RequestHandlerInterface
 {

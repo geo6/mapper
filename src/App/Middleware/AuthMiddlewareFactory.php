@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Authentication\AuthenticationInterface;
-use Zend\Expressive\Authentication\Exception\InvalidConfigException;
-use Zend\Expressive\Router\RouterInterface;
+use Mezzio\Authentication\AuthenticationInterface;
+use Mezzio\Authentication\Exception\InvalidConfigException;
+use Mezzio\Router\RouterInterface;
 
 /**
- * @see https://github.com/zendframework/zend-expressive-authentication/blob/master/src/AuthenticationMiddlewareFactory.php
+ * @see https://github.com/mezzio/mezzio-authentication/blob/master/src/AuthenticationMiddlewareFactory.php
  */
 class AuthMiddlewareFactory
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Zend\ConfigAggregator\ArrayProvider;
-use Zend\ConfigAggregator\ConfigAggregator;
-use Zend\ConfigAggregator\PhpFileProvider;
+use Laminas\ConfigAggregator\ArrayProvider;
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\PhpFileProvider;
 
 // To enable or disable caching, set the `ConfigAggregator::ENABLE_CACHE` boolean in
 // `config/autoload/local.php`.
@@ -13,22 +13,21 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
-    Geo6\Expressive\Monolog\ConfigProvider::class,
-
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
     \Blast\BaseUrl\ConfigProvider::class,
-    \Zend\Expressive\Authentication\Session\ConfigProvider::class,
-    \Zend\Expressive\Authentication\ConfigProvider::class,
-    \Zend\Expressive\ConfigProvider::class,
-    \Zend\Expressive\Helper\ConfigProvider::class,
-    \Zend\Expressive\Router\ConfigProvider::class,
-    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
-    \Zend\Expressive\Session\ConfigProvider::class,
-    \Zend\Expressive\Session\Ext\ConfigProvider::class,
-    \Zend\Expressive\Twig\ConfigProvider::class,
-    \Zend\HttpHandlerRunner\ConfigProvider::class,
+    \Geo6\Expressive\Monolog\ConfigProvider::class,
+    \Mezzio\Authentication\Session\ConfigProvider::class,
+    \Mezzio\Authentication\ConfigProvider::class,
+    \Mezzio\ConfigProvider::class,
+    \Mezzio\Helper\ConfigProvider::class,
+    \Mezzio\Router\ConfigProvider::class,
+    \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
+    \Mezzio\Session\ConfigProvider::class,
+    \Mezzio\Session\Ext\ConfigProvider::class,
+    \Mezzio\Twig\ConfigProvider::class,
+    \Laminas\HttpHandlerRunner\ConfigProvider::class,
 
     // Default App module config
     App\ConfigProvider::class,
@@ -39,10 +38,10 @@ $aggregator = new ConfigAggregator([
     //   - `*.global.php`
     //   - `local.php`
     //   - `*.local.php`
-    new PhpFileProvider(realpath(__DIR__).'/autoload/{{,*.}global,{,*.}local}.php'),
+    new PhpFileProvider(realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'),
 
     // Load development config if it exists
-    new PhpFileProvider(realpath(__DIR__).'/development.config.php'),
-], $cacheConfig['config_cache_path']);
+    new PhpFileProvider(realpath(__DIR__) . '/development.config.php'),
+], $cacheConfig['config_cache_path'], [\Laminas\ZendFrameworkBridge\ConfigPostProcessor::class]);
 
 return $aggregator->getMergedConfig();

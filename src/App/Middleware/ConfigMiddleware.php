@@ -9,10 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\ConfigAggregator\ConfigAggregator;
-use Zend\ConfigAggregator\PhpFileProvider;
-use Zend\ConfigAggregator\ZendConfigProvider;
-use Zend\Expressive\Session\SessionMiddleware;
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\PhpFileProvider;
+use Laminas\ConfigAggregator\LaminasConfigProvider;
+use Mezzio\Session\SessionMiddleware;
 
 class ConfigMiddleware implements MiddlewareInterface
 {
@@ -66,7 +66,7 @@ class ConfigMiddleware implements MiddlewareInterface
     {
         return (new ConfigAggregator([
             new PhpFileProvider('config/config.php'),
-            new ZendConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
+            new LaminasConfigProvider('config/application/*.{php,ini,xml,json,yaml}'),
         ]))->getMergedConfig();
     }
 
@@ -86,7 +86,7 @@ class ConfigMiddleware implements MiddlewareInterface
         }
 
         return (new ConfigAggregator([
-            new ZendConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml}'),
+            new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml}'),
         ]))->getMergedConfig();
     }
 }

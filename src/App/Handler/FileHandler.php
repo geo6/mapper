@@ -11,12 +11,12 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\EmptyResponse;
-use Zend\Diactoros\Response\JsonResponse;
-use Zend\Diactoros\Response\TextResponse;
-use Zend\Diactoros\Response\XmlResponse;
-use Zend\Expressive\Router\RouteResult;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\Response\EmptyResponse;
+use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\TextResponse;
+use Laminas\Diactoros\Response\XmlResponse;
+use Mezzio\Router\RouteResult;
 
 class FileHandler implements RequestHandlerInterface
 {

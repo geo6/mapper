@@ -10,12 +10,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Authentication\AuthenticationInterface;
-use Zend\Expressive\Authentication\UserInterface;
-use Zend\Expressive\Router\RouterInterface;
+use Mezzio\Authentication\AuthenticationInterface;
+use Mezzio\Authentication\UserInterface;
+use Mezzio\Router\RouterInterface;
 
 /**
- * @see https://github.com/zendframework/zend-expressive-authentication/blob/master/src/Authentication.php
+ * @see https://github.com/mezzio/mezzio-authentication/blob/master/src/Authentication.php
  */
 class AuthMiddleware implements MiddlewareInterface
 {

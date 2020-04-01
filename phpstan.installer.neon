@@ -8,4 +8,4 @@ parameters:
         - dist
     reportUnmatchedIgnoredErrors: true
     ignoreErrors:
-        - '#Class Zend\\Expressive\\Swoole\\ConfigProvider not found#'
+        - '#Class Mezzio\\Swoole\\ConfigProvider not found#'

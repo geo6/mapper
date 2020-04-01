@@ -31,7 +31,7 @@ See [Zend Expressive Authentication configuration](https://docs.zendframework.co
 
 ## Configuration
 
-You can write your configuration files using any format compatible with [`Zend\Config\Reader`](https://docs.zendframework.com/zend-config/reader/) (`.ini`, `.xml`, `.json`, `.yaml`, `.php`).
+You can write your configuration files using any format compatible with [`Laminas\Config\Reader`](https://docs.zendframework.com/laminas-config/reader/) (`.ini`, `.xml`, `.json`, `.yaml`, `.php`).
 
 ### Geocoder providers (global)
 

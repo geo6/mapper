@@ -6,18 +6,18 @@ use App\Middleware\ConfigMiddleware;
 use App\Middleware\UIMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Application;
-use Zend\Expressive\Handler\NotFoundHandler;
-use Zend\Expressive\Helper\ServerUrlMiddleware;
-use Zend\Expressive\Helper\UrlHelperMiddleware;
-use Zend\Expressive\MiddlewareFactory;
-use Zend\Expressive\Router\Middleware\DispatchMiddleware;
-use Zend\Expressive\Router\Middleware\ImplicitHeadMiddleware;
-use Zend\Expressive\Router\Middleware\ImplicitOptionsMiddleware;
-use Zend\Expressive\Router\Middleware\MethodNotAllowedMiddleware;
-use Zend\Expressive\Router\Middleware\RouteMiddleware;
-use Zend\Expressive\Session\SessionMiddleware;
-use Zend\Stratigility\Middleware\ErrorHandler;
+use Mezzio\Application;
+use Mezzio\Handler\NotFoundHandler;
+use Mezzio\Helper\ServerUrlMiddleware;
+use Mezzio\Helper\UrlHelperMiddleware;
+use Mezzio\MiddlewareFactory;
+use Mezzio\Router\Middleware\DispatchMiddleware;
+use Mezzio\Router\Middleware\ImplicitHeadMiddleware;
+use Mezzio\Router\Middleware\ImplicitOptionsMiddleware;
+use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
+use Mezzio\Router\Middleware\RouteMiddleware;
+use Mezzio\Session\SessionMiddleware;
+use Laminas\Stratigility\Middleware\ErrorHandler;
 
 /*
  * Setup middleware pipeline:
@@ -48,7 +48,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(SessionMiddleware::class);
 
     // Register the routing middleware in the middleware pipeline.
-    // This middleware registers the Zend\Expressive\Router\RouteResult request attribute.
+    // This middleware registers the Mezzio\Router\RouteResult request attribute.
     $app->pipe(BaseUrlMiddleware::class);
     $app->pipe(RouteMiddleware::class);
 
