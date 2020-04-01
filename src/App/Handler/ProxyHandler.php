@@ -7,12 +7,12 @@ namespace App\Handler;
 use App\Middleware\ConfigMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use GuzzleHttp\Client as GuzzleClient;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\Stream;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class ProxyHandler implements RequestHandlerInterface
 {

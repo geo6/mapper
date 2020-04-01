@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use Exception;
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\LaminasConfigProvider;
+use Laminas\ConfigAggregator\PhpFileProvider;
+use Mezzio\Session\SessionMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Laminas\ConfigAggregator\ConfigAggregator;
-use Laminas\ConfigAggregator\PhpFileProvider;
-use Laminas\ConfigAggregator\LaminasConfigProvider;
-use Mezzio\Session\SessionMiddleware;
 
 class ConfigMiddleware implements MiddlewareInterface
 {

@@ -8,14 +8,14 @@ use App\File;
 use App\Middleware\ConfigMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use FilesystemIterator;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Mezzio\Router\RouterInterface;
+use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Mezzio\Router\RouterInterface;
-use Mezzio\Template\TemplateRendererInterface;
 
 class HomeHandler implements RequestHandlerInterface
 {

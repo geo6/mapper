@@ -6,13 +6,13 @@ namespace App\Middleware;
 
 use Blast\BaseUrl\BaseUrlMiddleware;
 use Exception;
+use Mezzio\Authentication\AuthenticationInterface;
+use Mezzio\Authentication\UserInterface;
+use Mezzio\Router\RouterInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Mezzio\Authentication\AuthenticationInterface;
-use Mezzio\Authentication\UserInterface;
-use Mezzio\Router\RouterInterface;
 
 /**
  * @see https://github.com/mezzio/mezzio-authentication/blob/master/src/Authentication.php

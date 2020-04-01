@@ -6,17 +6,17 @@ namespace App\Handler;
 
 use App\Middleware\ConfigMiddleware;
 use FilesystemIterator;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\TextResponse;
 use Laminas\Diactoros\Response\XmlResponse;
 use Mezzio\Router\RouteResult;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class FileHandler implements RequestHandlerInterface
 {

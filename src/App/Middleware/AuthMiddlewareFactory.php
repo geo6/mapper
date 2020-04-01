@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use Psr\Container\ContainerInterface;
 use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Authentication\Exception\InvalidConfigException;
 use Mezzio\Router\RouterInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * @see https://github.com/mezzio/mezzio-authentication/blob/master/src/AuthenticationMiddlewareFactory.php

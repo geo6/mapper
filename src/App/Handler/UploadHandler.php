@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use Exception;
+use Laminas\Diactoros\Response\EmptyResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use SimpleXMLElement;
-use Laminas\Diactoros\Response\EmptyResponse;
-use Laminas\Diactoros\Response\JsonResponse;
 
 /**
  * @see https://github.com/23/resumable.js/blob/master/samples/Backend%20on%20PHP.md
