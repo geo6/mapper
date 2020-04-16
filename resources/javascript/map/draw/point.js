@@ -11,12 +11,14 @@ class DrawPoint extends Draw {
         });
 
         this.on('drawend', (event) => {
-            const count = parseInt($('#draw-count-point').text());
+            const count = parseInt(document.getElementById('draw-count-point').innerText);
 
             event.feature.setId(`point-${count + 1}`);
 
-            $('#btn-draw-export').prop('disabled', false);
-            $('#draw-count-point').text(count + 1);
+            document.getElementById('btn-draw-clear').disabled = false;
+            document.getElementById('btn-draw-export').disabled = false;
+
+            document.getElementById('draw-count-point').innerText = `${count + 1}`;
         });
     }
 }

@@ -5,40 +5,45 @@ import DrawControl from './map/draw';
 export default function () {
     window.app.draw = new DrawControl();
 
-    $('#sidebar a').on('click', () => {
-        window.app.draw.active = $('#sidebar > .sidebar-tabs > ul > li:has(a[href="#draw"])').hasClass('active');
+    document.querySelectorAll('#sidebar a').forEach(element => {
+        element.addEventListener('click', () => {
+            const li = Array.from(document.querySelectorAll('#sidebar > .sidebar-tabs > ul > li'))
+                .find(element => element.querySelector('a[href="#draw"]') !== null);
 
-        if (window.app.draw.active === false) {
-            window.app.draw.disable();
-            window.app.draw.type = null;
-        }
-    });
+            window.app.draw.active = li.classList.contains('active');
 
-    $('#btn-draw-clear').on('click', () => {
-        window.app.draw.clear();
-    });
-
-    $('#btn-draw-export').on('click', () => {
-        window.app.draw.export();
-    });
-
-    $('#draw button.list-group-item-action').on('click', (event) => {
-        const {
-            type
-        } = $(event.currentTarget).data();
-        const active = $(event.currentTarget).hasClass('active');
-
-        if (active === true) {
-            window.app.draw.disable();
-            window.app.draw.type = null;
-        } else {
-            if (window.app.draw.type !== null) {
+            if (window.app.draw.active === false) {
                 window.app.draw.disable();
                 window.app.draw.type = null;
             }
+        });
+    });
 
-            window.app.draw.type = type;
-            window.app.draw.enable();
-        }
+    document.getElementById('btn-draw-clear').addEventListener('click', () => {
+        window.app.draw.clear();
+    });
+
+    document.getElementById('btn-draw-export').addEventListener('click', () => {
+        window.app.draw.export();
+    });
+
+    document.querySelectorAll('#draw button.list-group-item-action').forEach(element => {
+        element.addEventListener('click', (event) => {
+            const { type } = event.currentTarget.dataset;
+            const active = event.currentTarget.classList.contains('active');
+
+            if (active === true) {
+                window.app.draw.disable();
+                window.app.draw.type = null;
+            } else {
+                if (window.app.draw.type !== null) {
+                    window.app.draw.disable();
+                    window.app.draw.type = null;
+                }
+
+                window.app.draw.type = type;
+                window.app.draw.enable();
+            }
+        });
     });
 }

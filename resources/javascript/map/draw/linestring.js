@@ -11,12 +11,14 @@ class DrawLineString extends Draw {
         });
 
         this.on('drawend', (event) => {
-            const count = parseInt($('#draw-count-linestring').text());
+            const count = parseInt(document.getElementById('draw-count-linestring').innerText);
 
             event.feature.setId(`linestring-${count + 1}`);
 
-            $('#btn-draw-export').prop('disabled', false);
-            $('#draw-count-linestring').text(count + 1);
+            document.getElementById('btn-draw-clear').disabled = false;
+            document.getElementById('btn-draw-export').disabled = false;
+
+            document.getElementById('draw-count-linestring').innerText = `${count + 1}`;
         });
     }
 }

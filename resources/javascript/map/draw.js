@@ -39,12 +39,13 @@ class DrawControl {
             });
             features.forEach((feature) => {
                 const type = feature.getGeometry().getType();
-                const count = parseInt($(`#draw-count-${type.toLowerCase()}`).text());
-                $(`#draw-count-${type.toLowerCase()}`).text(count + 1);
+                const count = parseInt(document.getElementById(`draw-count-${type.toLowerCase()}`).innerText);
+                document.getElementById(`draw-count-${type.toLowerCase()}`).innerText = `${count + 1}`;
             });
 
             if (features.length > 0) {
-                $('#btn-draw-export').prop('disabled', false);
+                document.getElementById('btn-draw-clear').disabled = false;
+                document.getElementById('btn-draw-export').disabled = false;
             }
         }
 
@@ -77,7 +78,7 @@ class DrawControl {
     }
 
     enable () {
-        $(`#draw button.list-group-item-action[data-type=${this.type}]`).addClass('active');
+        document.querySelector(`#draw button.list-group-item-action[data-type="${this.type}"]`).classList.add('active');
 
         window.app.map.addInteraction(this.modify);
 
@@ -103,7 +104,9 @@ class DrawControl {
     disable () {
         this.saveLocalStorage();
 
-        $(`#draw button.list-group-item-action[data-type=${this.type}]`).removeClass('active');
+        if (this.type !== null) {
+            document.querySelector(`#draw button.list-group-item-action[data-type="${this.type}"]`).classList.remove('active');
+        }
 
         if (this.snap !== null) {
             window.app.map.removeInteraction(this.snap);
@@ -118,8 +121,10 @@ class DrawControl {
     }
 
     clear () {
-        $('#btn-draw-export').prop('disabled', true);
-        $('.draw-count').text(0);
+        document.getElementById('btn-draw-clear').disabled = true;
+        document.getElementById('btn-draw-export').disabled = true;
+
+        document.querySelectorAll('.draw-count').forEach(element => { element.innerText = '0'; });
 
         this.layer.getSource().clear();
 
@@ -129,6 +134,7 @@ class DrawControl {
     saveLocalStorage () {
         localStorage.setItem(this.storageKey, this.toGeoJSON());
     }
+
     clearLocalStorage () {
         localStorage.removeItem(this.storageKey);
     }
