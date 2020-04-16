@@ -3,10 +3,10 @@
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
 
 export default function (service, coordinate) {
-    let source = service.olLayer.getSource();
-    let view = window.app.map.getView();
+    const source = service.olLayer.getSource();
+    const view = window.app.map.getView();
 
-    let formats = service.capabilities.Capability.Request.GetFeatureInfo.Format;
+    const formats = service.capabilities.Capability.Request.GetFeatureInfo.Format;
 
     let format = null;
     if (formats.indexOf('application/vnd.ogc.gml') !== -1) {
@@ -21,7 +21,7 @@ export default function (service, coordinate) {
         throw new Error(`Unable to GetFeatureInfo on the WMS service "${service.capabilities.Service.Title}" ! It supports only "${formats.join('", "')}".`);
     }
 
-    let requests = [];
+    const requests = [];
 
     const activeLayers = service.olLayer.getSource().getParams().LAYERS || [];
     activeLayers.forEach(layerName => {
@@ -30,13 +30,13 @@ export default function (service, coordinate) {
         });
 
         if (typeof layer !== 'undefined' && layer.queryable === true && service.mixedContent === false) {
-            const url = source.getGetFeatureInfoUrl(
+            const url = source.getFeatureInfoUrl(
                 coordinate,
                 view.getResolution(),
                 view.getProjection(), {
-                    'FEATURE_COUNT': 99,
-                    'INFO_FORMAT': format,
-                    'QUERY_LAYERS': [layer.Name]
+                    FEATURE_COUNT: 99,
+                    INFO_FORMAT: format,
+                    QUERY_LAYERS: [layer.Name]
                 }
             );
 
