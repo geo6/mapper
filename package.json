@@ -23,8 +23,8 @@
   },
   "scripts": {
     "postinstall": "npm run build",
-    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-cache --no-source-maps",
-    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-cache --no-hmr",
+    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-source-maps",
+    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-hmr",
     "test": "eslint resources/javascript/",
     "fix": "eslint resources/javascript/ --fix"
   },
