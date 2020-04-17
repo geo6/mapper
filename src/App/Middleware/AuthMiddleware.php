@@ -47,12 +47,18 @@ class AuthMiddleware implements MiddlewareInterface
 
         $public = array_map(function (string $path) {
             return basename($path);
-        }, glob('config/application/public/*'));
+        }, glob('config/application/public/*') ?: []);
 
         // No authentication configured
         if (is_null($this->auth)) {
             if (isset($query['c']) && !in_array($query['c'], $public, true)) {
-                throw new Exception(sprintf('Access denied for "%s". You need to configure authentication to use roles/users configuration.', $query['c']));
+                throw new Exception(
+                    sprintf(
+                        'Access denied for "%s". '
+                            . 'You need to configure authentication to use roles/users configuration.',
+                        $query['c']
+                    )
+                );
             }
 
             return $handler->handle($request);
@@ -83,21 +89,23 @@ class AuthMiddleware implements MiddlewareInterface
         $redirect = ($basePath !== '/' ? $basePath : '');
         $redirect .= $this->router->generateUri($this->config['redirect']);
 
-        return $this->auth->unauthorizedResponse($request)->withHeader('Location', $redirect.'?'.http_build_query($query));
+        return $this->auth
+            ->unauthorizedResponse($request)
+            ->withHeader('Location', $redirect . '?' . http_build_query($query));
     }
 
     public static function getProjects(string $username, iterable $roles = []): array
     {
         $projects = array_map(function (string $path) {
             return basename($path);
-        }, glob('config/application/public/*'));
+        }, glob('config/application/public/*') ?: []);
 
         foreach ($roles as $role) {
             $projects = array_merge(
                 $projects,
                 array_map(function (string $path) {
                     return basename($path);
-                }, glob("config/application/roles/$role/*"))
+                }, glob("config/application/roles/$role/*") ?: [])
             );
         }
 
@@ -105,7 +113,7 @@ class AuthMiddleware implements MiddlewareInterface
             $projects,
             array_map(function (string $path) {
                 return basename($path);
-            }, glob("config/application/users/$username/*"))
+            }, glob("config/application/users/$username/*") ?: [])
         );
 
         sort($projects);

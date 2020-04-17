@@ -8,6 +8,7 @@ use App\Middleware\ConfigMiddleware;
 use ErrorException;
 use Geocoder\Dumper\GeoJson;
 use Geocoder\Formatter\StringFormatter;
+use Geocoder\Provider\Geo6\POI\Model\POI;
 use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\StatefulGeocoder;

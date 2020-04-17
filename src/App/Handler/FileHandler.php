@@ -51,8 +51,8 @@ class FileHandler implements RequestHandlerInterface
      * Given the path (file or directory) defined in the configuration file(s) parse the
      * directories and files and returns the path matching the given identifier.
      *
-     * @param $files
-     * @param $identifier
+     * @param array  $files
+     * @param string $identifier
      *
      * @return string|null Path of the file.
      */
@@ -62,7 +62,7 @@ class FileHandler implements RequestHandlerInterface
             if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml'], true) && file_exists($file['path'])) {
                 if (!is_dir($file['path'])) {
                     $id = filesize($file['path'])
-                        .'-'.preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($file['path']));
+                        . '-' . preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($file['path']));
 
                     if ($identifier === $id) {
                         return $file['path'];
@@ -80,7 +80,7 @@ class FileHandler implements RequestHandlerInterface
                     foreach ($iterator as $item) {
                         if ($item->isFile()) {
                             $id = filesize($item->getPathName())
-                                .'-'.preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($item->getPathName()));
+                                . '-' . preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($item->getPathName()));
 
                             if ($identifier === $id) {
                                 return $item->getPathName();
@@ -97,18 +97,18 @@ class FileHandler implements RequestHandlerInterface
     /**
      * Given the identifier return the path of the uploaded file matching the identifier.
      *
-     * @param $identifier
+     * @param string $identifier
      *
      * @return string|null Path of the file.
      */
     private static function getUploadedFile(string $identifier): ?string
     {
-        $directory = sys_get_temp_dir().'/mapper/'.$identifier;
+        $directory = sys_get_temp_dir() . '/mapper/' . $identifier;
 
         if (file_exists($directory) && is_dir($directory)) {
-            $glob = glob($directory.'/*.*');
+            $glob = glob($directory . '/*.*');
 
-            if (count($glob) === 1) {
+            if ($glob !== false && count($glob) === 1) {
                 return $glob[0];
             }
         }

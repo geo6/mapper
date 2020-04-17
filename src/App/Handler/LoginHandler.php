@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
-// use App\Log;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Laminas\Log\Logger;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Router\RouteResult;
 use Mezzio\Router\RouterInterface;
@@ -56,7 +54,7 @@ class LoginHandler implements MiddlewareInterface
             $redirect = ($basePath !== '/' ? $basePath : '');
             $redirect .= $this->router->generateUri('home');
 
-            return new RedirectResponse($redirect.'?'.http_build_query($query));
+            return new RedirectResponse($redirect . '?' . http_build_query($query));
         }
 
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
@@ -69,7 +67,7 @@ class LoginHandler implements MiddlewareInterface
             $redirect = ($basePath !== '/' ? $basePath : '');
             $redirect .= $this->router->generateUri('home');
 
-            return new RedirectResponse($redirect.'?'.http_build_query($query));
+            return new RedirectResponse($redirect . '?' . http_build_query($query));
         }
 
         $error = '';
@@ -77,17 +75,13 @@ class LoginHandler implements MiddlewareInterface
             $response = $handler->handle($request);
 
             if ($response->getStatusCode() !== 302) {
-                $user = $session->get(UserInterface::class);
-
-                // (new Log())->write('User "{username}" logged in.', ['username' => $user['username']], Logger::INFO);
+                // $user = $session->get(UserInterface::class);
 
                 $redirect = ($basePath !== '/' ? $basePath : '');
                 $redirect .= $this->router->generateUri('home');
 
-                return new RedirectResponse($redirect.'?'.http_build_query($query));
+                return new RedirectResponse($redirect . '?' . http_build_query($query));
             }
-
-            // (new Log())->write('User "{username}" failed to log in.', ['username' => $_POST['username']], Logger::WARN);
 
             $error = 'Login failure, please try again.';
         }

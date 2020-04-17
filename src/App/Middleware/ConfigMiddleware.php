@@ -27,13 +27,13 @@ class ConfigMiddleware implements MiddlewareInterface
         $projects = [
             'public' => array_map(function (string $path) {
                 return basename($path);
-            }, glob('config/application/public/*')),
+            }, glob('config/application/public/*') ?: []),
             'roles' => array_map(function (string $path) {
                 return basename($path);
-            }, glob('config/application/roles/*/*')),
+            }, glob('config/application/roles/*/*') ?: []),
             'users' => array_map(function (string $path) {
                 return basename($path);
-            }, glob('config/application/users/*/*')),
+            }, glob('config/application/users/*/*') ?: []),
         ];
 
         $data = [
@@ -73,8 +73,8 @@ class ConfigMiddleware implements MiddlewareInterface
     private static function getCustomConfig(string $custom): array
     {
         $glob = array_merge(
-            glob('config/application/public/*'),
-            glob('config/application/{roles,users}/*/*', GLOB_BRACE)
+            glob('config/application/public/*') ?: [],
+            glob('config/application/{roles,users}/*/*', GLOB_BRACE) ?: []
         );
 
         $directory = array_values(array_filter($glob, function ($directory) use ($custom) {
@@ -86,7 +86,7 @@ class ConfigMiddleware implements MiddlewareInterface
         }
 
         return (new ConfigAggregator([
-            new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml}'),
+            new LaminasConfigProvider($directory[0] . '/*.{php,ini,xml,json,yaml}'),
         ]))->getMergedConfig();
     }
 }

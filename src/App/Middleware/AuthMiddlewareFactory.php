@@ -20,7 +20,8 @@ class AuthMiddlewareFactory
         $config = $container->get('config')['authentication'] ?? [];
 
         if (isset($config['pdo'], $config['pdo']['dsn'])) {
-            $authentication = $container->has(AuthenticationInterface::class) ? $container->get(AuthenticationInterface::class) : null;
+            $authentication = $container->has(AuthenticationInterface::class) ?
+                $container->get(AuthenticationInterface::class) : null;
             if (null === $authentication) {
                 throw new InvalidConfigException(
                     'AuthenticationInterface service is missing'

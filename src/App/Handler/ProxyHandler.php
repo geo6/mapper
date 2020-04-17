@@ -21,7 +21,7 @@ class ProxyHandler implements RequestHandlerInterface
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/').'/';
+        $baseUrl = rtrim($baseUrl, '/') . '/';
 
         $params = $request->getQueryParams();
 
@@ -51,7 +51,7 @@ class ProxyHandler implements RequestHandlerInterface
                 $localHTTPS = isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0;
                 $localHost = $_SERVER['HTTP_HOST'];
 
-                $proxy = 'http'.($localHTTPS ? 's' : '').'://'.$localHost.$baseUrl.'proxy';
+                $proxy = 'http' . ($localHTTPS ? 's' : '') . '://' . $localHost . $baseUrl . 'proxy';
 
                 $callback = function ($body) use ($config, $host, $path, $query, $proxy) {
                     return preg_replace_callback(
@@ -59,7 +59,7 @@ class ProxyHandler implements RequestHandlerInterface
                         function ($matches) use ($config, $host, $path, $query, $proxy) {
                             $url = parse_url($matches[1]);
 
-                            if ($url !== false && isset($url['host'], $url['path']) && strcasecmp($url['host'], $host) === 0 && strcasecmp($url['path'], $path) === 0) {
+                            if ($url !== false && isset($url['host'], $url['path']) && !is_null($host) && strcasecmp($url['host'], $host) === 0 && !is_null($path) && strcasecmp($url['path'], $path) === 0) {
                                 if (isset($url['query']) && strlen($url['query']) > 0) {
                                     $urlQuery = html_entity_decode($url['query']);
                                     $urlQuery = urldecode($urlQuery);
@@ -68,13 +68,18 @@ class ProxyHandler implements RequestHandlerInterface
                                     $params = http_build_query($output);
                                 }
 
-                                return 'xlink:href='.
+                                return 'xlink:href=' .
                                     '"'
-                                    .$proxy.'?'
-                                    .($config['custom'] !== null ? 'c='.$config['custom'].'&amp;' : '')
-                                    .'_url='.urlencode($url['scheme'].'://'.$url['host'].$url['path'].(!is_null($query) ? '?'.$query : ''))
-                                    .(isset($params) ? htmlentities('&'.$params) : '')
-                                    .'"';
+                                    . $proxy . '?'
+                                    . ($config['custom'] !== null ? 'c=' . $config['custom'] . '&amp;' : '')
+                                    . '_url=' . urlencode(
+                                        $url['scheme'] . '://'
+                                            . $url['host']
+                                            . $url['path']
+                                            . (!is_null($query) ? '?' . $query : '')
+                                    )
+                                    . (isset($params) ? htmlentities('&' . $params) : '')
+                                    . '"';
                             }
 
                             return $matches[0];
@@ -181,7 +186,8 @@ class ProxyHandler implements RequestHandlerInterface
             'query'   => $query,
             'headers' => [
                 'User-Agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'GEO-6 Mapper',
-                'Referer'    => 'http'.(isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '').'://'.($_SERVER['SERVER_NAME'] ?? 'localhost').'/',
+                'Referer'    => 'http' . (isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '') . '://'
+                    . ($_SERVER['SERVER_NAME'] ?? 'localhost') . '/',
             ],
         ]);
 
@@ -206,7 +212,8 @@ class ProxyHandler implements RequestHandlerInterface
             'query'   => $query,
             'headers' => [
                 'User-Agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'GEO-6 Mapper',
-                'Referer'    => 'http'.(isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '').'://'.($_SERVER['SERVER_NAME'] ?? 'localhost').'/',
+                'Referer'    => 'http' . (isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '') . '://'
+                    . ($_SERVER['SERVER_NAME'] ?? 'localhost') . '/',
             ],
         ]);
 

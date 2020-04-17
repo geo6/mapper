@@ -30,7 +30,7 @@ class UIMiddleware implements MiddlewareInterface
 
         $projects = array_map(function (string $path) {
             return basename($path);
-        }, glob('config/application/public/*'));
+        }, glob('config/application/public/*') ?: []);
 
         if ($session->has(UserInterface::class)) {
             $user = $session->get(UserInterface::class);
