@@ -13,16 +13,17 @@ import {
     Stroke,
     Style
 } from 'ol/style';
+import Feature from 'ol/Feature';
+import MultiPoint from 'ol/geom/MultiPoint';
+import MultiLineString from 'ol/geom/MultiLineString';
+import MultiPolygon from 'ol/geom/MultiPolygon';
 
 import saveAs from 'file-saver';
 
 import DrawPoint from './draw/point';
 import DrawLineString from './draw/linestring';
 import DrawPolygon from './draw/polygon';
-import Feature from 'ol/Feature';
-import MultiPoint from 'ol/geom/MultiPoint';
-import MultiLineString from 'ol/geom/MultiLineString';
-import MultiPolygon from 'ol/geom/MultiPolygon';
+import displayFeatureInList from '../info/feature';
 
 class DrawControl {
     constructor () {
@@ -53,7 +54,7 @@ class DrawControl {
             }
         }
 
-        this.layer = new VectorLayer({
+        this.olLayer = new VectorLayer({
             source: new VectorSource({
                 features: features
             }),
@@ -74,7 +75,7 @@ class DrawControl {
             // }),
             zIndex: Infinity
         });
-        window.app.map.addLayer(this.layer);
+        window.app.map.addLayer(this.olLayer);
 
         this.layerCurrent = new VectorLayer({
             source: new VectorSource(),
@@ -122,7 +123,7 @@ class DrawControl {
         window.app.map.addLayer(this.layerCurrent);
 
         this.snap = new Snap({
-            source: this.layer.getSource()
+            source: this.olLayer.getSource()
         });
         window.app.map.addInteraction(this.snap);
     }
@@ -154,7 +155,7 @@ class DrawControl {
 
         document.querySelectorAll('.draw-count').forEach(element => { element.innerText = '0'; });
 
-        this.layer.getSource().clear();
+        this.olLayer.getSource().clear();
 
         this.clearLocalStorage();
     }
@@ -199,7 +200,7 @@ class DrawControl {
             }
         }
 
-        this.layer.getSource().addFeature(feature);
+        this.olLayer.getSource().addFeature(feature);
         this.snap.addFeature(feature);
 
         this.saveLocalStorage();
@@ -233,7 +234,7 @@ class DrawControl {
     }
 
     toGeoJSON () {
-        const features = this.layer.getSource().getFeatures();
+        const features = this.olLayer.getSource().getFeatures();
         const geojson = (new GeoJSON()).writeFeatures(features, {
             dataProjection: 'EPSG:4326',
             decimals: 6,
@@ -241,6 +242,42 @@ class DrawControl {
         });
 
         return geojson;
+    }
+
+    getFeatureInfo (coordinates) {
+        const pixel = window.app.map.getPixelFromCoordinate(coordinates);
+
+        if (this.olLayer === null) {
+            return [];
+        }
+
+        return window.app.map.getFeaturesAtPixel(pixel, {
+            hitTolerance: 10,
+            layerFilter: (layer) => {
+                return layer === this.olLayer;
+            }
+        });
+    }
+
+    /**
+     * Generate list with the result of GetFeatureInfo request on a file in the sidebar.
+     *
+     * @param {Feature[]} features Feature to display.
+     *
+     * @returns {void}
+     */
+    displayFeaturesList (features) {
+        const title = 'Draw';
+
+        const ol = document.createElement('ol');
+
+        $(document.createElement('li'))
+            .attr('id', 'info-layer-draw')
+            .append(`<strong>${title}</strong>`)
+            .append(ol)
+            .appendTo('#info-list');
+
+        features.forEach((feature) => displayFeatureInList(feature, title, ol));
     }
 }
 

@@ -16,6 +16,12 @@ export default function () {
         $('#infos-list-btn-prev, #infos-list-btn-next').prop('disabled', true);
         $('#infos-details-btn-locate').off().prop('disabled', true);
 
+        // Draw
+        const features = window.app.draw.getFeatureInfo(event.coordinate);
+        if (features !== null && features.length > 0) {
+            window.app.draw.displayFeaturesList(features);
+        }
+
         // CSV
         window.app.csv.forEach(file => {
             const features = file.getFeatureInfo(event.coordinate);
