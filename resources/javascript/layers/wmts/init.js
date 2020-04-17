@@ -7,11 +7,11 @@ export default function () {
     window.app.wmts = [];
 
     for (let i = 0; i < window.app.layers.length; i++) {
-        let layer = window.app.layers[i];
+        const layer = window.app.layers[i];
 
         switch (layer.type) {
-        case 'wmts':
-            const wmts = new WMTS(layer.url, (service) => {
+        case 'wmts': {
+            WMTS(layer.url, (service) => {
                 service.displayCapabilities();
 
                 if (typeof layer.layers !== 'undefined' && layer.layers.length > 0) {
@@ -20,6 +20,7 @@ export default function () {
                 }
             });
             break;
+        }
         }
     }
 

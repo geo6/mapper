@@ -21,7 +21,7 @@ export default function (file, projection) {
             if (results.errors.length > 0) {
                 let errors = '';
                 for (let i = 0; i < results.errors.length; i++) {
-                    errors += "\r\n" + results.errors[i].message;
+                    errors += '\r\n' + results.errors[i].message;
                 }
                 throw new Error(errors);
             }

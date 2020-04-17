@@ -1,13 +1,13 @@
 'use strict';
 
 export default function generateLayersList (service, layers) {
-    let ul = document.createElement('ul');
+    const ul = document.createElement('ul');
 
     $(ul).addClass('list-group mb-3');
 
     for (let i = 0; i < layers.length; i++) {
-        let li = document.createElement('li');
-        let div = document.createElement('div');
+        const li = document.createElement('li');
+        const div = document.createElement('div');
 
         $(li)
             .attr('id', `wms-${service.getIndex()}-${layers[i].Name}`)
@@ -44,7 +44,7 @@ export default function generateLayersList (service, layers) {
             .appendTo(li);
 
         if (typeof layers[i].Abstract !== 'undefined' && layers[i].Abstract !== '') {
-            let p = document.createElement('p');
+            const p = document.createElement('p');
 
             $(p)
                 .addClass('text-info small')

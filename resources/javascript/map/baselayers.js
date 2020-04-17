@@ -11,10 +11,10 @@ import { optionsFromCapabilities } from 'ol/source/WMTS';
 
 function loadBaselayer (index) {
     if (typeof window.app.baselayers[index] !== 'undefined') {
-        let baselayer = window.app.baselayers[index];
+        const baselayer = window.app.baselayers[index];
 
         switch (baselayer.mode) {
-        case 'wms':
+        case 'wms': {
             window.app.map.getLayers().setAt(0,
                 new TileLayer({
                     source: new TileWMS({
@@ -29,8 +29,8 @@ function loadBaselayer (index) {
                 })
             );
             break;
-
-        case 'wmts':
+        }
+        case 'wmts': {
             const url = baselayer.url + '?' + $.param({
                 SERVICE: 'WMTS',
                 REQUEST: 'GetCapabilities',
@@ -39,9 +39,9 @@ function loadBaselayer (index) {
             fetch(url)
                 .then(response => response.text())
                 .then((text) => {
-                    let capabilities = (new WMTSCapabilities()).read(text);
+                    const capabilities = (new WMTSCapabilities()).read(text);
 
-                    let options = optionsFromCapabilities(capabilities, {
+                    const options = optionsFromCapabilities(capabilities, {
                         layer: baselayer.layer
                     });
                     options.attributions = baselayer.attributions;
@@ -53,8 +53,8 @@ function loadBaselayer (index) {
                     );
                 });
             break;
-
-        default:
+        }
+        default: {
             window.app.map.getLayers().setAt(0,
                 new TileLayer({
                     source: new XYZ({
@@ -65,6 +65,7 @@ function loadBaselayer (index) {
                 })
             );
             break;
+        }
         }
     }
 }

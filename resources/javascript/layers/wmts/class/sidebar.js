@@ -52,7 +52,7 @@ export default function (service, layer) {
         typeof layer.Style !== 'undefined' && layer.Style.length > 0 &&
         typeof layer.Style[0].LegendURL !== 'undefined' && layer.Style[0].LegendURL.length > 0
     ) {
-        let img = document.createElement('img');
+        const img = document.createElement('img');
 
         img.src = layer.Style[0].LegendURL[0].href;
         img.alt = `Legend "${name}"`;

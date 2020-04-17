@@ -53,7 +53,7 @@ function text (feature) {
     const label = getLabel(feature);
 
     if (label !== null) {
-        let textOptions = {
+        const textOptions = {
             stroke: new Stroke({
                 color: '#fff',
                 width: 2

@@ -13,8 +13,8 @@ export default function () {
 
     if (window.location.hash !== '') {
         // try to restore center, zoom-level and rotation from the URL
-        let hash = window.location.hash.replace('#map=', '');
-        let parts = hash.split('/');
+        const hash = window.location.hash.replace('#map=', '');
+        const parts = hash.split('/');
 
         if (parts.length === 3) {
             zoom = parseInt(parts[0], 10);

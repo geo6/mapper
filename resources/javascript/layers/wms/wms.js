@@ -72,7 +72,7 @@ class WMS {
             })
             .appendTo('#modal-layers-optgroup-wms');
 
-        let div = document.createElement('div');
+        const div = document.createElement('div');
 
         $(document.createElement('span'))
             .text(this.capabilities.version)
@@ -174,7 +174,7 @@ class WMS {
      * @returns {void}
      */
     removeLayer (layerName) {
-        let layers = this.olLayer.getSource().getParams().LAYERS;
+        const layers = this.olLayer.getSource().getParams().LAYERS;
         const index = layers.indexOf(layerName);
 
         if (index > -1) {
@@ -182,7 +182,7 @@ class WMS {
 
             if (layers.length > 0) {
                 this.olLayer.getSource().updateParams({
-                    'LAYERS': layers
+                    LAYERS: layers
                 });
             } else {
                 window.app.map.removeLayer(this.olLayer);

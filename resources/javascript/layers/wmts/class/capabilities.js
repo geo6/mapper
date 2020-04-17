@@ -3,7 +3,7 @@
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
 function parseLayers (layers, searchElements) {
-    let results = [];
+    const results = [];
 
     for (let i = 0; i < layers.length; i++) {
         /* if (typeof layers[i].Layer !== 'undefined') {
@@ -30,9 +30,9 @@ export default function (origUrl) {
     return fetch(url)
         .then(response => response.text())
         .then(response => {
-            let capabilities = (new WMTSCapabilities()).read(response);
+            const capabilities = (new WMTSCapabilities()).read(response);
 
-            let crs = [];
+            const crs = [];
             for (let m = 0; m < capabilities.Contents.TileMatrixSet.length; m++) {
                 const supportedCRS = capabilities.Contents.TileMatrixSet[m].SupportedCRS.replace(/urn:ogc:def:crs:(\w+):(.*:)?(\w+)$/, '$1:$3');
 

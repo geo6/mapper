@@ -75,7 +75,7 @@ class WMTS {
             })
             .appendTo('#modal-layers-optgroup-wmts');
 
-        let div = document.createElement('div');
+        const div = document.createElement('div');
 
         $(document.createElement('span'))
             .text(this.capabilities.version)
@@ -135,7 +135,7 @@ class WMTS {
 
             this.selection = responses;
 
-            let total = 0;
+            const total = 0;
 
             responses.forEach(response => {
                 if (response.features.length > 0) {

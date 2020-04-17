@@ -229,7 +229,7 @@ class File {
             .attr('id', `info-layer-${this.type}-${this.getIndex()}`)
             .append(`<strong>${title}</strong>`)
             .append(ol)
-            .appendTo(`#info-list`);
+            .appendTo('#info-list');
 
         features.forEach((feature) => displayFeatureInList(feature, title, ol));
     }

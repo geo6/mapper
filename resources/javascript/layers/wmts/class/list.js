@@ -1,7 +1,7 @@
 'use strict';
 
 function generateLayersList (service, layers) {
-    let ul = document.createElement('ul');
+    const ul = document.createElement('ul');
 
     $(ul).addClass('list-group mb-3');
 
@@ -17,8 +17,8 @@ function generateLayersList (service, layers) {
             });
         }
 
-        let li = document.createElement('li');
-        let div = document.createElement('div');
+        const li = document.createElement('li');
+        const div = document.createElement('div');
 
         $(li)
             .attr('id', `wmts-${service.getIndex()}-${layers[i].Identifier}`)
@@ -55,7 +55,7 @@ function generateLayersList (service, layers) {
             .appendTo(li);
 
         if (typeof layers[i].Abstract !== 'undefined' && layers[i].Abstract !== '') {
-            let p = document.createElement('p');
+            const p = document.createElement('p');
 
             $(p)
                 .addClass('text-info small')

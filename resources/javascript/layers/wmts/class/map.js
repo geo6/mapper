@@ -6,7 +6,7 @@ import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS';
 export default function (wmts, layers) {
     if (typeof wmts !== 'undefined' && layers.length > 0) {
         layers.forEach(layer => {
-            let name = layer.Identifier;
+            const name = layer.Identifier;
 
             if (typeof wmts.olLayers[name] === 'undefined') {
                 wmts.olLayers[name] = new TileLayer({

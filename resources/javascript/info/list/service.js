@@ -11,7 +11,7 @@
  */
 export function createUlService (serviceType, serviceIndex, title) {
     if ($(`#info-service-${serviceType}-${serviceIndex}`).length === 0) {
-        let ul = document.createElement('ul');
+        const ul = document.createElement('ul');
 
         const titleFormatted = title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1');
 
@@ -40,7 +40,7 @@ export function createUlService (serviceType, serviceIndex, title) {
  */
 export function createOlLayer (serviceType, serviceIndex, layerIndex, title) {
     if ($(`#info-layer-${serviceType}-${serviceIndex}-${layerIndex}`).length === 0) {
-        let ol = document.createElement('ol');
+        const ol = document.createElement('ol');
 
         const titleFormatted = title.replace(/(\r\n|\n\r|\r|\n)/g, '<br>' + '$1');
 

@@ -23,7 +23,7 @@ export default function () {
             .attr('aria-valuenow', 0)
             .css('width', '0%');
 
-        let count = {
+        const count = {
             csv: 0,
             geojson: 0,
             gpx: 0,
@@ -48,7 +48,7 @@ export default function () {
                 .appendTo(li);
 
             switch (extension.toLowerCase()) {
-            case 'csv':
+            case 'csv': {
                 count.csv++;
 
                 const pointerCSV = $('#modal-layers-files-csv > .list-group > .list-group-item').length;
@@ -56,8 +56,9 @@ export default function () {
 
                 $('#modal-layers-files-csv > .list-group').append(li);
                 break;
+            }
             case 'json':
-            case 'geojson':
+            case 'geojson': {
                 count.geojson++;
 
                 const pointerGeoJSON = $('#modal-layers-files-geojson > .list-group > .list-group-item').length;
@@ -65,7 +66,8 @@ export default function () {
 
                 $('#modal-layers-files-geojson > .list-group').append(li);
                 break;
-            case 'gpx':
+            }
+            case 'gpx': {
                 count.gpx++;
 
                 const pointerGPX = $('#modal-layers-files-gpx > .list-group > .list-group-item').length;
@@ -73,7 +75,8 @@ export default function () {
 
                 $('#modal-layers-files-gpx > .list-group').append(li);
                 break;
-            case 'kml':
+            }
+            case 'kml': {
                 count.kml++;
 
                 const pointerKML = $('#modal-layers-files-kml > .list-group > .list-group-item').length;
@@ -81,6 +84,7 @@ export default function () {
 
                 $('#modal-layers-files-kml > .list-group').append(li);
                 break;
+            }
             }
         });
 

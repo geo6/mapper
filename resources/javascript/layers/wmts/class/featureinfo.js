@@ -18,7 +18,7 @@ function WMTSGetFeatureInfoUrl (template, coordinate, source, resolution) {
     for (let i = 0; i < tileResolutions.length; i++) {
         const tileResolution = tileResolutions[i];
 
-        let diffP = Math.abs(resolution - tileResolution);
+        const diffP = Math.abs(resolution - tileResolution);
 
         if (diffP < diff) {
             diff = diffP;
@@ -55,7 +55,7 @@ function WMTSGetFeatureInfoUrl (template, coordinate, source, resolution) {
 export default function (service, coordinate) {
     const view = window.app.map.getView();
 
-    let requests = [];
+    const requests = [];
 
     Object.values(service.olLayers).forEach(olLayer => {
         const layerIdentifier = olLayer.getSource().getLayer();

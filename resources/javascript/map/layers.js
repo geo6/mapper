@@ -46,19 +46,20 @@ export default function () {
         const { index } = $(option).data();
 
         switch (id) {
-        case 'modal-layers-optgroup-files':
+        case 'modal-layers-optgroup-files': {
             const type = $('#modal-layers-select').val();
 
             FileApplySelection(type);
             break;
-
-        case 'modal-layers-optgroup-wms':
+        }
+        case 'modal-layers-optgroup-wms': {
             WMSApplySelection(index);
             break;
-
-        case 'modal-layers-optgroup-wmts':
+        }
+        case 'modal-layers-optgroup-wmts': {
             WMTSApplySelection(index);
             break;
+        }
         }
     });
 

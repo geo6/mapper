@@ -49,7 +49,7 @@ export default function (title, feature, liElement) {
             continue;
         }
 
-        let tr = document.createElement('tr');
+        const tr = document.createElement('tr');
 
         $('#info-details > table > tbody')
             .append(tr);

@@ -16,7 +16,7 @@ export default function (address) {
     if ($.trim(address).length === 0) {
         window.app.sidebar.close('geocoder');
     } else {
-        for (let key in window.app.geocoderProviders) {
+        for (const key in window.app.geocoderProviders) {
             const provider = window.app.geocoderProviders[key];
 
             $(document.createElement('div'))

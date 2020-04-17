@@ -14,7 +14,7 @@ export default function (longitude, latitude) {
     window.app.geocoder.getSource().clear();
     $('#geocoder-results').empty();
 
-    for (let key in window.app.geocoderProviders) {
+    for (const key in window.app.geocoderProviders) {
         const provider = window.app.geocoderProviders[key];
 
         if (provider.reverse === false) {

@@ -5,7 +5,7 @@ import TileWMS from 'ol/source/TileWMS';
 
 export default function (wms, layers) {
     if (typeof wms !== 'undefined' && layers.length > 0) {
-        let names = [];
+        const names = [];
         for (let i = 0; i < layers.length; i++) {
             names.push(layers[i].Name);
         }
@@ -14,7 +14,7 @@ export default function (wms, layers) {
             wms.olLayer = new TileLayer({
                 source: new TileWMS({
                     params: {
-                        'LAYERS': names
+                        LAYERS: names
                     },
                     url: wms.capabilities.Service.OnlineResource
                 })
@@ -22,9 +22,9 @@ export default function (wms, layers) {
 
             window.app.map.addLayer(wms.olLayer);
         } else {
-            let params = wms.olLayer.getSource().getParams();
+            const params = wms.olLayer.getSource().getParams();
             wms.olLayer.getSource().updateParams({
-                'LAYERS': params.LAYERS.concat(names)
+                LAYERS: params.LAYERS.concat(names)
             });
         }
     }

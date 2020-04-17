@@ -15,13 +15,13 @@ import {
  * @returns {void}
  */
 export default function (geometry) {
-    let divGeometry = $('#info-details-geometry');
-    let geometryType = geometry.getType();
+    const divGeometry = $('#info-details-geometry');
+    const geometryType = geometry.getType();
 
     $('#infos-details-btn-locate')
         .prop('disabled', false)
         .on('click', () => {
-            let extent = geometry.getExtent();
+            const extent = geometry.getExtent();
 
             window.app.map.getView()
                 .fit(extent, {
@@ -39,13 +39,14 @@ export default function (geometry) {
         .show();
 
     switch (geometryType) {
-    case 'Point':
-        let coordinates = geometry.getCoordinates();
+    case 'Point': {
+        const coordinates = geometry.getCoordinates();
 
         $(divGeometry).append(toStringXY(toLonLat(coordinates), 6));
         break;
-    case 'MultiPoint':
-        let points = geometry.getPoints();
+    }
+    case 'MultiPoint': {
+        const points = geometry.getPoints();
 
         $(divGeometry).append([
             points.length,
@@ -53,19 +54,20 @@ export default function (geometry) {
         ]);
 
         if (points.length === 1) {
-            let coordinates = geometry.getPoint(0).getCoordinates();
+            const coordinates = geometry.getPoint(0).getCoordinates();
 
             $(divGeometry).append(toStringXY(toLonLat(coordinates), 6));
         }
         break;
-
-    case 'LineString':
-        let length = Math.round(getLength(geometry));
+    }
+    case 'LineString': {
+        const length = Math.round(getLength(geometry));
 
         $(divGeometry).append(`${length} m.`);
         break;
-    case 'MultiLineString':
-        let linestrings = geometry.getLineStrings();
+    }
+    case 'MultiLineString': {
+        const linestrings = geometry.getLineStrings();
 
         $(divGeometry).append([
             linestrings.length,
@@ -73,19 +75,20 @@ export default function (geometry) {
         ]);
 
         if (linestrings.length === 1) {
-            let length = Math.round(getLength(geometry.getLineString(0)));
+            const length = Math.round(getLength(geometry.getLineString(0)));
 
             $(divGeometry).append(`${length} m.`);
         }
         break;
-
-    case 'Polygon':
-        let area = Math.round(getArea(geometry));
+    }
+    case 'Polygon': {
+        const area = Math.round(getArea(geometry));
 
         $(divGeometry).append(`${area} m&sup2;`);
         break;
-    case 'MultiPolygon':
-        let polygons = geometry.getPolygons();
+    }
+    case 'MultiPolygon': {
+        const polygons = geometry.getPolygons();
 
         $(divGeometry).append([
             polygons.length,
@@ -93,11 +96,12 @@ export default function (geometry) {
         ]);
 
         if (polygons.length === 1) {
-            let area = Math.round(getArea(geometry.getPolygon(0)));
+            const area = Math.round(getArea(geometry.getPolygon(0)));
 
             $(divGeometry).append(`${area} m&sup2;`);
         }
         break;
+    }
     }
 
     $('#info-details').append(divGeometry);

@@ -1,7 +1,7 @@
 'use strict';
 
 export default function (index) {
-    let names = [];
+    const names = [];
 
     $(`#modal-layers-wms-${index} .list-group-item.list-group-item-primary`).each((index, element) => {
         const { name } = $(element).data();

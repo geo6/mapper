@@ -33,7 +33,7 @@ export default function (origUrl) {
     return fetch(url)
         .then(response => response.text())
         .then(response => {
-            let capabilities = (new WMSCapabilities()).read(response);
+            const capabilities = (new WMSCapabilities()).read(response);
 
             const projection = window.app.map.getView().getProjection().getCode();
             if (typeof capabilities.Capability.Layer.CRS !== 'undefined' && capabilities.Capability.Layer.CRS.indexOf(projection) === -1) {
