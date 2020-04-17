@@ -26,8 +26,6 @@ class WMS {
         this.mixedContent = false;
 
         this.getCapabilities(callback);
-
-        window.app.wms.push(this);
     }
 
     /**

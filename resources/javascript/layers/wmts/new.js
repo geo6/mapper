@@ -7,13 +7,15 @@ export default function () {
         const url = prompt('Enter the WMTS service url :');
 
         if (url !== null && url !== '') {
-            WMTS(url, (service) => {
+            const wmts = new WMTS(url, (service) => {
                 service.displayCapabilities();
 
                 $('#modal-layers-select')
                     .val('wmts:' + service.getIndex())
                     .trigger('change');
             });
+
+            window.app.wmts.push(wmts);
         }
     });
 }

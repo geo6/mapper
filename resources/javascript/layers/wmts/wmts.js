@@ -25,8 +25,6 @@ class WMTS {
         this.selection = [];
 
         this.getCapabilities(callback);
-
-        window.app.wmts.push(this);
     }
 
     /**

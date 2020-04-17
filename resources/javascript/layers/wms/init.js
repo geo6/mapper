@@ -11,7 +11,7 @@ export default function () {
 
         switch (layer.type) {
         case 'wms': {
-            WMS(layer.url, (service) => {
+            const wms = new WMS(layer.url, (service) => {
                 service.displayCapabilities();
 
                 if (typeof layer.layers !== 'undefined' && layer.layers.length > 0) {
@@ -19,6 +19,8 @@ export default function () {
                     service.addToSidebar(layer.layers);
                 }
             });
+
+            window.app.wms.push(wms);
             break;
         }
         }
