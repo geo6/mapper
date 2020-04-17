@@ -86,7 +86,7 @@ class ConfigMiddleware implements MiddlewareInterface
         }
 
         return (new ConfigAggregator([
-            new LaminasConfigProvider($directory[0] . '/*.{php,ini,xml,json,yaml}'),
+            new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml}'),
         ]))->getMergedConfig();
     }
 }

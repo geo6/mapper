@@ -55,7 +55,7 @@ class AuthMiddleware implements MiddlewareInterface
                 throw new Exception(
                     sprintf(
                         'Access denied for "%s". '
-                            . 'You need to configure authentication to use roles/users configuration.',
+                            .'You need to configure authentication to use roles/users configuration.',
                         $query['c']
                     )
                 );
@@ -91,7 +91,7 @@ class AuthMiddleware implements MiddlewareInterface
 
         return $this->auth
             ->unauthorizedResponse($request)
-            ->withHeader('Location', $redirect . '?' . http_build_query($query));
+            ->withHeader('Location', $redirect.'?'.http_build_query($query));
     }
 
     public static function getProjects(string $username, iterable $roles = []): array
