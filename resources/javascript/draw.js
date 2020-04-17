@@ -27,6 +27,16 @@ export default function () {
         window.app.draw.export();
     });
 
+    document.getElementById('btn-draw-properties').addEventListener('reset', () => {
+        window.app.draw.resetForm();
+    });
+
+    document.getElementById('btn-draw-properties').addEventListener('submit', event => {
+        event.preventDefault();
+
+        window.app.draw.submitForm();
+    });
+
     document.querySelectorAll('#draw button.list-group-item-action').forEach(element => {
         element.addEventListener('click', (event) => {
             const { type } = event.currentTarget.dataset;

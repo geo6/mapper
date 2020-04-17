@@ -39,17 +39,17 @@
 
         <hr>
 
-        <form id="btn-draw-properties" hidden>
+        <form id="btn-draw-properties" autocomplete="off" hidden>
             <div class="form-group">
                 <label for="inputDrawName">Name</label>
-                <input type="text" class="form-control" id="inputDrawName" aria-describedby="emailHelp">
+                <input type="text" class="form-control" name="name" id="inputDrawName" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="textareaDrawDescription">Description</label>
-                <textarea class="form-control" id="textareaDrawDescription"></textarea>
+                <textarea class="form-control" name="description" id="textareaDrawDescription"></textarea>
             </div>
             <div class="btn-group d-flex" role="group">
-                <button type="submit" class="btn btn-outline-secondary w-100" id="btn-draw-cancel">
+                <button type="reset" class="btn btn-outline-secondary w-100" id="btn-draw-cancel">
                     <i class="fas fa-times"></i>
                     Cancel
                 </button>

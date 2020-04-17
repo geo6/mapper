@@ -19,6 +19,10 @@ import saveAs from 'file-saver';
 import DrawPoint from './draw/point';
 import DrawLineString from './draw/linestring';
 import DrawPolygon from './draw/polygon';
+import Feature from 'ol/Feature';
+import MultiPoint from 'ol/geom/MultiPoint';
+import MultiLineString from 'ol/geom/MultiLineString';
+import MultiPolygon from 'ol/geom/MultiPolygon';
 
 class DrawControl {
     constructor () {
@@ -38,7 +42,7 @@ class DrawControl {
                 featureProjection: window.app.map.getView().getProjection()
             });
             features.forEach((feature) => {
-                const type = feature.getGeometry().getType();
+                const type = feature.getId().substring(0, feature.getId().indexOf('-'));
                 const count = parseInt(document.getElementById(`draw-count-${type.toLowerCase()}`).innerText);
                 document.getElementById(`draw-count-${type.toLowerCase()}`).innerText = `${count + 1}`;
             });
@@ -53,6 +57,27 @@ class DrawControl {
             source: new VectorSource({
                 features: features
             }),
+            // style: new Style({
+            //     fill: new Fill({
+            //         color: 'rgba(255, 255, 255, 0.2)'
+            //     }),
+            //     stroke: new Stroke({
+            //         color: '#ffcc33',
+            //         width: 2
+            //     }),
+            //     image: new CircleStyle({
+            //         radius: 7,
+            //         fill: new Fill({
+            //             color: '#ffcc33'
+            //         })
+            //     })
+            // }),
+            zIndex: Infinity
+        });
+        window.app.map.addLayer(this.layer);
+
+        this.layerCurrent = new VectorLayer({
+            source: new VectorSource(),
             style: new Style({
                 fill: new Fill({
                     color: 'rgba(255, 255, 255, 0.2)'
@@ -70,10 +95,9 @@ class DrawControl {
             }),
             zIndex: Infinity
         });
-        window.app.map.addLayer(this.layer);
 
         this.modify = new Modify({
-            source: this.layer.getSource()
+            source: this.layerCurrent.getSource()
         });
     }
 
@@ -84,16 +108,18 @@ class DrawControl {
 
         switch (this.type) {
         case 'point':
-            this.draw = new DrawPoint();
+            this.draw = new DrawPoint(this);
             break;
         case 'linestring':
-            this.draw = new DrawLineString();
+            this.draw = new DrawLineString(this);
             break;
         case 'polygon':
-            this.draw = new DrawPolygon();
+            this.draw = new DrawPolygon(this);
             break;
         }
         window.app.map.addInteraction(this.draw);
+
+        window.app.map.addLayer(this.layerCurrent);
 
         this.snap = new Snap({
             source: this.layer.getSource()
@@ -102,11 +128,13 @@ class DrawControl {
     }
 
     disable () {
-        this.saveLocalStorage();
+        document.getElementById('btn-draw-properties').reset();
 
         if (this.type !== null) {
             document.querySelector(`#draw button.list-group-item-action[data-type="${this.type}"]`).classList.remove('active');
         }
+
+        window.app.map.removeLayer(this.layerCurrent);
 
         if (this.snap !== null) {
             window.app.map.removeInteraction(this.snap);
@@ -129,6 +157,59 @@ class DrawControl {
         this.layer.getSource().clear();
 
         this.clearLocalStorage();
+    }
+
+    showForm () {
+        document.getElementById('btn-draw-properties').hidden = false;
+    }
+
+    resetForm () {
+        document.getElementById('btn-draw-properties').hidden = true;
+
+        this.layerCurrent.getSource().clear();
+    }
+
+    submitForm () {
+        const name = document.querySelector('form#btn-draw-properties input[name="name"]').value;
+        const description = document.querySelector('form#btn-draw-properties textarea[name="description"]').value;
+
+        const features = this.layerCurrent.getSource().getFeatures();
+        const feature = new Feature();
+
+        const count = parseInt(document.getElementById(`draw-count-${this.type}`).innerText);
+
+        feature.setId(`${this.type}-${count + 1}`);
+        feature.setProperties({ name, description });
+
+        if (features.length === 1) {
+            feature.setGeometry(features[0].getGeometry());
+        } else {
+            const coordinates = features.map(feature => feature.getGeometry().getCoordinates());
+
+            switch (this.type) {
+            case 'point':
+                feature.setGeometry(new MultiPoint(coordinates));
+                break;
+            case 'linestring':
+                feature.setGeometry(new MultiLineString(coordinates));
+                break;
+            case 'polygon':
+                feature.setGeometry(new MultiPolygon(coordinates));
+                break;
+            }
+        }
+
+        this.layer.getSource().addFeature(feature);
+        this.snap.addFeature(feature);
+
+        this.saveLocalStorage();
+
+        document.getElementById('btn-draw-clear').disabled = false;
+        document.getElementById('btn-draw-export').disabled = false;
+
+        document.getElementById('btn-draw-properties').reset();
+
+        document.getElementById(`draw-count-${this.type}`).innerText = `${count + 1}`;
     }
 
     saveLocalStorage () {
