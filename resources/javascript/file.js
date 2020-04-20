@@ -40,9 +40,9 @@ class File {
             throw new Error('Invalid file type.');
         }
 
-        this.url = window.app.baseUrl + 'file/' + (this.local ? 'local/' : '') + this.identifier + '?' + $.param({
+        this.url = window.app.baseUrl + 'file/' + (this.local ? 'local/' : '') + this.identifier + '?' + new URLSearchParams({
             c: window.app.custom
-        });
+        }).toString();
 
         window.app[this.type].push(this);
     }
@@ -61,94 +61,88 @@ class File {
      */
     displayInList (element) {
         const li = document.createElement('li');
+        li.id = `file-${this.type}-${this.getIndex()}`;
+        li.className = 'list-group-item';
+        li.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-        $(li)
-            .addClass('list-group-item')
-            .attr({
-                id: `file-${this.type}-${this.getIndex()}`
-            })
-            .on('click', event => {
-                event.stopPropagation();
-
-                $(event.delegateTarget).toggleClass('list-group-item-primary');
-            });
+            event.currentTarget.classList.toggle('list-group-item-primary');
+        });
 
         if (this.type === 'csv') {
             const select = document.createElement('select');
+            select.className = 'float-right form-control form-control-sm d-inline-block w-auto';
+            select.innerHTML = '<option value="EPSG:4326">WGS 84 (EPSG:4326)</option>';
+            select.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
 
-            $(select)
-                .append('<option value="EPSG:4326">WGS 84 (EPSG:4326)</option>')
-                .addClass('float-right form-control form-control-sm d-inline-block w-auto')
-                .on('click', event => event.stopPropagation())
-                .appendTo(li);
+            li.append(select);
 
             for (const epsg in window.app.epsg) {
-                $(select).append(`<option value="${epsg}">${window.app.epsg[epsg].name} (${epsg})</option>`);
+                select.innerHTML += `<option value="${epsg}">${window.app.epsg[epsg].name} (${epsg})</option>`;
             }
 
-            $(li).append(`<strong style="line-height: calc(1.8125rem + 2px);">${this.name}</strong><br>`);
+            li.innerHTML += `<strong style="line-height: calc(1.8125rem + 2px);">${this.name}</strong><br>`;
         } else {
-            $(li).append(`<strong>${this.name}</strong><br>`);
+            li.innerHTML = `<strong>${this.name}</strong><br>`;
         }
 
         if (this.title !== null) {
-            $(li).append(this.title);
+            li.innerHTML += this.title;
         }
         if (this.description !== null) {
-            $(document.createElement('p'))
-                .addClass('text-info small')
-                .text(this.description)
-                .appendTo(li);
+            const p = document.createElement('p');
+            p.className = 'text-info small';
+            p.innerText = this.description;
+
+            li.append(p);
         }
 
-        if (typeof element !== 'undefined' && $(element).length > 0) {
-            $(element).replaceWith(li);
+        if (typeof element !== 'undefined') {
+            console.log(element, element.parentElement);
+            element.parentElement.replaceChild(li, element);
         } else {
-            $(`#modal-layers-files-${this.type} > .list-group`).append(li);
+            document.querySelector(`#modal-layers-files-${this.type} > .list-group`).append(li);
         }
     }
 
     displayInSidebar () {
-        const li = $('#layers-new').clone();
+        const pointer = document.querySelectorAll(`#layers .list-group > li[id^="layers-${this.type}-"]`).length;
 
-        const pointer = $(`#layers .list-group > li[id^="layers-${this.type}-"]`).length;
+        const li = document.getElementById('layers-new').cloneNode(true);
+        li.id = `layers-${this.type}-${pointer}`;
+        li.hidden = false;
+        li.dataset.index = this.getIndex();
+        li.dataset.layer = this.name;
+        li.dataset.type = this.type;
 
-        $(li)
-            .data({
-                type: this.type,
-                index: this.getIndex(),
-                layer: this.name
-            })
-            .attr({
-                id: `layers-${this.type}-${pointer}`
-            })
-            .show()
-            .appendTo('#layers .list-group');
+        const divName = li.querySelector('div.layer-name');
+        divName.className = 'text-nowrap text-truncate';
+        divName.title = this.name;
+        divName.innerHTML = '<i class="fas fa-info-circle"></i> ' + (this.title || this.name);
 
-        $(li)
-            .find('div.layer-name')
-            .addClass('text-nowrap text-truncate')
-            .attr({
-                title: this.name
-            })
-            .html(
-                '<i class="fas fa-info-circle"></i> ' +
-                (this.title || this.name)
-            );
+        const btnZoom = li.querySelector('.btn-layer-zoom');
+        btnZoom.classList.remove('disabled');
+        btnZoom.disabled = false;
 
-        $(li).find('.btn-layer-zoom')
-            .removeClass('disabled')
-            .prop('disabled', false);
+        const btnSettings = li.querySelector('.btn-layer-settings');
+        btnSettings.classList.remove('disabled');
+        btnSettings.disabled = false;
+
+        document.querySelector('#layers .list-group').append(li);
 
         if (this.type === 'geojson') {
             if (typeof this.content.legend === 'object' && Array.isArray(this.content.legend)) {
                 const canvas = GeoJSONLegend(this.content.legend);
 
-                $(li).find('div.layer-legend').html(canvas);
+                const divLegend = li.querySelector('div.layer-legend');
+                divLegend.append(canvas);
 
-                $(li).find('.btn-layer-legend')
-                    .removeClass('disabled')
-                    .prop('disabled', false);
+                const btnLegend = li.querySelector('.btn-layer-legend');
+                btnLegend.classList.remove('disabled');
+                btnLegend.disabled = false;
             }
         }
     }
@@ -225,11 +219,13 @@ class File {
 
         const ol = document.createElement('ol');
 
-        $(document.createElement('li'))
-            .attr('id', `info-layer-${this.type}-${this.getIndex()}`)
-            .append(`<strong>${title}</strong>`)
-            .append(ol)
-            .appendTo('#info-list');
+        const li = document.createElement('li');
+        li.id = `info-layer-${this.type}-${this.getIndex()}`;
+        li.innerHTML = `<strong>${title}</strong>`;
+
+        li.append(ol);
+
+        document.getElementById('info-list').append(li);
 
         features.forEach((feature) => displayFeatureInList(feature, title, ol));
     }

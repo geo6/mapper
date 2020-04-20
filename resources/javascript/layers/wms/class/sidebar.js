@@ -15,7 +15,7 @@ export default function (service, layer) {
         .attr({
             id: `layers-wms-${service.getIndex()}-${pointer}`
         })
-        .show()
+        .prop('hidden', false)
         .appendTo('#layers .list-group');
 
     let icon = '';
