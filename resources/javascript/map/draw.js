@@ -171,7 +171,7 @@ class DrawControl {
     }
 
     submitForm () {
-        const name = document.querySelector('form#btn-draw-properties input[name="name"]').value;
+        const label = document.querySelector('form#btn-draw-properties input[name="label"]').value;
         const description = document.querySelector('form#btn-draw-properties textarea[name="description"]').value;
 
         const features = this.layerCurrent.getSource().getFeatures();
@@ -180,7 +180,7 @@ class DrawControl {
         const count = parseInt(document.getElementById(`draw-count-${this.type}`).innerText);
 
         feature.setId(`${this.type}-${count + 1}`);
-        feature.setProperties({ name, description });
+        feature.setProperties({ label, description });
 
         if (features.length === 1) {
             feature.setGeometry(features[0].getGeometry());
