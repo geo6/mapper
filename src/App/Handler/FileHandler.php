@@ -40,7 +40,7 @@ class FileHandler implements RequestHandlerInterface
             $path = self::getUploadedFile($identifier);
         }
 
-        if (isset($path) && !is_null($path)) {
+        if (!is_null($path)) {
             return self::serve($path);
         }
 
