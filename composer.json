@@ -82,7 +82,7 @@
         "post-create-project-cmd": [
             "@development-enable"
         ],
-        "analyze": "phpstan analyze -l max -c ./phpstan.installer.neon ./src ./config",
+        "analyze": "phpstan analyze -l max -c ./phpstan.neon ./src ./config",
         "check": [
             "@cs-check",
             "@analyze"
