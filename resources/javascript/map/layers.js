@@ -163,6 +163,23 @@ export default function () {
             document.getElementById('layer-label').append(option);
         });
 
+        if (layerSettings.type === 'geojson' && typeof layerSettings.content.legend === 'object' && Array.isArray(layerSettings.content.legend)) {
+            document.getElementById('layer-color').disabled = true;
+            document.getElementById('layer-color').value = '';
+            document.getElementById('layer-color-text').innerText = 'Function disabled because this layer has a legend.';
+            document.getElementById('layer-color-text').hidden = false;
+        } else if (layerSettings.type === 'kml') {
+            document.getElementById('layer-color').disabled = true;
+            document.getElementById('layer-color').value = '';
+            document.getElementById('layer-color-text').innerText = 'Function disabled for KML files.';
+            document.getElementById('layer-color-text').hidden = false;
+        } else {
+            document.getElementById('layer-color').disabled = false;
+            document.getElementById('layer-color').value = layerSettings.color;
+            document.getElementById('layer-color-text').innerText = '';
+            document.getElementById('layer-color-text').hidden = true;
+        }
+
         $('#modal-settings').modal('show');
     });
 
@@ -173,6 +190,12 @@ export default function () {
         if (label.length === 0) { label = null; }
 
         layerSettings.label = label;
+
+        let color = document.getElementById('layer-color').value;
+        if (color.length === 0) { color = null; }
+
+        layerSettings.color = color;
+
         layerSettings.olLayer.changed();
 
         layerSettings = null;

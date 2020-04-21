@@ -48,7 +48,7 @@ export default function (file, projection) {
 
             file.olLayer = new VectorLayer({
                 source: new VectorSource(),
-                style: (feature, resolution) => layerStyleFunction(feature, file.label, resolution)
+                style: (feature, resolution) => layerStyleFunction(feature, file.label, file.color, resolution)
             });
 
             results.data.forEach(result => {

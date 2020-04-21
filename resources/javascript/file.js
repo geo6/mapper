@@ -37,6 +37,7 @@ class File {
         this.local = local || false;
         this.content = null;
         this.label = null;
+        this.color = null;
 
         if (['csv', 'geojson', 'gpx', 'kml'].indexOf(this.type) === -1) {
             throw new Error('Invalid file type.');
@@ -168,7 +169,7 @@ class File {
         if (source !== null) {
             this.olLayer = new VectorLayer({
                 source: source,
-                style: (feature, resolution) => layerStyleFunction(feature, this.label, resolution)
+                style: (feature, resolution) => layerStyleFunction(feature, this.label, this.color, resolution)
             });
 
             window.app.map.addLayer(this.olLayer);

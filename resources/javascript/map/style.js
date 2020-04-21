@@ -9,8 +9,8 @@ import {
 } from 'ol/style';
 import Text from 'ol/style/Text';
 
-export default function style (feature, labelColumn, resolution) {
-    const { color } = feature.getProperties();
+export default function style (feature, labelColumn, color, resolution) {
+    const properties = feature.getProperties();
 
     const fill = new Fill({
         color: 'rgba(255,255,255,0.4)'
@@ -20,8 +20,14 @@ export default function style (feature, labelColumn, resolution) {
         width: 1.25
     });
 
-    if (typeof color !== 'undefined' && color !== null) {
-        stroke.setColor(colorAsArray(color));
+    if (color !== null) {
+        stroke.setColor(color);
+
+        const fillColor = colorAsArray(color);
+        fillColor[3] = 0.4;
+        fill.setColor(fillColor);
+    } else if (typeof properties.color !== 'undefined' && properties.color !== null) {
+        stroke.setColor(colorAsArray(properties.color));
     }
 
     return [
