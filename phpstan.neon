@@ -8,3 +8,4 @@ parameters:
         - dist
     reportUnmatchedIgnoredErrors: true
     ignoreErrors:
+        - '#^Call to an undefined method Geocoder\\Location::get.+\(\)\.$#'
