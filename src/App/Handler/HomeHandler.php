@@ -191,8 +191,8 @@ class HomeHandler implements RequestHandlerInterface
             return [
                 'identifier'  => $identifier,
                 'name'        => basename($path),
-                'title'       => $info->title ?? null,
-                'description' => $info->description ?? null,
+                'title'       => $info['title'] ?? null,
+                'description' => $info['description'] ?? null,
             ];
         }
 
