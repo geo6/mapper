@@ -191,10 +191,12 @@ export default function () {
 
         layerSettings.label = label;
 
-        let color = document.getElementById('layer-color').value;
-        if (color.length === 0) { color = null; }
+        if (document.getElementById('layer-color').disabled === false) {
+            let color = document.getElementById('layer-color').value;
+            if (color.length === 0) { color = null; }
 
-        layerSettings.color = color;
+            layerSettings.color = color;
+        }
 
         layerSettings.olLayer.changed();
 
