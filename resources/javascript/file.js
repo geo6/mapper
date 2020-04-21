@@ -24,6 +24,7 @@ class File {
      * @param {String} title File title.
      * @param {String} description File description.
      * @param {bool}   local Is the file stored initially on the server.
+     * @param {String} label Column used for labeling.
      */
     constructor (type, identifier, name, title, description, local) {
         this.type = type;
@@ -35,6 +36,7 @@ class File {
         this.selection = [];
         this.local = local || false;
         this.content = null;
+        this.label = null;
 
         if (['csv', 'geojson', 'gpx', 'kml'].indexOf(this.type) === -1) {
             throw new Error('Invalid file type.');
@@ -101,7 +103,6 @@ class File {
         }
 
         if (typeof element !== 'undefined') {
-            console.log(element, element.parentElement);
             element.parentElement.replaceChild(li, element);
         } else {
             document.querySelector(`#modal-layers-files-${this.type} > .list-group`).append(li);
@@ -167,7 +168,7 @@ class File {
         if (source !== null) {
             this.olLayer = new VectorLayer({
                 source: source,
-                style: (feature, resolution) => layerStyleFunction(feature, resolution)
+                style: (feature, resolution) => layerStyleFunction(feature, this.label, resolution)
             });
 
             window.app.map.addLayer(this.olLayer);
@@ -190,6 +191,12 @@ class File {
         });
 
         window.app.sidebar.close();
+    }
+
+    getColumns () {
+        const features = this.olLayer.getSource().getFeatures();
+
+        return features.length > 0 ? Object.keys(features[0].getProperties()) : [];
     }
 
     getFeatureInfo (coordinates) {

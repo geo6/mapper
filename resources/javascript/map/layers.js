@@ -11,6 +11,8 @@ import WMSApplySelection from '../layers/wms/apply';
 import initWMTS from '../layers/wmts/init';
 import WMTSApplySelection from '../layers/wmts/apply';
 
+let layerSettings = null;
+
 export default function () {
     initFile('csv');
     initFile('geojson');
@@ -125,6 +127,57 @@ export default function () {
             // window.app.wmts[index].zoom(layer);
             break;
         }
+    });
+
+    $(document).on('click', '.btn-layer-settings', (event) => {
+        event.preventDefault();
+
+        const { type, index, layer } = $(event.target).closest('li').data();
+
+        switch (type) {
+        case 'csv':
+            layerSettings = window.app.csv[index];
+            break;
+        case 'geojson':
+            layerSettings = window.app.geojson[index];
+            break;
+        case 'gpx':
+            layerSettings = window.app.gpx[index];
+            break;
+        case 'kml':
+            layerSettings = window.app.kml[index];
+            break;
+        }
+
+        const columns = layerSettings.getColumns();
+
+        document.querySelector('#modal-settings .modal-body > strong').innerText = layer;
+
+        document.getElementById('layer-label').innerHTML = '<option value=""></option>';
+        columns.filter(c => c !== 'geometry').forEach((column) => {
+            const option = document.createElement('option');
+            option.value = column;
+            option.innerText = column;
+            option.selected = (column === layerSettings.label);
+
+            document.getElementById('layer-label').append(option);
+        });
+
+        $('#modal-settings').modal('show');
+    });
+
+    document.querySelector('#modal-settings form').addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        let label = document.getElementById('layer-label').value;
+        if (label.length === 0) { label = null; }
+
+        layerSettings.label = label;
+        layerSettings.olLayer.changed();
+
+        layerSettings = null;
+
+        $('#modal-settings').modal('hide');
     });
 
     $(document).on('click', '.btn-layer-legend', (event) => {

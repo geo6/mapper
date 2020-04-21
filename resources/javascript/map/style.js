@@ -9,7 +9,7 @@ import {
 } from 'ol/style';
 import Text from 'ol/style/Text';
 
-export default function style (feature, resolution) {
+export default function style (feature, labelColumn, resolution) {
     const { color } = feature.getProperties();
 
     const fill = new Fill({
@@ -33,24 +33,16 @@ export default function style (feature, resolution) {
             }),
             fill: fill,
             stroke: stroke,
-            text: text(feature)
+            text: text(feature, labelColumn)
         })
     ];
 }
 
-function getLabel (feature) {
-    const { label } = feature.getProperties();
-
-    if (typeof label !== 'undefined') {
-        return label;
-    }
-
-    return null;
-}
-
-function text (feature) {
+function text (feature, labelColumn) {
     const type = feature.getGeometry().getType();
-    const label = getLabel(feature);
+    const properties = feature.getProperties();
+
+    const label = labelColumn !== null && typeof properties[labelColumn] !== 'undefined' ? properties[labelColumn] : null;
 
     if (label !== null) {
         const textOptions = {
@@ -58,20 +50,20 @@ function text (feature) {
                 color: '#fff',
                 width: 2
             }),
-            text: label
+            text: label.toString()
         };
 
         switch (type) {
         case 'Point':
         case 'MultiPoint':
-            $.extend(textOptions, {
+            Object.assign(textOptions, {
                 offsetY: 12
             });
             break;
 
         case 'LineString':
         case 'MultiLineString':
-            $.extend(textOptions, {
+            Object.assign(textOptions, {
                 overflow: true,
                 placement: 'line'
             });
@@ -79,7 +71,7 @@ function text (feature) {
 
         case 'Polygon':
         case 'MultiPolygon':
-            $.extend(textOptions, {
+            Object.assign(textOptions, {
                 overflow: true
             });
             break;
