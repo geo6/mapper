@@ -5,6 +5,8 @@ import {
     toLonLat
 } from 'ol/proj';
 
+import { cache } from '../main';
+
 export default function () {
     var zoom = 2;
     var center = [0, 0];
@@ -26,11 +28,11 @@ export default function () {
             window.app.map.getView().setCenter(center);
             window.app.map.getView().setZoom(zoom);
         }
-    } else if (typeof window.app.cache.map !== 'undefined' && window.app.cache.map !== null) {
-        zoom = parseInt(window.app.cache.map.zoom, 10);
+    } else if (typeof cache.map !== 'undefined' && cache.map !== null) {
+        zoom = parseInt(cache.map.zoom, 10);
         center = fromLonLat([
-            parseFloat(window.app.cache.map.longitude),
-            parseFloat(window.app.cache.map.latitude)
+            parseFloat(cache.map.longitude),
+            parseFloat(cache.map.latitude)
         ]);
 
         window.app.map.getView().setCenter(center);
@@ -57,7 +59,7 @@ export default function () {
             center: view.getCenter()
         };
 
-        window.app.cache.setMap(zoom, longitude, latitude);
+        cache.setMap(zoom, longitude, latitude);
 
         window.history.pushState(state, 'map', hash);
     });

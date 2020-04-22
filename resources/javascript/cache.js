@@ -1,6 +1,6 @@
 'use strict';
 
-class Cache {
+export class Cache {
     constructor () {
         if (window.app.custom !== null) {
             this.storageKey = `mapper.${window.app.custom}.cache`;
@@ -35,5 +35,3 @@ class Cache {
         }));
     }
 }
-
-export { Cache as default };

@@ -9,6 +9,8 @@ import {
 } from 'ol/source';
 import { optionsFromCapabilities } from 'ol/source/WMTS';
 
+import { cache } from '../main';
+
 function loadBaselayer (index) {
     if (typeof window.app.baselayers[index] !== 'undefined') {
         const baselayer = window.app.baselayers[index];
@@ -79,14 +81,14 @@ export default function () {
 
         loadBaselayer(index);
 
-        window.app.cache.setBaselayer(index);
+        cache.setBaselayer(index);
     });
 
     const keys = Object.keys(window.app.baselayers);
-    if (typeof window.app.cache.baselayer === 'undefined' || window.app.cache.baselayer === null) {
-        window.app.cache.setBaselayer(keys[0]);
+    if (typeof cache.baselayer === 'undefined' || cache.baselayer === null) {
+        cache.setBaselayer(keys[0]);
     }
 
-    $('#baselayers button[data-index=' + window.app.cache.baselayer + ']').addClass('active');
-    loadBaselayer(window.app.cache.baselayer);
+    $('#baselayers button[data-index=' + cache.baselayer + ']').addClass('active');
+    loadBaselayer(cache.baselayer);
 }
