@@ -44,8 +44,11 @@ class File {
         }
 
         this.url = window.app.baseUrl + 'file/' + (this.local ? 'local/' : '') + this.identifier + '?' + new URLSearchParams({
-            c: window.app.custom
+            c: window.app.custom !== null ? window.app.custom : ''
         }).toString();
+        console.log(this.url, new URLSearchParams({
+            c: null
+        }).toString(), $.param({ c: window.app.custom }));
 
         window.app[this.type].push(this);
     }
