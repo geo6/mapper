@@ -13,6 +13,7 @@
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/runtime": "^7.9.2",
+    "@types/jquery": "^3.3.35",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
@@ -20,11 +21,12 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "parcel-bundler": "^1.12.4",
-    "sass": "^1.26.3"
+    "sass": "^1.26.3",
+    "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-source-maps",
-    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.js --no-hmr",
+    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.ts --no-source-maps",
+    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.ts --no-hmr",
     "test": "eslint resources/javascript/",
     "fix": "eslint resources/javascript/ --fix"
   },
