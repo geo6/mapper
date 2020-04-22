@@ -12,6 +12,8 @@ import GPXAddFileToMap from './layers/files/gpx';
 import KMLAddFileToMap from './layers/files/kml';
 import layerStyleFunction from './map/style';
 
+import { sidebar } from './main';
+
 /**
  *
  */
@@ -111,42 +113,20 @@ class File {
     }
 
     displayInSidebar () {
-        const pointer = document.querySelectorAll(`#layers .list-group > li[id^="layers-${this.type}-"]`).length;
-
-        const li = document.getElementById('layers-new').cloneNode(true);
-        li.id = `layers-${this.type}-${pointer}`;
-        li.hidden = false;
-        li.dataset.index = this.getIndex();
-        li.dataset.layer = this.name;
-        li.dataset.type = this.type;
-
-        const divName = li.querySelector('div.layer-name');
-        divName.className = 'text-nowrap text-truncate';
-        divName.title = this.name;
-        divName.innerHTML = '<i class="fas fa-info-circle"></i> ' + (this.title || this.name);
-
-        const btnZoom = li.querySelector('.btn-layer-zoom');
-        btnZoom.classList.remove('disabled');
-        btnZoom.disabled = false;
-
-        const btnSettings = li.querySelector('.btn-layer-settings');
-        btnSettings.classList.remove('disabled');
-        btnSettings.disabled = false;
-
-        document.querySelector('#layers .list-group').append(li);
-
-        if (this.type === 'geojson') {
-            if (typeof this.content.legend === 'object' && Array.isArray(this.content.legend)) {
-                const canvas = GeoJSONLegend(this.content.legend);
-
-                const divLegend = li.querySelector('div.layer-legend');
-                divLegend.append(canvas);
-
-                const btnLegend = li.querySelector('.btn-layer-legend');
-                btnLegend.classList.remove('disabled');
-                btnLegend.disabled = false;
-            }
+        let legend = null;
+        if (this.type === 'geojson' && typeof this.content.legend === 'object' && Array.isArray(this.content.legend)) {
+            legend = GeoJSONLegend(this.content.legend);
         }
+
+        sidebar.addLayerInList(
+            this.type,
+            this.getIndex(),
+            this.name,
+            this.name,
+            true,
+            true,
+            legend
+        );
     }
 
     addToMap (projection) {
@@ -191,7 +171,7 @@ class File {
             padding: [15, 15, 15, 15]
         });
 
-        window.app.sidebar.close();
+        sidebar.close();
     }
 
     getColumns () {

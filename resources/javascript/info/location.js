@@ -3,6 +3,8 @@
 import { toLonLat } from 'ol/proj';
 import { toStringXY } from 'ol/coordinate';
 
+import { sidebar } from '../main';
+
 /**
  * Display clicked location and open info sidebar.
  *
@@ -21,5 +23,6 @@ export default function (coordinates) {
     });
 
     $('.sidebar-tabs > ul > li:has(a[href="#info"])').removeClass('disabled');
-    window.app.sidebar.open('info');
+
+    sidebar.open('info');
 }

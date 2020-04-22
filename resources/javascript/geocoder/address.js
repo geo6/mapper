@@ -2,6 +2,8 @@
 
 import GeoJSON from 'ol/format/GeoJSON';
 
+import { sidebar } from '../main';
+
 /**
  * Launch geocoding query on every API configured and display result in sidebar.
  *
@@ -14,7 +16,7 @@ export default function (address) {
     $('#geocoder-results').empty();
 
     if ($.trim(address).length === 0) {
-        window.app.sidebar.close('geocoder');
+        sidebar.close('geocoder');
     } else {
         for (const key in window.app.geocoderProviders) {
             const provider = window.app.geocoderProviders[key];

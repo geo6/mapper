@@ -8,6 +8,8 @@ import WMSAddLayersToMap from './class/map';
 import WMSAddLayerToSidebar from './class/sidebar';
 import { createUlService } from '../../info/list/service';
 
+import { sidebar } from '../../main';
+
 /**
  *
  */
@@ -207,7 +209,7 @@ class WMS {
                 padding: [15, 15, 15, 15]
             });
 
-            window.app.sidebar.close();
+            sidebar.close();
         }
     }
 }

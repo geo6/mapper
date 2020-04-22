@@ -1,10 +1,12 @@
 'use strict';
 
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+
 import geocodeAddress from './geocoder/address';
 import geocodeReverse from './geocoder/reverse';
 
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
+import { sidebar } from './main';
 
 export default function () {
     window.app.geocoder = new VectorLayer({
@@ -40,6 +42,6 @@ export default function () {
 
         geocodeReverse(longitude, latitude);
 
-        window.app.sidebar.open('geocoder');
+        sidebar.open('geocoder');
     });
 }

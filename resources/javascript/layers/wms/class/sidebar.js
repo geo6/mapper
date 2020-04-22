@@ -1,65 +1,37 @@
 'use strict';
 
+import { sidebar } from '../../../main';
+
 export default function (service, layer) {
-    const li = $('#layers-new').clone();
-
-    const name = layer.Name || layer.Identifier;
-    const pointer = $(`#layers .list-group > li[id^="layers-wms-${service.getIndex()}-"]`).length;
-
-    $(li)
-        .data({
-            type: 'wms',
-            index: service.getIndex(),
-            layer: name
-        })
-        .attr({
-            id: `layers-wms-${service.getIndex()}-${pointer}`
-        })
-        .prop('hidden', false)
-        .appendTo('#layers .list-group');
-
-    let icon = '';
-    if (layer.queryable === true) {
-        if (service.mixedContent === true) {
-            icon = '<i class="fas fa-info-circle text-light" style="cursor:help;" title="GetFeatureInfo is disabled because of Mixed Active Content."></i> ';
-        } else {
-            icon = '<i class="fas fa-info-circle"></i> ';
-        }
-    }
-
-    $(li).find('div.layer-name')
-        .addClass('text-nowrap text-truncate')
-        .attr({
-            title: name
-        })
-        .html(
-            icon +
-            layer.Title
-        );
-
-    // OL doesn't read correctly CRS from WMS Capabilites < 1.3.0 (SRS instead of CRS)
-    // See https://github.com/openlayers/openlayers/issues/5476
-    if (service.capabilities.version >= '1.3.0') {
-        $(li).find('.btn-layer-zoom')
-            .removeClass('disabled')
-            .prop('disabled', false);
-    }
-
+    let legend = null;
     if (
         typeof layer.Style !== 'undefined' && layer.Style.length > 0 &&
         typeof layer.Style[0].LegendURL !== 'undefined' && layer.Style[0].LegendURL.length > 0
     ) {
-        const img = document.createElement('img');
+        legend = document.createElement('img');
 
-        img.src = layer.Style[0].LegendURL[0].OnlineResource;
-        img.alt = `Legend "${name}"`;
+        legend.src = layer.Style[0].LegendURL[0].OnlineResource;
+        legend.alt = `Legend "${layer.Name || layer.Identifier}"`;
 
-        img.classList.add('img-fluid');
+        legend.classList.add('img-fluid');
+    }
 
-        $(li).find('div.layer-legend').html(img);
+    const li = sidebar.addLayerInList(
+        'wms',
+        service.getIndex(),
+        layer.Name || layer.Identifier,
+        layer.Title,
+        (layer.queryable === true),
+        // OL doesn't read correctly CRS from WMS Capabilites < 1.3.0 (SRS instead of CRS)
+        // See https://github.com/openlayers/openlayers/issues/5476
+        (service.capabilities.version >= '1.3.0'),
+        legend
+    );
 
-        $(li).find('.btn-layer-legend')
-            .removeClass('disabled')
-            .prop('disabled', false);
+    if (layer.queryable === true && service.mixedContent === true) {
+        const icon = li.querySelector('.fa-info-circle');
+        icon.classList.add('text-light');
+        icon.style.cursor = 'help';
+        icon.title = 'GetFeatureInfo is disabled because of Mixed Active Content.';
     }
 }

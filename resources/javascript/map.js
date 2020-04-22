@@ -1,7 +1,6 @@
 'use strict';
 
 import 'ol/ol.css';
-import 'sidebar-v2/css/ol3-sidebar.css';
 
 import {
     Map,
@@ -23,8 +22,6 @@ import initMarker from './map/marker';
 import MeasureControl from './map/measure/control';
 import initPermalink from './map/permalink';
 import initSingleClick from './map/singleclick';
-
-require('sidebar-v2/js/jquery-sidebar.js');
 
 export default function () {
     $('#map').height($(window).height() - $('body > nav.navbar').outerHeight());
@@ -59,6 +56,4 @@ export default function () {
         initGeocoder();
         initDraw();
     });
-
-    window.app.sidebar = $('#sidebar').sidebar();
 }
