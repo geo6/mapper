@@ -13,10 +13,10 @@ export default function style (feature, labelColumn, color, resolution) {
     const properties = feature.getProperties();
 
     const fill = new Fill({
-        color: 'rgba(255,255,255,0.4)'
+        color: 'rgba(0,0,0,0.4)'
     });
     const stroke = new Stroke({
-        color: '#3399CC',
+        color: '#000',
         width: 1.25
     });
 
@@ -28,6 +28,10 @@ export default function style (feature, labelColumn, color, resolution) {
         fill.setColor(fillColor);
     } else if (typeof properties.color !== 'undefined' && properties.color !== null) {
         stroke.setColor(colorAsArray(properties.color));
+
+        const fillColor = colorAsArray(properties.color);
+        fillColor[3] = 0.4;
+        fill.setColor(fillColor);
     }
 
     return [
