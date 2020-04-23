@@ -6,7 +6,7 @@ import VectorSource from 'ol/source/Vector';
 import geocodeAddress from './geocoder/address';
 import geocodeReverse from './geocoder/reverse';
 
-import { sidebar } from './main';
+import { map, sidebar } from './main';
 
 export default function () {
     window.app.geocoder = new VectorLayer({
@@ -14,7 +14,7 @@ export default function () {
         visible: false,
         zIndex: Infinity
     });
-    window.app.map.addLayer(window.app.geocoder);
+    map.addLayer(window.app.geocoder);
 
     $('#geocoder').on('submit', (event) => {
         event.preventDefault();

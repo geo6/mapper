@@ -12,6 +12,8 @@ import Papa from "papaparse";
 import File from "../../file";
 import layerStyleFunction from "../../map/style";
 
+import { map } from "../../main";
+
 export default function (file: File, projection: ProjectionLike): void {
   Papa.parse(file.url, {
     dynamicTyping: true,
@@ -64,7 +66,7 @@ export default function (file: File, projection: ProjectionLike): void {
           feature.setGeometry(
             new WKT().readGeometry(result[wktColumn], {
               dataProjection: projection,
-              featureProjection: window.app.map.getView().getProjection(),
+              featureProjection: map.getView().getProjection(),
             })
           );
         } else {
@@ -73,7 +75,7 @@ export default function (file: File, projection: ProjectionLike): void {
               transform(
                 [result[xColumn], result[yColumn]],
                 projection,
-                window.app.map.getView().getProjection()
+                map.getView().getProjection()
               )
             )
           );
@@ -82,7 +84,7 @@ export default function (file: File, projection: ProjectionLike): void {
         file.olLayer.getSource().addFeature(feature);
       });
 
-      window.app.map.addLayer(file.olLayer);
+      map.addLayer(file.olLayer);
     },
   });
 }

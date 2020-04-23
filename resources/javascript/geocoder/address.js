@@ -2,7 +2,7 @@
 
 import GeoJSON from 'ol/format/GeoJSON';
 
-import { sidebar } from '../main';
+import { map, sidebar } from '../main';
 
 /**
  * Launch geocoding query on every API configured and display result in sidebar.
@@ -45,7 +45,7 @@ export default function (address) {
                 })
                 .then(geojson => {
                     const features = (new GeoJSON()).readFeatures(geojson, {
-                        featureProjection: window.app.map.getView().getProjection()
+                        featureProjection: map.getView().getProjection()
                     });
 
                     window.app.geocoder.getSource().addFeatures(features);
@@ -63,7 +63,7 @@ export default function (address) {
                             $(document.createElement('li'))
                                 .append(formattedAddress)
                                 .on('click', () => {
-                                    window.app.map.getView().fit(feature.getGeometry(), {
+                                    map.getView().fit(feature.getGeometry(), {
                                         maxZoom: 18,
                                         padding: [15, 15, 15, 15]
                                     });

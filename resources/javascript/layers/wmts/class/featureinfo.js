@@ -8,6 +8,8 @@
 
 import GeoJSON from 'ol/format/GeoJSON';
 
+import { map } from '../../../main';
+
 function WMTSGetFeatureInfoUrl (template, coordinate, source, resolution) {
     const tilegrid = source.getTileGrid();
     const tileResolutions = tilegrid.getResolutions();
@@ -53,7 +55,7 @@ function WMTSGetFeatureInfoUrl (template, coordinate, source, resolution) {
 }
 
 export default function (service, coordinate) {
-    const view = window.app.map.getView();
+    const view = map.getView();
 
     const requests = [];
 

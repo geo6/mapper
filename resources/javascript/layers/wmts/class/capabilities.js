@@ -2,6 +2,8 @@
 
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
+import { map } from '../../../main';
+
 function parseLayers (layers, searchElements) {
     const results = [];
 
@@ -39,7 +41,7 @@ export default function (origUrl) {
                 crs.push(supportedCRS);
             }
 
-            const projection = window.app.map.getView().getProjection().getCode();
+            const projection = map.getView().getProjection().getCode();
             if (crs.indexOf(projection) === -1) {
                 throw new Error(`The WMTS service "${origUrl}" does not support ${projection} ! It supports only ${crs.join(', ')}.`);
             }

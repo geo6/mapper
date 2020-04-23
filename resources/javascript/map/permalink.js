@@ -5,13 +5,13 @@ import {
     toLonLat
 } from 'ol/proj';
 
-import { cache } from '../main';
+import { cache, map } from '../main';
 
 export default function () {
     var zoom = 2;
     var center = [0, 0];
 
-    var view = window.app.map.getView();
+    var view = map.getView();
 
     if (window.location.hash !== '') {
         // try to restore center, zoom-level and rotation from the URL
@@ -25,8 +25,8 @@ export default function () {
                 parseFloat(parts[1])
             ]);
 
-            window.app.map.getView().setCenter(center);
-            window.app.map.getView().setZoom(zoom);
+            map.getView().setCenter(center);
+            map.getView().setZoom(zoom);
         }
     } else if (typeof cache.map !== 'undefined' && cache.map !== null) {
         zoom = parseInt(cache.map.zoom, 10);
@@ -35,13 +35,13 @@ export default function () {
             parseFloat(cache.map.latitude)
         ]);
 
-        window.app.map.getView().setCenter(center);
-        window.app.map.getView().setZoom(zoom);
+        map.getView().setCenter(center);
+        map.getView().setZoom(zoom);
     }
 
     var shouldUpdate = true;
 
-    window.app.map.on('moveend', () => {
+    map.on('moveend', () => {
         if (!shouldUpdate) {
             // do not update the URL when the view was changed in the 'popstate' handler
             shouldUpdate = true;
@@ -71,8 +71,8 @@ export default function () {
             return;
         }
 
-        window.app.map.getView().setCenter(event.state.center);
-        window.app.map.getView().setZoom(event.state.zoom);
+        map.getView().setCenter(event.state.center);
+        map.getView().setZoom(event.state.zoom);
 
         shouldUpdate = false;
     });

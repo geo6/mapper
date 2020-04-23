@@ -2,8 +2,10 @@
 
 import displayLocation from '../info/location';
 
+import { map } from '../main';
+
 export default function () {
-    window.app.map.on('singleclick', (event) => {
+    map.on('singleclick', (event) => {
         window.app.marker.setGeometry(null);
 
         displayLocation(event.coordinate);

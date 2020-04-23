@@ -6,6 +6,8 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Style, Circle, Fill, Stroke } from 'ol/style';
 
+import { map } from '../main';
+
 export default function () {
     var fill = new Fill({
         color: 'rgba(255,0,0,0.1)'
@@ -37,7 +39,7 @@ export default function () {
         visible: false,
         zIndex: Infinity
     });
-    window.app.map.addLayer(window.app.markerLayer);
+    map.addLayer(window.app.markerLayer);
 
     return window.app.markerLayer;
 }

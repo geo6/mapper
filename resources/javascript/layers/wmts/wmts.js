@@ -8,6 +8,8 @@ import WMTSAddLayersToMap from './class/map';
 import WMTSAddLayerToSidebar from './class/sidebar';
 import { createUlService } from '../../info/list/service';
 
+import { map } from '../../main';
+
 /**
  *
  */
@@ -189,7 +191,7 @@ class WMTS {
      */
     removeLayer (layerName) {
         if (this.olLayers[layerName] !== 'undefined') {
-            window.app.map.removeLayer(this.olLayers[layerName]);
+            map.removeLayer(this.olLayers[layerName]);
             delete this.olLayers[layerName];
         }
     }

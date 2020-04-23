@@ -15,13 +15,11 @@
     window.app.layers = {{ layers | json_encode | raw }};
     window.app.files = {{ files | json_encode | raw }};
     window.app.https = {{ https == true ? 'true' : 'false' }};
-    window.app.center = {{ map.center | json_encode }};
-    window.app.zoom = {{ map.zoom }};
     window.app.epsg = {{ epsg | json_encode | raw }};
 
     (function () {
-        map.init();
-    })();
+        map.init({{ map.center | json_encode }}, {{ map.zoom }});
+    }) ();
 </script>
 {% endblock %}
 

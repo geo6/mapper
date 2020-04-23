@@ -9,7 +9,7 @@ import {
 } from 'ol/source';
 import { optionsFromCapabilities } from 'ol/source/WMTS';
 
-import { cache } from '../main';
+import { cache, map } from '../main';
 
 function loadBaselayer (index) {
     if (typeof window.app.baselayers[index] !== 'undefined') {
@@ -17,7 +17,7 @@ function loadBaselayer (index) {
 
         switch (baselayer.mode) {
         case 'wms': {
-            window.app.map.getLayers().setAt(0,
+            map.getLayers().setAt(0,
                 new TileLayer({
                     source: new TileWMS({
                         attributions: baselayer.attributions,
@@ -48,7 +48,7 @@ function loadBaselayer (index) {
                     });
                     options.attributions = baselayer.attributions;
 
-                    window.app.map.getLayers().setAt(0,
+                    map.getLayers().setAt(0,
                         new TileLayer({
                             source: new WMTS(options)
                         })
@@ -57,7 +57,7 @@ function loadBaselayer (index) {
             break;
         }
         default: {
-            window.app.map.getLayers().setAt(0,
+            map.getLayers().setAt(0,
                 new TileLayer({
                     source: new XYZ({
                         attributions: baselayer.attributions,

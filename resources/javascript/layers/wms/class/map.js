@@ -3,6 +3,8 @@
 import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 
+import { map } from '../../../main';
+
 export default function (wms, layers) {
     if (typeof wms !== 'undefined' && layers.length > 0) {
         const names = [];
@@ -20,7 +22,7 @@ export default function (wms, layers) {
                 })
             });
 
-            window.app.map.addLayer(wms.olLayer);
+            map.addLayer(wms.olLayer);
         } else {
             const params = wms.olLayer.getSource().getParams();
             wms.olLayer.getSource().updateParams({

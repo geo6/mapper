@@ -16,7 +16,7 @@ import GPXAddFileToMap from "./layers/files/gpx";
 import KMLAddFileToMap from "./layers/files/kml";
 import layerStyleFunction from "./map/style";
 
-import { sidebar } from "./main";
+import { map, sidebar } from "./main";
 
 /**
  *
@@ -183,13 +183,12 @@ export class File {
           layerStyleFunction(feature, this.label, this.color, resolution),
       });
 
-      window.app.map.addLayer(this.olLayer);
+      map.addLayer(this.olLayer);
     }
   }
 
   removeFromMap(): void {
-  removeFromMap() {
-    window.app.map.removeLayer(this.olLayer);
+    map.removeLayer(this.olLayer);
 
     this.olLayer = null;
     this.selection = [];
@@ -198,7 +197,7 @@ export class File {
   zoom(): void {
     const extent = this.olLayer.getSource().getExtent();
 
-    window.app.map.getView().fit(extent, {
+    map.getView().fit(extent, {
       maxZoom: 18,
       padding: [15, 15, 15, 15],
     });
@@ -213,14 +212,13 @@ export class File {
   }
 
   getFeatureInfo(coordinates: Coordinate): Array<FeatureLike> {
-  getFeatureInfo(coordinates) {
-    const pixel = window.app.map.getPixelFromCoordinate(coordinates);
+    const pixel = map.getPixelFromCoordinate(coordinates);
 
     if (this.olLayer === null) {
       return [];
     }
 
-    return window.app.map.getFeaturesAtPixel(pixel, {
+    return map.getFeaturesAtPixel(pixel, {
       // hitTolerance: 10,
       layerFilter: (layer) => {
         return layer === this.olLayer;
@@ -249,3 +247,5 @@ export class File {
     features.forEach((feature) => displayFeatureInList(feature, title, ol));
   }
 }
+
+export { File as default };

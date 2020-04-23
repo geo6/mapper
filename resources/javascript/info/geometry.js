@@ -7,6 +7,8 @@ import {
     getLength
 } from 'ol/sphere';
 
+import { map } from '../main';
+
 /**
  * Display selected Feature geometry.
  *
@@ -23,7 +25,7 @@ export default function (geometry) {
         .on('click', () => {
             const extent = geometry.getExtent();
 
-            window.app.map.getView()
+            map.getView()
                 .fit(extent, {
                     maxZoom: 18,
                     padding: [15, 15, 15, 15]

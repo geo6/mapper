@@ -1,8 +1,9 @@
 "use strict";
 
-import "ol/ol.css";
-
 import "../sass/style.scss";
+
+import { Coordinate } from "ol/coordinate";
+import Map from "ol/Map";
 
 import { Cache } from "./cache";
 import initMap from "./map";
@@ -13,17 +14,18 @@ import { Sidebar } from "./sidebar";
 import { SettingsModal } from "./modal/settings";
 
 export let cache: Cache;
+export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
 
 window.app = window.app || {};
 
-export function init() {
+export function init(lnglat: Coordinate, zoom: number) {
   cache = new Cache();
 
   initProj4();
 
-  initMap();
+  map = initMap(lnglat, zoom);
   initLayers();
   initUpload();
 

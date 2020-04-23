@@ -8,7 +8,7 @@ import WMSAddLayersToMap from './class/map';
 import WMSAddLayerToSidebar from './class/sidebar';
 import { createUlService } from '../../info/list/service';
 
-import { sidebar } from '../../main';
+import { map, sidebar } from '../../main';
 
 /**
  *
@@ -185,7 +185,7 @@ class WMS {
                     LAYERS: layers
                 });
             } else {
-                window.app.map.removeLayer(this.olLayer);
+                map.removeLayer(this.olLayer);
                 this.olLayer = null;
             }
         }
@@ -198,13 +198,13 @@ class WMS {
      * @returns {void}
      */
     zoom (layerName) {
-        const projection = window.app.map.getView().getProjection().getCode();
+        const projection = map.getView().getProjection().getCode();
 
         const layer = this.layers.find(layer => layer.Name === layerName);
         const extent = layer.BoundingBox.find(bbox => bbox.crs === projection);
 
         if (typeof extent !== 'undefined') {
-            window.app.map.getView().fit(extent.extent, {
+            map.getView().fit(extent.extent, {
                 maxZoom: 18,
                 padding: [15, 15, 15, 15]
             });

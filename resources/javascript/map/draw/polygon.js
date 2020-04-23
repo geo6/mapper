@@ -5,6 +5,8 @@ import MultiPolygon from 'ol/geom/MultiPolygon';
 import Draw from 'ol/interaction/Draw';
 import unkinkPolygon from '@turf/unkink-polygon';
 
+import { map } from '../../main';
+
 class DrawPolygon extends Draw {
     constructor () {
         super({
@@ -24,14 +26,14 @@ class DrawPolygon extends Draw {
         const geojson = (new GeoJSON()).writeFeature(feature, {
             dataProjection: 'EPSG:4326',
             decimals: 6,
-            featureProjection: window.app.map.getView().getProjection()
+            featureProjection: map.getView().getProjection()
         });
 
         const valid = unkinkPolygon(JSON.parse(geojson));
 
         const features = (new GeoJSON()).readFeatures(valid, {
             dataProjection: 'EPSG:4326',
-            featureProjection: window.app.map.getView().getProjection()
+            featureProjection: map.getView().getProjection()
         });
 
         if (features.length > 1) {

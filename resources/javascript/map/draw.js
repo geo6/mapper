@@ -25,6 +25,8 @@ import DrawLineString from './draw/linestring';
 import DrawPolygon from './draw/polygon';
 import displayFeatureInList from '../info/feature';
 
+import { map } from '../main';
+
 class DrawControl {
     constructor () {
         this.active = false;
@@ -40,7 +42,7 @@ class DrawControl {
         let features = [];
         if (storage !== null) {
             features = (new GeoJSON()).readFeatures(storage, {
-                featureProjection: window.app.map.getView().getProjection()
+                featureProjection: map.getView().getProjection()
             });
             features.forEach((feature) => {
                 const type = feature.getId().substring(0, feature.getId().indexOf('-'));
@@ -75,7 +77,7 @@ class DrawControl {
             // }),
             zIndex: Infinity
         });
-        window.app.map.addLayer(this.olLayer);
+        map.addLayer(this.olLayer);
 
         this.layerCurrent = new VectorLayer({
             source: new VectorSource(),
@@ -105,7 +107,7 @@ class DrawControl {
     enable () {
         document.querySelector(`#draw button.list-group-item-action[data-type="${this.type}"]`).classList.add('active');
 
-        window.app.map.addInteraction(this.modify);
+        map.addInteraction(this.modify);
 
         switch (this.type) {
         case 'point':
@@ -118,14 +120,14 @@ class DrawControl {
             this.draw = new DrawPolygon(this);
             break;
         }
-        window.app.map.addInteraction(this.draw);
+        map.addInteraction(this.draw);
 
-        window.app.map.addLayer(this.layerCurrent);
+        map.addLayer(this.layerCurrent);
 
         this.snap = new Snap({
             source: this.olLayer.getSource()
         });
-        window.app.map.addInteraction(this.snap);
+        map.addInteraction(this.snap);
     }
 
     disable () {
@@ -135,18 +137,18 @@ class DrawControl {
             document.querySelector(`#draw button.list-group-item-action[data-type="${this.type}"]`).classList.remove('active');
         }
 
-        window.app.map.removeLayer(this.layerCurrent);
+        map.removeLayer(this.layerCurrent);
 
         if (this.snap !== null) {
-            window.app.map.removeInteraction(this.snap);
+            map.removeInteraction(this.snap);
             this.snap = null;
         }
         if (this.draw !== null) {
-            window.app.map.removeInteraction(this.draw);
+            map.removeInteraction(this.draw);
             this.draw = null;
         }
 
-        window.app.map.removeInteraction(this.modify);
+        map.removeInteraction(this.modify);
     }
 
     clear () {
@@ -238,20 +240,20 @@ class DrawControl {
         const geojson = (new GeoJSON()).writeFeatures(features, {
             dataProjection: 'EPSG:4326',
             decimals: 6,
-            featureProjection: window.app.map.getView().getProjection()
+            featureProjection: map.getView().getProjection()
         });
 
         return geojson;
     }
 
     getFeatureInfo (coordinates) {
-        const pixel = window.app.map.getPixelFromCoordinate(coordinates);
+        const pixel = map.getPixelFromCoordinate(coordinates);
 
         if (this.olLayer === null) {
             return [];
         }
 
-        return window.app.map.getFeaturesAtPixel(pixel, {
+        return map.getFeaturesAtPixel(pixel, {
             hitTolerance: 10,
             layerFilter: (layer) => {
                 return layer === this.olLayer;

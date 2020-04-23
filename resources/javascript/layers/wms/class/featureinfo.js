@@ -2,9 +2,11 @@
 
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
 
+import { map } from '../../../main';
+
 export default function (service, coordinate) {
     const source = service.olLayer.getSource();
-    const view = window.app.map.getView();
+    const view = map.getView();
 
     const formats = service.capabilities.Capability.Request.GetFeatureInfo.Format;
 

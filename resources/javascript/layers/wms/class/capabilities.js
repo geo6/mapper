@@ -2,6 +2,8 @@
 
 import WMSCapabilities from 'ol/format/WMSCapabilities';
 
+import { map } from '../../../main';
+
 function parseLayers (layers, searchElements) {
     let results = [];
 
@@ -35,7 +37,7 @@ export default function (origUrl) {
         .then(response => {
             const capabilities = (new WMSCapabilities()).read(response);
 
-            const projection = window.app.map.getView().getProjection().getCode();
+            const projection = map.getView().getProjection().getCode();
             if (typeof capabilities.Capability.Layer.CRS !== 'undefined' && capabilities.Capability.Layer.CRS.indexOf(projection) === -1) {
                 const crs = capabilities.Capability.Layer.CRS.join(', ');
 

@@ -3,6 +3,8 @@
 import TileLayer from 'ol/layer/Tile';
 import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS';
 
+import { map } from '../../../main';
+
 export default function (wmts, layers) {
     if (typeof wmts !== 'undefined' && layers.length > 0) {
         layers.forEach(layer => {
@@ -12,10 +14,10 @@ export default function (wmts, layers) {
                 wmts.olLayers[name] = new TileLayer({
                     source: new WMTS(optionsFromCapabilities(wmts.capabilities, {
                         layer: name,
-                        projection: window.app.map.getView().getProjection()
+                        projection: map.getView().getProjection()
                     }))
                 });
-                window.app.map.addLayer(wmts.olLayers[name]);
+                map.addLayer(wmts.olLayers[name]);
             }
         });
     }
