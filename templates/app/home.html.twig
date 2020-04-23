@@ -10,7 +10,7 @@
     var baselayers = {{ baselayers | json_encode | raw }};
     var baseUrl = "{{ baseUrl }}";
     var custom = {% if ui.custom %}"{{ ui.custom}}"{% else %} null{% endif %};
-    var layer = {{ layers | json_encode | raw }};
+    var layers = {{ layers | json_encode | raw }};
     var files = {{ files | json_encode | raw }};
     var https = {{ https == true ? 'true' : 'false' }};
     var projections = {{ epsg | json_encode | raw }};
