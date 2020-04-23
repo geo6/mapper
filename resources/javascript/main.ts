@@ -17,6 +17,7 @@ export let baselayers: Record<string, {}>;
 export let baseUrl: string;
 export let cache: Cache;
 export let customKey: string | null;
+export let https: boolean;
 export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
@@ -24,8 +25,9 @@ export let providers: Record<string, {}>;
 
 window.app = window.app || {};
 
-export function setBaseUrl(url: string): void {
+export function setBaseUrl(url: string, isHttps: boolean): void {
   baseUrl = url;
+  https = isHttps;
 }
 
 export function setCustomKey(key: string): void {

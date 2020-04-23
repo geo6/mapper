@@ -2,7 +2,7 @@
 
 import WMSCapabilities from 'ol/format/WMSCapabilities';
 
-import { baseUrl, customKey, map } from '../../../main';
+import { baseUrl, customKey, https, map } from '../../../main';
 
 function parseLayers (layers, searchElements) {
     let results = [];
@@ -47,7 +47,7 @@ export default function (origUrl) {
             return {
                 capabilities: capabilities,
                 layers: typeof capabilities.Capability.Layer.Layer !== 'undefined' ? parseLayers(capabilities.Capability.Layer.Layer) : parseLayers(capabilities.Capability.Layer),
-                mixedContent: window.app.https === true && RegExp('^http://').test(capabilities.Service.OnlineResource)
+                mixedContent: https === true && RegExp('^http://').test(capabilities.Service.OnlineResource)
             };
         });
 }

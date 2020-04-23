@@ -2,7 +2,7 @@
 
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
-import { baseUrl, customKey, map } from '../../../main';
+import { baseUrl, customKey, https, map } from '../../../main';
 
 function parseLayers (layers, searchElements) {
     const results = [];
@@ -49,7 +49,7 @@ export default function (origUrl) {
             return {
                 capabilities: capabilities,
                 layers: parseLayers(capabilities.Contents.Layer),
-                mixedContent: window.app.https === true && RegExp('^http://').test(origUrl)
+                mixedContent: https === true && RegExp('^http://').test(origUrl)
             };
         });
 }
