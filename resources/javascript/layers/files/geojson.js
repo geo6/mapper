@@ -25,8 +25,9 @@ export function legend (legend) {
         const oy = (i * 20) + 10;
 
         const color = colorAsArray(legend[i].color).slice();
+        const type = typeof legend[i].type !== 'undefined' ? legend[i].type.toLowerCase() : 'point';
 
-        switch (legend[i].type.toLowerCase()) {
+        switch (type) {
         case 'line':
             canvasContext.beginPath();
             canvasContext.moveTo(10, oy + 10);
