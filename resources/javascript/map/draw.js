@@ -25,15 +25,15 @@ import DrawLineString from './draw/linestring';
 import DrawPolygon from './draw/polygon';
 import displayFeatureInList from '../info/feature';
 
-import { map } from '../main';
+import { customKey, map } from '../main';
 
 class DrawControl {
     constructor () {
         this.active = false;
         this.type = null;
 
-        if (window.app.custom !== null) {
-            this.storageKey = `mapper.${window.app.custom}.draw`;
+        if (customKey !== null) {
+            this.storageKey = `mapper.${customKey}.draw`;
         } else {
             this.storageKey = 'mapper.draw';
         }
@@ -228,8 +228,8 @@ class DrawControl {
             type: 'application/json'
         });
 
-        if (window.app.custom !== null) {
-            saveAs(blob, `mapper-${window.app.custom}.json`);
+        if (customKey !== null) {
+            saveAs(blob, `mapper-${customKey}.json`);
         } else {
             saveAs(blob, 'mapper.json');
         }

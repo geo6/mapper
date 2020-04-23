@@ -1,13 +1,15 @@
 "use strict";
 
+import { customKey } from "./main";
+
 export class Cache {
   baselayer: string;
   map: { latitude: number; longitude: number; zoom: number };
   storageKey: string;
 
   constructor() {
-    if (window.app.custom !== null) {
-      this.storageKey = `mapper.${window.app.custom}.cache`;
+    if (customKey !== null) {
+      this.storageKey = `mapper.${customKey}.cache`;
     } else {
       this.storageKey = "mapper.cache";
     }

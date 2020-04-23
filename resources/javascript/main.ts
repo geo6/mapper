@@ -14,14 +14,16 @@ import { Sidebar } from "./sidebar";
 import { SettingsModal } from "./modal/settings";
 
 export let cache: Cache;
+export let customKey: string | null;
 export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
 
 window.app = window.app || {};
 
-export function init(lnglat: Coordinate, zoom: number) {
+export function init(custom: string | null, lnglat: Coordinate, zoom: number) {
   cache = new Cache();
+  customKey = custom;
 
   initProj4();
 

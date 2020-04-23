@@ -2,7 +2,7 @@
 
 import WMSCapabilities from 'ol/format/WMSCapabilities';
 
-import { map } from '../../../main';
+import { customKey, map } from '../../../main';
 
 function parseLayers (layers, searchElements) {
     let results = [];
@@ -26,7 +26,7 @@ function parseLayers (layers, searchElements) {
 
 export default function (origUrl) {
     const url = `${window.app.baseUrl}proxy` + '?' + $.param({
-        c: window.app.custom,
+        c: customKey,
         SERVICE: 'WMS',
         REQUEST: 'GetCapabilities',
         VERSION: '1.3.0',
