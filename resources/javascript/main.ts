@@ -14,6 +14,7 @@ import { Sidebar } from "./sidebar";
 import { SettingsModal } from "./modal/settings";
 
 export let baselayers: Record<string, {}>;
+export let baseUrl: string;
 export let cache: Cache;
 export let customKey: string | null;
 export let map: Map;
@@ -24,11 +25,13 @@ window.app = window.app || {};
 
 export function init(
   custom: string | null,
+  _baseUrl: string,
   lnglat: Coordinate,
   zoom: number,
   _baselayers: Record<string, {}>
 ) {
   baselayers = _baselayers;
+  baseUrl = _baseUrl;
   cache = new Cache();
   customKey = custom;
 

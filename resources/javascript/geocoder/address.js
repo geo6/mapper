@@ -2,7 +2,7 @@
 
 import GeoJSON from 'ol/format/GeoJSON';
 
-import { customKey, map, sidebar } from '../main';
+import { baseUrl, customKey, map, sidebar } from '../main';
 
 /**
  * Launch geocoding query on every API configured and display result in sidebar.
@@ -32,7 +32,7 @@ export default function (address) {
                 ])
                 .appendTo('#geocoder-results');
 
-            const url = `${window.app.baseUrl}geocoder/${key}/address/${address}` + '?' + $.param({ c: customKey });
+            const url = `${baseUrl}geocoder/${key}/address/${address}` + '?' + $.param({ c: customKey });
             fetch(url)
                 .then((response) => {
                     if (response.ok !== true) {

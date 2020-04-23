@@ -4,6 +4,8 @@ import Resumable from 'resumablejs/resumable';
 
 import File from './file';
 
+import { baseUrl } from './main';
+
 export default function () {
     const resumable = new Resumable({
         fileType: [
@@ -13,7 +15,7 @@ export default function () {
             'json',
             'kml'
         ],
-        target: `${window.app.baseUrl}upload`
+        target: `${baseUrl}upload`
     });
 
     resumable.assignBrowse(document.getElementById('btn-layers-upload'));

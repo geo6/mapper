@@ -16,7 +16,7 @@ import GPXAddFileToMap from "./layers/files/gpx";
 import KMLAddFileToMap from "./layers/files/kml";
 import layerStyleFunction from "./map/style";
 
-import { customKey, map, sidebar } from "./main";
+import { baseUrl, customKey, map, sidebar } from "./main";
 
 /**
  *
@@ -62,7 +62,7 @@ export class File {
     }
 
     this.url =
-      window.app.baseUrl +
+      baseUrl +
       "file/" +
       (this.local ? "local/" : "") +
       this.identifier +

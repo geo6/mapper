@@ -8,7 +8,6 @@
 <script src="{{ asset('/mapper.js') }}"></script>
 <script>
     window.app = {};
-    window.app.baseUrl = "{{ baseUrl }}";
     window.app.geocoderProviders = {{ geocoderProviders | json_encode | raw }};
     window.app.layers = {{ layers | json_encode | raw }};
     window.app.files = {{ files | json_encode | raw }};
@@ -16,10 +15,11 @@
     window.app.epsg = {{ epsg | json_encode | raw }};
 
     var baselayers = {{ baselayers | json_encode | raw }};
+    var baseUrl = "{{ baseUrl }}";
     var custom = {% if ui.custom %}"{{ ui.custom}}"{% else %} null{% endif %};
 
     (function () {
-        map.init(custom, {{ map.center | json_encode }}, {{ map.zoom }}, baselayers);
+        map.init(custom, baseUrl, {{ map.center | json_encode }}, {{ map.zoom }}, baselayers);
     }) ();
 </script>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
-import { customKey, map } from '../../../main';
+import { baseUrl, customKey, map } from '../../../main';
 
 function parseLayers (layers, searchElements) {
     const results = [];
@@ -22,7 +22,7 @@ function parseLayers (layers, searchElements) {
 }
 
 export default function (origUrl) {
-    const url = `${window.app.baseUrl}proxy` + '?' + $.param({
+    const url = `${baseUrl}proxy` + '?' + $.param({
         c: customKey,
         SERVICE: 'WMTS',
         REQUEST: 'GetCapabilities',
