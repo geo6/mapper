@@ -7,7 +7,7 @@
 {% block javascript %}
 <script src="{{ asset('/mapper.js') }}"></script>
 <script>
-    window.app = {};
+    // window.app = {};
     window.app.geocoderProviders = {{ geocoderProviders | json_encode | raw }};
     window.app.layers = {{ layers | json_encode | raw }};
     window.app.files = {{ files | json_encode | raw }};
@@ -19,7 +19,9 @@
     var custom = {% if ui.custom %}"{{ ui.custom}}"{% else %} null{% endif %};
 
     (function () {
-        map.init(custom, baseUrl, {{ map.center | json_encode }}, {{ map.zoom }}, baselayers);
+        app.setBaseUrl(baseUrl);
+        app.setCustomKey(custom);
+        app.setMap(baselayers, {{ map.center | json_encode }}, {{ map.zoom }});
     }) ();
 </script>
 {% endblock %}

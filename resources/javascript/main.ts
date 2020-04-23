@@ -23,17 +23,21 @@ export let modalSettings: SettingsModal;
 
 window.app = window.app || {};
 
-export function init(
-  custom: string | null,
-  _baseUrl: string,
+export function setBaseUrl(url: string): void {
+  baseUrl = url;
+}
+
+export function setCustomKey(key: string): void {
+  customKey = key;
+}
+
+export function setMap(
+  _baselayers: Record<string, {}>,
   lnglat: Coordinate,
-  zoom: number,
-  _baselayers: Record<string, {}>
+  zoom: number
 ) {
   baselayers = _baselayers;
-  baseUrl = _baseUrl;
   cache = new Cache();
-  customKey = custom;
 
   initProj4();
 

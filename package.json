@@ -27,8 +27,8 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.ts --no-source-maps",
-    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global map resources/javascript/main.ts --no-hmr",
+    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-source-maps",
+    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-hmr",
     "test": "eslint resources/javascript/",
     "fix": "eslint resources/javascript/ --fix"
   },
