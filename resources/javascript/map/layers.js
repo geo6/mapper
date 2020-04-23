@@ -11,14 +11,14 @@ import WMSApplySelection from '../layers/wms/apply';
 import initWMTS from '../layers/wmts/init';
 import WMTSApplySelection from '../layers/wmts/apply';
 
-export default function () {
-    initFile('csv');
-    initFile('geojson');
-    initFile('gpx');
-    initFile('kml');
+export default function (layers, files) {
+    initFile('csv', files.csv || []);
+    initFile('geojson', files.geojson || []);
+    initFile('gpx', files.gpx || []);
+    initFile('kml', files.kml || []);
 
-    initWMS();
-    initWMTS();
+    initWMS(layers.filter((layer) => layer.type === 'wms'));
+    initWMTS(layers.filter((layer) => layer.type === 'wmts'));
 
     $('#modal-layers-select').on('change', (event) => {
         const type = $(event.target).val();

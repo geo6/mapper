@@ -2,12 +2,10 @@
 
 import File from "../file";
 
-import { files } from "../main";
-
-export function init(type: string): void {
+export function init(type: string, files: Array<{}>): void {
   window.app[type] = [];
 
-  files[type].forEach((file) => {
+  files.forEach((file) => {
     const f = new File(
       type,
       file.identifier,
@@ -16,6 +14,8 @@ export function init(type: string): void {
       file.description,
       true
     );
+
+    window.app[type].push(f);
 
     if (f.type === "geojson") {
       fetch(f.url)

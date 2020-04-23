@@ -18,9 +18,7 @@ export let baselayers: Record<string, {}>;
 export let baseUrl: string;
 export let cache: Cache;
 export let customKey: string | null;
-export let files: Record<string, Array<{}>>;
 export let https: boolean;
-export let layers: Array<{}>;
 export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
@@ -54,18 +52,16 @@ export function addProjections(_projections: Record<string, {}>): void {
 
 export function setMap(
   _baselayers: Record<string, {}>,
-  _layers: Array<{}>,
-  _files: Record<string, Array<{}>>,
+  layers: Array<{}>,
+  files: Record<string, Array<{}>>,
   lnglat: Coordinate,
   zoom: number
 ) {
   baselayers = _baselayers;
-  layers = _layers;
-  files = _files;
   cache = new Cache();
 
   map = initMap(lnglat, zoom);
-  initLayers();
+  initLayers(layers, files);
   initUpload();
 
   sidebar = new Sidebar(document.getElementById("sidebar"));

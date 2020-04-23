@@ -70,8 +70,6 @@ export class File {
       new URLSearchParams({
         c: customKey !== null ? customKey : "",
       }).toString();
-
-    window.app[this.type].push(this);
   }
 
   /**
