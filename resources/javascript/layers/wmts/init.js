@@ -3,11 +3,13 @@
 import initWMTSAddService from './new';
 import WMTS from './wmts';
 
+import { layers } from '../../main';
+
 export default function () {
     window.app.wmts = [];
 
-    for (let i = 0; i < window.app.layers.length; i++) {
-        const layer = window.app.layers[i];
+    for (let i = 0; i < layers.length; i++) {
+        const layer = layers[i];
 
         switch (layer.type) {
         case 'wmts': {

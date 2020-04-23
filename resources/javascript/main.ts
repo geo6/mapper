@@ -18,6 +18,7 @@ export let baseUrl: string;
 export let cache: Cache;
 export let customKey: string | null;
 export let https: boolean;
+export let layers: Array<{}>;
 export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
@@ -40,10 +41,12 @@ export function setProviders(_providers: Record<string, {}>): void {
 
 export function setMap(
   _baselayers: Record<string, {}>,
+  _layers: Array<{}>,
   lnglat: Coordinate,
   zoom: number
 ) {
   baselayers = _baselayers;
+  layers = _layers;
   cache = new Cache();
 
   initProj4();

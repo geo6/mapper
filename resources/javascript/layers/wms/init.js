@@ -3,11 +3,13 @@
 import initWMSAddService from './new';
 import WMS from './wms';
 
+import { layers } from '../../main';
+
 export default function () {
     window.app.wms = [];
 
-    for (let i = 0; i < window.app.layers.length; i++) {
-        const layer = window.app.layers[i];
+    for (let i = 0; i < layers.length; i++) {
+        const layer = layers[i];
 
         switch (layer.type) {
         case 'wms': {
