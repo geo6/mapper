@@ -2,6 +2,9 @@
 
 import VectorLayer from "ol/layer/Vector";
 import { ColorLike } from "ol/colorlike";
+import { Coordinate } from "ol/coordinate";
+import { FeatureLike } from "ol/Feature";
+import { ProjectionLike } from "ol/proj";
 
 import displayFeatureInList from "./info/feature";
 import CSVAddFileToMap from "./layers/files/csv";
@@ -18,7 +21,7 @@ import { sidebar } from "./main";
 /**
  *
  */
-class File {
+export class File {
   /** File description. */
   description: string;
   color: ColorLike = null;
@@ -72,18 +75,16 @@ class File {
   }
 
   /**
-   * @returns {Number} File index in `window.app[type]` array.
+   * @returns File index in `window.app[type]` array.
    */
-  getIndex() {
+  getIndex(): number {
     return window.app[this.type].indexOf(this);
   }
 
   /**
-   * @param {object} element DOM element to replace (used by upload).
-   *
-   * @returns {void}
+   * @param element DOM element to replace (used by upload).
    */
-  displayInList(element?: HTMLElement) {
+  displayInList(element?: HTMLElement): void {
     const li = document.createElement("li");
     li.id = `file-${this.type}-${this.getIndex()}`;
     li.className = "list-group-item";
@@ -137,7 +138,7 @@ class File {
     }
   }
 
-  displayInSidebar() {
+  displayInSidebar(): void {
     let legend = null;
     if (
       this.type === "geojson" &&
@@ -158,7 +159,7 @@ class File {
     );
   }
 
-  addToMap(projection) {
+  addToMap(projection: ProjectionLike): void {
     let source = null;
     switch (this.type) {
       case "csv":
@@ -186,6 +187,7 @@ class File {
     }
   }
 
+  removeFromMap(): void {
   removeFromMap() {
     window.app.map.removeLayer(this.olLayer);
 
@@ -193,7 +195,7 @@ class File {
     this.selection = [];
   }
 
-  zoom() {
+  zoom(): void {
     const extent = this.olLayer.getSource().getExtent();
 
     window.app.map.getView().fit(extent, {
@@ -204,12 +206,13 @@ class File {
     sidebar.close();
   }
 
-  getColumns() {
+  getColumns(): Array<string> {
     const features = this.olLayer.getSource().getFeatures();
 
     return features.length > 0 ? Object.keys(features[0].getProperties()) : [];
   }
 
+  getFeatureInfo(coordinates: Coordinate): Array<FeatureLike> {
   getFeatureInfo(coordinates) {
     const pixel = window.app.map.getPixelFromCoordinate(coordinates);
 
@@ -228,11 +231,9 @@ class File {
   /**
    * Generate list with the result of GetFeatureInfo request on a file in the sidebar.
    *
-   * @param {Feature[]} features Feature to display.
-   *
-   * @returns {void}
+   * @param features Feature to display.
    */
-  displayFeaturesList(features) {
+  displayFeaturesList(features: Array<FeatureLike>): void {
     const title = this.title || this.name;
 
     const ol = document.createElement("ol");
@@ -248,5 +249,3 @@ class File {
     features.forEach((feature) => displayFeatureInList(feature, title, ol));
   }
 }
-
-export { File as default };
