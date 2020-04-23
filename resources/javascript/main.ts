@@ -4,11 +4,12 @@ import "../sass/style.scss";
 
 import { Coordinate } from "ol/coordinate";
 import Map from "ol/Map";
+import { register } from "ol/proj/proj4";
+import proj4 from "proj4";
 
 import { Cache } from "./cache";
 import initMap from "./map";
 import initLayers from "./map/layers";
-import initProj4 from "./proj4";
 import initUpload from "./upload";
 import { Sidebar } from "./sidebar";
 import { SettingsModal } from "./modal/settings";
@@ -23,6 +24,7 @@ export let layers: Array<{}>;
 export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
+export let projections: Record<string, {}>;
 export let providers: Record<string, {}>;
 
 window.app = window.app || {};
@@ -40,6 +42,16 @@ export function setProviders(_providers: Record<string, {}>): void {
   providers = _providers;
 }
 
+export function addProjections(_projections: Record<string, {}>): void {
+  projections = _projections;
+
+  for (const epsg in projections) {
+    proj4.defs(epsg, projections[epsg].proj4);
+  }
+
+  register(proj4);
+}
+
 export function setMap(
   _baselayers: Record<string, {}>,
   _layers: Array<{}>,
@@ -51,8 +63,6 @@ export function setMap(
   layers = _layers;
   files = _files;
   cache = new Cache();
-
-  initProj4();
 
   map = initMap(lnglat, zoom);
   initLayers();

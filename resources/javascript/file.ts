@@ -16,7 +16,7 @@ import GPXAddFileToMap from "./layers/files/gpx";
 import KMLAddFileToMap from "./layers/files/kml";
 import layerStyleFunction from "./map/style";
 
-import { baseUrl, customKey, map, sidebar } from "./main";
+import { baseUrl, customKey, map, projections, sidebar } from "./main";
 
 /**
  *
@@ -109,8 +109,8 @@ export class File {
 
       li.append(select);
 
-      for (const epsg in window.app.epsg) {
-        select.innerHTML += `<option value="${epsg}">${window.app.epsg[epsg].name} (${epsg})</option>`;
+      for (const epsg in projections) {
+        select.innerHTML += `<option value="${epsg}">${projections[epsg].name} (${epsg})</option>`;
       }
 
       li.innerHTML += `<strong style="line-height: calc(1.8125rem + 2px);">${this.name}</strong><br>`;
