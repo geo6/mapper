@@ -9,11 +9,11 @@ import {
 } from 'ol/source';
 import { optionsFromCapabilities } from 'ol/source/WMTS';
 
-import { cache, map } from '../main';
+import { baselayers, cache, map } from '../main';
 
 function loadBaselayer (index) {
-    if (typeof window.app.baselayers[index] !== 'undefined') {
-        const baselayer = window.app.baselayers[index];
+    if (typeof baselayers[index] !== 'undefined') {
+        const baselayer = baselayers[index];
 
         switch (baselayer.mode) {
         case 'wms': {
@@ -84,7 +84,7 @@ export default function () {
         cache.setBaselayer(index);
     });
 
-    const keys = Object.keys(window.app.baselayers);
+    const keys = Object.keys(baselayers);
     if (typeof cache.baselayer === 'undefined' || cache.baselayer === null) {
         cache.setBaselayer(keys[0]);
     }

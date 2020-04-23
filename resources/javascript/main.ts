@@ -13,6 +13,7 @@ import initUpload from "./upload";
 import { Sidebar } from "./sidebar";
 import { SettingsModal } from "./modal/settings";
 
+export let baselayers: Record<string, {}>;
 export let cache: Cache;
 export let customKey: string | null;
 export let map: Map;
@@ -21,7 +22,13 @@ export let modalSettings: SettingsModal;
 
 window.app = window.app || {};
 
-export function init(custom: string | null, lnglat: Coordinate, zoom: number) {
+export function init(
+  custom: string | null,
+  lnglat: Coordinate,
+  zoom: number,
+  _baselayers: Record<string, {}>
+) {
+  baselayers = _baselayers;
   cache = new Cache();
   customKey = custom;
 
