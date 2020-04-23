@@ -2,7 +2,7 @@
 
 import GeoJSON from 'ol/format/GeoJSON';
 
-import { baseUrl, customKey, map, sidebar } from '../main';
+import { baseUrl, customKey, map, providers, sidebar } from '../main';
 
 /**
  * Launch geocoding query on every API configured and display result in sidebar.
@@ -18,8 +18,8 @@ export default function (address) {
     if ($.trim(address).length === 0) {
         sidebar.close('geocoder');
     } else {
-        for (const key in window.app.geocoderProviders) {
-            const provider = window.app.geocoderProviders[key];
+        for (const key in providers) {
+            const provider = providers[key];
 
             $(document.createElement('div'))
                 .attr({

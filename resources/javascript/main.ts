@@ -20,6 +20,7 @@ export let customKey: string | null;
 export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
+export let providers: Record<string, {}>;
 
 window.app = window.app || {};
 
@@ -29,6 +30,10 @@ export function setBaseUrl(url: string): void {
 
 export function setCustomKey(key: string): void {
   customKey = key;
+}
+
+export function setProviders(_providers: Record<string, {}>): void {
+  providers = _providers;
 }
 
 export function setMap(

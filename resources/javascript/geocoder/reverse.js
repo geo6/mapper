@@ -2,7 +2,7 @@
 
 import GeoJSON from 'ol/format/GeoJSON';
 
-import { baseUrl, customKey, map } from '../main';
+import { baseUrl, customKey, map, providers } from '../main';
 
 /**
  * Launch reverse geocoding query on every API configured and display result in sidebar.
@@ -16,8 +16,8 @@ export default function (longitude, latitude) {
     window.app.geocoder.getSource().clear();
     $('#geocoder-results').empty();
 
-    for (const key in window.app.geocoderProviders) {
-        const provider = window.app.geocoderProviders[key];
+    for (const key in providers) {
+        const provider = providers[key];
 
         if (provider.reverse === false) {
             continue;
