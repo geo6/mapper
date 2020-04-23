@@ -17,6 +17,7 @@ export let baselayers: Record<string, {}>;
 export let baseUrl: string;
 export let cache: Cache;
 export let customKey: string | null;
+export let files: Record<string, Array<{}>>;
 export let https: boolean;
 export let layers: Array<{}>;
 export let map: Map;
@@ -42,11 +43,13 @@ export function setProviders(_providers: Record<string, {}>): void {
 export function setMap(
   _baselayers: Record<string, {}>,
   _layers: Array<{}>,
+  _files: Record<string, Array<{}>>,
   lnglat: Coordinate,
   zoom: number
 ) {
   baselayers = _baselayers;
   layers = _layers;
+  files = _files;
   cache = new Cache();
 
   initProj4();

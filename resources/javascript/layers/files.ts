@@ -2,10 +2,12 @@
 
 import File from "../file";
 
+import { files } from "../main";
+
 export function init(type: string): void {
   window.app[type] = [];
 
-  window.app.files[type].forEach((file) => {
+  files[type].forEach((file) => {
     const f = new File(
       type,
       file.identifier,
