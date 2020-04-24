@@ -1,7 +1,7 @@
 "use strict";
 
 import { asArray as colorAsArray } from "ol/color";
-import GeoJSONFormat from "ol/format/GeoJSON";
+import GeoJSON from "ol/format/GeoJSON";
 import VectorSource from "ol/source/Vector";
 
 import File from "../../file";
@@ -11,7 +11,7 @@ import { map } from "../../main";
 
 export function add(file: File): VectorSource {
   return new VectorSource({
-    features: new GeoJSONFormat().readFeatures(file.content, {
+    features: new GeoJSON().readFeatures(file.content, {
       featureProjection: map.getView().getProjection(),
     }),
   });
