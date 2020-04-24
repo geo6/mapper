@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
       - name: Configure PHPCS
-        run: phpcs --config-set ignore_warnings_on_exit 1
+        run: ./vendor/squizlabs/php_codesniffer/bin/phpcs --config-set ignore_warnings_on_exit 1
       - name: Run check suite
         run: composer run-script check
       - name: Run test suite
