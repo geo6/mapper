@@ -8,10 +8,8 @@ import { ProjectionLike } from "ol/proj";
 
 import displayFeatureInList from "./info/feature";
 import CSVAddFileToMap from "./layers/files/csv";
-import {
-  add as GeoJSONAddFileToMap,
-  legend as GeoJSONLegend,
-} from "./layers/files/geojson";
+import { add as GeoJSONAddFileToMap } from "./layers/files/geojson";
+import GeoJSONLegend from "./layers/files/geojson/legend";
 import GPXAddFileToMap from "./layers/files/gpx";
 import KMLAddFileToMap from "./layers/files/kml";
 import layerStyleFunction from "./map/style";
