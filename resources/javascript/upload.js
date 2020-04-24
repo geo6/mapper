@@ -149,6 +149,8 @@ export default function () {
         }
 
         if (f instanceof File) {
+            window.app[f.type].push(f);
+
             const li = document.getElementById(`file-${f.type}-${f.getIndex()}`);
 
             f.displayInList(li);
