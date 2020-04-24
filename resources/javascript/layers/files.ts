@@ -1,6 +1,8 @@
 "use strict";
 
 import File from "../file";
+import ExtendedFeatureCollection from "../ExtendedFeatureCollection";
+import { applyStyle } from "./files/geojson";
 
 export function init(type: string, files: Array<{}>): void {
   window.app[type] = [];
@@ -19,11 +21,24 @@ export function init(type: string, files: Array<{}>): void {
 
     if (f.type === "geojson") {
       fetch(f.url)
-        .then((response) => response.json())
-        .then((json) => {
-          f.content = json;
-          f.displayInList();
-        });
+        .then((response: Response) => response.json())
+        .then(
+          (
+            json:
+              | GeoJSON.FeatureCollection
+              | GeoJSON.Feature
+              | ExtendedFeatureCollection
+          ) => {
+            f.content = json;
+            if (
+              typeof f.content["legend"] !== "undefined" &&
+              typeof f.content["legendColumn"] !== "undefined"
+            ) {
+              f.content = applyStyle(f.content as ExtendedFeatureCollection);
+            }
+            f.displayInList();
+          }
+        );
     } else {
       f.displayInList();
     }

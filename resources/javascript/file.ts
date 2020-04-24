@@ -15,6 +15,7 @@ import {
 import GPXAddFileToMap from "./layers/files/gpx";
 import KMLAddFileToMap from "./layers/files/kml";
 import layerStyleFunction from "./map/style";
+import ExtendedFeatureCollection from "./ExtendedFeatureCollection";
 
 import { baseUrl, customKey, map, projections, sidebar } from "./main";
 
@@ -23,23 +24,27 @@ import { baseUrl, customKey, map, projections, sidebar } from "./main";
  */
 export class File {
   /** File description. */
-  description: string;
-  color: ColorLike = null;
-  content: any = null;
+  description?: string | null;
+  color?: ColorLike | null = null;
+  content:
+    | GeoJSON.FeatureCollection
+    | GeoJSON.Feature
+    | ExtendedFeatureCollection
+    | null = null;
   /** File unique identifier. */
   identifier: string;
   /** Is the file stored initially on the server. */
   local: boolean;
-  /** olumn used for labeling. */
-  label: string = null;
+  /** Column used for labeling. */
+  label?: string | null = null;
   /** File name. */
   name: string;
-  olLayer: VectorLayer = null;
+  olLayer: VectorLayer | null = null;
   selection: Array<any> = [];
   /** File title. */
-  title: string | null;
+  title?: string | null;
   /** File type (csv|geojson|gpx|kml). */
-  type: string | null;
+  type: string;
   url: string;
 
   constructor(
