@@ -25,7 +25,9 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate
       - name: Install dependencies
-        run: composer install --no-dev --prefer-dist --no-progress --no-suggest
+        run: |
+          composer install --no-dev --prefer-dist --no-progress --no-suggest
+          composer require --dev phpstan/phpstan-strict-rules
       - name: Configure PHPCS
         run: phpcs --config-set ignore_warnings_on_exit 1
       - name: Run check suite
