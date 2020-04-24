@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ["7.3", "7.4", "8.0"]
+        php-version: ["7.3", "7.4"]
 
     steps:
       - uses: actions/checkout@v2
@@ -21,10 +21,11 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: curl
+          tools: phpcs, phpstan, phpunit
       - name: Validate composer.json and composer.lock
         run: composer validate
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --no-dev --prefer-dist --no-progress --no-suggest
       - name: Configure PHPCS
         run: ./vendor/squizlabs/php_codesniffer/bin/phpcs --config-set ignore_warnings_on_exit 1
       - name: Run check suite
