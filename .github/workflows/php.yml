@@ -17,11 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use PHP ${{ matrix.php-version }}
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@verbose
         with:
           php-version: ${{ matrix.php-version }}
           extensions: curl
           tools: phpcs, phpstan, phpunit
+        env:
+          update: true
       - name: Validate composer.json and composer.lock
         run: composer validate
       - name: Install dependencies
