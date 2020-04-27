@@ -7,6 +7,8 @@ export class SettingsModal {
   private labelSelect: HTMLSelectElement;
   private colorInput: HTMLInputElement;
   private colorInputText: HTMLElement;
+  private opacityInput: HTMLInputElement;
+  private opacityInputText: HTMLElement;
 
   private layer = null;
 
@@ -23,12 +25,23 @@ export class SettingsModal {
     this.colorInputText = document.getElementById(
       "layer-color-text"
     ) as HTMLElement;
+    this.opacityInput = document.getElementById(
+      "layer-opacity"
+    ) as HTMLInputElement;
+    this.opacityInputText = document.getElementById(
+      "layer-opacity-text"
+    ) as HTMLElement;
+
+    this.opacityInput.addEventListener("change", () => {
+      this.opacityInputText.innerText = `${this.opacityInput.value}%`;
+    });
 
     this.form.addEventListener("reset", () => {
-      this.labelSelect.disabled = false;
       this.colorInput.disabled = false;
 
+      this.colorInputText.innerText = "";
       this.colorInputText.hidden = true;
+      this.opacityInputText.innerText = "";
     });
 
     this.form.addEventListener("submit", (event: Event) => {
@@ -37,14 +50,7 @@ export class SettingsModal {
       this.layer.label = this.getLabel();
       this.layer.color = this.getColor();
 
-      const colorInput = document.getElementById(
-        "layer-color"
-      ) as HTMLInputElement;
-
-      if (colorInput.disabled === false) {
-        this.layer.color =
-          colorInput.value.length > 0 ? colorInput.value : null;
-      }
+      this.layer.olLayer.setOpacity(this.getOpacity());
 
       this.layer.olLayer.changed();
 
@@ -76,6 +82,8 @@ export class SettingsModal {
       this.layer.getColumns().filter((column: string) => column !== "geometry")
     );
     this.setLabel(layer.label);
+
+    this.setOpacity(layer.olLayer.getOpacity());
 
     if (
       layer.type === "geojson" &&
@@ -126,6 +134,14 @@ export class SettingsModal {
     }
 
     return null;
+  }
+
+  setOpacity(opacity: number): void {
+    this.opacityInput.value = (opacity * 100).toString();
+    this.opacityInputText.innerText = `${opacity * 100}%`;
+  }
+  getOpacity(): number {
+    return parseInt(this.opacityInput.value) / 100;
   }
 }
 
