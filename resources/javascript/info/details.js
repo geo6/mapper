@@ -49,6 +49,8 @@ export default function (title, feature, liElement) {
             continue;
         }
 
+        const isURL = properties[key] !== null && properties[key].toString().match(/^((\w+:\/\/)[-a-zA-Z0-9:@;?&=/%+.*!'(),$_{}^~[\]`#|]+)$/) !== null;
+
         const tr = document.createElement('tr');
 
         $('#info-details > table > tbody')
@@ -57,9 +59,18 @@ export default function (title, feature, liElement) {
         $(document.createElement('th'))
             .text(key)
             .appendTo(tr);
-        $(document.createElement('td'))
-            .text(properties[key])
-            .appendTo(tr);
+
+        if (isURL === true) {
+            const url = new URL(properties[key]);
+
+            $(document.createElement('td'))
+                .html(`<a target="_blank" href="${url.toString()}" class="text-decoration-none"><i class="fas fa-external-link-alt"></i> ${url.toString()}</a>`)
+                .appendTo(tr);
+        } else {
+            $(document.createElement('td'))
+                .text(properties[key])
+                .appendTo(tr);
+        }
     }
 
     const geometry = feature.getGeometry();
