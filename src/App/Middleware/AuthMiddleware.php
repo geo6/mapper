@@ -45,7 +45,7 @@ class AuthMiddleware implements MiddlewareInterface
             unset($query['c']);
         }
 
-        $public = array_map(function (string $path) {
+        $public = array_map(function (string $path): string {
             return basename($path);
         }, glob('config/application/public/*') ?: []);
 
@@ -55,7 +55,7 @@ class AuthMiddleware implements MiddlewareInterface
                 throw new Exception(
                     sprintf(
                         'Access denied for "%s". '
-                            .'You need to configure authentication to use roles/users configuration.',
+                            . 'You need to configure authentication to use roles/users configuration.',
                         $query['c']
                     )
                 );
@@ -91,19 +91,19 @@ class AuthMiddleware implements MiddlewareInterface
 
         return $this->auth
             ->unauthorizedResponse($request)
-            ->withHeader('Location', $redirect.'?'.http_build_query($query));
+            ->withHeader('Location', $redirect . '?' . http_build_query($query));
     }
 
     public static function getProjects(string $username, iterable $roles = []): array
     {
-        $projects = array_map(function (string $path) {
+        $projects = array_map(function (string $path): string {
             return basename($path);
         }, glob('config/application/public/*') ?: []);
 
         foreach ($roles as $role) {
             $projects = array_merge(
                 $projects,
-                array_map(function (string $path) {
+                array_map(function (string $path): string {
                     return basename($path);
                 }, glob("config/application/roles/$role/*") ?: [])
             );
@@ -111,7 +111,7 @@ class AuthMiddleware implements MiddlewareInterface
 
         $projects = array_merge(
             $projects,
-            array_map(function (string $path) {
+            array_map(function (string $path): string {
                 return basename($path);
             }, glob("config/application/users/$username/*") ?: [])
         );

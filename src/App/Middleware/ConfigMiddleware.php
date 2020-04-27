@@ -25,13 +25,13 @@ class ConfigMiddleware implements MiddlewareInterface
         $query = $request->getQueryParams();
 
         $projects = [
-            'public' => array_map(function (string $path) {
+            'public' => array_map(function (string $path): string {
                 return basename($path);
             }, glob('config/application/public/*') ?: []),
-            'roles' => array_map(function (string $path) {
+            'roles' => array_map(function (string $path): string {
                 return basename($path);
             }, glob('config/application/roles/*/*') ?: []),
-            'users' => array_map(function (string $path) {
+            'users' => array_map(function (string $path): string {
                 return basename($path);
             }, glob('config/application/users/*/*') ?: []),
         ];
@@ -77,7 +77,7 @@ class ConfigMiddleware implements MiddlewareInterface
             glob('config/application/{roles,users}/*/*', GLOB_BRACE) ?: []
         );
 
-        $directory = array_values(array_filter($glob, function ($directory) use ($custom) {
+        $directory = array_values(array_filter($glob, function ($directory) use ($custom): bool {
             return basename($directory) === $custom;
         }));
 
@@ -86,7 +86,7 @@ class ConfigMiddleware implements MiddlewareInterface
         }
 
         return (new ConfigAggregator([
-            new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml}'),
+            new LaminasConfigProvider($directory[0] . '/*.{php,ini,xml,json,yaml}'),
         ]))->getMergedConfig();
     }
 }

@@ -28,7 +28,7 @@ class UIMiddleware implements MiddlewareInterface
 
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
-        $projects = array_map(function (string $path) {
+        $projects = array_map(function (string $path): string {
             return basename($path);
         }, glob('config/application/public/*') ?: []);
 
