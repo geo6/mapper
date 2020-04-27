@@ -30,3 +30,5 @@ export class SettingsModal {
     });
   }
 }
+
+export { SettingsModal as default };

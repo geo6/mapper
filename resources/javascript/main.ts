@@ -12,7 +12,7 @@ import initMap from "./map";
 import initLayers from "./map/layers";
 import initUpload from "./upload";
 import Sidebar from "./Sidebar";
-import { SettingsModal } from "./modal/settings";
+import SettingsModal from "./modal/SettingsModal";
 
 export let baselayers: Record<string, {}>;
 export let baseUrl: string;
