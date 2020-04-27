@@ -12,10 +12,10 @@ export default function (
     color = [0, 0, 0] as Color;
   }
   if (width === null) {
-    width = 2.5;
+    width = 3;
   }
   if (opacity === null) {
-    opacity = 0.4;
+    opacity = 1;
   }
 
   const colorArray = asArray(color);
