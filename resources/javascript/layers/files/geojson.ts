@@ -3,7 +3,7 @@
 import GeoJSON from "ol/format/GeoJSON";
 import VectorSource from "ol/source/Vector";
 
-import File from "../../file";
+import File from "../../File";
 import ExtendedFeatureCollection from "../../ExtendedFeatureCollection";
 
 import { map } from "../../main";

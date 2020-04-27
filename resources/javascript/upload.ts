@@ -2,7 +2,7 @@
 
 import Resumable from "resumablejs";
 
-import File from "./file";
+import File from "./File";
 import { applyStyle } from "./layers/files/geojson";
 
 import { baseUrl } from "./main";

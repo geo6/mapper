@@ -9,7 +9,7 @@ import VectorSource from "ol/source/Vector";
 
 import Papa from "papaparse";
 
-import File from "../../file";
+import File from "../../File";
 import layerStyleFunction from "../../map/style";
 
 import { map } from "../../main";

@@ -3,7 +3,7 @@
 import KML from "ol/format/KML";
 import VectorSource from "ol/source/Vector";
 
-import File from "../../file";
+import File from "../../File";
 
 export default function (file: File): VectorSource {
   return new VectorSource({

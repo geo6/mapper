@@ -1,6 +1,6 @@
 "use strict";
 
-import File from "../file";
+import File from "../File";
 import ExtendedFeatureCollection from "../ExtendedFeatureCollection";
 import { applyStyle } from "./files/geojson";
 
