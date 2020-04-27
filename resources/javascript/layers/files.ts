@@ -7,7 +7,7 @@ import { applyStyle } from "./files/geojson";
 export function init(type: string, files: Array<{}>): void {
   window.app[type] = [];
 
-  files.forEach((file) => {
+  files.forEach((file: File) => {
     const f = new File(
       type,
       file.identifier,
@@ -48,12 +48,13 @@ export function init(type: string, files: Array<{}>): void {
 export function apply(type: string): void {
   document
     .querySelectorAll(`#modal-layers-files-${type} .list-group-item`)
-    .forEach((element: HTMLLIElement, index: number) => {
+    .forEach((element: HTMLLIElement) => {
       const active = element.classList.contains("list-group-item-primary");
       const proj =
         element.querySelector("select") !== null
           ? (element.querySelector("select") as HTMLSelectElement).value
           : null;
+      const index = parseInt(element.dataset.index);
 
       if (active === true) {
         window.app[type][index].addToMap(proj);

@@ -89,6 +89,7 @@ export class File {
     const li = document.createElement("li");
     li.id = `file-${this.type}-${this.getIndex()}`;
     li.className = "list-group-item";
+    li.dataset.index = this.getIndex().toString();
 
     li.addEventListener("click", (event: Event) => {
       event.preventDefault();
