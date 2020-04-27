@@ -37,3 +37,5 @@ export class Sidebar {
     return li;
   }
 }
+
+export { Sidebar as default };

@@ -11,7 +11,7 @@ import Cache from "./Cache";
 import initMap from "./map";
 import initLayers from "./map/layers";
 import initUpload from "./upload";
-import { Sidebar } from "./sidebar";
+import Sidebar from "./Sidebar";
 import { SettingsModal } from "./modal/settings";
 
 export let baselayers: Record<string, {}>;
