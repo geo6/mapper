@@ -44,3 +44,5 @@ export class Cache {
     );
   }
 }
+
+export { Cache as default };

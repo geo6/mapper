@@ -7,7 +7,7 @@ import Map from "ol/Map";
 import { register } from "ol/proj/proj4";
 import proj4 from "proj4";
 
-import { Cache } from "./cache";
+import Cache from "./Cache";
 import initMap from "./map";
 import initLayers from "./map/layers";
 import initUpload from "./upload";
