@@ -13,8 +13,8 @@ import initLayers from "./map/layers";
 import initUpload from "./upload";
 import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
+import BaseLayerOptions from "./BaseLayerOptions";
 
-export let baselayers: Record<string, {}>;
 export let baseUrl: string;
 export let cache: Cache;
 export let customKey: string | null;
@@ -51,16 +51,15 @@ export function addProjections(_projections: Record<string, {}>): void {
 }
 
 export function setMap(
-  _baselayers: Record<string, {}>,
+  baselayers: Record<string, BaseLayerOptions>,
   layers: Array<{}>,
   files: Record<string, Array<{}>>,
   lnglat: Coordinate,
   zoom: number
 ) {
-  baselayers = _baselayers;
   cache = new Cache();
 
-  map = initMap(lnglat, zoom);
+  map = initMap(lnglat, zoom, baselayers);
   initLayers(layers, files);
   initUpload();
 

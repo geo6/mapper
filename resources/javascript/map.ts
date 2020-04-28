@@ -15,14 +15,21 @@ import View from "ol/View";
 import initDraw from "./draw";
 import initGeocoder from "./geocoder";
 import initInfo from "./info";
-import initBaselayers from "./map/baselayers";
 import GeolocationControl from "./map/geolocation";
 import initMarker from "./map/marker";
 import MeasureControl from "./map/measure/control";
 import initPermalink from "./map/permalink";
 import initSingleClick from "./map/singleclick";
+import BaseLayer from "./BaseLayer";
+import BaseLayerOptions from "./BaseLayerOptions";
 
-export default function (lnglat: Coordinate, zoom: number): Map {
+import { cache } from "./main";
+
+export default function (
+  lnglat: Coordinate,
+  zoom: number,
+  _baselayers: Record<string, BaseLayerOptions>
+): Map {
   $("#map").height($(window).height() - $("body > nav.navbar").outerHeight());
   $(window).on("resize", () => {
     $("#map").height($(window).height() - $("body > nav.navbar").outerHeight());
@@ -47,11 +54,18 @@ export default function (lnglat: Coordinate, zoom: number): Map {
     }),
   });
 
+  let baselayers = {};
+  Object.keys(_baselayers).forEach((key: string) => {
+    baselayers[key] = new BaseLayer(map, cache, key, _baselayers[key]);
+  });
+
+  const baselayer = cache.baselayer || Object.keys(_baselayers)[0];
+  baselayers[baselayer].highlight().addToMap();
+
   map.once("rendercomplete", () => {
     initPermalink();
     initSingleClick();
     initInfo();
-    initBaselayers();
     initMarker();
     initGeocoder();
     initDraw();
