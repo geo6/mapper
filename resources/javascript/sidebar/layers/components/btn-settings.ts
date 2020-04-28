@@ -1,6 +1,6 @@
 "use strict";
 
-import { modalSettings } from "../../../main";
+import { files, modalSettings } from "../../../main";
 
 export default function (
   type: string,
@@ -19,7 +19,7 @@ export default function (
       event.preventDefault();
 
       modalSettings.reset();
-      modalSettings.setLayer(window.app[type][index], name);
+      modalSettings.setLayer(files[type][index], name);
       modalSettings.show();
     });
   }

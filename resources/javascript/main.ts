@@ -24,6 +24,17 @@ export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
 export let projections: Record<string, {}>;
 export let providers: Record<string, {}>;
+export let files: {
+  csv: Array<File>;
+  geojson: Array<File>;
+  gpx: Array<File>;
+  kml: Array<File>;
+} = {
+  csv: [],
+  geojson: [],
+  gpx: [],
+  kml: [],
+};
 
 window.app = window.app || {};
 

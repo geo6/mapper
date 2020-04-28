@@ -2,7 +2,7 @@
 
 import displayLocation from '../info/location';
 
-import { map } from '../main';
+import { files, map } from '../main';
 
 export default function () {
     map.on('singleclick', (event) => {
@@ -25,46 +25,46 @@ export default function () {
         }
 
         // CSV
-        window.app.csv.forEach(file => {
+        files.csv.forEach((file, index) => {
             const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                file.displayFeaturesList(features);
+                file.displayFeaturesList(index, features);
             }
         });
 
         // GeoJSON
-        window.app.geojson.forEach(file => {
+        files.geojson.forEach((file, index) => {
             const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                file.displayFeaturesList(features);
+                file.displayFeaturesList(index, features);
             }
         });
 
         // GPX
-        window.app.gpx.forEach(file => {
+        files.gpx.forEach((file, index) => {
             const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                file.displayFeaturesList(features);
+                file.displayFeaturesList(index, features);
             }
         });
 
         // KML
-        window.app.kml.forEach(file => {
+        files.kml.forEach((file, index) => {
             const features = file.getFeatureInfo(event.coordinate);
 
             file.selection = features;
 
             if (features !== null && features.length > 0) {
-                file.displayFeaturesList(features);
+                file.displayFeaturesList(index, features);
             }
         });
 

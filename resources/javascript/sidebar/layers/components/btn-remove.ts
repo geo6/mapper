@@ -1,5 +1,7 @@
 "use strict";
 
+import { files } from "../../../main";
+
 export default function (
   type: string,
   index: number,
@@ -19,7 +21,7 @@ export default function (
     if (["wms", "wmts"].indexOf(type) > -1) {
       window.app[type][index].removeLayer(layer);
     } else {
-      window.app[type][index].removeFromMap();
+      files[type][index].removeFromMap();
     }
   });
 

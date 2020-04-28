@@ -4,10 +4,12 @@ import File from "../File";
 import ExtendedFeatureCollection from "../ExtendedFeatureCollection";
 import { applyStyle } from "./files/geojson";
 
-export function init(type: string, files: Array<{}>): void {
-  window.app[type] = [];
+import { files } from "../main";
 
-  files.forEach((file: File) => {
+export function init(type: string, filesOptions: Array<{}>): void {
+  files[type] = [];
+
+  filesOptions.forEach((file: File) => {
     const f = new File(
       type,
       file.identifier,
@@ -17,7 +19,9 @@ export function init(type: string, files: Array<{}>): void {
       true
     );
 
-    window.app[type].push(f);
+    files[type].push(f);
+
+    const index = files[type].indexOf(f);
 
     if (f.type === "geojson") {
       fetch(f.url)
@@ -36,11 +40,11 @@ export function init(type: string, files: Array<{}>): void {
             ) {
               f.content = applyStyle(f.content as ExtendedFeatureCollection);
             }
-            f.displayInList();
+            f.displayInList(index);
           }
         );
     } else {
-      f.displayInList();
+      f.displayInList(index);
     }
   });
 }
@@ -57,8 +61,8 @@ export function apply(type: string): void {
       const index = parseInt(element.dataset.index);
 
       if (active === true) {
-        window.app[type][index].addToMap(proj);
-        window.app[type][index].displayInSidebar();
+        files[type][index].addToMap(proj);
+        files[type][index].displayInSidebar(index);
 
         element.classList.remove("list-group-item-primary");
       }

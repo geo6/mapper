@@ -4,9 +4,9 @@ import Resumable from "resumablejs";
 
 import File from "./File";
 import { applyStyle } from "./layers/files/geojson";
-
-import { baseUrl } from "./main";
 import ExtendedFeatureCollection from "./ExtendedFeatureCollection";
+
+import { baseUrl, files } from "./main";
 
 export default function () {
   const resumable = new Resumable({
@@ -196,11 +196,13 @@ export default function () {
       }
 
       if (f instanceof File) {
-        window.app[f.type].push(f);
+        files[f.type].push(f);
 
-        const li = document.getElementById(`file-${f.type}-${f.getIndex()}`);
+        const index = files[f.type].indexOf(f);
 
-        f.displayInList(li);
+        const li = document.getElementById(`file-${f.type}-${index}`);
+
+        f.displayInList(index, li);
       }
     }
   );

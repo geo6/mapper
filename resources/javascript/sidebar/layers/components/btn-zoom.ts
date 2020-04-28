@@ -1,5 +1,7 @@
 "use strict";
 
+import { files } from "../../../main";
+
 export default function (
   zoom: boolean,
   type: string,
@@ -20,7 +22,7 @@ export default function (
       if (["wms", "wmts"].indexOf(type) > -1) {
         window.app[type][index].zoom(layer);
       } else {
-        window.app[type][index].zoom();
+        files[type][index].zoom();
       }
     });
   }

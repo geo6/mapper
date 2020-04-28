@@ -76,20 +76,13 @@ export class File {
   }
 
   /**
-   * @returns File index in `window.app[type]` array.
-   */
-  getIndex(): number {
-    return window.app[this.type].indexOf(this);
-  }
-
-  /**
    * @param element DOM element to replace (used by upload).
    */
-  displayInList(element?: HTMLElement): void {
+  displayInList(index: number, element?: HTMLElement): void {
     const li = document.createElement("li");
-    li.id = `file-${this.type}-${this.getIndex()}`;
+    li.id = `file-${this.type}-${index}`;
     li.className = "list-group-item";
-    li.dataset.index = this.getIndex().toString();
+    li.dataset.index = index.toString();
 
     li.addEventListener("click", (event: Event) => {
       event.preventDefault();
@@ -140,7 +133,7 @@ export class File {
     }
   }
 
-  displayInSidebar(): void {
+  displayInSidebar(index: number): void {
     let legend = null;
     if (
       this.type === "geojson" &&
@@ -152,7 +145,7 @@ export class File {
 
     sidebar.addLayerInList(
       this.type,
-      this.getIndex(),
+      index,
       this.name,
       this.name,
       true,
@@ -233,13 +226,13 @@ export class File {
    *
    * @param features Feature to display.
    */
-  displayFeaturesList(features: Array<FeatureLike>): void {
+  displayFeaturesList(index: number, features: Array<FeatureLike>): void {
     const title = this.title || this.name;
 
     const ol = document.createElement("ol");
 
     const li = document.createElement("li");
-    li.id = `info-layer-${this.type}-${this.getIndex()}`;
+    li.id = `info-layer-${this.type}-${index}`;
     li.innerHTML = `<strong>${title}</strong>`;
 
     li.append(ol);
