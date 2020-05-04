@@ -1751,16 +1751,16 @@
         },
         {
             "name": "mezzio/mezzio",
-            "version": "3.2.1",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio.git",
-                "reference": "a87783cb87e81b6f065619f72cc354a878773e39"
+                "reference": "6bd539f29c7b27cab7bcb6ea433222f8b1c0d099"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio/zipball/a87783cb87e81b6f065619f72cc354a878773e39",
-                "reference": "a87783cb87e81b6f065619f72cc354a878773e39",
+                "url": "https://api.github.com/repos/mezzio/mezzio/zipball/6bd539f29c7b27cab7bcb6ea433222f8b1c0d099",
+                "reference": "6bd539f29c7b27cab7bcb6ea433222f8b1c0d099",
                 "shasum": ""
             },
             "require": {
@@ -1780,7 +1780,7 @@
                 "laminas/laminas-diactoros": "<1.7.1"
             },
             "replace": {
-                "zendframework/zend-expressive": "self.version"
+                "zendframework/zend-expressive": "^3.2.1"
             },
             "require-dev": {
                 "filp/whoops": "^1.1.10 || ^2.1.13",
@@ -1798,7 +1798,7 @@
             },
             "suggest": {
                 "filp/whoops": "^2.1 to use the Whoops error handler",
-                "laminas/laminas-auradi-config": "^1.0 to use Aura.Di dependency injection container",
+                "laminas/laminas-auradi-config": "^2.0 to use Aura.Di dependency injection container",
                 "laminas/laminas-pimple-config": "^1.0 to use Pimple for dependency injection container",
                 "laminas/laminas-servicemanager": "^3.3 to use laminas-servicemanager for dependency injection",
                 "mezzio/mezzio-helpers": "^3.0 for its UrlHelper, ServerUrlHelper, and BodyParseMiddleware",
@@ -1843,7 +1843,7 @@
                 "psr-15",
                 "psr-7"
             ],
-            "time": "2019-12-31T15:42:08+00:00"
+            "time": "2020-04-28T18:52:32+00:00"
         },
         {
             "name": "mezzio/mezzio-authentication",
