@@ -44,7 +44,9 @@ set('clear_paths', [
 after('deploy:update_code', 'deploy:clear_paths');
 
 // Hosts
-inventory('hosts.yml');
+if (file_exists('hosts.yml') && is_readable('hosts.yml')) {
+    inventory('hosts.yml');
+}
 
 host('sandbox')
     ->hostname('51.38.47.237')
