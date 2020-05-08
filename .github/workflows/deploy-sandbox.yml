@@ -1,4 +1,4 @@
-name: CI
+name: Deploy to Sandbox
 
 on:
   push:
@@ -62,5 +62,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          ssh-disable-host-key-checking: true
       - name: Deploy
         run: dep deploy sandbox -vvv
