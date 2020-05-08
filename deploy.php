@@ -8,7 +8,7 @@ require 'recipe/zend_framework.php';
 set('application', 'mapper');
 
 // Project repository
-set('repository', 'git@github.com:geo6/mapper.git');
+set('repository', 'https://github.com/geo6/mapper.git');
 set('branch', 'master');
 
 // [Optional] Allocate tty for git clone. Default value is false.
@@ -46,18 +46,14 @@ after('deploy:update_code', 'deploy:clear_paths');
 // Hosts
 inventory('hosts.yml');
 
+host('sandbox')
+    ->hostname('51.38.47.237')
+    ->stage('sandbox')
+    ->set('deploy_path', '/var/www/sandbox/source/mapper');
+
 // Tasks
 task('debug:enable', 'composer run development-enable');
 task('debug:disable', 'composer run development-disable');
-
-task('php:version', function () {
-    $test = run('php -r "echo version_compare(PHP_VERSION, \'7.3\', \'<\');"');
-
-    if ($test == 1) {
-        run('cd {{ release_path }} && composer update');
-    }
-});
-after('deploy:vendors', 'php:version');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
