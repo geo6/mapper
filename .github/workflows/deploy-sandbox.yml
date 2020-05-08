@@ -53,7 +53,7 @@ jobs:
     needs: [test-js, test-php]
     steps:
       - uses: actions/checkout@v2
-      - name: Setup PHP ${{ with.php-version }}
+      - name: Setup PHP 7.4
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
