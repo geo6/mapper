@@ -47,20 +47,20 @@ jobs:
       - name: Run test suite
         run: composer run-script test
 
-deploy:
-  name: Deploy to Sandbox
-  runs-on: ubuntu-latest
-  needs: [test-js, test-php]
-  steps:
-    - uses: actions/checkout@v2
-    - name: Setup PHP ${{ php-version }}
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 7.4
-    - name: Setup Deployer
-      uses: atymic/deployer-php-action@master
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-    - name: Deploy
-      run: dep deploy sandbox -vvv
+  deploy:
+    name: Deploy to Sandbox
+    runs-on: ubuntu-latest
+    needs: [test-js, test-php]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP ${{ php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      - name: Setup Deployer
+        uses: atymic/deployer-php-action@master
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+      - name: Deploy
+        run: dep deploy sandbox -vvv
