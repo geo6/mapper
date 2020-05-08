@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test-js:
+    name: Test JavaScript
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test --if-present
+        env:
+          CI: true
+
+  test-php:
+    name: Test PHP
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ["7.4"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: curl
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Configure PHPCS
+        run: ./vendor/squizlabs/php_codesniffer/bin/phpcs --config-set ignore_warnings_on_exit 1
+      - name: Run check suite
+        run: composer run-script check
+      - name: Run test suite
+        run: composer run-script test
+
+deploy:
+  name: Deploy to Sandbox
+  runs-on: ubuntu-latest
+  needs: [test-js, test-php]
+  steps:
+    - uses: actions/checkout@v2
+    - name: Setup PHP ${{ php-version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+    - name: Setup Deployer
+      uses: atymic/deployer-php-action@master
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+    - name: Deploy
+      run: dep deploy sandbox -vvv
