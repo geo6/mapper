@@ -16,7 +16,7 @@ export default function () {
 
   resumable.assignBrowse(document.getElementById("btn-layers-upload"), false);
 
-  resumable.on("filesAdded", (files: Resumable.ResumableFile[]) => {
+  resumable.on("filesAdded", (uploadFiles: Resumable.ResumableFile[]) => {
     const progressbar = document.querySelector(
       "#progress-upload > .progress-bar"
     ) as HTMLDivElement;
@@ -30,7 +30,7 @@ export default function () {
       kml: 0,
     };
 
-    files.forEach((file: Resumable.ResumableFile) => {
+    uploadFiles.forEach((file: Resumable.ResumableFile) => {
       const extension =
         file.fileName.substring(
           file.fileName.lastIndexOf(".") + 1,
@@ -47,7 +47,7 @@ export default function () {
         case "csv": {
           count.csv++;
 
-          li.id = `file-csv-${window.app.csv.length}`;
+          li.id = `file-csv-${files.csv.length}`;
 
           document
             .querySelector("#modal-layers-files-csv > .list-group")
@@ -58,7 +58,7 @@ export default function () {
         case "geojson": {
           count.geojson++;
 
-          li.id = `file-geojson-${window.app.geojson.length}`;
+          li.id = `file-geojson-${files.geojson.length}`;
 
           document
             .querySelector("#modal-layers-files-geojson > .list-group")
@@ -68,7 +68,7 @@ export default function () {
         case "gpx": {
           count.gpx++;
 
-          li.id = `file-gpx-${window.app.gpx.length}`;
+          li.id = `file-gpx-${files.gpx.length}`;
 
           document
             .querySelector("#modal-layers-files-gpx > .list-group")
@@ -78,7 +78,7 @@ export default function () {
         case "kml": {
           count.kml++;
 
-          li.id = `file-kml-${window.app.kml.length}`;
+          li.id = `file-kml-${files.kml.length}`;
 
           document
             .querySelector("#modal-layers-files-kml > .list-group")
