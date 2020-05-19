@@ -25,7 +25,6 @@ add('shared_dirs', [
 
 // Writable dirs by web server
 add('writable_dirs', [
-    'config',
     'data/cache',
     'data/log',
 ]);
