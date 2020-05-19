@@ -39,25 +39,25 @@ The geocoding uses [Geocoder PHP library](https://github.com/geocoder-php/Geocod
 
 1. Install the new provider
 
-    ```shell
-    composer install <geocoder-provider-package>
-    ```
+   ```shell
+   composer install <geocoder-provider-package>
+   ```
 
 2. Add the new provider in `src/App/Handler/Geocoder/AddressHandler.php` (and in `src/App/Handler/Geocoder/ReverseHandler.php` if reverse geocoding is available)
 
 3. Then, declare the newly installed provider in `config/autoload/geocoder.global.php` file
 
-    ```php
-    '<provider-name>' => [
-        'reverse' => true|false,
-        'title'   => '<provider-title>',
-    ],
-    ```
+   ```php
+   '<provider-name>' => [
+       'reverse' => true|false,
+       'title'   => '<provider-title>',
+   ],
+   ```
 
-    | Parameter | Type      | Description                                  |
-    | --------- | --------- | -------------------------------------------- |
-    | `reverse` | *boolean* | Does the service provide reverse geocoding ? |
-    | `title`   | *string*  | Provider display title.                      |
+   | Parameter | Type      | Description                                  |
+   | --------- | --------- | -------------------------------------------- |
+   | `reverse` | _boolean_ | Does the service provide reverse geocoding ? |
+   | `title`   | _string_  | Provider display title.                      |
 
 ### Coordinates Reference Systems (global)
 
@@ -72,12 +72,12 @@ File `config/autoload/epsg.global.php`
 
 | Parameter | Type     | Description                                                      |
 | --------- | -------- | ---------------------------------------------------------------- |
-| `name`    | *string* | Projection display name.                                         |
-| `proj4`   | *string* | [PROJ.4](https://proj4.org/) definition. See <https://epsg.io/>. |
+| `name`    | _string_ | Projection display name.                                         |
+| `proj4`   | _string_ | [PROJ.4](https://proj4.org/) definition. See <https://epsg.io/>. |
 
 ### Custom configuration
 
-Custom configuration is defined by "project". Those "projects" can be define by role, user or be available for everyone (= *public*).
+Custom configuration is defined by "project". Those "projects" can be define by role, user or be available for everyone (= _public_).
 
 To declare a new "project", just create a new folder in one of those directories:
 
@@ -96,29 +96,31 @@ If you want the same baselayers for every "project", you can configure your base
 title: <project-title>
 description: <project-description>
 map:
-    center: [<project-default-map-center-longitude>, <project-default-map-center-latitude>]
-    zoom: <project-default-map-zoom>
-
+  center:
+    [
+      <project-default-map-center-longitude>,
+      <project-default-map-center-latitude>,
+    ]
+  zoom: <project-default-map-zoom>
 ```
 
 | Parameter               | Type      | Description                                                   |
 | ----------------------- | --------- | ------------------------------------------------------------- |
-| `title`                 | *string*  | Project display title.                                        |
-| `description`           | *string*  | Project description (available in "About" sidebar tab).       |
-| `map.center` (optional) | *float[]* | Project default map center coordinates (Longitude, Latitude). |
-| `map.zoom` (optional)   | *float[]* | Project default map zoom level.                               |
+| `title`                 | _string_  | Project display title.                                        |
+| `description`           | _string_  | Project description (available in "About" sidebar tab).       |
+| `map.center` (optional) | _float[]_ | Project default map center coordinates (Longitude, Latitude). |
+| `map.zoom` (optional)   | _float[]_ | Project default map zoom level.                               |
 
 ### Baselayers
 
 ```yaml
 ---
-baselayers:
-  <baselayer-1>
+baselayers: <baselayer-1>
   <baselayer-2>
   ...
 ```
 
-Replace  `<baselayer-#>` by one of the following (XYZ, WMS, WMTS):
+Replace `<baselayer-#>` by one of the following (XYZ, WMS, WMTS):
 
 #### XYZ baselayer
 
@@ -135,10 +137,10 @@ Replace  `<baselayer-#>` by one of the following (XYZ, WMS, WMTS):
 
 | Parameter                 | Type       | Description                   |
 | ------------------------- | ---------- | ----------------------------- |
-| `name`                    | *string*   | Baselayer display name.       |
-| `url`                     | *string*   | Baselayer (service) URL.      |
-| `attributions` (optional) | *string[]* | Baselayer attribution(s).     |
-| `maxZoom` (optional)      | *integer*  | Baselayer maximum zoom level. |
+| `name`                    | _string_   | Baselayer display name.       |
+| `url`                     | _string_   | Baselayer (service) URL.      |
+| `attributions` (optional) | _string[]_ | Baselayer attribution(s).     |
+| `maxZoom` (optional)      | _integer_  | Baselayer maximum zoom level. |
 
 #### WMS baselayer
 
@@ -156,10 +158,10 @@ Replace  `<baselayer-#>` by one of the following (XYZ, WMS, WMTS):
 
 | Parameter                 | Type       | Description                    |
 | ------------------------- | ---------- | ------------------------------ |
-| `name`                    | *string*   | Baselayer display name.        |
-| `url`                     | *string*   | Baselayer service URL.         |
-| `layers`                  | *string[]* | Baselayer service layers name. |
-| `attributions` (optional) | *string[]* | Baselayer attribution(s).      |
+| `name`                    | _string_   | Baselayer display name.        |
+| `url`                     | _string_   | Baselayer service URL.         |
+| `layers`                  | _string[]_ | Baselayer service layers name. |
+| `attributions` (optional) | _string[]_ | Baselayer attribution(s).      |
 
 #### WMTS baselayer
 
@@ -177,22 +179,21 @@ Replace  `<baselayer-#>` by one of the following (XYZ, WMS, WMTS):
 
 | Parameter                 | Type       | Description                   |
 | ------------------------- | ---------- | ----------------------------- |
-| `name`                    | *string*   | Baselayer display name.       |
-| `url`                     | *string*   | Baselayer service URL.        |
-| `layer`                   | *string[]* | Baselayer service layer name. |
-| `attributions` (optional) | *string[]* | Baselayer attribution(s).     |
+| `name`                    | _string_   | Baselayer display name.       |
+| `url`                     | _string_   | Baselayer service URL.        |
+| `layer`                   | _string[]_ | Baselayer service layer name. |
+| `attributions` (optional) | _string[]_ | Baselayer attribution(s).     |
 
 ### Layers
 
 ```yaml
 ---
-layers:
-  <layer-1>
+layers: <layer-1>
   <layer-2>
   ...
 ```
 
-Replace  `<layer-#>` by one of the following (WMS, WMTS):
+Replace `<layer-#>` by one of the following (WMS, WMTS):
 
 #### WMS layer
 
@@ -204,19 +205,19 @@ Replace  `<layer-#>` by one of the following (WMS, WMTS):
     type: digest
     username: <service-username>
     password: <service-password>
-  layers: []
+  default: []
   maxZoom: <service-maxzoomlevel>
 ```
 
 | Parameter                  | Type       | Description                                                       |
 | -------------------------- | ---------- | ----------------------------------------------------------------- |
-| `url`                      | *string*   | WMS service URL.                                                  |
-| `proxy` (optional)         | *boolean*  | Use *Mapper* application as proxy to query the WMS service ?      |
-| `auth.type` (optional)     | *string*   | Type of authentication used by the WMS service (basic or digest). |
-| `auth.username` (optional) | *string*   | Username for the authentication.                                  |
-| `auth.password` (optional) | *string*   | Password for the authentication.                                  |
-| `layers` (optional)        | *string[]* | List of layers displayed by default.                              |
-| `maxZoom` (optional)       | *integer*  | WMS service maximum zoom level.                                   |
+| `url`                      | _string_   | WMS service URL.                                                  |
+| `proxy` (optional)         | _boolean_  | Use _Mapper_ application as proxy to query the WMS service ?      |
+| `auth.type` (optional)     | _string_   | Type of authentication used by the WMS service (basic or digest). |
+| `auth.username` (optional) | _string_   | Username for the authentication.                                  |
+| `auth.password` (optional) | _string_   | Password for the authentication.                                  |
+| `default` (optional)       | _string[]_ | List of layers displayed by default.                              |
+| `maxZoom` (optional)       | _integer_  | WMS service maximum zoom level.                                   |
 
 #### WMTS layer
 
@@ -227,19 +228,19 @@ Replace  `<layer-#>` by one of the following (WMS, WMTS):
 
 | Parameter | Type     | Description      |
 | --------- | -------- | ---------------- |
-| `url`     | *string* | WMS service URL. |
+| `url`     | _string_ | WMS service URL. |
 
 ### Layers
 
 ```yaml
 ---
 files:
-    - type: <file-type>
-      path: <file-path>
-    - ...
+  - type: <file-type>
+    path: <file-path>
+  - ...
 ```
 
 | Parameter | Type     | Description                        |
 | --------- | -------- | ---------------------------------- |
-| `type`    | *string* | `csv`, `geojson`, `gpx`, or `kml`. |
-| `path`    | *string* | Path of a file or a directory.     |
+| `type`    | _string_ | `csv`, `geojson`, `gpx`, or `kml`. |
+| `path`    | _string_ | Path of a file or a directory.     |
