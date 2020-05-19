@@ -50,6 +50,7 @@ export default function (
     layers: [],
     view: new View({
       center: fromLonLat(lnglat),
+      constrainResolution: true,
       zoom,
     }),
   });
