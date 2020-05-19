@@ -156,6 +156,22 @@ class HomeHandler implements RequestHandlerInterface
             }
         }
 
+        $files = array_map(
+            function ($_files) {
+                $identifiers = array_column($_files, 'identifier');
+                $identifiers = array_unique($identifiers);
+
+                return array_filter(
+                    $_files,
+                    function ($key, $value) use ($identifiers) {
+                        return in_array($value, array_keys($identifiers));
+                    },
+                    ARRAY_FILTER_USE_BOTH
+                );
+            },
+            $files
+        );
+
         return $files;
     }
 
