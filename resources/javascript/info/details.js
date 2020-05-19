@@ -49,7 +49,12 @@ export default function (title, feature, liElement) {
             continue;
         }
 
-        const isURL = properties[key] !== null && properties[key].toString().match(/^((\w+:\/\/)[-a-zA-Z0-9:@;?&=/%+.*!'(),$_{}^~[\]`#|]+)$/) !== null;
+        const isURL =
+      properties[key] !== null &&
+      properties[key]
+          .toString()
+          .match(/^((https?:\/\/)[-a-zA-Z0-9:@;?&=/%+.*!'(),$_{}^~[\]`#|]+)$/) !==
+        null;
 
         const tr = document.createElement('tr');
 
@@ -64,7 +69,9 @@ export default function (title, feature, liElement) {
             const url = new URL(properties[key]);
 
             $(document.createElement('td'))
-                .html(`<a target="_blank" href="${url.toString()}" class="text-decoration-none"><i class="fas fa-external-link-alt"></i> ${url.toString()}</a>`)
+                .html(
+                    `<a target="_blank" href="${url.toString()}" class="text-decoration-none text-truncate d-inline-block" style="max-width: 250px;"><i class="fas fa-external-link-alt"></i> ${url.toString()}</a>`
+                )
                 .appendTo(tr);
         } else {
             $(document.createElement('td'))
