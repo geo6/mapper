@@ -41,10 +41,24 @@ export function init(type: string, filesOptions: Array<{}>): void {
               f.content = applyStyle(f.content as ExtendedFeatureCollection);
             }
             f.displayInList(index);
+
+            if (file.default === true) {
+              f.addToMap(null);
+              f.displayInSidebar(index);
+            }
           }
         );
     } else {
       f.displayInList(index);
+
+      if (file.default === true) {
+        f.addToMap(
+          f.type === "csv" && typeof file.projection !== "undefined"
+            ? file.projection
+            : null
+        );
+        f.displayInSidebar(index);
+      }
     }
   });
 }
