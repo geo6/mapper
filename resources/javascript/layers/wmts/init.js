@@ -10,9 +10,9 @@ export default function (layers) {
         const wmts = new WMTS(layer.url, (service) => {
             service.displayCapabilities();
 
-            if (typeof layer.layers !== 'undefined' && layer.layers.length > 0) {
-                service.addToMap(layer.layers);
-                service.addToSidebar(layer.layers);
+            if (typeof layer.default !== 'undefined' && layer.default.length > 0) {
+                service.addToMap(layer.default);
+                service.addToSidebar(layer.default);
             }
         });
 
