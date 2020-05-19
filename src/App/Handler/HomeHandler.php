@@ -44,7 +44,7 @@ class HomeHandler implements RequestHandlerInterface
         $server = $request->getServerParams();
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/') . '/';
+        $baseUrl = rtrim($baseUrl, '/').'/';
 
         $map = [
             'center' => $config['config']['map']['center'] ?? [0, 0],
@@ -206,7 +206,7 @@ class HomeHandler implements RequestHandlerInterface
         if (!is_null($file) && $file->checkType() === true) {
             $info = $file->getInfo();
 
-            $identifier = filesize($path) . '-' . preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($path));
+            $identifier = filesize($path).'-'.preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($path));
 
             return [
                 'identifier'  => $identifier,
