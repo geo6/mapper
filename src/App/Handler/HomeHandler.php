@@ -142,7 +142,7 @@ class HomeHandler implements RequestHandlerInterface
                             $f = self::getFile($file['type'], $item->getPathName());
 
                             if (!is_null($f)) {
-                                $f['default'] = isset($file['default']) ? in_array(basename($item->getPathName()), $file['default'], true)  : false;
+                                $f['default'] = isset($file['default']) ? in_array(basename($item->getPathName()), $file['default'], true) : false;
 
                                 $files[$file['type']][] = $f;
                             }
