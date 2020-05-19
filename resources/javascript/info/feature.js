@@ -28,8 +28,8 @@ export default function (feature, title, olElement) {
         labelKey = keys[labelKeyPosition];
     }
 
-    if (labelKey !== null && properties[labelKey].length > 0) {
-        label += properties[labelKey];
+    if (labelKey !== null) {
+        label += properties[labelKey] !== null ? properties[labelKey] : '';
     } else if (typeof id !== 'undefined') {
         label += `Feature id: ${id}`;
     } else {
