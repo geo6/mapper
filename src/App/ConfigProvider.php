@@ -20,31 +20,7 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
-        ];
-    }
-
-    /**
-     * Returns the container dependencies.
-     */
-    public function getDependencies(): array
-    {
-        return [
-            'invokables' => [
-                Handler\FileHandler::class             => Handler\FileHandler::class,
-                Handler\Geocoder\AddressHandler::class => Handler\Geocoder\AddressHandler::class,
-                Handler\Geocoder\ReverseHandler::class => Handler\Geocoder\ReverseHandler::class,
-                Handler\ProxyHandler::class            => Handler\ProxyHandler::class,
-                Handler\UploadHandler::class           => Handler\UploadHandler::class,
-            ],
-            'factories'  => [
-                Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
-                Middleware\UIMiddleware::class   => Middleware\UIMiddlewareFactory::class,
-
-                Handler\HomeHandler::class  => Handler\HomeHandlerFactory::class,
-                Handler\LoginHandler::class => Handler\LoginHandlerFactory::class,
-            ],
+            'templates' => $this->getTemplates(),
         ];
     }
 
@@ -55,9 +31,9 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'app'     => ['templates/app'],
-                'error'   => ['templates/error'],
-                'layout'  => ['templates/layout'],
+                'app'    => ['templates/app'],
+                'error'  => ['templates/error'],
+                'layout' => ['templates/layout'],
             ],
         ];
     }
