@@ -30,6 +30,7 @@
         "geo6/zend-expressive-monolog": "dev-master",
         "geocoder-php/nominatim-provider": "^5.0",
         "guzzlehttp/guzzle": "^6.3",
+        "intervention/image": "^2.5",
         "laminas/laminas-component-installer": "^2.1.1",
         "laminas/laminas-config": "^3.2",
         "laminas/laminas-config-aggregator": "^1.0",

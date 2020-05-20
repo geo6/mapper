@@ -2,13 +2,11 @@
 
 const regex: RegExp = /^((https?:\/\/)[-a-zA-Z0-9:@;?&=/%+.*!'(),$_{}^~[\]`#|]+)$/;
 
-export default function (value: any): HTMLAnchorElement | false {
-  const match = value.match(regex) !== null;
+export function check(value: any): boolean {
+  return value.match(regex) !== null;
+}
 
-  if (match !== true) {
-    return false;
-  }
-
+export function display(value: any): HTMLAnchorElement {
   const url = new URL(value);
 
   const a = document.createElement("a");

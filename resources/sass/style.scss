@@ -1,10 +1,7 @@
 @import "global";
 @import "loader";
 @import "map";
-@import 'global';
-@import 'loader';
-@import 'map';
-@import 'sidebar';
+@import "overlay";
 @import "sidebar";
 
 #modal-layers-layers {

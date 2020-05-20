@@ -1,27 +1,88 @@
 "use strict";
 
+import createOverlay from "../overlay/overlay";
+
+import { baseUrl, customKey } from "../../main";
+
 const regex: RegExp = /^(file:\/\/)(\/.+\.[a-zA-Z]+)$/;
 
-export default function (value: any): HTMLAnchorElement | false {
-  const match = value.match(regex) !== null;
+export function check(value: any): boolean {
+  return value.match(regex) !== null;
+}
 
-  if (match !== true) {
-    return false;
+export async function display(value: any): Promise<HTMLAnchorElement | string> {
+  const urlInfo =
+    `${baseUrl}preview/info?` +
+    new URLSearchParams({
+      c: customKey !== null ? customKey : "",
+      path: value,
+    }).toString();
+
+  const response = await fetch(urlInfo);
+
+  if (response.ok !== true) {
+    return value;
   }
 
-  const fname = value.substring(value.lastIndexOf("/") + 1);
+  const json = (await response.json()) as {
+    path: string;
+    filename: string;
+    mime: string;
+    exif?: any;
+  };
+
+  const urlPreview =
+    `${baseUrl}preview/file?` +
+    new URLSearchParams({
+      c: customKey !== null ? customKey : "",
+      path: json.path,
+    }).toString();
 
   const a = document.createElement("a");
 
-  a.href = "#";
   a.className = "text-decoration-none";
-  a.innerHTML = `<i class="far fa-file"></i> ${fname}`;
+  a.href = urlPreview;
 
-  a.addEventListener("click", (event: Event) => {
-    event.preventDefault();
+  if (json.mime.match(/^image\/.+$/) !== null) {
+    a.dataset.toggle = "overlay";
+    a.dataset.filename = json.filename;
 
-    console.log(value);
-  });
+    if (json.exif !== null) {
+      a.dataset.exifMake = json.exif.IFD0.Make;
+      a.dataset.exifModel = json.exif.IFD0.Model;
+      a.dataset.exifDatetime = json.exif.EXIF.DateTimeOriginal;
+    }
+
+    a.innerHTML = `<i class="far fa-file-image"></i> ${json.filename}`;
+
+    a.addEventListener("click", (event: Event) => {
+      event.preventDefault();
+
+      createOverlay(event, (element: HTMLElement) => {
+        const make = element.dataset.exifMake;
+        const model = element.dataset.exifModel;
+        const datetime = element.dataset.exifDatetime;
+        const filename = element.dataset.filename;
+        const test = element.dataset.test;
+
+        console.log(test);
+
+        let caption = "";
+        if (typeof make !== "undefined" || typeof model !== "undefined") {
+          caption += `<div>${make} - ${model}</div>`;
+        }
+        if (typeof datetime !== "undefined") {
+          caption += `<div>${datetime}</div>`;
+        }
+        caption += `<div><samp>${filename}</samp></div>`;
+
+        return caption;
+      });
+    });
+  } else {
+    a.target = "_blank";
+    a.innerHTML = `<i class="far fa-file"></i> ${json.filename}`;
+  }
 
   return a;
 }

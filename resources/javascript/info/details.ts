@@ -3,8 +3,8 @@
 import Feature from "ol/Feature";
 
 import displayGeometry from "./geometry";
-import displayURL from "./details/url";
-import displayFile from "./details/file";
+import { check as checkURL, display as displayURL } from "./details/url";
+import { check as checkFile, display as displayFile } from "./details/file";
 
 const hidden: string[] = [
   "color",
@@ -91,13 +91,14 @@ export default function (
       td.className = "text-muted font-italic";
       td.innerText = "NULL";
     } else {
-      const url = displayURL(value);
-      const file = displayFile(value);
+      if (checkURL(value) !== false) {
+        const url = displayURL(value);
 
-      if (url !== false) {
         td.append(url);
-      } else if (file !== false) {
-        td.append(file);
+      } else if (checkFile(value) !== false) {
+        displayFile(value).then((file: HTMLAnchorElement | string) => {
+          td.append(file);
+        });
       } else {
         td.innerText = value.toString();
       }
