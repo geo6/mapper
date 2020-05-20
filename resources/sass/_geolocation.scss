@@ -1,44 +1,44 @@
 $position-top: 70px;
 
 .ol-geolocation {
-    top: $position-top;
-    left: .5em;
+  top: $position-top;
+  left: 0.5em;
 }
 
 .ol-touch .ol-geolocation {
-    top: $position-top + 15px;
+  top: $position-top + 15px;
 }
 
-.sidebar-left~.sidebar-map .ol-geolocation {
-    margin-left: 46px;
+.sidebar-left ~ .sidebar-map .ol-geolocation {
+  margin-left: 46px;
 }
 
 @media (min-width: 768px) {
-    .sidebar-left~.sidebar-map .ol-geolocation {
-        transition: margin-left 500ms;
-    }
+  .sidebar-left ~ .sidebar-map .ol-geolocation {
+    transition: margin-left 500ms;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    .sidebar-left~.sidebar-map .ol-geolocation {
-        margin-left: 317px;
-    }
+  .sidebar-left ~ .sidebar-map .ol-geolocation {
+    margin-left: 317px;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-    .sidebar-left~.sidebar-map .ol-geolocation {
-        margin-left: 402px;
-    }
+  .sidebar-left ~ .sidebar-map .ol-geolocation {
+    margin-left: 402px;
+  }
 }
 
 @media (min-width: 1200px) {
-    .sidebar-left~.sidebar-map .ol-geolocation {
-        margin-left: 472px;
-    }
+  .sidebar-left ~ .sidebar-map .ol-geolocation {
+    margin-left: 472px;
+  }
 }
 
 @media (min-width: 768px) {
-    .sidebar-left.collapsed~.sidebar-map .ol-geolocation {
-        margin-left: 52px;
-    }
+  .sidebar-left.collapsed ~ .sidebar-map .ol-geolocation {
+    margin-left: 52px;
+  }
 }

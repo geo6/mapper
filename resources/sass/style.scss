@@ -1,42 +1,46 @@
+@import "global";
+@import "loader";
+@import "map";
 @import 'global';
 @import 'loader';
 @import 'map';
 @import 'sidebar';
+@import "sidebar";
 
 #modal-layers-layers {
-    height: 50vh;
-    min-height: 350px;
-    overflow-y: auto;
+  height: 50vh;
+  min-height: 350px;
+  overflow-y: auto;
 
-    & p.text-info {
-        margin-bottom: 0;
-    }
+  & p.text-info {
+    margin-bottom: 0;
+  }
 
-    & p.text-info~ul {
-        margin-top: 1rem;
-    }
+  & p.text-info ~ ul {
+    margin-top: 1rem;
+  }
 }
 
-#info-list ol>li {
-    cursor: pointer;
+#info-list ol > li {
+  cursor: pointer;
 
-    &:hover {
-        font-weight: bold;
-    }
+  &:hover {
+    font-weight: bold;
+  }
 }
 
 #info-details {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 
-    &>table>caption {
-        caption-side: top;
-    }
+  & > table > caption {
+    caption-side: top;
+  }
 }
 
-#geocoder-results ol>li {
-    cursor: pointer;
+#geocoder-results ol > li {
+  cursor: pointer;
 
-    &:hover {
-        color: #007bff;
-    }
+  &:hover {
+    color: #007bff;
+  }
 }
