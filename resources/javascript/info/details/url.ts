@@ -3,7 +3,7 @@
 const regex: RegExp = /^((https?:\/\/)[-a-zA-Z0-9:@;?&=/%+.*!'(),$_{}^~[\]`#|]+)$/;
 
 export function check(value: any): boolean {
-  return value.match(regex) !== null;
+  return value.toString().match(regex) !== null;
 }
 
 export function display(value: any): HTMLAnchorElement {

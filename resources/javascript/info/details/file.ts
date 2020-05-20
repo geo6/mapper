@@ -7,7 +7,7 @@ import { baseUrl, customKey } from "../../main";
 const regex: RegExp = /^(file:\/\/)(\/.+\.[a-zA-Z]+)$/;
 
 export function check(value: any): boolean {
-  return value.match(regex) !== null;
+  return value.toString().match(regex) !== null;
 }
 
 export async function display(value: any): Promise<HTMLAnchorElement | string> {
