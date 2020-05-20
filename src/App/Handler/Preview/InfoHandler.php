@@ -20,11 +20,11 @@ class InfoHandler implements RequestHandlerInterface
         $params = $request->getQueryParams();
 
         if (!isset($params['path'])) {
-            return new JsonResponse(new stdClass, 404);
+            return new JsonResponse(new stdClass(), 404);
         }
 
         if (!isset($config['config']['preview'])) {
-            return new JsonResponse(new stdClass, 403);
+            return new JsonResponse(new stdClass(), 403);
         }
 
         $path = preg_replace('/^file:\/\//', '', $params['path']);
@@ -53,14 +53,14 @@ class InfoHandler implements RequestHandlerInterface
 
         if ($path === false || !in_array(dirname($path), $allow, true)) {
             return new JsonResponse([
-                'path' => $path,
+                'path'    => $path,
                 'dirname' => dirname($path),
-                'allow' => $allow,
+                'allow'   => $allow,
             ], 403);
         }
 
         if (!file_exists($path) || !is_readable($path)) {
-            return new JsonResponse(new stdClass, 404);
+            return new JsonResponse(new stdClass(), 404);
         }
 
         $mime = mime_content_type($path);
@@ -71,17 +71,17 @@ class InfoHandler implements RequestHandlerInterface
             $exif = exif_read_data($path, 'ANY_TAG', true);
 
             return new JsonResponse([
-                'path' => $path,
+                'path'     => $path,
                 'filename' => basename($path),
-                'mime' => $mime,
-                'exif' => $exif ?: null,
+                'mime'     => $mime,
+                'exif'     => $exif ?: null,
             ]);
         }
 
         return new JsonResponse([
-            'path' => $path,
+            'path'     => $path,
             'filename' => basename($path),
-            'mime' => $mime,
+            'mime'     => $mime,
         ]);
     }
 }
