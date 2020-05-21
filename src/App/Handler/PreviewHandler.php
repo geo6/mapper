@@ -106,7 +106,11 @@ class PreviewHandler implements RequestHandlerInterface
         if (is_null($code) && is_null($message)) {
             $mime = mime_content_type($path);
 
-            $stream = new Stream(self::thumbnail($path));
+            if (preg_match('/^image\/.+$/', $mime) === 1) {
+                $stream = new Stream(self::thumbnail($path));
+            } else {
+                $stream = new Stream($path);
+            }
 
             return (new Response())
                 ->withBody($stream)
