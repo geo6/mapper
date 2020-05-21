@@ -41,8 +41,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/file/local/{identifier}', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file.local');
     $app->get('/geocoder/{provider}/address/{address}', [AuthMiddleware::class, App\Handler\Geocoder\AddressHandler::class], 'geocoder.address');
     $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', [AuthMiddleware::class, App\Handler\Geocoder\ReverseHandler::class], 'geocoder.reverse');
-    $app->get('/preview/info', [AuthMiddleware::class, App\Handler\Preview\InfoHandler::class], 'preview.info');
-    $app->get('/preview/file', [AuthMiddleware::class, App\Handler\Preview\FileHandler::class], 'preview.file');
+    $app->get('/preview/{action:info|file}', [AuthMiddleware::class, App\Handler\PreviewHandler::class], 'preview');
     $app->get('/proxy', [AuthMiddleware::class, App\Handler\ProxyHandler::class], 'proxy');
 
     $app->post('/upload', [AuthMiddleware::class, App\Handler\UploadHandler::class], 'upload');
