@@ -25,8 +25,6 @@ class PreviewHandler implements RequestHandlerInterface
 
         $params = $request->getQueryParams();
 
-        $params['path'] = 'data/Âne-charette 1.JPG';
-
         try {
             if (!isset($params['path'])) {
                 throw new Exception('Parameter "path" missing.', 404);
@@ -39,40 +37,27 @@ class PreviewHandler implements RequestHandlerInterface
             $path = preg_replace('/^file:\/\//', '', $params['path']);
             $path = realpath($path);
 
-            $allow = is_array($config['config']['preview']) ? $config['config']['preview'] : [$config['config']['preview']];
-            $allow = array_filter(
-                array_map(
-                    function (string $path) {
-                        $path = realpath($path);
+            $allow = is_array($config['config']['preview']) ?
+                $config['config']['preview'] : [$config['config']['preview']];
 
-                        if ($path !== false) {
-                            $path = rtrim($path, '/');
-
-                            return $path;
-                        }
-
-                        return null;
-                    },
-                    $allow
-                ),
-                function (string $path): bool {
-                    return !is_null($path);
-                }
-            );
-
-            if ($path === false || !in_array(dirname($path), $allow, true)) {
+            if ($path === false || self::checkAccess($path, $allow) !== true) {
                 throw new Exception('Access denied.', 403);
             }
 
             if (!file_exists($path) || !is_readable($path)) {
-                throw new Exception('File does not exists or is not readable.', 403);
+                throw new Exception('File does not exists or is not readable.', 404);
             }
         } catch (Exception $e) {
+            $code = $e->getCode();
+            if ($e->getCode() === 0) {
+                $code = 500;
+            }
+
             switch ($action) {
                 case 'info':
-                    return self::responseInfo($path ?: $params['path'], $e->getCode(), $e->getMessage());
+                    return self::responseInfo($path ?: $params['path'], $code, $e->getMessage());
                 case 'file':
-                    return self::responseFile($path ?: $params['path'], $e->getCode(), $e->getMessage());
+                    return self::responseFile($path ?: $params['path'], $code, $e->getMessage());
             }
         }
 
@@ -131,6 +116,38 @@ class PreviewHandler implements RequestHandlerInterface
         }
 
         return new EmptyResponse($code);
+    }
+
+    private static function checkAccess(string $path, array $allow): bool
+    {
+        $directories = array_filter(
+            array_map(
+                function (string $path) {
+                    $path = realpath($path);
+
+                    if ($path !== false) {
+                        $path = rtrim($path, '/');
+
+                        return $path;
+                    }
+
+                    return null;
+                },
+                $allow
+            ),
+            function ($path): bool {
+                return !is_null($path);
+            }
+        );
+
+        $access = false;
+        while ($access === false && $path !== '/') {
+            $path = dirname($path);
+
+            $access = in_array($path, $directories, true);
+        }
+
+        return $access;
     }
 
     private static function thumbnail(string $file): string
