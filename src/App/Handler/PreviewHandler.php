@@ -53,11 +53,16 @@ class PreviewHandler implements RequestHandlerInterface
                 $code = 500;
             }
 
+            if (!isset($path) || $path == false) {
+                $path = $params['path'];
+            }
+
             switch ($action) {
                 case 'info':
-                    return self::responseInfo($path ?: $params['path'], $code, $e->getMessage());
+                    return self::responseInfo($path, $code, $e->getMessage());
                 case 'file':
-                    return self::responseFile($path ?: $params['path'], $code, $e->getMessage());
+                default:
+                    return self::responseFile($path, $code, $e->getMessage());
             }
         }
 
@@ -65,6 +70,7 @@ class PreviewHandler implements RequestHandlerInterface
             case 'info':
                 return self::responseInfo($path);
             case 'file':
+            default:
                 return self::responseFile($path);
         }
     }
@@ -84,7 +90,7 @@ class PreviewHandler implements RequestHandlerInterface
 
                 $data['mime'] = $mime;
 
-                if (preg_match('/^image\/.+$/', $mime) === 1) {
+                if ($mime !== false && preg_match('/^image\/.+$/', $mime) === 1) {
                     $exif = exif_read_data($path, 'ANY_TAG', true);
 
                     $data['exif'] = $exif ?: null;
@@ -98,7 +104,7 @@ class PreviewHandler implements RequestHandlerInterface
 
         $data['error'] = $message;
 
-        return new JsonResponse($data, $code);
+        return new JsonResponse($data, $code ?? 500);
     }
 
     private static function responseFile(string $path, int $code = null, string $message = null): ResponseInterface
@@ -106,7 +112,7 @@ class PreviewHandler implements RequestHandlerInterface
         if (is_null($code) && is_null($message)) {
             $mime = mime_content_type($path);
 
-            if (preg_match('/^image\/.+$/', $mime) === 1) {
+            if ($mime !== false && preg_match('/^image\/.+$/', $mime) === 1) {
                 $stream = new Stream(self::thumbnail($path));
             } else {
                 $stream = new Stream($path);
@@ -116,17 +122,17 @@ class PreviewHandler implements RequestHandlerInterface
                 ->withBody($stream)
                 ->withStatus(200)
                 ->withHeader('Content-Length', (string) $stream->getSize())
-                ->withHeader('Content-Type', $mime);
+                ->withHeader('Content-Type', $mime ?: 'application/octet-stream');
         }
 
-        return new EmptyResponse($code);
+        return new EmptyResponse($code ?? 500);
     }
 
     private static function checkAccess(string $path, array $allow): bool
     {
         $directories = array_filter(
             array_map(
-                function (string $path) {
+                function (string $path): ?string {
                     $path = realpath($path);
 
                     if ($path !== false) {
@@ -169,11 +175,11 @@ class PreviewHandler implements RequestHandlerInterface
             $image->orientate();
 
             if ($image->height() > $image->width()) {
-                $image->heighten(640, function ($constraint) {
+                $image->heighten(640, function ($constraint): void {
                     $constraint->upsize();
                 });
             } else {
-                $image->widen(640, function ($constraint) {
+                $image->widen(640, function ($constraint): void {
                     $constraint->upsize();
                 });
             }
