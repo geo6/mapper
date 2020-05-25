@@ -143,6 +143,7 @@ class HomeHandler implements RequestHandlerInterface
 
                             if (!is_null($f)) {
                                 $f['default'] = isset($file['default']) ? in_array(basename($item->getPathName()), $file['default'], true) : false;
+                                $f['filter'] = $file['filter'] ?? null;
 
                                 $files[$file['type']][] = $f;
                             }
@@ -153,6 +154,7 @@ class HomeHandler implements RequestHandlerInterface
 
                     if (!is_null($f)) {
                         $f['default'] = $file['default'] ?? false;
+                        $f['filter'] = $file['filter'] ?? null;
 
                         $files[$file['type']][] = $f;
                     }
