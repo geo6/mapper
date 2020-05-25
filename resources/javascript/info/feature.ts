@@ -4,6 +4,8 @@ import Feature from "ol/Feature";
 
 import displayDetails from "./details";
 
+import { marker, markerLayer } from "../map/marker";
+
 /**
  * Display list of selected features.
  *
@@ -57,8 +59,8 @@ export default function (
   li.addEventListener("click", () => {
     displayDetails(title, feature, li);
 
-    window.app.marker.setGeometry(feature.getGeometry());
-    window.app.markerLayer.setVisible(true);
+    marker.setGeometry(feature.getGeometry());
+    markerLayer.setVisible(true);
   });
 
   olElement.append(li);

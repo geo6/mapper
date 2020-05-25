@@ -3,10 +3,12 @@
 import displayLocation from '../info/location';
 
 import { files, map } from '../main';
+import { marker, markerLayer } from './marker';
 
 export default function () {
     map.on('singleclick', (event) => {
-        window.app.marker.setGeometry(null);
+        marker.setGeometry(null);
+        markerLayer.setVisible(false);
 
         displayLocation(event.coordinate);
 
@@ -69,15 +71,17 @@ export default function () {
         });
 
         // WMS
-        window.app.wms.forEach(service => {
+        window.app.wms.forEach((service) => {
             if (service.olLayer !== null) {
                 service.getFeatureInfo(event.coordinate);
             }
         });
 
         // WMTS
-        window.app.wmts.forEach(service => {
-            const getfeatureinfo = typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== 'undefined';
+        window.app.wmts.forEach((service) => {
+            const getfeatureinfo =
+        typeof service.capabilities.OperationsMetadata.GetFeatureInfo !==
+        'undefined';
 
             if (getfeatureinfo === true && Object.keys(service.olLayers).length > 0) {
                 service.getFeatureInfo(event.coordinate);

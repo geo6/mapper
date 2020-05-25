@@ -16,7 +16,6 @@ import initDraw from "./draw";
 import initGeocoder from "./geocoder";
 import initInfo from "./info";
 import GeolocationControl from "./map/geolocation";
-import initMarker from "./map/marker";
 import MeasureControl from "./map/measure/control";
 import initPermalink from "./map/permalink";
 import initSingleClick from "./map/singleclick";
@@ -24,6 +23,7 @@ import BaseLayer from "./BaseLayer";
 import BaseLayerOptions from "./BaseLayerOptions";
 
 import { cache } from "./main";
+import { markerLayer } from "./map/marker";
 
 export default function (
   lnglat: Coordinate,
@@ -67,9 +67,10 @@ export default function (
     initPermalink();
     initSingleClick();
     initInfo();
-    initMarker();
     initGeocoder();
     initDraw();
+
+    map.addLayer(markerLayer);
   });
 
   return map;
