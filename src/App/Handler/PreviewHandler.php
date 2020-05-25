@@ -94,6 +94,14 @@ class PreviewHandler implements RequestHandlerInterface
                     $exif = exif_read_data($path, 'ANY_TAG', true);
 
                     $data['exif'] = $exif ?: null;
+
+                    if (!is_null($data['exif'])) {
+                        foreach ($data['exif'] as &$section) {
+                            $section = array_filter($section, function ($key): bool {
+                                return preg_match('/^UndefinedTag:/', $key) !== 1;
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
                 }
             } else {
                 $data['mime'] = null;
