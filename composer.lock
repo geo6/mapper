@@ -1332,16 +1332,16 @@
         },
         {
             "name": "laminas/laminas-dependency-plugin",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-dependency-plugin.git",
-                "reference": "f269716dc584cd7b69e7f6e8ac1092d645ab56d5"
+                "reference": "38bf91861f5b4d49f9a1c530327c997f7a7fb2db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-dependency-plugin/zipball/f269716dc584cd7b69e7f6e8ac1092d645ab56d5",
-                "reference": "f269716dc584cd7b69e7f6e8ac1092d645ab56d5",
+                "url": "https://api.github.com/repos/laminas/laminas-dependency-plugin/zipball/38bf91861f5b4d49f9a1c530327c997f7a7fb2db",
+                "reference": "38bf91861f5b4d49f9a1c530327c997f7a7fb2db",
                 "shasum": ""
             },
             "require": {
@@ -1374,7 +1374,7 @@
                 "BSD-3-Clause"
             ],
             "description": "Replace zendframework and zfcampus packages with their Laminas Project equivalents.",
-            "time": "2020-01-14T19:36:52+00:00"
+            "time": "2020-05-20T13:45:39+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
