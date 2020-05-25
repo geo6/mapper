@@ -63,9 +63,6 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
         const model = element.dataset.exifModel;
         const datetime = element.dataset.exifDatetime;
         const filename = element.dataset.filename;
-        const test = element.dataset.test;
-
-        console.log(test);
 
         let caption = "";
         if (typeof make !== "undefined" || typeof model !== "undefined") {
