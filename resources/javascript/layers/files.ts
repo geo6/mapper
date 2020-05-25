@@ -24,6 +24,7 @@ export function init(type: string, filesOptions: Array<{}>): void {
         file.name,
         file.title,
         file.description,
+        file.filter,
         true
       );
 

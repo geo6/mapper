@@ -29,6 +29,7 @@ export class File {
     | GeoJSON.Feature
     | ExtendedFeatureCollection
     | null = null;
+  filter: Record<string, string> | null = null;
   /** File unique identifier. */
   identifier: string;
   /** Is the file stored initially on the server. */
@@ -51,6 +52,7 @@ export class File {
     name: string,
     title: string | null,
     description: string | null,
+    filter: Record<string, string> | null,
     local: boolean
   ) {
     this.type = type;
@@ -59,6 +61,7 @@ export class File {
     this.title = title;
     this.description = description;
     this.local = local || false;
+    this.filter = filter;
 
     if (["csv", "geojson", "gpx", "kml"].indexOf(this.type) === -1) {
       throw new Error("Invalid file type.");
