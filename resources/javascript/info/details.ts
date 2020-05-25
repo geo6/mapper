@@ -96,7 +96,10 @@ export default function (
 
         td.append(url);
       } else if (checkFile(value) !== false) {
+        td.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
         displayFile(value).then((file: HTMLAnchorElement | string) => {
+          td.innerHTML = "";
           td.append(file);
         });
       } else {
