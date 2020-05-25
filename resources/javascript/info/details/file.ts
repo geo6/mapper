@@ -53,7 +53,8 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
       a.dataset.exifDatetime = json.exif.EXIF.DateTimeOriginal;
     }
 
-    a.innerHTML = `<i class="far fa-file-image"></i> ${json.filename}`;
+    a.title = json.filename;
+    a.innerHTML = `<i class="far fa-file-image"></i> Preview`;
 
     a.addEventListener("click", (event: Event) => {
       event.preventDefault();
@@ -78,7 +79,8 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     });
   } else {
     a.target = "_blank";
-    a.innerHTML = `<i class="far fa-file"></i> ${json.filename}`;
+    a.title = json.filename;
+    a.innerHTML = `<i class="far fa-file"></i> Open`;
   }
 
   return a;
