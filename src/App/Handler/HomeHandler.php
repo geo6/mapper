@@ -43,6 +43,8 @@ class HomeHandler implements RequestHandlerInterface
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
         $server = $request->getServerParams();
 
+        $query = $request->getQueryParams();
+
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
         $baseUrl = rtrim($baseUrl, '/').'/';
 
@@ -56,7 +58,7 @@ class HomeHandler implements RequestHandlerInterface
             'baseUrl'           => $baseUrl,
             'geocoderProviders' => self::getProviders($config['global']['geocoder']['providers'] ?? []),
             'layers'            => self::getLayers($config['config']['layers'] ?? []),
-            'files'             => self::getFiles($config['config']['files'] ?? []),
+            'files'             => self::getFiles($config['config']['files'] ?? [], $query),
             'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
             'map'               => $map,
             'epsg'              => $config['global']['epsg'] ?? [],
@@ -114,7 +116,7 @@ class HomeHandler implements RequestHandlerInterface
         return $layers;
     }
 
-    private static function getFiles(array $configFiles): array
+    private static function getFiles(array $configFiles, array $query): array
     {
         $files = [
             'csv'     => [],
@@ -143,7 +145,10 @@ class HomeHandler implements RequestHandlerInterface
 
                             if (!is_null($f)) {
                                 $f['default'] = isset($file['default']) ? in_array(basename($item->getPathName()), $file['default'], true) : false;
-                                $f['filter'] = $file['filter'] ?? null;
+
+                                if (isset($file['filter'])) {
+                                    $f['filter'] = self::applyFilter($file['filter'], $query);
+                                }
 
                                 $files[$file['type']][] = $f;
                             }
@@ -154,7 +159,10 @@ class HomeHandler implements RequestHandlerInterface
 
                     if (!is_null($f)) {
                         $f['default'] = $file['default'] ?? false;
-                        $f['filter'] = $file['filter'] ?? null;
+
+                        if (isset($file['filter'])) {
+                            $f['filter'] = self::applyFilter($file['filter'], $query);
+                        }
 
                         $files[$file['type']][] = $f;
                     }
@@ -219,5 +227,20 @@ class HomeHandler implements RequestHandlerInterface
         }
 
         return null;
+    }
+
+    private static function applyFilter(array &$filters, array $query): ?array
+    {
+        foreach ($filters as $key => &$value) {
+            if (preg_match('/(%(.+?)%)/', $value, $matches) === 1) {
+                if (isset($query[$matches[2]])) {
+                    $value = str_replace($matches[1], $query[$matches[2]], $value);
+                } else {
+                    unset($filters[$key]);
+                }
+            }
+        }
+
+        return $filters;
     }
 }
