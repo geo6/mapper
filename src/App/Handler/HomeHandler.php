@@ -229,7 +229,7 @@ class HomeHandler implements RequestHandlerInterface
         return null;
     }
 
-    private static function applyFilter(array &$filters, array $query): ?array
+    private static function applyFilter(array &$filters, array $query): array
     {
         foreach ($filters as $key => &$value) {
             if (preg_match('/(%(.+?)%)/', $value, $matches) === 1) {
