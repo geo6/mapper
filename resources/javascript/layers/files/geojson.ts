@@ -9,10 +9,24 @@ import ExtendedFeatureCollection from "../../ExtendedFeatureCollection";
 import { map } from "../../main";
 
 export function add(file: File): VectorSource {
+  let features = new GeoJSON().readFeatures(file.content, {
+    featureProjection: map.getView().getProjection(),
+  });
+
+  if (typeof file.filter !== "undefined" && file.filter !== null) {
+    features = features.filter((feature) => {
+      const properties = feature.getProperties();
+
+      const result = Object.keys(file.filter).map((key: string) => {
+        return properties[key] === file.filter[key];
+      });
+
+      return result.indexOf(false) === -1;
+    });
+  }
+
   return new VectorSource({
-    features: new GeoJSON().readFeatures(file.content, {
-      featureProjection: map.getView().getProjection(),
-    }),
+    features,
   });
 }
 
