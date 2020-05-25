@@ -1,8 +1,8 @@
 name: Deploy to Sandbox
 
 on:
-  push:
-    branches: [master]
+  release:
+    types: [created]
 
 jobs:
   test-js:
