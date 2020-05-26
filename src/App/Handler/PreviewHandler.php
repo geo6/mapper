@@ -100,7 +100,7 @@ class PreviewHandler implements RequestHandlerInterface
                             $section = array_filter($section, function ($key): bool {
                                 $keep =
                                     preg_match('/^UndefinedTag:/', $key) !== 1 &&
-                                    !in_array($key, ['UserComment']);
+                                    !in_array($key, ['UserComment'], true);
 
                                 return $keep;
                             }, ARRAY_FILTER_USE_KEY);
