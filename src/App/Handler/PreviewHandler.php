@@ -98,7 +98,11 @@ class PreviewHandler implements RequestHandlerInterface
                     if (!is_null($data['exif'])) {
                         foreach ($data['exif'] as &$section) {
                             $section = array_filter($section, function ($key): bool {
-                                return preg_match('/^UndefinedTag:/', $key) !== 1;
+                                $keep =
+                                    preg_match('/^UndefinedTag:/', $key) !== 1 &&
+                                    !in_array($key, ['UserComment']);
+
+                                return $keep;
                             }, ARRAY_FILTER_USE_KEY);
                         }
                     }
