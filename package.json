@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@geo6/overlay-image-preview": "^0.1.0",
     "@turf/unkink-polygon": "^5.1.5",
     "file-saver": "^2.0.2",
     "ol": "^6.3.1",

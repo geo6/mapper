@@ -1,6 +1,6 @@
 "use strict";
 
-import createOverlay from "../overlay/overlay";
+import Overlay from "@geo6/overlay-image-preview";
 
 import { baseUrl, customKey } from "../../main";
 
@@ -59,23 +59,27 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     a.addEventListener("click", (event: Event) => {
       event.preventDefault();
 
-      createOverlay(event, (element: HTMLElement) => {
-        const make = element.dataset.exifMake;
-        const model = element.dataset.exifModel;
-        const datetime = element.dataset.exifDatetime;
-        const filename = element.dataset.filename;
+      const overlay = new Overlay(
+        event.currentTarget as HTMLElement,
+        (element: HTMLElement) => {
+          const make = element.dataset.exifMake;
+          const model = element.dataset.exifModel;
+          const datetime = element.dataset.exifDatetime;
+          const filename = element.dataset.filename;
 
-        let caption = "";
-        if (typeof make !== "undefined" || typeof model !== "undefined") {
-          caption += `<div>${make} - ${model}</div>`;
-        }
-        if (typeof datetime !== "undefined") {
-          caption += `<div>${datetime}</div>`;
-        }
-        caption += `<div><samp>${filename}</samp></div>`;
+          let caption = "";
+          if (typeof make !== "undefined" || typeof model !== "undefined") {
+            caption += `<div>${make} - ${model}</div>`;
+          }
+          if (typeof datetime !== "undefined") {
+            caption += `<div>${datetime}</div>`;
+          }
+          caption += `<div><samp>${filename}</samp></div>`;
 
-        return caption;
-      });
+          return caption;
+        }
+      );
+      overlay.open();
     });
   } else {
     a.target = "_blank";
