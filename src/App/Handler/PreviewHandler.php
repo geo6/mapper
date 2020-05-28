@@ -178,9 +178,10 @@ class PreviewHandler implements RequestHandlerInterface
 
         $directory = dirname($file);
         $fname = basename($file);
+        $filename = pathinfo($file, PATHINFO_FILENAME);
         $thumbnail = sprintf('%s/.thumbnails/%s', $directory, $fname);
 
-        if (file_exists($thumbnail)) {
+        if (file_exists($thumbnail) && self::checkMD5($file) === true) {
             $image = ImageManagerStatic::make($thumbnail);
         } else {
             $image = ImageManagerStatic::make($file);
@@ -201,8 +202,25 @@ class PreviewHandler implements RequestHandlerInterface
             }
 
             $image->save($thumbnail);
+
+            $md5 = sprintf('%s/.thumbnails/%s.md5', $directory, $filename);
+            file_put_contents($md5, md5_file($file));
         }
 
         return $thumbnail;
+    }
+
+    private static function checkMD5(string $path): bool
+    {
+        $directory = dirname($path);
+        $fname = pathinfo($path, PATHINFO_FILENAME);
+
+        $md5 = sprintf('%s/.thumbnails/%s.md5', $directory, $fname);
+
+        if (!file_exists($md5)) {
+            return false;
+        }
+
+        return md5_file($path) === file_get_contents($md5);
     }
 }
