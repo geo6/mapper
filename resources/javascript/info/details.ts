@@ -73,12 +73,13 @@ export default function (
   }
 
   const properties = feature.getProperties();
+  console.log(properties);
   Object.keys(properties).forEach((key: string) => {
     if (key === feature.getGeometryName() || hidden.indexOf(key) > -1) {
       return;
     }
 
-    const value = properties[key];
+    const value = properties[key] || null;
 
     const tr = document.createElement("tr");
 
