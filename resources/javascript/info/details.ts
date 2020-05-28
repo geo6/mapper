@@ -73,7 +73,6 @@ export default function (
   }
 
   const properties = feature.getProperties();
-  console.log(properties);
   Object.keys(properties).forEach((key: string) => {
     if (key === feature.getGeometryName() || hidden.indexOf(key) > -1) {
       return;
@@ -88,8 +87,6 @@ export default function (
     tr.append(th);
 
     const td = document.createElement("td");
-
-    console.log(key, value);
 
     if (value === null) {
       td.className = "text-muted font-italic";
