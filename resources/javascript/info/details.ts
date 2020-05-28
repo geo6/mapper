@@ -7,6 +7,7 @@ import { check as checkURL, display as displayURL } from "./details/url";
 import { check as checkFile, display as displayFile } from "./details/file";
 
 const hidden: string[] = [
+  "boundedBy",
   "color",
   "fill",
   "fill-color",
@@ -86,6 +87,8 @@ export default function (
     tr.append(th);
 
     const td = document.createElement("td");
+
+    console.log(key, value);
 
     if (value === null) {
       td.className = "text-muted font-italic";
