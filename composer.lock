@@ -1769,16 +1769,16 @@
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
-                "reference": "bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9"
+                "reference": "fcd87520e4943d968557803919523772475e8ea3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9",
-                "reference": "bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/fcd87520e4943d968557803919523772475e8ea3",
+                "reference": "fcd87520e4943d968557803919523772475e8ea3",
                 "shasum": ""
             },
             "require": {
@@ -1817,7 +1817,7 @@
                 "laminas",
                 "zf"
             ],
-            "time": "2020-04-03T16:01:00+00:00"
+            "time": "2020-05-20T16:45:56+00:00"
         },
         {
             "name": "mezzio/mezzio",
@@ -2308,16 +2308,16 @@
         },
         {
             "name": "mezzio/mezzio-session-ext",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-session-ext.git",
-                "reference": "73840d09a1eb3633cc674bac84971fdbdf3f67d6"
+                "reference": "7e106f167f1af4e6a66ffb106ade4be0b32645b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-session-ext/zipball/73840d09a1eb3633cc674bac84971fdbdf3f67d6",
-                "reference": "73840d09a1eb3633cc674bac84971fdbdf3f67d6",
+                "url": "https://api.github.com/repos/mezzio/mezzio-session-ext/zipball/7e106f167f1af4e6a66ffb106ade4be0b32645b2",
+                "reference": "7e106f167f1af4e6a66ffb106ade4be0b32645b2",
                 "shasum": ""
             },
             "require": {
@@ -2338,8 +2338,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8.x-dev",
-                    "dev-develop": "1.9.x-dev"
+                    "dev-master": "1.9.x-dev",
+                    "dev-develop": "1.10.x-dev"
                 },
                 "laminas": {
                     "config-provider": "Mezzio\\Session\\Ext\\ConfigProvider"
@@ -2364,7 +2364,7 @@
                 "psr-7",
                 "session"
             ],
-            "time": "2020-03-28T22:23:08+00:00"
+            "time": "2020-05-27T14:12:23+00:00"
         },
         {
             "name": "mezzio/mezzio-template",
