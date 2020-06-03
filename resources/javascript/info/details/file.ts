@@ -47,9 +47,13 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     a.dataset.toggle = "overlay";
     a.dataset.filename = json.filename;
 
-    if (json.exif !== null) {
+    if (typeof json.exif.IFD0.Make !== "undefined") {
       a.dataset.exifMake = json.exif.IFD0.Make;
+    }
+    if (typeof json.exif.IFD0.Model !== "undefined") {
       a.dataset.exifModel = json.exif.IFD0.Model;
+    }
+    if (typeof json.exif.EXIF.DateTimeOriginal !== "undefined") {
       a.dataset.exifDatetime = json.exif.EXIF.DateTimeOriginal;
     }
 
@@ -66,6 +70,8 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
           const model = element.dataset.exifModel;
           const datetime = element.dataset.exifDatetime;
           const filename = element.dataset.filename;
+
+          console.log(make, model, datetime);
 
           let caption = "";
           if (typeof make !== "undefined" || typeof model !== "undefined") {
