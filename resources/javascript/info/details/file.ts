@@ -71,8 +71,6 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
           const datetime = element.dataset.exifDatetime;
           const filename = element.dataset.filename;
 
-          console.log(make, model, datetime);
-
           let caption = "";
           if (typeof make !== "undefined" || typeof model !== "undefined") {
             caption += `<div>${make} - ${model}</div>`;
