@@ -15,6 +15,7 @@ import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
 
 import BaseLayerOptions from "./BaseLayerOptions";
+import FileOptions from "./FileOptions";
 import GeocoderProviderOptions from "./GeocoderProviderOptions";
 import ProjectionOptions from "./ProjectionOptions";
 
@@ -69,7 +70,7 @@ export function setProjections(_projections: ProjectionOptions[]): void {
 export function setMap(
   baselayers: Record<string, BaseLayerOptions>,
   layers: Array<{}>,
-  files: Record<string, Array<{}>>,
+  files: Record<string, Array<FileOptions>>,
   lnglat: Coordinate,
   zoom: number
 ) {
