@@ -2,7 +2,7 @@
 
 import { files, modalSettings } from "../../../main";
 
-export default function (
+export default function(
   type: string,
   index: number,
   name: string
@@ -11,7 +11,7 @@ export default function (
 
   button.className = "btn btn-outline-secondary btn-layer-settings";
   button.disabled = ["csv", "geojson", "gpx", "kml"].indexOf(type) === -1;
-  button.innerHTML = '<i class="fas fa-tools"></i>';
+  button.innerHTML = "<i class=\"fas fa-tools\"></i>";
   button.title = "Settings";
 
   if (button.disabled === false) {

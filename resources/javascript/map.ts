@@ -5,7 +5,7 @@ import "ol/ol.css";
 import {
   defaults as ControlDefaults,
   Attribution,
-  ScaleLine,
+  ScaleLine
 } from "ol/control";
 import { Coordinate } from "ol/coordinate";
 import Map from "ol/Map";
@@ -25,7 +25,7 @@ import BaseLayerOptions from "./BaseLayerOptions";
 import { cache } from "./main";
 import { markerLayer } from "./map/marker";
 
-export default function (
+export default function(
   lnglat: Coordinate,
   zoom: number,
   _baselayers: Record<string, BaseLayerOptions>
@@ -38,24 +38,24 @@ export default function (
   const map = new Map({
     target: "map",
     controls: ControlDefaults({
-      attribution: false,
+      attribution: false
     }).extend([
       new Attribution({
-        collapsible: false,
+        collapsible: false
       }),
       new ScaleLine(),
       new GeolocationControl(),
-      new MeasureControl(),
+      new MeasureControl()
     ]),
     layers: [],
     view: new View({
       center: fromLonLat(lnglat),
       constrainResolution: true,
-      zoom,
-    }),
+      zoom
+    })
   });
 
-  let baselayers = {};
+  const baselayers = {};
   Object.keys(_baselayers).forEach((key: string) => {
     baselayers[key] = new BaseLayer(map, cache, key, _baselayers[key]);
   });

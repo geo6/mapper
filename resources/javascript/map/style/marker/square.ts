@@ -2,7 +2,7 @@
 
 import { Fill, RegularShape, Stroke } from "ol/style";
 
-export default function (
+export default function(
   stroke: Stroke,
   fill: Fill,
   size: number
@@ -12,6 +12,6 @@ export default function (
     stroke,
     points: 4,
     radius: size,
-    angle: Math.PI / 4,
+    angle: Math.PI / 4
   });
 }

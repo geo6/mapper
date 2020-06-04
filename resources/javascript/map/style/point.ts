@@ -9,7 +9,7 @@ import markerSquare from "./marker/square";
 import markerStar from "./marker/star";
 import markerTriangle from "./marker/triangle";
 
-export default function (
+export default function(
   color: string | Color | null,
   size: number | null,
   symbol: string | null
@@ -28,11 +28,11 @@ export default function (
   colorArray[3] = 0.8;
 
   const fill = new Fill({
-    color: colorArray,
+    color: colorArray
   });
   const stroke = new Stroke({
     color,
-    width: 1.25,
+    width: 1.25
   });
 
   switch (symbol.toLowerCase()) {

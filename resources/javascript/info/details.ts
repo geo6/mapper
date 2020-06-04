@@ -18,7 +18,7 @@ const hidden: string[] = [
   "stroke",
   "stroke-color",
   "stroke-width",
-  "stroke-opacity",
+  "stroke-opacity"
 ];
 
 /**
@@ -28,7 +28,7 @@ const hidden: string[] = [
  * @param Feature       feature   Feature object.
  * @param HTMLLIElement liElement Clicked li DOM element in the features list.
  */
-export default function (
+export default function(
   title: string,
   feature: Feature,
   liElement: HTMLLIElement
@@ -97,7 +97,7 @@ export default function (
 
         td.append(url);
       } else if (checkFile(value) !== false) {
-        td.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        td.innerHTML = "<i class=\"fas fa-spinner fa-spin\"></i>";
 
         displayFile(value).then((file: HTMLAnchorElement | string) => {
           td.innerHTML = "";

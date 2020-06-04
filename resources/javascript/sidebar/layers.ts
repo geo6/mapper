@@ -5,7 +5,7 @@ import btnRemove from "./layers/components/btn-remove";
 import btnSettings from "./layers/components/btn-settings";
 import btnZoom from "./layers/components/btn-zoom";
 
-export default function (
+export default function(
   type: string,
   index: number,
   name: string,
@@ -46,7 +46,7 @@ export default function (
   divName.innerText = title;
   if (queryable === true) {
     divName.innerHTML =
-      '<i class="fas fa-fw fa-info-circle"></i> ' + divName.innerHTML;
+      "<i class=\"fas fa-fw fa-info-circle\"></i> " + divName.innerHTML;
   }
   div.append(divName);
 

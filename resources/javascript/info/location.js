@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-import { toLonLat } from 'ol/proj';
-import { toStringXY } from 'ol/coordinate';
+import { toLonLat } from "ol/proj";
+import { toStringXY } from "ol/coordinate";
 
-import { sidebar } from '../main';
+import { sidebar } from "../main";
 
 /**
  * Display clicked location and open info sidebar.
@@ -12,17 +12,17 @@ import { sidebar } from '../main';
  *
  * @returns {void}
  */
-export default function (coordinates) {
-    const lonlat = toLonLat(coordinates);
+export default function(coordinates) {
+  const lonlat = toLonLat(coordinates);
 
-    $('#info-location-coordinates').text(toStringXY(lonlat, 6));
+  $("#info-location-coordinates").text(toStringXY(lonlat, 6));
 
-    $('#info-location a[href="#reverse-geocode"]').data({
-        longitude: lonlat[0],
-        latitude: lonlat[1]
-    });
+  $("#info-location a[href=\"#reverse-geocode\"]").data({
+    longitude: lonlat[0],
+    latitude: lonlat[1]
+  });
 
-    $('.sidebar-tabs > ul > li:has(a[href="#info"])').removeClass('disabled');
+  $(".sidebar-tabs > ul > li:has(a[href=\"#info\"])").removeClass("disabled");
 
-    sidebar.open('info');
+  sidebar.open("info");
 }

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Create and add DOM div element that will contain the measure result
@@ -8,12 +8,12 @@
  *
  * @returns {Element} DOM div element that will contain the measure result.
  */
-export default function (element) {
-    const div = document.createElement('div');
+export default function(element) {
+  const div = document.createElement("div");
 
-    div.className = 'ol-measure-result';
+  div.className = "ol-measure-result";
 
-    document.getElementById(element).prepend(div);
+  document.getElementById(element).prepend(div);
 
-    return div;
+  return div;
 }

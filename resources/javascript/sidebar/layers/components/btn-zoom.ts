@@ -2,7 +2,7 @@
 
 import { files } from "../../../main";
 
-export default function (
+export default function(
   zoom: boolean,
   type: string,
   index: number,
@@ -12,7 +12,7 @@ export default function (
 
   button.className = "btn btn-outline-secondary btn-layer-zoom";
   button.disabled = zoom === false;
-  button.innerHTML = '<i class="fas fa-search-location"></i>';
+  button.innerHTML = "<i class=\"fas fa-search-location\"></i>";
   button.title = "Zoom";
 
   if (button.disabled === false) {

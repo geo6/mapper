@@ -29,7 +29,7 @@ export class Cache {
     this.map = {
       latitude: latitude,
       longitude: longitude,
-      zoom: zoom,
+      zoom: zoom
     };
     this.save();
   }
@@ -39,7 +39,7 @@ export class Cache {
       this.storageKey,
       JSON.stringify({
         baselayer: this.baselayer || null,
-        map: this.map || null,
+        map: this.map || null
       })
     );
   }

@@ -1,6 +1,6 @@
 "use strict";
 
-const regex: RegExp = /^((https?:\/\/)[-a-zA-Z0-9:@;?&=/%+.*!'(),$_{}^~[\]`#|]+)$/;
+const regex = /^((https?:\/\/)[-a-zA-Z0-9:@;?&=/%+.*!'(),$_{}^~[\]`#|]+)$/;
 
 export function check(value: any): boolean {
   return value.toString().match(regex) !== null;

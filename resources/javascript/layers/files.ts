@@ -44,8 +44,8 @@ export function init(type: string, filesOptions: Array<{}>): void {
             ) => {
               f.content = json;
               if (
-                typeof f.content["legend"] !== "undefined" &&
-                typeof f.content["legendColumn"] !== "undefined"
+                typeof f.content.legend !== "undefined" &&
+                typeof f.content.legendColumn !== "undefined"
               ) {
                 f.content = applyStyle(f.content as ExtendedFeatureCollection);
               }

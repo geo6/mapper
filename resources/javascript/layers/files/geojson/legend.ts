@@ -2,7 +2,7 @@
 
 import { asArray as colorAsArray } from "ol/color";
 
-export default function (
+export default function(
   legend: Array<{
     type: string;
     text: string;

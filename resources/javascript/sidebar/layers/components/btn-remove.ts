@@ -2,7 +2,7 @@
 
 import { files } from "../../../main";
 
-export default function (
+export default function(
   type: string,
   index: number,
   layer: string
@@ -10,7 +10,7 @@ export default function (
   const button = document.createElement("button");
 
   button.className = "btn btn-outline-secondary btn-layer-remove";
-  button.innerHTML = '<i class="far fa-trash-alt"></i>';
+  button.innerHTML = "<i class=\"far fa-trash-alt\"></i>";
   button.title = "Remove";
 
   button.addEventListener("click", (event: Event) => {

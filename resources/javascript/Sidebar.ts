@@ -2,9 +2,9 @@
 
 import "sidebar-v2/css/ol3-sidebar.css";
 
-require("sidebar-v2/js/jquery-sidebar.js");
-
 import createLayerLI from "./sidebar/layers";
+
+require("sidebar-v2/js/jquery-sidebar.js");
 
 export class Sidebar {
   sidebar: any;

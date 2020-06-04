@@ -1,21 +1,21 @@
-'use strict';
+"use strict";
 
-import WMTS from './wmts';
+import WMTS from "./wmts";
 
-export default function () {
-    $('#btn-layers-add-wmts').on('click', (event) => {
-        const url = prompt('Enter the WMTS service url :');
+export default function() {
+  $("#btn-layers-add-wmts").on("click", (event) => {
+    const url = prompt("Enter the WMTS service url :");
 
-        if (url !== null && url !== '') {
-            const wmts = new WMTS(url, (service) => {
-                service.displayCapabilities();
+    if (url !== null && url !== "") {
+      const wmts = new WMTS(url, (service) => {
+        service.displayCapabilities();
 
-                $('#modal-layers-select')
-                    .val('wmts:' + service.getIndex())
-                    .trigger('change');
-            });
+        $("#modal-layers-select")
+          .val("wmts:" + service.getIndex())
+          .trigger("change");
+      });
 
-            window.app.wmts.push(wmts);
-        }
-    });
+      window.app.wmts.push(wmts);
+    }
+  });
 }

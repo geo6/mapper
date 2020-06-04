@@ -18,6 +18,8 @@
     "@types/ol": "^6.3.1",
     "@types/papaparse": "^5.0.3",
     "@types/proj4": "^2.5.0",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
@@ -31,19 +33,7 @@
   "scripts": {
     "build": "parcel build --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-source-maps",
     "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-hmr",
-    "test": "eslint resources/javascript/",
-    "fix": "eslint resources/javascript/ --fix"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "test": "eslint --ext .js --ext .ts resources/javascript/",
+    "fix": "eslint --ext .js --ext .ts resources/javascript/ --fix"
   }
 }

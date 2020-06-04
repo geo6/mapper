@@ -63,6 +63,7 @@ export class SettingsModal {
   show(): void {
     $(this.element).modal("show");
   }
+
   hide(): void {
     $(this.element).modal("hide");
   }
@@ -99,7 +100,7 @@ export class SettingsModal {
   }
 
   setLabelList(labels: string[]): void {
-    this.labelSelect.innerHTML = '<option value=""></option>';
+    this.labelSelect.innerHTML = "<option value=\"\"></option>";
     labels.forEach((column: string) => {
       const option = document.createElement("option");
 
@@ -113,6 +114,7 @@ export class SettingsModal {
   setLabel(label: string): void {
     this.labelSelect.value = label;
   }
+
   getLabel(): string | null {
     return this.labelSelect.value.length > 0 ? this.labelSelect.value : null;
   }
@@ -125,9 +127,11 @@ export class SettingsModal {
       this.colorInputText.hidden = false;
     }
   }
+
   setColor(color: string): void {
     this.colorInput.value = color;
   }
+
   getColor(): string | null {
     if (this.colorInput.disabled === false) {
       return this.colorInput.value.length > 0 ? this.colorInput.value : null;
@@ -140,6 +144,7 @@ export class SettingsModal {
     this.opacityInput.value = (opacity * 100).toString();
     this.opacityInputText.innerText = `${opacity * 100}%`;
   }
+
   getOpacity(): number {
     return parseInt(this.opacityInput.value) / 100;
   }
