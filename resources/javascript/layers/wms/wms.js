@@ -50,6 +50,7 @@ class WMS {
         this.capabilities = response.capabilities;
         this.layers = response.layers;
         this.mixedContent = response.mixedContent;
+        this.projection = response.projection;
 
         callback.call(this, this);
       });

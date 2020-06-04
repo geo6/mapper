@@ -43,16 +43,32 @@ export default function(origUrl) {
     .then((response) => {
       const capabilities = new WMSCapabilities().read(response);
 
-      const projection = map.getView().getProjection().getCode();
+      let projection = map.getView().getProjection().getCode();
       if (
         typeof capabilities.Capability.Layer.CRS !== "undefined" &&
         capabilities.Capability.Layer.CRS.indexOf(projection) === -1
       ) {
-        const crs = capabilities.Capability.Layer.CRS.join(", ");
+        const crs = capabilities.Capability.Layer.CRS;
 
-        throw new Error(
-          `The WMS service "${origUrl}" does not support ${projection} ! It supports only ${crs}.`
+        projection = crs.find(
+          (crs) =>
+            [
+              "EPSG:900913",
+              "EPSG:3587",
+              "EPSG:54004",
+              "EPSG:41001",
+              "EPSG:102113",
+              "EPSG:102100",
+              "EPSG:3785"
+            ].indexOf(crs) !== -1
         );
+
+        if (typeof projection === "undefined") {
+          throw new Error(
+            `The WMS service "${origUrl}" does not support ${projection} !` +
+              `It supports only ${crs.join(", ")}.`
+          );
+        }
       }
 
       return {
@@ -63,7 +79,8 @@ export default function(origUrl) {
             : parseLayers(capabilities.Capability.Layer),
         mixedContent:
           https === true &&
-          RegExp("^http://").test(capabilities.Service.OnlineResource)
+          RegExp("^http://").test(capabilities.Service.OnlineResource),
+        projection
       };
     });
 }

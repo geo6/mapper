@@ -18,6 +18,7 @@ export default function(wms, layers) {
           params: {
             LAYERS: names
           },
+          projection: wms.projection,
           url: wms.capabilities.Service.OnlineResource
         })
       });
