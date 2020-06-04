@@ -15,6 +15,7 @@ import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
 
 import BaseLayerOptions from "./BaseLayerOptions";
+import GeocoderProviderOptions from "./GeocoderProviderOptions";
 import ProjectionOptions from "./ProjectionOptions";
 
 export let baseUrl: string;
@@ -25,7 +26,7 @@ export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
 export let projections: ProjectionOptions[];
-export let providers: Record<string, {}>;
+export let providers: Record<string, GeocoderProviderOptions>;
 export const files: {
   csv: Array<File>;
   geojson: Array<File>;
@@ -49,7 +50,9 @@ export function setCustomKey(key: string): void {
   customKey = key;
 }
 
-export function setProviders(_providers: Record<string, {}>): void {
+export function setProviders(
+  _providers: Record<string, GeocoderProviderOptions>
+): void {
   providers = _providers;
 }
 
