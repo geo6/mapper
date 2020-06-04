@@ -8,10 +8,10 @@ import ExtendedFeatureCollection from "./ExtendedFeatureCollection";
 
 import { baseUrl, files } from "./main";
 
-export default function (): void {
+export default function(): void {
   const resumable = new Resumable({
     fileType: ["csv", "geojson", "gpx", "json", "kml"],
-    target: `${baseUrl}upload`,
+    target: `${baseUrl}upload`
   });
 
   resumable.assignBrowse(document.getElementById("btn-layers-upload"), false);
@@ -27,7 +27,7 @@ export default function (): void {
       csv: 0,
       geojson: 0,
       gpx: 0,
-      kml: 0,
+      kml: 0
     };
 
     uploadFiles.forEach((file: Resumable.ResumableFile) => {
