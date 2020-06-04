@@ -25,6 +25,7 @@ class WMTS {
     this.layers = null;
     this.olLayers = {};
     this.selection = [];
+    this.projection = null;
 
     this.getCapabilities(callback);
   }
@@ -49,6 +50,7 @@ class WMTS {
         this.capabilities = response.capabilities;
         this.layers = response.layers;
         this.mixedContent = response.mixedContent;
+        this.projection = response.projection;
 
         callback.call(this, this);
       });

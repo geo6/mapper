@@ -49,19 +49,34 @@ export default function(origUrl) {
         crs.push(supportedCRS);
       }
 
-      const projection = map.getView().getProjection().getCode();
+      let projection = map.getView().getProjection().getCode();
       if (crs.indexOf(projection) === -1) {
-        throw new Error(
-          `The WMTS service "${origUrl}" does not support ${projection} ! It supports only ${crs.join(
-            ", "
-          )}.`
+        projection = crs.find(
+          (crs) =>
+            [
+              "EPSG:900913",
+              "EPSG:3587",
+              "EPSG:54004",
+              "EPSG:41001",
+              "EPSG:102113",
+              "EPSG:102100",
+              "EPSG:3785",
+            ].indexOf(crs) !== -1
         );
+
+        if (typeof projection === "undefined") {
+          throw new Error(
+            `The WMTS service "${origUrl}" does not support ${projection} !` +
+              `It supports only ${crs.join(", ")}.`
+          );
+        }
       }
 
       return {
         capabilities: capabilities,
         layers: parseLayers(capabilities.Contents.Layer),
         mixedContent: https === true && RegExp("^http://").test(origUrl),
+        projection,
       };
     });
 }

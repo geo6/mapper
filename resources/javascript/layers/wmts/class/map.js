@@ -15,7 +15,7 @@ export default function(wmts, layers) {
           source: new WMTS(
             optionsFromCapabilities(wmts.capabilities, {
               layer: name,
-              projection: map.getView().getProjection(),
+              projection: wmts.projection,
             })
           ),
         });
