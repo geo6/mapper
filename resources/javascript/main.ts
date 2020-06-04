@@ -17,6 +17,7 @@ import SettingsModal from "./modal/SettingsModal";
 import BaseLayerOptions from "./BaseLayerOptions";
 import FileOptions from "./FileOptions";
 import GeocoderProviderOptions from "./GeocoderProviderOptions";
+import LayerOptions from "./LayerOptions";
 import ProjectionOptions from "./ProjectionOptions";
 
 export let baseUrl: string;
@@ -69,7 +70,7 @@ export function setProjections(_projections: ProjectionOptions[]): void {
 
 export function setMap(
   baselayers: Record<string, BaseLayerOptions>,
-  layers: Array<{}>,
+  layers: Array<LayerOptions>,
   files: Record<string, Array<FileOptions>>,
   lnglat: Coordinate,
   zoom: number
