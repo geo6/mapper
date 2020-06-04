@@ -2,7 +2,7 @@
 
 import WMS from "./wms";
 
-export default function() {
+export default function () {
   $("#btn-layers-add-wms").on("click", (event) => {
     const url = prompt("Enter the WMS service url :");
 

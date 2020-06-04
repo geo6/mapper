@@ -7,7 +7,7 @@ class DrawLineString extends Draw {
     super({
       source: window.app.draw.layerCurrent.getSource(),
       stopClick: true,
-      type: "LineString"
+      type: "LineString",
     });
 
     this.on("drawend", () => {

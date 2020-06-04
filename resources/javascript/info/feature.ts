@@ -13,7 +13,7 @@ import { marker, markerLayer } from "../map/marker";
  * @param string           title     Layer title.
  * @param HTMLOListElement olElement ol DOM element (of the layer).
  */
-export default function(
+export default function (
   feature: Feature,
   title: string,
   olElement: HTMLOListElement
@@ -25,7 +25,7 @@ export default function(
 
   delete properties[geometryName];
 
-  let label = geometry !== null ? "<i class=\"fas fa-vector-square\"></i> " : "";
+  let label = geometry !== null ? '<i class="fas fa-vector-square"></i> ' : "";
 
   let labelKey = null;
   const keys = Object.keys(properties);

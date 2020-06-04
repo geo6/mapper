@@ -67,10 +67,10 @@ export class BaseLayer {
           attributions: this.options.attributions,
           params: {
             LAYERS: this.options.layers,
-            TRANSPARENT: false
+            TRANSPARENT: false,
           },
-          url: this.options.url
-        })
+          url: this.options.url,
+        }),
       })
     );
   }
@@ -82,7 +82,7 @@ export class BaseLayer {
         new URLSearchParams({
           SERVICE: "WMTS",
           REQUEST: "GetCapabilities",
-          VERSION: "1.0.0"
+          VERSION: "1.0.0",
         }).toString()
     )
       .then((response: Response) => response.text())
@@ -90,7 +90,7 @@ export class BaseLayer {
         const capabilities = new WMTSCapabilities().read(text);
 
         const options = optionsFromCapabilities(capabilities, {
-          layer: this.options.layers
+          layer: this.options.layers,
         });
         if (
           typeof this.options.attributions !== "undefined" &&
@@ -103,7 +103,7 @@ export class BaseLayer {
           0,
           new TileLayer({
             maxZoom: this.options.maxZoom,
-            source: new WMTS(options)
+            source: new WMTS(options),
           })
         );
       });
@@ -116,8 +116,8 @@ export class BaseLayer {
         maxZoom: this.options.maxZoom,
         source: new XYZ({
           attributions: this.options.attributions,
-          url: this.options.url
-        })
+          url: this.options.url,
+        }),
       })
     );
   }

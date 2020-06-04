@@ -8,7 +8,7 @@ import { createEditingStyle } from "ol/style/Style";
 export const marker: Feature = new Feature();
 export const markerLayer: VectorLayer = new VectorLayer({
   source: new VectorSource({
-    features: [marker]
+    features: [marker],
   }),
   style: (feature: Feature) => {
     const editingStyles = createEditingStyle();
@@ -17,5 +17,5 @@ export const markerLayer: VectorLayer = new VectorLayer({
     return editingStyles[type];
   },
   visible: false,
-  zIndex: Infinity
+  zIndex: Infinity,
 });

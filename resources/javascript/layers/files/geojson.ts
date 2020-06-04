@@ -10,7 +10,7 @@ import { map } from "../../main";
 
 export function add(file: File): VectorSource {
   let features = new GeoJSON().readFeatures(file.content, {
-    featureProjection: map.getView().getProjection()
+    featureProjection: map.getView().getProjection(),
   });
 
   if (typeof file.filter !== "undefined" && file.filter !== null) {
@@ -26,7 +26,7 @@ export function add(file: File): VectorSource {
   }
 
   return new VectorSource({
-    features
+    features,
   });
 }
 

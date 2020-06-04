@@ -1,6 +1,6 @@
 "use strict";
 
-export default function(): void {
+export default function (): void {
   document
     .getElementById("infos-list-btn-back")
     .addEventListener("click", () => {

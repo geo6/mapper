@@ -4,7 +4,7 @@ import Feature from "ol/Feature";
 import Stroke from "ol/style/Stroke";
 import Text from "ol/style/Text";
 
-export default function(feature: Feature, labelColumn: string): Text | null {
+export default function (feature: Feature, labelColumn: string): Text | null {
   const type = feature.getGeometry().getType();
   const properties = feature.getProperties();
 
@@ -17,16 +17,16 @@ export default function(feature: Feature, labelColumn: string): Text | null {
     const textOptions = {
       stroke: new Stroke({
         color: "#fff",
-        width: 2
+        width: 2,
       }),
-      text: label.toString()
+      text: label.toString(),
     };
 
     switch (type) {
       case "Point":
       case "MultiPoint":
         Object.assign(textOptions, {
-          offsetY: 12
+          offsetY: 12,
         });
         break;
 
@@ -34,14 +34,14 @@ export default function(feature: Feature, labelColumn: string): Text | null {
       case "MultiLineString":
         Object.assign(textOptions, {
           overflow: true,
-          placement: "line"
+          placement: "line",
         });
         break;
 
       case "Polygon":
       case "MultiPolygon":
         Object.assign(textOptions, {
-          overflow: true
+          overflow: true,
         });
         break;
     }

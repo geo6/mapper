@@ -12,7 +12,7 @@ import { baseUrl, customKey, map, providers } from "../main";
  *
  * @returns {void}
  */
-export default function(longitude, latitude) {
+export default function (longitude, latitude) {
   window.app.geocoder.getSource().clear();
   $("#geocoder-results").empty();
 
@@ -25,16 +25,19 @@ export default function(longitude, latitude) {
 
     $(document.createElement("div"))
       .attr({
-        id: `geocoder-results-${key}`
+        id: `geocoder-results-${key}`,
       })
       .append([
-                `Results from <strong>${provider.title}</strong>`,
-                "<div class=\"loading text-muted\"><i class=\"fas fa-spinner fa-spin\"></i> Loading ...</div>",
-                "<hr>"
+        `Results from <strong>${provider.title}</strong>`,
+        '<div class="loading text-muted"><i class="fas fa-spinner fa-spin"></i> Loading ...</div>',
+        "<hr>",
       ])
       .appendTo("#geocoder-results");
 
-    const url = `${baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}` + "?" + $.param({ c: customKey });
+    const url =
+      `${baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}` +
+      "?" +
+      $.param({ c: customKey });
     fetch(url)
       .then((response) => {
         if (response.ok !== true) {
@@ -45,9 +48,9 @@ export default function(longitude, latitude) {
 
         return response.json();
       })
-      .then(geojson => {
-        const features = (new GeoJSON()).readFeatures(geojson, {
-          featureProjection: map.getView().getProjection()
+      .then((geojson) => {
+        const features = new GeoJSON().readFeatures(geojson, {
+          featureProjection: map.getView().getProjection(),
         });
 
         window.app.geocoder.getSource().addFeatures(features);
@@ -56,16 +59,14 @@ export default function(longitude, latitude) {
         if (features.length > 0) {
           const ol = document.createElement("ol");
           features.forEach((feature) => {
-            const {
-              formattedAddress
-            } = feature.getProperties();
+            const { formattedAddress } = feature.getProperties();
 
             $(document.createElement("li"))
               .append(formattedAddress)
               .on("click", () => {
                 map.getView().fit(feature.getGeometry(), {
                   maxZoom: 18,
-                  padding: [15, 15, 15, 15]
+                  padding: [15, 15, 15, 15],
                 });
               })
               .appendTo(ol);
@@ -74,7 +75,9 @@ export default function(longitude, latitude) {
           $(`#geocoder-results-${key} > .loading`).replaceWith(ol);
 
           if (provider.attribution !== null) {
-            $(ol).after(`<div class="small text-right text-muted">${provider.attribution}</div>`);
+            $(ol).after(
+              `<div class="small text-right text-muted">${provider.attribution}</div>`
+            );
           }
         } else {
           $(`#geocoder-results-${key}`).remove();

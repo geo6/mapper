@@ -1,13 +1,10 @@
 "use strict";
 
-import {
-  fromLonLat,
-  toLonLat
-} from "ol/proj";
+import { fromLonLat, toLonLat } from "ol/proj";
 
 import { cache, map } from "../main";
 
-export default function() {
+export default function () {
   var zoom = 2;
   var center = [0, 0];
 
@@ -20,10 +17,7 @@ export default function() {
 
     if (parts.length === 3) {
       zoom = parseInt(parts[0], 10);
-      center = fromLonLat([
-        parseFloat(parts[2]),
-        parseFloat(parts[1])
-      ]);
+      center = fromLonLat([parseFloat(parts[2]), parseFloat(parts[1])]);
 
       map.getView().setCenter(center);
       map.getView().setZoom(zoom);
@@ -32,7 +26,7 @@ export default function() {
     zoom = parseInt(cache.map.zoom, 10);
     center = fromLonLat([
       parseFloat(cache.map.longitude),
-      parseFloat(cache.map.latitude)
+      parseFloat(cache.map.latitude),
     ]);
 
     map.getView().setCenter(center);
@@ -56,7 +50,7 @@ export default function() {
     const hash = `#map=${zoom}/${latitude}/${longitude}`;
     const state = {
       zoom: view.getZoom(),
-      center: view.getCenter()
+      center: view.getCenter(),
     };
 
     cache.setMap(zoom, longitude, latitude);

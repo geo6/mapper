@@ -2,11 +2,14 @@
 
 import { sidebar } from "../../../main";
 
-export default function(service, layer) {
+export default function (service, layer) {
   let queryable = false;
   if (typeof layer.ResourceURL !== "undefined") {
     layer.ResourceURL.forEach((resource) => {
-      if (resource.resourceType === "FeatureInfo" && resource.format === "application/json") {
+      if (
+        resource.resourceType === "FeatureInfo" &&
+        resource.format === "application/json"
+      ) {
         queryable = true;
 
         return false;
@@ -16,8 +19,10 @@ export default function(service, layer) {
 
   let legend = null;
   if (
-    typeof layer.Style !== "undefined" && layer.Style.length > 0 &&
-        typeof layer.Style[0].LegendURL !== "undefined" && layer.Style[0].LegendURL.length > 0
+    typeof layer.Style !== "undefined" &&
+    layer.Style.length > 0 &&
+    typeof layer.Style[0].LegendURL !== "undefined" &&
+    layer.Style[0].LegendURL.length > 0
   ) {
     legend = document.createElement("img");
 
@@ -37,7 +42,12 @@ export default function(service, layer) {
     legend
   );
 
-  if (typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== "undefined" && queryable && service.mixedContent === true) {
+  if (
+    typeof service.capabilities.OperationsMetadata.GetFeatureInfo !==
+      "undefined" &&
+    queryable &&
+    service.mixedContent === true
+  ) {
     const icon = li.querySelector(".fa-info-circle");
     icon.classList.add("text-light");
     icon.style.cursor = "help";

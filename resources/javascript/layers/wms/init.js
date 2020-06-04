@@ -3,7 +3,7 @@
 import initWMSAddService from "./new";
 import WMS from "./wms";
 
-export default function(layers) {
+export default function (layers) {
   window.app.wms = [];
 
   layers.forEach((layer) => {

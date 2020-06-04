@@ -1,13 +1,13 @@
 "use strict";
 
-export default function(
+export default function (
   legend: HTMLImageElement | HTMLCanvasElement
 ): HTMLButtonElement {
   const button = document.createElement("button");
 
   button.className = "btn btn-outline-secondary btn-layer-legend";
   button.title = "Legend";
-  button.innerHTML = "<i class=\"far fa-image\"></i>";
+  button.innerHTML = '<i class="far fa-image"></i>';
   button.disabled = typeof legend === "undefined" || legend === null;
 
   if (button.disabled === false) {

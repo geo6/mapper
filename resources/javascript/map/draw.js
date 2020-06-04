@@ -1,18 +1,10 @@
 "use strict";
 
-import {
-  Modify,
-  Snap
-} from "ol/interaction";
+import { Modify, Snap } from "ol/interaction";
 import GeoJSON from "ol/format/GeoJSON";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
-import {
-  Circle as CircleStyle,
-  Fill,
-  Stroke,
-  Style
-} from "ol/style";
+import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
 import Feature from "ol/Feature";
 import MultiPoint from "ol/geom/MultiPoint";
 import MultiLineString from "ol/geom/MultiLineString";
@@ -41,13 +33,17 @@ class DrawControl {
     const storage = localStorage.getItem(this.storageKey);
     let features = [];
     if (storage !== null) {
-      features = (new GeoJSON()).readFeatures(storage, {
-        featureProjection: map.getView().getProjection()
+      features = new GeoJSON().readFeatures(storage, {
+        featureProjection: map.getView().getProjection(),
       });
       features.forEach((feature) => {
         const type = feature.getId().substring(0, feature.getId().indexOf("-"));
-        const count = parseInt(document.getElementById(`draw-count-${type.toLowerCase()}`).innerText);
-        document.getElementById(`draw-count-${type.toLowerCase()}`).innerText = `${count + 1}`;
+        const count = parseInt(
+          document.getElementById(`draw-count-${type.toLowerCase()}`).innerText
+        );
+        document.getElementById(
+          `draw-count-${type.toLowerCase()}`
+        ).innerText = `${count + 1}`;
       });
 
       if (features.length > 0) {
@@ -58,7 +54,7 @@ class DrawControl {
 
     this.olLayer = new VectorLayer({
       source: new VectorSource({
-        features: features
+        features: features,
       }),
       // style: new Style({
       //     fill: new Fill({
@@ -75,7 +71,7 @@ class DrawControl {
       //         })
       //     })
       // }),
-      zIndex: Infinity
+      zIndex: Infinity,
     });
     map.addLayer(this.olLayer);
 
@@ -83,29 +79,33 @@ class DrawControl {
       source: new VectorSource(),
       style: new Style({
         fill: new Fill({
-          color: "rgba(255, 255, 255, 0.2)"
+          color: "rgba(255, 255, 255, 0.2)",
         }),
         stroke: new Stroke({
           color: "#ffcc33",
-          width: 2
+          width: 2,
         }),
         image: new CircleStyle({
           radius: 7,
           fill: new Fill({
-            color: "#ffcc33"
-          })
-        })
+            color: "#ffcc33",
+          }),
+        }),
       }),
-      zIndex: Infinity
+      zIndex: Infinity,
     });
 
     this.modify = new Modify({
-      source: this.layerCurrent.getSource()
+      source: this.layerCurrent.getSource(),
     });
   }
 
   enable() {
-    document.querySelector(`#draw button.list-group-item-action[data-type="${this.type}"]`).classList.add("active");
+    document
+      .querySelector(
+        `#draw button.list-group-item-action[data-type="${this.type}"]`
+      )
+      .classList.add("active");
 
     map.addInteraction(this.modify);
 
@@ -125,7 +125,7 @@ class DrawControl {
     map.addLayer(this.layerCurrent);
 
     this.snap = new Snap({
-      source: this.olLayer.getSource()
+      source: this.olLayer.getSource(),
     });
     map.addInteraction(this.snap);
   }
@@ -134,7 +134,11 @@ class DrawControl {
     document.getElementById("btn-draw-properties").reset();
 
     if (this.type !== null) {
-      document.querySelector(`#draw button.list-group-item-action[data-type="${this.type}"]`).classList.remove("active");
+      document
+        .querySelector(
+          `#draw button.list-group-item-action[data-type="${this.type}"]`
+        )
+        .classList.remove("active");
     }
 
     map.removeLayer(this.layerCurrent);
@@ -155,7 +159,9 @@ class DrawControl {
     document.getElementById("btn-draw-clear").disabled = true;
     document.getElementById("btn-draw-export").disabled = true;
 
-    document.querySelectorAll(".draw-count").forEach(element => { element.innerText = "0"; });
+    document.querySelectorAll(".draw-count").forEach((element) => {
+      element.innerText = "0";
+    });
 
     this.olLayer.getSource().clear();
 
@@ -173,13 +179,19 @@ class DrawControl {
   }
 
   submitForm() {
-    const label = document.querySelector("form#btn-draw-properties input[name=\"label\"]").value;
-    const description = document.querySelector("form#btn-draw-properties textarea[name=\"description\"]").value;
+    const label = document.querySelector(
+      'form#btn-draw-properties input[name="label"]'
+    ).value;
+    const description = document.querySelector(
+      'form#btn-draw-properties textarea[name="description"]'
+    ).value;
 
     const features = this.layerCurrent.getSource().getFeatures();
     const feature = new Feature();
 
-    const count = parseInt(document.getElementById(`draw-count-${this.type}`).innerText);
+    const count = parseInt(
+      document.getElementById(`draw-count-${this.type}`).innerText
+    );
 
     feature.setId(`${this.type}-${count + 1}`);
     feature.setProperties({ label, description });
@@ -187,7 +199,9 @@ class DrawControl {
     if (features.length === 1) {
       feature.setGeometry(features[0].getGeometry());
     } else {
-      const coordinates = features.map(feature => feature.getGeometry().getCoordinates());
+      const coordinates = features.map((feature) =>
+        feature.getGeometry().getCoordinates()
+      );
 
       switch (this.type) {
         case "point":
@@ -212,7 +226,9 @@ class DrawControl {
 
     document.getElementById("btn-draw-properties").reset();
 
-    document.getElementById(`draw-count-${this.type}`).innerText = `${count + 1}`;
+    document.getElementById(`draw-count-${this.type}`).innerText = `${
+      count + 1
+    }`;
   }
 
   saveLocalStorage() {
@@ -225,7 +241,7 @@ class DrawControl {
 
   export() {
     const blob = new Blob([this.toGeoJSON()], {
-      type: "application/json"
+      type: "application/json",
     });
 
     if (customKey !== null) {
@@ -237,10 +253,10 @@ class DrawControl {
 
   toGeoJSON() {
     const features = this.olLayer.getSource().getFeatures();
-    const geojson = (new GeoJSON()).writeFeatures(features, {
+    const geojson = new GeoJSON().writeFeatures(features, {
       dataProjection: "EPSG:4326",
       decimals: 6,
-      featureProjection: map.getView().getProjection()
+      featureProjection: map.getView().getProjection(),
     });
 
     return geojson;
@@ -257,17 +273,17 @@ class DrawControl {
       hitTolerance: 10,
       layerFilter: (layer) => {
         return layer === this.olLayer;
-      }
+      },
     });
   }
 
   /**
-     * Generate list with the result of GetFeatureInfo request on a file in the sidebar.
-     *
-     * @param {Feature[]} features Feature to display.
-     *
-     * @returns {void}
-     */
+   * Generate list with the result of GetFeatureInfo request on a file in the sidebar.
+   *
+   * @param {Feature[]} features Feature to display.
+   *
+   * @returns {void}
+   */
   displayFeaturesList(features) {
     const title = "Draw";
 

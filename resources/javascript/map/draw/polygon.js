@@ -12,7 +12,7 @@ class DrawPolygon extends Draw {
     super({
       source: window.app.draw.layerCurrent.getSource(),
       stopClick: true,
-      type: "Polygon"
+      type: "Polygon",
     });
 
     this.on("drawend", (event) => {
@@ -23,21 +23,23 @@ class DrawPolygon extends Draw {
   }
 
   validate(feature) {
-    const geojson = (new GeoJSON()).writeFeature(feature, {
+    const geojson = new GeoJSON().writeFeature(feature, {
       dataProjection: "EPSG:4326",
       decimals: 6,
-      featureProjection: map.getView().getProjection()
+      featureProjection: map.getView().getProjection(),
     });
 
     const valid = unkinkPolygon(JSON.parse(geojson));
 
-    const features = (new GeoJSON()).readFeatures(valid, {
+    const features = new GeoJSON().readFeatures(valid, {
       dataProjection: "EPSG:4326",
-      featureProjection: map.getView().getProjection()
+      featureProjection: map.getView().getProjection(),
     });
 
     if (features.length > 1) {
-      const coordinates = features.map(feature => feature.getGeometry().getCoordinates());
+      const coordinates = features.map((feature) =>
+        feature.getGeometry().getCoordinates()
+      );
 
       feature.setGeometry(new MultiPolygon(coordinates));
     }

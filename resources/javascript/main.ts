@@ -38,7 +38,7 @@ export const files: {
   csv: [],
   geojson: [],
   gpx: [],
-  kml: []
+  kml: [],
 };
 
 window.app = window.app || {};

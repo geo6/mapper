@@ -14,7 +14,7 @@ import layerStyleFunction from "../../map/style";
 
 import { map } from "../../main";
 
-export default function(file: File, projection: ProjectionLike): void {
+export default function (file: File, projection: ProjectionLike): void {
   Papa.parse(file.url, {
     dynamicTyping: true,
     download: true,
@@ -56,7 +56,7 @@ export default function(file: File, projection: ProjectionLike): void {
       file.olLayer = new VectorLayer({
         source: new VectorSource(),
         style: (feature: FeatureLike, resolution: number) =>
-          layerStyleFunction(feature, file.label, file.color, resolution)
+          layerStyleFunction(feature, file.label, file.color, resolution),
       });
 
       results.data.forEach((result) => {
@@ -66,7 +66,7 @@ export default function(file: File, projection: ProjectionLike): void {
           feature.setGeometry(
             new WKT().readGeometry(result[wktColumn], {
               dataProjection: projection,
-              featureProjection: map.getView().getProjection()
+              featureProjection: map.getView().getProjection(),
             })
           );
         } else {
@@ -85,6 +85,6 @@ export default function(file: File, projection: ProjectionLike): void {
       });
 
       map.addLayer(file.olLayer);
-    }
+    },
   });
 }

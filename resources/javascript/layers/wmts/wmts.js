@@ -103,7 +103,7 @@ class WMTS {
       $(document.createElement("p"))
         .addClass("alert alert-warning small mt-3")
         .html(
-          "Please switch to HTTPS version of this service (if available - or enable <code>proxy</code> mode throught application settings) to be able to query features (see <a class=\"alert-link\" href=\"https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#Mixed_active_content\" target=\"_blank\">Mixed Active Content</a> for more details)."
+          'Please switch to HTTPS version of this service (if available - or enable <code>proxy</code> mode throught application settings) to be able to query features (see <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#Mixed_active_content" target="_blank">Mixed Active Content</a> for more details).'
         )
         .appendTo(div);
     }

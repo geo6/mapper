@@ -27,7 +27,7 @@ export function formatLength(line) {
 export function createButton() {
   const button = document.createElement("button");
 
-  button.innerHTML = "<i class=\"fas fa-fw fa-ruler\"></i>";
+  button.innerHTML = '<i class="fas fa-fw fa-ruler"></i>';
   button.title = "Measuring tool: Distance";
 
   return button;

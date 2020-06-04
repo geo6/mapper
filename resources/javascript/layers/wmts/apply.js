@@ -1,9 +1,11 @@
 "use strict";
 
-export default function(index) {
+export default function (index) {
   const names = [];
 
-  $(`#modal-layers-wmts-${index} .list-group-item.list-group-item-primary`).each((index, element) => {
+  $(
+    `#modal-layers-wmts-${index} .list-group-item.list-group-item-primary`
+  ).each((index, element) => {
     const { name } = $(element).data();
 
     names.push(name);

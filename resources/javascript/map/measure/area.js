@@ -13,9 +13,7 @@ export function formatArea(polygon) {
   const area = getArea(polygon);
 
   if (area > 10000) {
-    return (
-      Math.round((area / 1000000) * 100) / 100 + " " + "km<sup>2</sup>"
-    );
+    return Math.round((area / 1000000) * 100) / 100 + " " + "km<sup>2</sup>";
   } else {
     return Math.round(area * 100) / 100 + " " + "m<sup>2</sup>";
   }
@@ -29,7 +27,7 @@ export function formatArea(polygon) {
 export function createButton() {
   const button = document.createElement("button");
 
-  button.innerHTML = "<i class=\"fas fa-fw fa-draw-polygon\"></i>";
+  button.innerHTML = '<i class="fas fa-fw fa-draw-polygon"></i>';
   button.title = "Measuring tool: Area";
 
   return button;

@@ -5,7 +5,7 @@ import btnRemove from "./layers/components/btn-remove";
 import btnSettings from "./layers/components/btn-settings";
 import btnZoom from "./layers/components/btn-zoom";
 
-export default function(
+export default function (
   type: string,
   index: number,
   name: string,
@@ -40,13 +40,25 @@ export default function(
   const div = document.createElement("div");
   div.className = "d-flex w-100 justify-content-between";
 
+  const divOrder = document.createElement("div");
+  divOrder.className = "d-flex flex-column mr-2";
+  divOrder.style.lineHeight = "0.5";
+
+  const divOrderUp = document.createElement("div");
+  divOrderUp.innerHTML = '<i class="fas fa-caret-up"></i>';
+  const divOrderDown = document.createElement("div");
+  divOrderDown.innerHTML = '<i class="fas fa-caret-down"></i>';
+
+  divOrder.append(divOrderUp, divOrderDown);
+  div.append(divOrder);
+
   const divName = document.createElement("div");
-  divName.className = "layer-name text-nowrap text-truncate";
+  divName.className = "flex-fill layer-name text-nowrap text-truncate";
   divName.title = name;
   divName.innerText = title;
   if (queryable === true) {
     divName.innerHTML =
-      "<i class=\"fas fa-fw fa-info-circle\"></i> " + divName.innerHTML;
+      '<i class="fas fa-fw fa-info-circle"></i> ' + divName.innerHTML;
   }
   div.append(divName);
 

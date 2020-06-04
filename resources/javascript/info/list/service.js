@@ -18,7 +18,9 @@ export function createUlService(serviceType, serviceIndex, title) {
     $(document.createElement("li"))
       .attr("id", `info-service-${serviceType}-${serviceIndex}`)
       .append(`<strong>${titleFormatted}</strong>`)
-      .append("<div class=\"loading text-muted\"><i class=\"fas fa-spinner fa-spin\"></i> Loading ...</div>")
+      .append(
+        '<div class="loading text-muted"><i class="fas fa-spinner fa-spin"></i> Loading ...</div>'
+      )
       .append(ul)
       .appendTo("#info-list");
 
@@ -39,7 +41,9 @@ export function createUlService(serviceType, serviceIndex, title) {
  * @returns {object} ol DOM element.
  */
 export function createOlLayer(serviceType, serviceIndex, layerIndex, title) {
-  if ($(`#info-layer-${serviceType}-${serviceIndex}-${layerIndex}`).length === 0) {
+  if (
+    $(`#info-layer-${serviceType}-${serviceIndex}-${layerIndex}`).length === 0
+  ) {
     const ol = document.createElement("ol");
 
     const titleFormatted = title.replace(/(\r\n|\n\r|\r|\n)/g, "<br>" + "$1");

@@ -100,7 +100,7 @@ export class SettingsModal {
   }
 
   setLabelList(labels: string[]): void {
-    this.labelSelect.innerHTML = "<option value=\"\"></option>";
+    this.labelSelect.innerHTML = '<option value=""></option>';
     labels.forEach((column: string) => {
       const option = document.createElement("option");
 

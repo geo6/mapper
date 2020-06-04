@@ -54,25 +54,30 @@ function WMTSGetFeatureInfoUrl(template, coordinate, source, resolution) {
   return url;
 }
 
-export default function(service, coordinate) {
+export default function (service, coordinate) {
   const view = map.getView();
 
   const requests = [];
 
-  Object.values(service.olLayers).forEach(olLayer => {
+  Object.values(service.olLayers).forEach((olLayer) => {
     const layerIdentifier = olLayer.getSource().getLayer();
 
-    const layer = service.layers.find(layer => {
-      return (layer.Identifier === layerIdentifier);
+    const layer = service.layers.find((layer) => {
+      return layer.Identifier === layerIdentifier;
     });
 
     if (typeof layer !== "undefined") {
-      const resourceJSON = layer.ResourceURL.find(resource => {
-        return (resource.resourceType === "FeatureInfo" && resource.format === "application/json");
+      const resourceJSON = layer.ResourceURL.find((resource) => {
+        return (
+          resource.resourceType === "FeatureInfo" &&
+          resource.format === "application/json"
+        );
       });
 
       if (typeof resourceJSON === "undefined") {
-        throw new Error(`Unable to GetFeatureInfo on the layer "${layer.Identifier}" of the WMTS service "${service.capabilities.ServiceIdentification.Title}" !`);
+        throw new Error(
+          `Unable to GetFeatureInfo on the layer "${layer.Identifier}" of the WMTS service "${service.capabilities.ServiceIdentification.Title}" !`
+        );
       }
 
       if (service.mixedContent === false) {
@@ -84,17 +89,18 @@ export default function(service, coordinate) {
         );
 
         const promise = fetch(url)
-          .then(response => {
+          .then((response) => {
             if (response.ok !== true) {
               return null;
             }
 
             return response.json();
           })
-          .then(response => {
+          .then((response) => {
             return {
               layer: layer.Identifier,
-              features: response === null ? [] : (new GeoJSON()).readFeatures(response)
+              features:
+                response === null ? [] : new GeoJSON().readFeatures(response),
             };
           });
 

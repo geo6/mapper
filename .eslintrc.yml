@@ -2,22 +2,28 @@ env:
   browser: true
   es6: true
   jquery: true
-extends:
-  - standard
-  - "plugin:@typescript-eslint/eslint-recommended"
-  - "plugin:@typescript-eslint/recommended"
-  - prettier
-globals:
-  Atomics: readonly
-  SharedArrayBuffer: readonly
 parser: "@typescript-eslint/parser"
 parserOptions:
-  ecmaVersion: 2018
-  sourceType: module
-plugins:
-  - "@typescript-eslint"
-  - prettier
-rules:
-  quotes: ["error", "double"]
-  semi: ["error", "always"]
-  space-before-function-paren: ["error", "never"]
+  ecmaVersion: 2020
+  sourceType: "module"
+extends:
+  - "plugin:@typescript-eslint/recommended"
+  - "prettier/@typescript-eslint"
+  - "plugin:prettier/recommended"
+rules: {}
+# extends:
+#   - standard
+#   - "plugin:prettier/recommended"
+#   - "plugin:@typescript-eslint/eslint-recommended"
+#   - "plugin:@typescript-eslint/recommended"
+# globals:
+#   Atomics: readonly
+#   SharedArrayBuffer: readonly
+# plugins:
+#   - "@typescript-eslint"
+#   - prettier
+# rules:
+#   quotes: ["error", "double", { "avoidEscape": true }]
+#   semi: ["error", "always"]
+#   space-before-function-paren: ["error", "never"]
+#   # "prettier/prettier": ["error"]

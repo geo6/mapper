@@ -12,13 +12,20 @@ import { createOlLayer } from "../../../info/list/service";
  *
  * @returns {void}
  */
-export default function(service, layerName, features) {
+export default function (service, layerName, features) {
   const serviceTitle = service.capabilities.ServiceIdentification.Title;
 
-  const layerIndex = service.layers.findIndex(element => element.Name === layerName);
+  const layerIndex = service.layers.findIndex(
+    (element) => element.Name === layerName
+  );
   const layerTitle = service.layers[layerIndex].Title;
 
-  const olElement = createOlLayer("wmts", service.getIndex(), layerIndex, layerTitle);
+  const olElement = createOlLayer(
+    "wmts",
+    service.getIndex(),
+    layerIndex,
+    layerTitle
+  );
 
   const title = `${serviceTitle}<br>${layerTitle}`;
 

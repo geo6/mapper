@@ -1,9 +1,6 @@
 "use strict";
 
-import {
-  init as initFile,
-  apply as FileApplySelection
-} from "../layers/files";
+import { init as initFile, apply as FileApplySelection } from "../layers/files";
 
 import initWMS from "../layers/wms/init";
 import WMSApplySelection from "../layers/wms/apply";
@@ -11,7 +8,7 @@ import WMSApplySelection from "../layers/wms/apply";
 import initWMTS from "../layers/wmts/init";
 import WMTSApplySelection from "../layers/wmts/apply";
 
-export default function(layers, files) {
+export default function (layers, files) {
   initFile("csv", files.csv || []);
   initFile("geojson", files.geojson || []);
   initFile("gpx", files.gpx || []);
@@ -20,23 +17,27 @@ export default function(layers, files) {
   initWMS(layers.filter((layer) => layer.type === "wms"));
   initWMTS(layers.filter((layer) => layer.type === "wmts"));
 
-  $("#modal-layers-select").on("change", (event) => {
-    const type = $(event.target).val();
-    const { target, upload } = $(event.target).find("option:selected").data();
+  $("#modal-layers-select")
+    .on("change", (event) => {
+      const type = $(event.target).val();
+      const { target, upload } = $(event.target).find("option:selected").data();
 
-    $("#modal-layers-format-help > div").hide();
+      $("#modal-layers-format-help > div").hide();
 
-    if (upload === true) {
-      $("#progress-upload").show();
-      $(`#modal-layers-format-help, #modal-layers-format-help-${type}`).show();
-    } else {
-      $("#progress-upload").hide();
-      $("#modal-layers-format-help").hide();
-    }
+      if (upload === true) {
+        $("#progress-upload").show();
+        $(
+          `#modal-layers-format-help, #modal-layers-format-help-${type}`
+        ).show();
+      } else {
+        $("#progress-upload").hide();
+        $("#modal-layers-format-help").hide();
+      }
 
-    $("#modal-layers-layers > div").hide();
-    $(target).show();
-  }).trigger("change");
+      $("#modal-layers-layers > div").hide();
+      $(target).show();
+    })
+    .trigger("change");
 
   $("#btn-layers-apply").on("click", (event) => {
     event.preventDefault();

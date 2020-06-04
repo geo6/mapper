@@ -5,7 +5,7 @@ import WMTS, { optionsFromCapabilities } from "ol/source/WMTS";
 
 import { map } from "../../../main";
 
-export default function(wmts, layers) {
+export default function (wmts, layers) {
   if (typeof wmts !== "undefined" && layers.length > 0) {
     layers.forEach((layer) => {
       const name = layer.Identifier;

@@ -3,7 +3,7 @@
 import initWMTSAddService from "./new";
 import WMTS from "./wmts";
 
-export default function(layers) {
+export default function (layers) {
   window.app.wmts = [];
 
   layers.forEach((layer) => {

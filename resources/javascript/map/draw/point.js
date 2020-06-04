@@ -7,7 +7,7 @@ class DrawPoint extends Draw {
     super({
       source: window.app.draw.layerCurrent.getSource(),
       stopClick: true,
-      type: "Point"
+      type: "Point",
     });
 
     this.on("drawend", () => {

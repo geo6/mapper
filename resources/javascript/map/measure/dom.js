@@ -8,7 +8,7 @@
  *
  * @returns {Element} DOM div element that will contain the measure result.
  */
-export default function(element) {
+export default function (element) {
   const div = document.createElement("div");
 
   div.className = "ol-measure-result";

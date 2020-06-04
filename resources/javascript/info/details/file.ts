@@ -15,7 +15,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     `${baseUrl}preview/info?` +
     new URLSearchParams({
       c: customKey !== null ? customKey : "",
-      path: value
+      path: value,
     }).toString();
 
   const response = await fetch(urlInfo);
@@ -35,7 +35,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     `${baseUrl}preview/file?` +
     new URLSearchParams({
       c: customKey !== null ? customKey : "",
-      path: json.path
+      path: json.path,
     }).toString();
 
   const a = document.createElement("a");
@@ -58,7 +58,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     }
 
     a.title = json.filename;
-    a.innerHTML = "<i class=\"far fa-file-image\"></i> Preview";
+    a.innerHTML = '<i class="far fa-file-image"></i> Preview';
 
     a.addEventListener("click", (event: Event) => {
       event.preventDefault();
@@ -88,7 +88,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
   } else {
     a.target = "_blank";
     a.title = json.filename;
-    a.innerHTML = "<i class=\"far fa-file\"></i> Open";
+    a.innerHTML = '<i class="far fa-file"></i> Open';
   }
 
   return a;

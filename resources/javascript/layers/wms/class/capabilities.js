@@ -27,7 +27,7 @@ function parseLayers(layers, searchElements) {
   return results;
 }
 
-export default function(origUrl) {
+export default function (origUrl) {
   const url =
     `${baseUrl}proxy` +
     "?" +
@@ -36,7 +36,7 @@ export default function(origUrl) {
       SERVICE: "WMS",
       REQUEST: "GetCapabilities",
       VERSION: "1.3.0",
-      _url: origUrl
+      _url: origUrl,
     });
   return fetch(url)
     .then((response) => response.text())
@@ -59,7 +59,7 @@ export default function(origUrl) {
               "EPSG:41001",
               "EPSG:102113",
               "EPSG:102100",
-              "EPSG:3785"
+              "EPSG:3785",
             ].indexOf(crs) !== -1
         );
 
@@ -80,7 +80,7 @@ export default function(origUrl) {
         mixedContent:
           https === true &&
           RegExp("^http://").test(capabilities.Service.OnlineResource),
-        projection
+        projection,
       };
     });
 }

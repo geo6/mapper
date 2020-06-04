@@ -3,7 +3,7 @@
 import { asArray, Color } from "ol/color";
 import { Stroke, Style } from "ol/style";
 
-export default function(
+export default function (
   color: string | Color | null,
   width: number | null,
   opacity: number | null
@@ -24,7 +24,7 @@ export default function(
   return new Style({
     stroke: new Stroke({
       color: colorArray,
-      width
-    })
+      width,
+    }),
   });
 }

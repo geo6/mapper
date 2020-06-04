@@ -5,7 +5,7 @@ import displayLocation from "../info/location";
 import { files, map } from "../main";
 import { marker, markerLayer } from "./marker";
 
-export default function() {
+export default function () {
   map.on("singleclick", (event) => {
     marker.setGeometry(null);
     markerLayer.setVisible(false);

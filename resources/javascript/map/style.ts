@@ -9,7 +9,7 @@ import styleLine from "./style/line";
 import stylePolygon from "./style/polygon";
 import text from "./style/text";
 
-export default function(
+export default function (
   feature: Feature,
   labelColumn: string,
   layerColor: string | Color | null,
@@ -22,8 +22,8 @@ export default function(
     layerColor !== null
       ? layerColor
       : typeof properties.color !== "undefined"
-        ? properties.color
-        : null;
+      ? properties.color
+      : null;
 
   let style = new Style();
 

@@ -2,11 +2,13 @@
 
 import { sidebar } from "../../../main";
 
-export default function(service, layer) {
+export default function (service, layer) {
   let legend = null;
   if (
-    typeof layer.Style !== "undefined" && layer.Style.length > 0 &&
-        typeof layer.Style[0].LegendURL !== "undefined" && layer.Style[0].LegendURL.length > 0
+    typeof layer.Style !== "undefined" &&
+    layer.Style.length > 0 &&
+    typeof layer.Style[0].LegendURL !== "undefined" &&
+    layer.Style[0].LegendURL.length > 0
   ) {
     legend = document.createElement("img");
 
@@ -21,10 +23,10 @@ export default function(service, layer) {
     service.getIndex(),
     layer.Name || layer.Identifier,
     layer.Title,
-    (layer.queryable === true),
+    layer.queryable === true,
     // OL doesn't read correctly CRS from WMS Capabilites < 1.3.0 (SRS instead of CRS)
     // See https://github.com/openlayers/openlayers/issues/5476
-    (service.capabilities.version >= "1.3.0"),
+    service.capabilities.version >= "1.3.0",
     legend
   );
 

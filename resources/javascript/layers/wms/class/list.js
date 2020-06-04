@@ -12,7 +12,7 @@ export default function generateLayersList(service, layers) {
     $(li)
       .attr("id", `wms-${service.getIndex()}-${layers[i].Name}`)
       .data({
-        name: layers[i].Name
+        name: layers[i].Name,
       })
       .addClass("list-group-item")
       .on("click", (event) => {
@@ -30,20 +30,24 @@ export default function generateLayersList(service, layers) {
     let icon = "";
     if (layers[i].queryable === true) {
       if (service.mixedContent === true) {
-        icon = "<i class=\"fas fa-info-circle text-light\" style=\"cursor:help;\" title=\"GetFeatureInfo is disabled because of Mixed Active Content.\"></i> ";
+        icon =
+          '<i class="fas fa-info-circle text-light" style="cursor:help;" title="GetFeatureInfo is disabled because of Mixed Active Content."></i> ';
       } else {
-        icon = "<i class=\"fas fa-info-circle\"></i> ";
+        icon = '<i class="fas fa-info-circle"></i> ';
       }
     }
 
     $(div)
       .append([
         icon,
-        layers[i].Title.replace(/(\r\n|\n\r|\r|\n)/g, "<br>" + "$1")
+        layers[i].Title.replace(/(\r\n|\n\r|\r|\n)/g, "<br>" + "$1"),
       ])
       .appendTo(li);
 
-    if (typeof layers[i].Abstract !== "undefined" && layers[i].Abstract !== "") {
+    if (
+      typeof layers[i].Abstract !== "undefined" &&
+      layers[i].Abstract !== ""
+    ) {
       const p = document.createElement("p");
 
       $(p)

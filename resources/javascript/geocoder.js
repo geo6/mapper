@@ -8,11 +8,11 @@ import geocodeReverse from "./geocoder/reverse";
 
 import { map, sidebar } from "./main";
 
-export default function() {
+export default function () {
   window.app.geocoder = new VectorLayer({
     source: new VectorSource(),
     visible: false,
-    zIndex: Infinity
+    zIndex: Infinity,
   });
   map.addLayer(window.app.geocoder);
 
@@ -33,12 +33,16 @@ export default function() {
     }
   });
 
-  $("#info-location a[href=\"#reverse-geocode\"]").on("click", (event) => {
+  $('#info-location a[href="#reverse-geocode"]').on("click", (event) => {
     event.preventDefault();
 
     const { longitude, latitude } = $(event.currentTarget).data();
 
-    $("#geocoder-search").val(`${Math.round(longitude * 1000000) / 1000000}, ${Math.round(latitude * 1000000) / 1000000}`);
+    $("#geocoder-search").val(
+      `${Math.round(longitude * 1000000) / 1000000}, ${
+        Math.round(latitude * 1000000) / 1000000
+      }`
+    );
 
     geocodeReverse(longitude, latitude);
 

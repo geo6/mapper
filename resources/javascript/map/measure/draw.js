@@ -17,41 +17,41 @@ import { formatLength } from "./length";
  *
  * @returns {module:ol/interaction/Draw} OL Draw Interaction.
  */
-export default function(map, element, source, type, maxPoints) {
+export default function (map, element, source, type, maxPoints) {
   let feature;
   let output = "-";
 
   const draw = new Draw({
     maxPoints:
-            type !== "length" || typeof maxPoints === "undefined"
-              ? Infinity
-              : maxPoints,
+      type !== "length" || typeof maxPoints === "undefined"
+        ? Infinity
+        : maxPoints,
     source: source,
     stopClick: true,
     style: new Style({
       fill: new Fill({
-        color: "rgba(255, 255, 255, 0.2)"
+        color: "rgba(255, 255, 255, 0.2)",
       }),
       stroke: new Stroke({
         color: "rgba(0, 0, 0, 0.5)",
         lineDash: [10, 10],
-        width: 2
+        width: 2,
       }),
       image: new CircleStyle({
         radius: 5,
         stroke: new Stroke({
-          color: "rgba(0, 0, 0, 0.7)"
+          color: "rgba(0, 0, 0, 0.7)",
         }),
         fill: new Fill({
-          color: "rgba(255, 255, 255, 0.2)"
-        })
-      })
+          color: "rgba(255, 255, 255, 0.2)",
+        }),
+      }),
     }),
-    type: type === "area" ? "Polygon" : "LineString"
+    type: type === "area" ? "Polygon" : "LineString",
   });
 
-  draw.on("drawstart", eventDrawStart => {
-    eventDrawStart.feature.getGeometry().on("change", eventChange => {
+  draw.on("drawstart", (eventDrawStart) => {
+    eventDrawStart.feature.getGeometry().on("change", (eventChange) => {
       feature = eventChange.target;
 
       if (type === "area") {
@@ -64,7 +64,7 @@ export default function(map, element, source, type, maxPoints) {
     });
   });
 
-  draw.on("drawend", event => {
+  draw.on("drawend", (event) => {
     map.removeInteraction(draw);
 
     if (type === "area") {

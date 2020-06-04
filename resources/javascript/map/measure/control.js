@@ -23,7 +23,7 @@ class MeasureControl extends Control {
 
     super({
       element: buttonGroup,
-      target: options.target
+      target: options.target,
     });
 
     buttonLength.addEventListener(
@@ -46,12 +46,12 @@ class MeasureControl extends Control {
   }
 
   /**
-     * Add or remove Interaction and Layer to the map.
-     *
-     * @param {string} type Measure tool type (length|area).
-     *
-     * @returns {void}
-     */
+   * Add or remove Interaction and Layer to the map.
+   *
+   * @param {string} type Measure tool type (length|area).
+   *
+   * @returns {void}
+   */
   handleMeasure(type) {
     this.active = !this.active;
 

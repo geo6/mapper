@@ -4,7 +4,7 @@ import WMSGetFeatureInfo from "ol/format/WMSGetFeatureInfo";
 
 import { map } from "../../../main";
 
-export default function(service, coordinate) {
+export default function (service, coordinate) {
   const source = service.olLayer.getSource();
   const view = map.getView();
 
@@ -20,40 +20,52 @@ export default function(service, coordinate) {
   }
 
   if (format === null) {
-    throw new Error(`Unable to GetFeatureInfo on the WMS service "${service.capabilities.Service.Title}" ! It supports only "${formats.join("\", \"")}".`);
+    throw new Error(
+      `Unable to GetFeatureInfo on the WMS service "${
+        service.capabilities.Service.Title
+      }" ! It supports only "${formats.join('", "')}".`
+    );
   }
 
   const requests = [];
 
   const activeLayers = service.olLayer.getSource().getParams().LAYERS || [];
-  activeLayers.forEach(layerName => {
-    const layer = service.layers.find(layer => {
-      return (layer.Name === layerName);
+  activeLayers.forEach((layerName) => {
+    const layer = service.layers.find((layer) => {
+      return layer.Name === layerName;
     });
 
-    if (typeof layer !== "undefined" && layer.queryable === true && service.mixedContent === false) {
+    if (
+      typeof layer !== "undefined" &&
+      layer.queryable === true &&
+      service.mixedContent === false
+    ) {
       const url = source.getFeatureInfoUrl(
         coordinate,
         view.getResolution(),
-        view.getProjection(), {
+        view.getProjection(),
+        {
           FEATURE_COUNT: 99,
           INFO_FORMAT: format,
-          QUERY_LAYERS: [layer.Name]
+          QUERY_LAYERS: [layer.Name],
         }
       );
 
       const promise = fetch(url)
-        .then(response => {
+        .then((response) => {
           if (response.ok !== true) {
             return null;
           }
 
           return response.text();
         })
-        .then(response => {
+        .then((response) => {
           return {
             layer: layer.Name,
-            features: response === null ? [] : (new WMSGetFeatureInfo()).readFeatures(response)
+            features:
+              response === null
+                ? []
+                : new WMSGetFeatureInfo().readFeatures(response),
           };
         });
 

@@ -24,7 +24,7 @@ function parseLayers(layers, searchElements) {
   return results;
 }
 
-export default function(origUrl) {
+export default function (origUrl) {
   const url =
     `${baseUrl}proxy` +
     "?" +

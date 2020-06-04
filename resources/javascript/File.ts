@@ -75,7 +75,7 @@ export class File {
       this.identifier +
       "?" +
       new URLSearchParams({
-        c: customKey !== null ? customKey : ""
+        c: customKey !== null ? customKey : "",
       }).toString();
   }
 
@@ -100,7 +100,7 @@ export class File {
       select.className =
         "float-right form-control form-control-sm d-inline-block w-auto";
       select.innerHTML =
-        "<option value=\"EPSG:4326\">WGS 84 (EPSG:4326)</option>";
+        '<option value="EPSG:4326">WGS 84 (EPSG:4326)</option>';
 
       select.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -179,7 +179,7 @@ export class File {
       this.olLayer = new VectorLayer({
         source: source,
         style: (feature, resolution) =>
-          layerStyleFunction(feature, this.label, this.color, resolution)
+          layerStyleFunction(feature, this.label, this.color, resolution),
       });
 
       map.addLayer(this.olLayer);
@@ -198,7 +198,7 @@ export class File {
 
     map.getView().fit(extent, {
       maxZoom: 18,
-      padding: [15, 15, 15, 15]
+      padding: [15, 15, 15, 15],
     });
 
     sidebar.close();
@@ -221,7 +221,7 @@ export class File {
       // hitTolerance: 10,
       layerFilter: (layer) => {
         return layer === this.olLayer;
-      }
+      },
     });
   }
 

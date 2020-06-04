@@ -9,7 +9,10 @@ function generateLayersList(service, layers) {
     let queryable = false;
     if (typeof layers[i].ResourceURL !== "undefined") {
       layers[i].ResourceURL.forEach((resource) => {
-        if (resource.resourceType === "FeatureInfo" && resource.format === "application/json") {
+        if (
+          resource.resourceType === "FeatureInfo" &&
+          resource.format === "application/json"
+        ) {
           queryable = true;
 
           return false;
@@ -23,7 +26,7 @@ function generateLayersList(service, layers) {
     $(li)
       .attr("id", `wmts-${service.getIndex()}-${layers[i].Identifier}`)
       .data({
-        name: layers[i].Identifier
+        name: layers[i].Identifier,
       })
       .addClass("list-group-item")
       .on("click", (event) => {
@@ -39,22 +42,30 @@ function generateLayersList(service, layers) {
       .appendTo(div);
 
     let icon = "";
-    if (typeof service.capabilities.OperationsMetadata.GetFeatureInfo !== "undefined" && queryable === true) {
+    if (
+      typeof service.capabilities.OperationsMetadata.GetFeatureInfo !==
+        "undefined" &&
+      queryable === true
+    ) {
       if (service.mixedContent === true) {
-        icon = "<i class=\"fas fa-info-circle text-light\" style=\"cursor:help;\" title=\"GetFeatureInfo is disabled because of Mixed Active Content.\"></i> ";
+        icon =
+          '<i class="fas fa-info-circle text-light" style="cursor:help;" title="GetFeatureInfo is disabled because of Mixed Active Content."></i> ';
       } else {
-        icon = "<i class=\"fas fa-info-circle\"></i> ";
+        icon = '<i class="fas fa-info-circle"></i> ';
       }
     }
 
     $(div)
       .append([
         icon,
-        layers[i].Title.replace(/(\r\n|\n\r|\r|\n)/g, "<br>" + "$1")
+        layers[i].Title.replace(/(\r\n|\n\r|\r|\n)/g, "<br>" + "$1"),
       ])
       .appendTo(li);
 
-    if (typeof layers[i].Abstract !== "undefined" && layers[i].Abstract !== "") {
+    if (
+      typeof layers[i].Abstract !== "undefined" &&
+      layers[i].Abstract !== ""
+    ) {
       const p = document.createElement("p");
 
       $(p)
