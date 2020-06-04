@@ -67,7 +67,7 @@ class WMS {
       .attr("value", `wms:${index}`)
       .data({
         index: index,
-        target: `#modal-layers-wms-${index}`,
+        target: `#modal-layers-wms-${index}`
       })
       .appendTo("#modal-layers-optgroup-wms");
 
@@ -105,7 +105,7 @@ class WMS {
       $(document.createElement("p"))
         .addClass("alert alert-warning small mt-3")
         .html(
-          'Please switch to HTTPS version of this service (if available - or enable <code>proxy</code> mode throught application settings) to be able to query features (see <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#Mixed_active_content" target="_blank">Mixed Active Content</a> for more details).'
+          "Please switch to HTTPS version of this service (if available - or enable <code>proxy</code> mode throught application settings) to be able to query features (see <a class=\"alert-link\" href=\"https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content#Mixed_active_content\" target=\"_blank\">Mixed Active Content</a> for more details)."
         )
         .appendTo(div);
     }
@@ -191,7 +191,7 @@ class WMS {
 
       if (layers.length > 0) {
         this.olLayer.getSource().updateParams({
-          LAYERS: layers,
+          LAYERS: layers
         });
       } else {
         map.removeLayer(this.olLayer);
@@ -215,7 +215,7 @@ class WMS {
     if (typeof extent !== "undefined") {
       map.getView().fit(extent.extent, {
         maxZoom: 18,
-        padding: [15, 15, 15, 15],
+        padding: [15, 15, 15, 15]
       });
 
       sidebar.close();
