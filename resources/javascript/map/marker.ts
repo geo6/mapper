@@ -1,7 +1,6 @@
 "use strict";
 
 import Feature from "ol/Feature";
-import GeometryType from "ol/geom/GeometryType.js";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { createEditingStyle } from "ol/style/Style";

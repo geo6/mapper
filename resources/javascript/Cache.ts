@@ -20,12 +20,12 @@ export class Cache {
     }
   }
 
-  setBaselayer(name: string) {
+  setBaselayer(name: string): void {
     this.baselayer = name;
     this.save();
   }
 
-  setMap(zoom: number, longitude: number, latitude: number) {
+  setMap(zoom: number, longitude: number, latitude: number): void {
     this.map = {
       latitude: latitude,
       longitude: longitude,
@@ -34,7 +34,7 @@ export class Cache {
     this.save();
   }
 
-  save() {
+  save(): void {
     localStorage.setItem(
       this.storageKey,
       JSON.stringify({

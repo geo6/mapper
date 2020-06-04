@@ -17,7 +17,7 @@ export default function(
   feature: Feature,
   title: string,
   olElement: HTMLOListElement
-) {
+): void {
   const id = feature.getId();
   const properties = feature.getProperties();
   const geometryName = feature.getGeometryName();

@@ -32,7 +32,7 @@ export default function(
   title: string,
   feature: Feature,
   liElement: HTMLLIElement
-) {
+): void {
   $("#info-list").hide();
   $("#info-details").show();
 

@@ -11,7 +11,7 @@ export default function(
   button.disabled = typeof legend === "undefined" || legend === null;
 
   if (button.disabled === false) {
-    button.addEventListener("click", (event: Event) => {
+    button.addEventListener("click", () => {
       const li = button.closest("li.list-group-item") as HTMLDivElement;
 
       li.querySelector(".layer-legend").toggleAttribute("hidden");

@@ -74,7 +74,7 @@ export function setMap(
   files: Record<string, Array<FileOptions>>,
   lnglat: Coordinate,
   zoom: number
-) {
+): void {
   cache = new Cache();
 
   map = initMap(lnglat, zoom, baselayers);

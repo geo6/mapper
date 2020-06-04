@@ -8,7 +8,7 @@ import ExtendedFeatureCollection from "./ExtendedFeatureCollection";
 
 import { baseUrl, files } from "./main";
 
-export default function() {
+export default function(): void {
   const resumable = new Resumable({
     fileType: ["csv", "geojson", "gpx", "json", "kml"],
     target: `${baseUrl}upload`

@@ -1,9 +1,8 @@
 "use strict";
 
-import { asArray as colorAsArray, Color } from "ol/color";
+import { Color } from "ol/color";
 import Feature from "ol/Feature";
-import { Circle, Fill, RegularShape, Stroke, Style } from "ol/style";
-import Text from "ol/style/Text";
+import { Style } from "ol/style";
 
 import stylePoint from "./style/point";
 import styleLine from "./style/line";
@@ -15,7 +14,7 @@ export default function(
   labelColumn: string,
   layerColor: string | Color | null,
   resolution: number
-) {
+): Style {
   const type = feature.getGeometry().getType();
   const properties = feature.getProperties();
 

@@ -4,7 +4,7 @@ import Feature from "ol/Feature";
 import Stroke from "ol/style/Stroke";
 import Text from "ol/style/Text";
 
-export default function(feature: Feature, labelColumn: string) {
+export default function(feature: Feature, labelColumn: string): Text | null {
   const type = feature.getGeometry().getType();
   const properties = feature.getProperties();
 
