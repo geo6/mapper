@@ -1,76 +1,68 @@
 "use strict";
 
 import File from "../File";
+import FileOptions from "../FileOptions";
 import ExtendedFeatureCollection from "../ExtendedFeatureCollection";
 import { applyStyle } from "./files/geojson";
 
 import { files } from "../main";
 
-export function init(type: string, filesOptions: Array<{}>): void {
+export function init(type: string, filesOptions: Array<FileOptions>): void {
   files[type] = [];
 
-  filesOptions.forEach(
-    (file: {
-      default: boolean;
-      description?: string | null;
-      filter?: Record<string, string> | null;
-      identifier: string;
-      name: string;
-      title?: string | null;
-    }) => {
-      const f = new File(
-        type,
-        file.identifier,
-        file.name,
-        file.title,
-        file.description,
-        file.filter,
-        true
-      );
+  filesOptions.forEach((file: FileOptions) => {
+    const f = new File(
+      type,
+      file.identifier,
+      file.name,
+      file.title,
+      file.description,
+      file.filter,
+      true
+    );
 
-      files[type].push(f);
+    files[type].push(f);
 
-      const index = files[type].indexOf(f);
+    const index = files[type].indexOf(f);
 
-      if (f.type === "geojson") {
-        fetch(f.url)
-          .then((response: Response) => response.json())
-          .then(
-            (
-              json:
-                | GeoJSON.FeatureCollection
-                | GeoJSON.Feature
-                | ExtendedFeatureCollection
-            ) => {
-              f.content = json;
-              if (
-                typeof f.content.legend !== "undefined" &&
-                typeof f.content.legendColumn !== "undefined"
-              ) {
-                f.content = applyStyle(f.content as ExtendedFeatureCollection);
-              }
-              f.displayInList(index);
-
-              if (file.default === true) {
-                f.addToMap(null);
-                f.displayInSidebar(index);
-              }
+    if (f.type === "geojson") {
+      fetch(f.url)
+        .then((response: Response) => response.json())
+        .then(
+          (
+            json:
+              | GeoJSON.FeatureCollection
+              | GeoJSON.Feature
+              | ExtendedFeatureCollection
+          ) => {
+            f.content = json;
+            if (
+              typeof f.content.legend !== "undefined" &&
+              typeof f.content.legendColumn !== "undefined"
+            ) {
+              f.content = applyStyle(f.content as ExtendedFeatureCollection);
             }
-          );
-      } else {
-        f.displayInList(index);
+            f.displayInList(index);
 
-        if (file.default === true) {
-          f.addToMap(
-            f.type === "csv" && typeof file.projection !== "undefined"
-              ? file.projection
-              : null
-          );
-          f.displayInSidebar(index);
-        }
+            if (file.default === true) {
+              f.addToMap(null);
+              f.displayInSidebar(index);
+            }
+          }
+        );
+    } else {
+      f.displayInList(index);
+
+      if (file.default === true) {
+        f.addToMap(
+          f.type === "csv" && typeof file.projection !== "undefined"
+            ? file.projection
+            : null
+        );
+        f.displayInSidebar(index);
       }
     }
-  );
+  });
 }
 
 export function apply(type: string): void {
