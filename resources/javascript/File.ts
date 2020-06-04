@@ -108,9 +108,9 @@ export class File {
 
       li.append(select);
 
-      for (const epsg in projections) {
-        select.innerHTML += `<option value="${epsg}">${projections[epsg].name} (${epsg})</option>`;
-      }
+      projections.forEach((proj) => {
+        select.innerHTML += `<option value="${proj.name}">${proj.description} (${proj.name})</option>`;
+      });
 
       li.innerHTML += `<strong style="line-height: calc(1.8125rem + 2px);">${this.name}</strong><br>`;
     } else {

@@ -13,7 +13,9 @@ import initLayers from "./map/layers";
 import initUpload from "./upload";
 import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
+
 import BaseLayerOptions from "./BaseLayerOptions";
+import ProjectionOptions from "./ProjectionOptions";
 
 export let baseUrl: string;
 export let cache: Cache;
@@ -22,7 +24,7 @@ export let https: boolean;
 export let map: Map;
 export let sidebar: Sidebar;
 export let modalSettings: SettingsModal;
-export let projections: Record<string, {}>;
+export let projections: ProjectionOptions[];
 export let providers: Record<string, {}>;
 export const files: {
   csv: Array<File>;
@@ -51,12 +53,12 @@ export function setProviders(_providers: Record<string, {}>): void {
   providers = _providers;
 }
 
-export function addProjections(_projections: Record<string, {}>): void {
+export function setProjections(_projections: ProjectionOptions[]): void {
   projections = _projections;
 
-  for (const epsg in projections) {
-    proj4.defs(epsg, projections[epsg].proj4);
-  }
+  projections.forEach((proj) => {
+    proj4.defs(proj.name, proj.proj4);
+  });
 
   register(proj4);
 }

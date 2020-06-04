@@ -20,7 +20,7 @@
         app.setBaseUrl(baseUrl, https);
         app.setCustomKey(custom);
         app.setProviders(providers);
-        app.addProjections(projections);
+        app.setProjections(projections);
         app.setMap(baselayers, layers, files, {{ map.center | json_encode }}, {{ map.zoom }});
     }) ();
 </script>
