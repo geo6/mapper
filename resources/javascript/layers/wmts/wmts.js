@@ -15,10 +15,10 @@ import { map } from "../../main";
  */
 class WMTS {
   /**
-     *
-     * @param {String} url        WMTS service url.
-     * @param {Function} callback Callback called after GetCapabilities().
-     */
+   *
+   * @param {String} url        WMTS service url.
+   * @param {Function} callback Callback called after GetCapabilities().
+   */
   constructor(url, callback) {
     this.url = url;
     this.capabilities = null;
@@ -30,24 +30,22 @@ class WMTS {
   }
 
   /**
-     * @returns {Number} WMTS service index in `window.app.wmts` array.
-     */
+   * @returns {Number} WMTS service index in `window.app.wmts` array.
+   */
   getIndex() {
     return window.app.wmts.indexOf(this);
   }
 
   /**
-     *
-     * @param {Function} callback Callback called after GetCapabilities().
-     *
-     * @returns {void}
-     */
+   *
+   * @param {Function} callback Callback called after GetCapabilities().
+   *
+   * @returns {void}
+   */
   getCapabilities(callback) {
     const getCapabilities = WMTSGetCapabilities(this.url);
     if (getCapabilities instanceof Promise) {
-      getCapabilities.then(response => {
-        console.log(response);
-
+      getCapabilities.then((response) => {
         this.capabilities = response.capabilities;
         this.layers = response.layers;
         this.mixedContent = response.mixedContent;
@@ -58,20 +56,19 @@ class WMTS {
   }
 
   /**
-     * @returns {void}
-     */
+   * @returns {void}
+   */
   displayCapabilities() {
     const index = this.getIndex();
     const title =
-            this.capabilities.ServiceIdentification.Title ||
-            this.layers[0].Title;
+      this.capabilities.ServiceIdentification.Title || this.layers[0].Title;
 
     $(document.createElement("option"))
       .text(title)
       .attr("value", `wmts:${index}`)
       .data({
         index: index,
-        target: `#modal-layers-wmts-${index}`
+        target: `#modal-layers-wmts-${index}`,
       })
       .appendTo("#modal-layers-optgroup-wmts");
 
@@ -86,9 +83,8 @@ class WMTS {
       .appendTo(div);
 
     if (
-      typeof this.capabilities.ServiceIdentification.Abstract !==
-                "undefined" &&
-            this.capabilities.ServiceIdentification.Abstract !== ""
+      typeof this.capabilities.ServiceIdentification.Abstract !== "undefined" &&
+      this.capabilities.ServiceIdentification.Abstract !== ""
     ) {
       $(document.createElement("p"))
         .addClass("text-info small")
@@ -118,32 +114,27 @@ class WMTS {
   }
 
   /**
-     *
-     * @param {Number[]} coordinate Coordinate.
-     *
-     * @returns {void}
-     */
+   *
+   * @param {Number[]} coordinate Coordinate.
+   *
+   * @returns {void}
+   */
   getFeatureInfo(coordinate) {
     const title =
-            this.capabilities.ServiceIdentification.Title ||
-            this.layers[0].Title;
+      this.capabilities.ServiceIdentification.Title || this.layers[0].Title;
     createUlService("wmts", this.getIndex(), title);
 
     const requests = WMTSGetFeatureInfo(this, coordinate);
-    Promise.all(requests).then(responses => {
+    Promise.all(requests).then((responses) => {
       $(`#info-service-wmts-${this.getIndex()} > .loading`).remove();
 
       this.selection = responses;
 
       const total = 0;
 
-      responses.forEach(response => {
+      responses.forEach((response) => {
         if (response.features.length > 0) {
-          WMTSDisplayFeatureList(
-            this,
-            response.layer,
-            response.features
-          );
+          WMTSDisplayFeatureList(this, response.layer, response.features);
         }
       });
 
@@ -154,13 +145,13 @@ class WMTS {
   }
 
   /**
-     *
-     * @param {String[]} layersName Names of the layers to add to the map.
-     *
-     * @returns {void}
-     */
+   *
+   * @param {String[]} layersName Names of the layers to add to the map.
+   *
+   * @returns {void}
+   */
   addToMap(layersName) {
-    const layers = this.layers.filter(layer => {
+    const layers = this.layers.filter((layer) => {
       return layersName.indexOf(layer.Identifier) > -1;
     });
 
@@ -168,27 +159,25 @@ class WMTS {
   }
 
   /**
-     *
-     * @param {String[]} layersName Names of the layers to add to the sidebar.
-     *
-     * @returns {void}
-     */
+   *
+   * @param {String[]} layersName Names of the layers to add to the sidebar.
+   *
+   * @returns {void}
+   */
   addToSidebar(layersName) {
-    layersName.forEach(layerName => {
-      const layer = this.layers.find(
-        layer => layer.Identifier === layerName
-      );
+    layersName.forEach((layerName) => {
+      const layer = this.layers.find((layer) => layer.Identifier === layerName);
 
       WMTSAddLayerToSidebar(this, layer);
     });
   }
 
   /**
-     *
-     * @param {String} layerName Name of the layer to remove.
-     *
-     * @returns {void}
-     */
+   *
+   * @param {String} layerName Name of the layer to remove.
+   *
+   * @returns {void}
+   */
   removeLayer(layerName) {
     if (this.olLayers[layerName] !== "undefined") {
       map.removeLayer(this.olLayers[layerName]);
