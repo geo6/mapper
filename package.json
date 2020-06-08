@@ -27,7 +27,7 @@
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5",
     "sass": "^1.26.8",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   },
   "scripts": {
     "build": "parcel build --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-source-maps",
