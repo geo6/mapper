@@ -1,6 +1,6 @@
 "use strict";
 
-import { files } from "../../../main";
+import { files, services } from "../../../main";
 
 export default function (
   zoom: boolean,
@@ -19,7 +19,9 @@ export default function (
     button.addEventListener("click", (event: Event) => {
       event.preventDefault();
 
-      if (["wms", "wmts"].indexOf(type) > -1) {
+      if (["wms" /*, "wmts"*/].indexOf(type) > -1) {
+        services[type][index].zoom(layer);
+      } else if (type === "wmts") {
         window.app[type][index].zoom(layer);
       } else {
         files[type][index].zoom();

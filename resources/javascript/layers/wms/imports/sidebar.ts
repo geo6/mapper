@@ -1,8 +1,10 @@
 "use strict";
 
+import WMS from "../WMS";
+
 import { sidebar } from "../../../main";
 
-export default function (service, layer) {
+export default function (service: WMS, layer: unknown): void {
   let legend = null;
   if (
     typeof layer.Style !== "undefined" &&
@@ -31,7 +33,7 @@ export default function (service, layer) {
   );
 
   if (layer.queryable === true && service.mixedContent === true) {
-    const icon = li.querySelector(".fa-info-circle");
+    const icon = li.querySelector(".fa-info-circle") as HTMLSpanElement;
     icon.classList.add("text-light");
     icon.style.cursor = "help";
     icon.title = "GetFeatureInfo is disabled because of Mixed Active Content.";

@@ -2,7 +2,7 @@
 
 import displayLocation from "../info/location";
 
-import { files, map } from "../main";
+import { files, map, services } from "../main";
 import { marker, markerLayer } from "./marker";
 
 export default function () {
@@ -71,7 +71,7 @@ export default function () {
     });
 
     // WMS
-    window.app.wms.forEach((service) => {
+    services.wms.forEach((service) => {
       if (service.olLayer !== null) {
         service.getFeatureInfo(event.coordinate);
       }

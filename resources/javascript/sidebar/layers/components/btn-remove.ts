@@ -1,6 +1,6 @@
 "use strict";
 
-import { files } from "../../../main";
+import { files, services } from "../../../main";
 
 export default function (
   type: string,
@@ -18,7 +18,9 @@ export default function (
 
     button.closest("li.list-group-item").remove();
 
-    if (["wms", "wmts"].indexOf(type) > -1) {
+    if (["wms" /*, "wmts"*/].indexOf(type) > -1) {
+      services[type][index].removeLayer(layer);
+    } else if (type === "wmts") {
       window.app[type][index].removeLayer(layer);
     } else {
       files[type][index].removeFromMap();

@@ -1,13 +1,16 @@
 "use strict";
 
-import File from "../File";
-import FileOptions from "../FileOptions";
-import ExtendedFeatureCollection from "../ExtendedFeatureCollection";
-import { applyStyle } from "./files/geojson";
+import File from "../../File";
+import FileOptions from "../../FileOptions";
+import ExtendedFeatureCollection from "../../ExtendedFeatureCollection";
+import { applyStyle } from "./geojson";
 
-import { files } from "../main";
+import { files } from "../../main";
 
-export function init(type: string, filesOptions: Array<FileOptions>): void {
+export default function (
+  type: "csv" | "geojson" | "gpx" | "kml",
+  filesOptions: Array<FileOptions>
+): void {
   files[type] = [];
 
   filesOptions.forEach((file: FileOptions) => {
@@ -63,24 +66,4 @@ export function init(type: string, filesOptions: Array<FileOptions>): void {
       }
     }
   });
-}
-
-export function apply(type: string): void {
-  document
-    .querySelectorAll(`#modal-layers-files-${type} .list-group-item`)
-    .forEach((element: HTMLLIElement) => {
-      const active = element.classList.contains("list-group-item-primary");
-      const proj =
-        element.querySelector("select") !== null
-          ? (element.querySelector("select") as HTMLSelectElement).value
-          : null;
-      const index = parseInt(element.dataset.index);
-
-      if (active === true) {
-        files[type][index].addToMap(proj);
-        files[type][index].displayInSidebar(index);
-
-        element.classList.remove("list-group-item-primary");
-      }
-    });
 }
