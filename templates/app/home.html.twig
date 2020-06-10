@@ -10,7 +10,7 @@
     var baselayers = {{ baselayers | json_encode | raw }};
     var baseUrl = "{{ baseUrl }}";
     var custom = {% if ui.custom %}"{{ ui.custom}}"{% else %} null{% endif %};
-    var layers = {{ layers | json_encode | raw }};
+    var services = {{ services | json_encode | raw }};
     var files = {{ files | json_encode | raw }};
     var https = {{ https == true ? 'true' : 'false' }};
     var projections = {{ epsg | json_encode | raw }};
@@ -21,7 +21,7 @@
         app.setCustomKey(custom);
         app.setProviders(providers);
         app.setProjections(projections);
-        app.setMap(baselayers, layers, files, {{ map.center | json_encode }}, {{ map.zoom }});
+        app.setMap(baselayers, services, files, {{ map.center | json_encode }}, {{ map.zoom }});
     }) ();
 </script>
 {% endblock %}

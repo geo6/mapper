@@ -46,7 +46,7 @@ class HomeHandler implements RequestHandlerInterface
         $query = $request->getQueryParams();
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/').'/';
+        $baseUrl = rtrim($baseUrl, '/') . '/';
 
         $map = [
             'center' => $config['config']['map']['center'] ?? [0, 0],
@@ -57,7 +57,7 @@ class HomeHandler implements RequestHandlerInterface
             'baselayers'        => self::getBaselayers($config['global']['baselayers'] ?? []),
             'baseUrl'           => $baseUrl,
             'geocoderProviders' => self::getProviders($config['global']['geocoder']['providers'] ?? []),
-            'layers'            => self::getLayers($config['config']['layers'] ?? []),
+            'services'          => self::getServices($config['config']['services'] ?? []),
             'files'             => self::getFiles($config['config']['files'] ?? [], $query),
             'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
             'map'               => $map,
@@ -102,18 +102,24 @@ class HomeHandler implements RequestHandlerInterface
         return $baselayers;
     }
 
-    private static function getLayers(array $configLayers): array
+    private static function getServices(array $configServices): array
     {
-        $layers = array_map(
-            function ($layer) {
-                unset($layer['auth']);
+        $services = [
+            'wms'  => [],
+            'wmts' => [],
+        ];
 
-                return $layer;
-            },
-            $configLayers
-        );
+        foreach ($configServices as $service) {
+            $type = $service['type'];
 
-        return $layers;
+            if (in_array($type, ['wms', 'wmts'], true)) {
+                unset($service['auth'], $service['type']);
+
+                $services[$type][] = $service;
+            }
+        }
+
+        return $services;
     }
 
     private static function getFiles(array $configFiles, array $query): array
@@ -216,7 +222,7 @@ class HomeHandler implements RequestHandlerInterface
         if (!is_null($file) && $file->checkType() === true) {
             $info = $file->getInfo();
 
-            $identifier = filesize($path).'-'.preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($path));
+            $identifier = filesize($path) . '-' . preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($path));
 
             return [
                 'identifier'  => $identifier,

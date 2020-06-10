@@ -184,16 +184,17 @@ Replace `<baselayer-#>` by one of the following (XYZ, WMS, WMTS):
 | `layer`                   | _string[]_ | Baselayer service layer name. |
 | `attributions` (optional) | _string[]_ | Baselayer attribution(s).     |
 
-### Layers
+### Services
 
 ```yaml
 ---
-layers: <layer-1>
-  <layer-2>
-  ...
+services:
+  - <service-1>
+  - <service-2>
+    ...
 ```
 
-Replace `<layer-#>` by one of the following (WMS, WMTS):
+Replace `<service-#>` by one of the following (WMS, WMTS):
 
 #### WMS layer
 
@@ -230,7 +231,7 @@ Replace `<layer-#>` by one of the following (WMS, WMTS):
 | --------- | -------- | ---------------- |
 | `url`     | _string_ | WMS service URL. |
 
-### Layers
+### Files
 
 ```yaml
 ---

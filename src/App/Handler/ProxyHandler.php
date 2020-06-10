@@ -21,7 +21,7 @@ class ProxyHandler implements RequestHandlerInterface
         $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/').'/';
+        $baseUrl = rtrim($baseUrl, '/') . '/';
 
         $params = $request->getQueryParams();
 
@@ -39,19 +39,19 @@ class ProxyHandler implements RequestHandlerInterface
                 $params = array_merge($queryArray, $params);
             }
 
-            if ($host === null || $path === null || !isset($config['config']['layers'])) {
+            if ($host === null || $path === null || !isset($config['config']['services'])) {
                 $auth = null;
                 $proxied = false;
             } else {
-                $auth = self::getHostAuthentication($config['config']['layers'], $host ?: '', $path ?: '');
-                $proxied = self::isHostProxied($config['config']['layers'], $host ?: '', $path ?: '');
+                $auth = self::getHostAuthentication($config['config']['services'], $host ?: '', $path ?: '');
+                $proxied = self::isHostProxied($config['config']['services'], $host ?: '', $path ?: '');
             }
 
             if ($proxied === true) {
                 $localHTTPS = isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0;
                 $localHost = $_SERVER['HTTP_HOST'];
 
-                $proxy = 'http'.($localHTTPS ? 's' : '').'://'.$localHost.$baseUrl.'proxy';
+                $proxy = 'http' . ($localHTTPS ? 's' : '') . '://' . $localHost . $baseUrl . 'proxy';
 
                 $callback = function ($body) use ($config, $host, $path, $query, $proxy) {
                     return preg_replace_callback(
@@ -68,18 +68,18 @@ class ProxyHandler implements RequestHandlerInterface
                                     $params = http_build_query($output);
                                 }
 
-                                return 'xlink:href='.
+                                return 'xlink:href=' .
                                     '"'
-                                    .$proxy.'?'
-                                    .($config['custom'] !== null ? 'c='.$config['custom'].'&amp;' : '')
-                                    .'_url='.urlencode(
-                                        ($url['scheme'] ?? 'http').'://'
-                                            .$url['host']
-                                            .$url['path']
-                                            .(!is_null($query) ? '?'.$query : '')
+                                    . $proxy . '?'
+                                    . ($config['custom'] !== null ? 'c=' . $config['custom'] . '&amp;' : '')
+                                    . '_url=' . urlencode(
+                                        ($url['scheme'] ?? 'http') . '://'
+                                            . $url['host']
+                                            . $url['path']
+                                            . (!is_null($query) ? '?' . $query : '')
                                     )
-                                    .(isset($params) ? htmlentities('&'.$params) : '')
-                                    .'"';
+                                    . (isset($params) ? htmlentities('&' . $params) : '')
+                                    . '"';
                             }
 
                             return $matches[0];
@@ -99,29 +99,29 @@ class ProxyHandler implements RequestHandlerInterface
         return new EmptyResponse();
     }
 
-    protected static function isHostProxied(array $layers, string $host, string $path): bool
+    protected static function isHostProxied(array $services, string $host, string $path): bool
     {
-        foreach ($layers as $layer) {
-            $url = parse_url($layer['url']);
+        foreach ($services as $service) {
+            $url = parse_url($service['url']);
 
             if ($url !== false && isset($url['host'], $url['path']) && $url['host'] === $host && $url['path'] === $path) {
-                return isset($layer['auth']) || (isset($layer['proxy']) && $layer['proxy'] === true);
+                return isset($service['auth']) || (isset($service['proxy']) && $service['proxy'] === true);
             }
         }
 
         return false;
     }
 
-    protected static function getHostAuthentication(array $layers, string $host, string $path): ?array
+    protected static function getHostAuthentication(array $services, string $host, string $path): ?array
     {
-        foreach ($layers as $layer) {
-            $url = parse_url($layer['url']);
+        foreach ($services as $service) {
+            $url = parse_url($service['url']);
 
             if ($url !== false && isset($url['host'], $url['path']) && $url['host'] === $host && $url['path'] === $path && isset($layer['auth'])) {
                 return [
-                    $layer['auth']['username'],
-                    $layer['auth']['password'],
-                    $layer['auth']['type'] ?? 'basic',
+                    $service['auth']['username'],
+                    $service['auth']['password'],
+                    $service['auth']['type'] ?? 'basic',
                 ];
             }
         }
@@ -186,8 +186,8 @@ class ProxyHandler implements RequestHandlerInterface
             'query'   => $query,
             'headers' => [
                 'User-Agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'GEO-6 Mapper',
-                'Referer'    => 'http'.(isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '').'://'
-                    .($_SERVER['SERVER_NAME'] ?? 'localhost').'/',
+                'Referer'    => 'http' . (isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '') . '://'
+                    . ($_SERVER['SERVER_NAME'] ?? 'localhost') . '/',
             ],
         ]);
 
@@ -212,8 +212,8 @@ class ProxyHandler implements RequestHandlerInterface
             'query'   => $query,
             'headers' => [
                 'User-Agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'GEO-6 Mapper',
-                'Referer'    => 'http'.(isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '').'://'
-                    .($_SERVER['SERVER_NAME'] ?? 'localhost').'/',
+                'Referer'    => 'http' . (isset($_SERVER['HTTPS']) && strlen($_SERVER['HTTPS']) > 0 ? 's' : '') . '://'
+                    . ($_SERVER['SERVER_NAME'] ?? 'localhost') . '/',
             ],
         ]);
 
