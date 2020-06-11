@@ -47,14 +47,16 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     a.dataset.toggle = "overlay";
     a.dataset.filename = json.filename;
 
-    if (typeof json.exif.IFD0.Make !== "undefined") {
-      a.dataset.exifMake = json.exif.IFD0.Make;
-    }
-    if (typeof json.exif.IFD0.Model !== "undefined") {
-      a.dataset.exifModel = json.exif.IFD0.Model;
-    }
-    if (typeof json.exif.EXIF.DateTimeOriginal !== "undefined") {
-      a.dataset.exifDatetime = json.exif.EXIF.DateTimeOriginal;
+    if (typeof json.exif !== "undefined" && json.exif !== null) {
+      if (typeof json.exif.IFD0.Make !== "undefined") {
+        a.dataset.exifMake = json.exif.IFD0.Make;
+      }
+      if (typeof json.exif.IFD0.Model !== "undefined") {
+        a.dataset.exifModel = json.exif.IFD0.Model;
+      }
+      if (typeof json.exif.EXIF.DateTimeOriginal !== "undefined") {
+        a.dataset.exifDatetime = json.exif.EXIF.DateTimeOriginal;
+      }
     }
 
     a.title = json.filename;
