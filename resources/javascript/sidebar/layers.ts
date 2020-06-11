@@ -1,6 +1,7 @@
 "use strict";
 
 import btnLegend from "./layers/components/btn-legend";
+import btnOrder from "./layers/components/btn-order";
 import btnRemove from "./layers/components/btn-remove";
 import btnSettings from "./layers/components/btn-settings";
 import btnZoom from "./layers/components/btn-zoom";
@@ -40,17 +41,11 @@ export default function (
   const div = document.createElement("div");
   div.className = "d-flex w-100 justify-content-between";
 
-  const divOrder = document.createElement("div");
-  divOrder.className = "d-flex flex-column mr-2";
-  divOrder.style.lineHeight = "0.5";
-
-  const divOrderUp = document.createElement("div");
-  divOrderUp.innerHTML = '<i class="fas fa-caret-up"></i>';
-  const divOrderDown = document.createElement("div");
-  divOrderDown.innerHTML = '<i class="fas fa-caret-down"></i>';
-
-  divOrder.append(divOrderUp, divOrderDown);
-  div.append(divOrder);
+  // const divOrder = document.createElement("div");
+  // divOrder.className = "d-flex flex-column mr-2";
+  // divOrder.style.lineHeight = "0.5";
+  // divOrder.append(...btnOrder(type, index, name));
+  // div.append(divOrder);
 
   const divName = document.createElement("div");
   divName.className = "flex-fill layer-name text-nowrap text-truncate";
