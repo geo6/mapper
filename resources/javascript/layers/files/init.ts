@@ -2,8 +2,6 @@
 
 import File from "../../File";
 import FileOptions from "../../FileOptions";
-import ExtendedFeatureCollection from "../../ExtendedFeatureCollection";
-import { applyStyle } from "./geojson";
 
 import { files } from "../../main";
 
@@ -18,8 +16,7 @@ export default function (
       type,
       file.identifier,
       file.name,
-      file.title,
-      file.description,
+      { title: file.title, description: file.description, legend: file.legend },
       file.filter,
       true
     );
@@ -27,43 +24,16 @@ export default function (
     files[type].push(f);
 
     const index = files[type].indexOf(f);
+    const projection =
+      f.type === "csv" && typeof file.projection !== "undefined"
+        ? file.projection
+        : null;
 
-    if (f.type === "geojson") {
-      fetch(f.url)
-        .then((response: Response) => response.json())
-        .then(
-          (
-            json:
-              | GeoJSON.FeatureCollection
-              | GeoJSON.Feature
-              | ExtendedFeatureCollection
-          ) => {
-            f.content = json;
-            if (
-              typeof f.content.legend !== "undefined" &&
-              typeof f.content.legendColumn !== "undefined"
-            ) {
-              f.content = applyStyle(f.content as ExtendedFeatureCollection);
-            }
-            f.displayInList(index);
+    f.displayInList(index);
 
-            if (file.default === true) {
-              f.addToMap(null);
-              f.displayInSidebar(index);
-            }
-          }
-        );
-    } else {
-      f.displayInList(index);
-
-      if (file.default === true) {
-        f.addToMap(
-          f.type === "csv" && typeof file.projection !== "undefined"
-            ? file.projection
-            : null
-        );
-        f.displayInSidebar(index);
-      }
+    if (file.default === true) {
+      f.addToMap(projection);
+      f.displayInSidebar(index);
     }
   });
 }

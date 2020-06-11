@@ -8,12 +8,12 @@ import { ProjectionLike } from "ol/proj";
 
 import displayFeatureInList from "./info/feature";
 import CSVAddFileToMap from "./layers/files/csv";
-import { add as GeoJSONAddFileToMap } from "./layers/files/geojson";
+import GeoJSONAddFileToMap from "./layers/files/geojson";
 import GeoJSONLegend from "./layers/files/geojson/legend";
 import GPXAddFileToMap from "./layers/files/gpx";
 import KMLAddFileToMap from "./layers/files/kml";
 import layerStyleFunction from "./map/style";
-import ExtendedFeatureCollection from "./ExtendedFeatureCollection";
+import LegendOptions from "./LegendOptions";
 
 import { baseUrl, customKey, map, projections, sidebar } from "./main";
 
@@ -33,6 +33,8 @@ export class File {
   filter: Record<string, string> | null = null;
   /** File unique identifier. */
   identifier: string;
+  /** Legend. */
+  legend: LegendOptions;
   /** Is the file stored initially on the server. */
   local: boolean;
   /** Column used for labeling. */
@@ -51,16 +53,20 @@ export class File {
     type: string,
     identifier: string,
     name: string,
-    title: string | null,
-    description: string | null,
+    options: {
+      title?: string | null;
+      description?: string | null;
+      legend?: LegendOptions | null;
+    },
     filter: Record<string, string> | null,
     local: boolean
   ) {
     this.type = type;
     this.identifier = identifier;
     this.name = name;
-    this.title = title;
-    this.description = description;
+    this.title = options.title;
+    this.description = options.description;
+    this.legend = options.legend;
     this.local = local || false;
     this.filter = filter;
 
@@ -141,10 +147,10 @@ export class File {
     let legend = null;
     if (
       this.type === "geojson" &&
-      typeof this.content.legend === "object" &&
-      Array.isArray(this.content.legend)
+      typeof this.legend === "object" &&
+      Array.isArray(this.legend.values)
     ) {
-      legend = GeoJSONLegend(this.content.legend);
+      legend = GeoJSONLegend(this.legend.values);
     }
 
     sidebar.addLayerInList(
@@ -179,7 +185,13 @@ export class File {
       this.olLayer = new VectorLayer({
         source: source,
         style: (feature, resolution) =>
-          layerStyleFunction(feature, this.label, this.color, resolution),
+          layerStyleFunction(
+            feature,
+            this.label,
+            this.color,
+            this.filter,
+            resolution
+          ),
       });
 
       map.addLayer(this.olLayer);

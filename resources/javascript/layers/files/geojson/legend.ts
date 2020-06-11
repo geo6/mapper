@@ -4,11 +4,12 @@ import { asArray as colorAsArray } from "ol/color";
 
 export default function (
   legend: Array<{
-    type: string;
-    text: string;
     color: string;
-    value?: any;
+    size?: number;
     symbol?: string;
+    text: string;
+    type?: string;
+    value: string | number | null;
   }>
 ): HTMLCanvasElement {
   const canvas = document.createElement("canvas");

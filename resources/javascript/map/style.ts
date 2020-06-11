@@ -13,10 +13,21 @@ export default function (
   feature: Feature,
   labelColumn: string,
   layerColor: string | Color | null,
+  filter: Record<string, string | number> | null,
   resolution: number
 ): Style {
   const type = feature.getGeometry().getType();
   const properties = feature.getProperties();
+
+  if (typeof filter !== "undefined" && filter !== null) {
+    const result = Object.keys(filter).map((key: string) => {
+      return properties[key] === filter[key];
+    });
+
+    if (result.indexOf(false) !== -1) {
+      return null;
+    }
+  }
 
   const color =
     layerColor !== null

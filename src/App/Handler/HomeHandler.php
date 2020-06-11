@@ -225,10 +225,11 @@ class HomeHandler implements RequestHandlerInterface
             $identifier = filesize($path) . '-' . preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($path));
 
             return [
-                'identifier'  => $identifier,
-                'name'        => basename($path),
-                'title'       => $info['title'] ?? null,
-                'description' => $info['description'] ?? null,
+                'identifier'   => $identifier,
+                'name'         => basename($path),
+                'title'        => $info['title'] ?? null,
+                'description'  => $info['description'] ?? null,
+                'legend'       => $info['legend'] ?? null,
             ];
         }
 
