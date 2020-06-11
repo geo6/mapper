@@ -127,7 +127,7 @@ export default function (): void {
           file.fileName.lastIndexOf(".") + 1,
           file.fileName.length
         ) || file.fileName;
-      const { title, description } = JSON.parse(message);
+      const { title, description, legend } = JSON.parse(message);
 
       let f = null;
       switch (extension.toLowerCase()) {
@@ -147,31 +147,10 @@ export default function (): void {
             "geojson",
             file.uniqueIdentifier,
             file.fileName,
-            { title, description },
+            { title, description, legend },
             null,
             false
           );
-
-          fetch(f.url)
-            .then((response: Response) => response.json())
-            .then(
-              (
-                json:
-                  | GeoJSON.FeatureCollection
-                  | GeoJSON.Feature
-                  | ExtendedFeatureCollection
-              ) => {
-                f.content = json;
-                if (
-                  typeof f.content.legend !== "undefined" &&
-                  typeof f.content.legendColumn !== "undefined"
-                ) {
-                  f.content = applyStyle(
-                    f.content as ExtendedFeatureCollection
-                  );
-                }
-              }
-            );
           break;
         case "gpx":
           f = new File(
