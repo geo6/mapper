@@ -151,7 +151,7 @@ export class File {
       this.type,
       index,
       this.name,
-      this.name,
+      this.title || this.name,
       true,
       true,
       legend
