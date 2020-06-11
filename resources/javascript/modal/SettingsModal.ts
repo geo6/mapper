@@ -88,8 +88,8 @@ export class SettingsModal {
 
     if (
       layer.type === "geojson" &&
-      typeof layer.content.legend === "object" &&
-      Array.isArray(layer.content.legend)
+      typeof layer.legend !== "undefined" &&
+      layer.legend !== null
     ) {
       this.disableColor("Function disabled because this layer has a legend.");
     } else if (layer.type === "kml") {
