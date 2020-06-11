@@ -87,12 +87,12 @@ export function setMap(
 ): void {
   cache = new Cache();
 
+  sidebar = new Sidebar(document.getElementById("sidebar"));
+  modalSettings = new SettingsModal(document.getElementById("modal-settings"));
+
   map = initMap(lnglat, zoom, baselayers);
   initLayers(services, files);
   initUpload();
-
-  sidebar = new Sidebar(document.getElementById("sidebar"));
-  modalSettings = new SettingsModal(document.getElementById("modal-settings"));
 
   document.body.classList.add("loaded");
 }
