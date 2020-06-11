@@ -24,17 +24,11 @@ export class File {
   /** File description. */
   description?: string | null;
   color?: ColorLike | null = null;
-  content:
-    | GeoJSON.FeatureCollection
-    | GeoJSON.Feature
-    | ExtendedFeatureCollection
-    | null = null;
-
   filter: Record<string, string> | null = null;
   /** File unique identifier. */
   identifier: string;
   /** Legend. */
-  legend: LegendOptions;
+  legend: LegendOptions | null;
   /** Is the file stored initially on the server. */
   local: boolean;
   /** Column used for labeling. */
