@@ -37,8 +37,8 @@ set('cleanup_use_sudo', true);
 // Files/dirs to be deleted
 set('clear_paths', [
     'node_modules',
+    'resources',
     'deploy.php',
-    'Procfile',
 ]);
 after('deploy:update_code', 'deploy:clear_paths');
 
