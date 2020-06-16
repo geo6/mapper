@@ -71,8 +71,10 @@ export default async function (
     );
 
     if (typeof projection === "undefined") {
+      const projection = map.getView().getProjection().getCode();
+
       throw new Error(
-        `The WMTS service "${origUrl}" does not support ${projection} !` +
+        `The WMTS service "${origUrl}" does not support ${projection} !\n` +
           `It supports only ${crs.join(", ")}.`
       );
     }
