@@ -1,16 +1,30 @@
 "use strict";
 
-import WMS from "../../WMS";
+import WMTS from "../../WMTS";
 
-export default function (service: WMS): HTMLUListElement {
+export default function (service: WMTS): HTMLUListElement {
   const ul = document.createElement("ul");
   ul.className = "list-group mb-3";
 
-  service.layers.forEach((layer) => {
+  service.layers.forEach((layer: unknown) => {
+    let queryable = false;
+    if (typeof layer.ResourceURL !== "undefined") {
+      layer.ResourceURL.forEach((resource) => {
+        if (
+          resource.resourceType === "FeatureInfo" &&
+          resource.format === "application/json"
+        ) {
+          queryable = true;
+
+          return false;
+        }
+      });
+    }
+
     const li = document.createElement("li");
     li.className = "list-group-item";
-    li.dataset.name = layer.Name;
-    li.id = `wms-${service.getIndex()}-${layer.Name}`;
+    li.dataset.name = layer.Identifier;
+    li.id = `wmts-${service.getIndex()}-${layer.Identifier}`;
 
     li.addEventListener("click", (event: Event) => {
       event.preventDefault();
@@ -23,10 +37,14 @@ export default function (service: WMS): HTMLUListElement {
 
     const spanName = document.createElement("span");
     spanName.className = "badge badge-light float-right";
-    spanName.innerText = layer.Name;
+    spanName.innerText = layer.Identifier;
     div.append(spanName);
 
-    if (layer.queryable === true) {
+    if (
+      typeof service.capabilities.OperationsMetadata.GetFeatureInfo !==
+        "undefined" &&
+      queryable === true
+    ) {
       const icon = document.createElement("i");
       icon.className = "fas fa-info-circle mr-1";
       if (service.mixedContent === true) {

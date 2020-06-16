@@ -6,16 +6,17 @@ import { Coordinate } from "ol/coordinate";
 import { FeatureLike } from "ol/Feature";
 import { ProjectionLike } from "ol/proj";
 
-import displayFeatureInList from "./info/feature";
-import CSVAddFileToMap from "./layers/files/csv";
-import GeoJSONAddFileToMap from "./layers/files/geojson";
-import GeoJSONLegend from "./layers/files/geojson/legend";
-import GPXAddFileToMap from "./layers/files/gpx";
-import KMLAddFileToMap from "./layers/files/kml";
-import layerStyleFunction from "./map/style";
-import LegendOptions from "./LegendOptions";
+import displayFeatureInList from "../info/feature";
+import sidebarElement from "./files/imports/sidebar";
+import CSVAddFileToMap from "./files/csv";
+import GeoJSONAddFileToMap from "./files/geojson";
+import GPXAddFileToMap from "./files/gpx";
+import KMLAddFileToMap from "./files/kml";
+import layerStyleFunction from "../map/style";
+import LegendOptions from "../LegendOptions";
 
-import { baseUrl, customKey, map, projections, sidebar } from "./main";
+import { baseUrl, customKey, files, map, projections, sidebar } from "../main";
+import { layerGroup } from "../map/layerGroup";
 
 /**
  *
@@ -37,6 +38,7 @@ export class File {
   name: string;
   olLayer: VectorLayer | null = null;
   selection: Array<any> = [];
+  sidebarElement: HTMLLIElement = null;
   /** File title. */
   title?: string | null;
   /** File type (csv|geojson|gpx|kml). */
@@ -77,6 +79,15 @@ export class File {
       new URLSearchParams({
         c: customKey !== null ? customKey : "",
       }).toString();
+
+    this.sidebarElement = sidebarElement(this);
+  }
+
+  /**
+   * @returns File index in `files[type]` array.
+   */
+  getIndex(): number {
+    return files[this.type].indexOf(this);
   }
 
   /**
@@ -137,25 +148,8 @@ export class File {
     }
   }
 
-  displayInSidebar(index: number): void {
-    let legend = null;
-    if (
-      this.type === "geojson" &&
-      typeof this.legend === "object" &&
-      Array.isArray(this.legend.values)
-    ) {
-      legend = GeoJSONLegend(this.legend.values);
-    }
-
-    sidebar.addLayerInList(
-      this.type,
-      index,
-      this.name,
-      this.title || this.name,
-      true,
-      true,
-      legend
-    );
+  addToSidebar(index?: number): void {
+    sidebar.addLayer(this, index);
   }
 
   addToMap(projection: ProjectionLike): void {
@@ -188,12 +182,12 @@ export class File {
           ),
       });
 
-      map.addLayer(this.olLayer);
+      layerGroup.getLayers().push(this.olLayer);
     }
   }
 
-  removeFromMap(): void {
-    map.removeLayer(this.olLayer);
+  removeLayer(): void {
+    layerGroup.getLayers().remove(this.olLayer);
 
     this.olLayer = null;
     this.selection = [];

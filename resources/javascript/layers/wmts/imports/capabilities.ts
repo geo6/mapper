@@ -1,20 +1,16 @@
 "use strict";
 
-import WMSCapabilities from "ol/format/WMSCapabilities";
+import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import { ProjectionLike } from "ol/proj";
 
 import { baseUrl, customKey, https, map } from "../../../main";
 
 function parseLayers(layers: unknown): unknown[] {
-  let results = [];
+  const results = [];
 
   if (Array.isArray(layers)) {
     layers.forEach((layer) => {
-      if (typeof layer.Layer !== "undefined") {
-        results = results.concat(parseLayers(layer.Layer));
-      } else {
-        results.push(layer);
-      }
+      results.push(layer);
     });
   } else {
     results.push(layers);
@@ -26,7 +22,7 @@ function parseLayers(layers: unknown): unknown[] {
 export default async function (
   origUrl: string
 ): Promise<{
-  capabilities: WMSCapabilities;
+  capabilities: WMTSCapabilities;
   layers: unknown[];
   mixedContent: boolean;
   projection: ProjectionLike;
@@ -36,9 +32,9 @@ export default async function (
     "?" +
     new URLSearchParams({
       c: customKey,
-      SERVICE: "WMS",
+      SERVICE: "WMTS",
       REQUEST: "GetCapabilities",
-      VERSION: "1.3.0",
+      VERSION: "1.0.0",
       _url: origUrl,
     }).toString();
 
@@ -47,15 +43,20 @@ export default async function (
 
   const text = await response.text();
 
-  const capabilities = new WMSCapabilities().read(text);
+  const capabilities = new WMTSCapabilities().read(text);
+
+  const crs = [];
+  for (let m = 0; m < capabilities.Contents.TileMatrixSet.length; m++) {
+    const supportedCRS = capabilities.Contents.TileMatrixSet[
+      m
+    ].SupportedCRS.replace(/urn:ogc:def:crs:(\w+):(.*:)?(\w+)$/, "$1:$3");
+
+    crs.push(supportedCRS);
+  }
 
   let projection = map.getView().getProjection().getCode();
 
-  if (
-    typeof capabilities.Capability.Layer.CRS !== "undefined" &&
-    capabilities.Capability.Layer.CRS.indexOf(projection) === -1
-  ) {
-    const crs = capabilities.Capability.Layer.CRS;
+  if (crs.indexOf(projection) === -1) {
     projection = crs.find(
       (code: string) =>
         [
@@ -71,21 +72,15 @@ export default async function (
 
     if (typeof projection === "undefined") {
       throw new Error(
-        `The WMS service "${origUrl}" does not support ${projection} !` +
+        `The WMTS service "${origUrl}" does not support ${projection} !` +
           `It supports only ${crs.join(", ")}.`
       );
     }
   }
-
   return {
-    capabilities,
-    layers:
-      typeof capabilities.Capability.Layer.Layer !== "undefined"
-        ? parseLayers(capabilities.Capability.Layer.Layer)
-        : parseLayers(capabilities.Capability.Layer),
-    mixedContent:
-      https === true &&
-      RegExp("^http://").test(capabilities.Service.OnlineResource),
+    capabilities: capabilities,
+    layers: parseLayers(capabilities.Contents.Layer),
+    mixedContent: https === true && RegExp("^http://").test(origUrl),
     projection,
   };
 }

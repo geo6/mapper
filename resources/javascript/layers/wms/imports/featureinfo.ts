@@ -5,7 +5,7 @@ import Feature from "ol/Feature";
 import WMSGetFeatureInfo from "ol/format/WMSGetFeatureInfo";
 import TileWMS from "ol/source/TileWMS";
 
-import WMS from "../WMS";
+import WMS from "../../WMS";
 
 import { map } from "../../../main";
 

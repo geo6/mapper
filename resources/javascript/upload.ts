@@ -2,7 +2,7 @@
 
 import Resumable from "resumablejs";
 
-import File from "./File";
+import File from "./layers/File";
 import { applyStyle } from "./layers/files/geojson";
 import ExtendedFeatureCollection from "./ExtendedFeatureCollection";
 

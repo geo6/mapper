@@ -2,7 +2,7 @@
 
 import Feature from "ol/Feature";
 
-import WMS from "../WMS";
+import WMS from "../../WMS";
 import displayFeatureInList from "../../../info/feature";
 import { createOlLayer } from "../../../info/list/service";
 

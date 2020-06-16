@@ -1,16 +1,15 @@
 "use strict";
 
-import { files, modalSettings } from "../../../main";
+import File from "../../../layers/File";
 
-export default function (
-  type: string,
-  index: number,
-  name: string
-): HTMLButtonElement {
+import { modalSettings } from "../../../main";
+
+export default function (type: string, file: File | null): HTMLButtonElement {
   const button = document.createElement("button");
 
   button.className = "btn btn-outline-secondary btn-layer-settings";
-  button.disabled = ["csv", "geojson", "gpx", "kml"].indexOf(type) === -1;
+  button.disabled =
+    file === null || ["csv", "geojson", "gpx", "kml"].indexOf(file.type) === -1;
   button.innerHTML = '<i class="fas fa-tools"></i>';
   button.title = "Settings";
 
@@ -19,7 +18,7 @@ export default function (
       event.preventDefault();
 
       modalSettings.reset();
-      modalSettings.setLayer(files[type][index], name);
+      modalSettings.setLayer(file, file.name);
       modalSettings.show();
     });
   }

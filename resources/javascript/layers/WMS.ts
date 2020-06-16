@@ -1,20 +1,21 @@
 "use strict";
 
 import { Coordinate } from "ol/coordinate";
+import Feature from "ol/Feature";
 import TileLayer from "ol/layer/Tile";
 import { ProjectionLike } from "ol/proj";
 import { TileWMS } from "ol/source";
 
-import WMSGetCapabilities from "./imports/capabilities";
-import WMSGetFeatureInfo from "./imports/featureinfo";
-import WMSDisplayFeatureList from "./imports/featurelist";
-import generateLayersList from "./imports/list";
-import WMSAddLayersToMap from "./imports/map";
-import WMSAddLayerToSidebar from "./imports/sidebar";
-import { createUlService } from "../../info/list/service";
+import WMSGetCapabilities from "./wms/imports/capabilities";
+import WMSGetFeatureInfo from "./wms/imports/featureinfo";
+import WMSDisplayFeatureList from "./wms/imports/featurelist";
+import generateLayersList from "./wms/imports/list";
+import WMSAddLayersToMap from "./wms/imports/map";
+import { create as sidebarElement } from "./wms/imports/sidebar";
+import { createUlService } from "../info/list/service";
 
-import { map, services, sidebar } from "../../main";
-import { Feature } from "ol";
+import { map, services, sidebar } from "../main";
+import { layerGroup } from "../map/layerGroup";
 
 /**
  *
@@ -26,11 +27,12 @@ class WMS {
   olLayer: TileLayer;
   projection: ProjectionLike;
   selection: unknown[];
+  sidebarElement: HTMLLIElement = null;
   url: string;
 
   /**
-   * @param string     url      WMS service url.
-   * @param {Function} callback Callback called after GetCapabilities().
+   * @param url      WMS service url.
+   * @param callback Callback called after GetCapabilities().
    */
   constructor(url: string, callback: (service: WMS) => void) {
     this.url = url;
@@ -56,12 +58,16 @@ class WMS {
   async getCapabilities(callback: (service: WMS) => void): Promise<void> {
     const response = await WMSGetCapabilities(this.url);
 
-    this.capabilities = response.capabilities;
-    this.layers = response.layers;
-    this.mixedContent = response.mixedContent;
-    this.projection = response.projection;
+    if (response !== null) {
+      this.capabilities = response.capabilities;
+      this.layers = response.layers;
+      this.mixedContent = response.mixedContent;
+      this.projection = response.projection;
 
-    callback.call(this, this);
+      this.sidebarElement = sidebarElement(this);
+
+      callback.call(this, this);
+    }
   }
 
   displayCapabilities(): void {
@@ -119,7 +125,7 @@ class WMS {
   /**
    * @param coordinate Coordinate.
    */
-  async getFeatureInfo(coordinate: Coordinate): void {
+  async getFeatureInfo(coordinate: Coordinate): Promise<void> {
     const source = this.olLayer.getSource() as TileWMS;
 
     createUlService("wms", this.getIndex(), this.capabilities.Service.Title);
@@ -161,15 +167,8 @@ class WMS {
     WMSAddLayersToMap(this, names);
   }
 
-  /**
-   * @param names Names of the layers to add to the sidebar.
-   */
-  addToSidebar(names: string[]): void {
-    names.forEach((name: string) => {
-      const layer = this.layers.find((layer) => layer.Name === name);
-
-      WMSAddLayerToSidebar(this, layer);
-    });
+  addToSidebar(index?: number): void {
+    sidebar.addLayer(this, index);
   }
 
   /**
@@ -188,7 +187,7 @@ class WMS {
           LAYERS: layers,
         });
       } else {
-        map.removeLayer(this.olLayer);
+        layerGroup.getLayers().remove(this.olLayer);
         this.olLayer = null;
       }
     }

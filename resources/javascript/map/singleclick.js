@@ -78,14 +78,14 @@ export default function () {
     });
 
     // WMTS
-    window.app.wmts.forEach((service) => {
-      const getfeatureinfo =
-        typeof service.capabilities.OperationsMetadata.GetFeatureInfo !==
-        "undefined";
+    // services.wmts.forEach((service) => {
+    //   const getfeatureinfo =
+    //     typeof service.capabilities.OperationsMetadata.GetFeatureInfo !==
+    //     "undefined";
 
-      if (getfeatureinfo === true && Object.keys(service.olLayers).length > 0) {
-        service.getFeatureInfo(event.coordinate);
-      }
-    });
+    //   if (getfeatureinfo === true && Object.keys(service.olLayers).length > 0) {
+    //     service.getFeatureInfo(event.coordinate);
+    //   }
+    // });
   });
 }

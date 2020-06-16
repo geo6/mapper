@@ -3,7 +3,7 @@
 import GeoJSON from "ol/format/GeoJSON";
 import VectorSource, { VectorSourceEvent } from "ol/source/Vector";
 
-import File from "../../File";
+import File from "../File";
 import GeoJSONStyle from "./geojson/style";
 
 export default function (file: File): VectorSource {

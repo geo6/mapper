@@ -1,13 +1,13 @@
 "use strict";
 
+import WMTS from "../WMTS";
 import ServiceOptions from "../../ServiceOptions";
-import WMS from "../WMS";
 
 import { services } from "../../main";
 
 export default function (layers: ServiceOptions[]): void {
   layers.forEach((layer: ServiceOptions) => {
-    const wms = new WMS(layer.url, (service) => {
+    const wmts = new WMTS(layer.url, (service) => {
       service.displayCapabilities();
 
       if (typeof layer.default !== "undefined" && layer.default.length > 0) {
@@ -15,29 +15,29 @@ export default function (layers: ServiceOptions[]): void {
       }
     });
 
-    services.wms.push(wms);
+    services.wmts.push(wmts);
   });
 
   document
-    .getElementById("btn-layers-add-wms")
+    .getElementById("btn-layers-add-wmts")
     .addEventListener("click", (event: Event) => {
       event.preventDefault();
 
-      const url = prompt("Enter the WMS service url :");
+      const url = prompt("Enter the WMTS service url :");
 
       if (url !== null && url !== "") {
-        const wms = new WMS(url, (service: WMS) => {
+        const wmts = new WMTS(url, (service: WMTS) => {
           service.displayCapabilities();
 
           const select = document.getElementById(
             "modal-layers-select"
           ) as HTMLSelectElement;
 
-          select.value = `wms:${service.getIndex()}`;
+          select.value = `wmts:${service.getIndex()}`;
           select.dispatchEvent(new Event("change"));
         });
 
-        services.wms.push(wms);
+        services.wmts.push(wmts);
       }
     });
 }

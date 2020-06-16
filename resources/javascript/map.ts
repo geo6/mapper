@@ -24,6 +24,7 @@ import BaseLayerOptions from "./BaseLayerOptions";
 
 import { cache } from "./main";
 import { markerLayer } from "./map/marker";
+import { layerGroup } from "./map/layerGroup";
 
 export default function (
   lnglat: Coordinate,
@@ -62,6 +63,8 @@ export default function (
 
   const baselayer = cache.baselayer || Object.keys(_baselayers)[0];
   baselayers[baselayer].highlight().addToMap();
+
+  map.addLayer(layerGroup);
 
   map.once("rendercomplete", () => {
     initPermalink();

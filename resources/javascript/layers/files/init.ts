@@ -1,6 +1,6 @@
 "use strict";
 
-import File from "../../File";
+import File from "../File";
 import FileOptions from "../../FileOptions";
 
 import { files } from "../../main";
@@ -33,7 +33,7 @@ export default function (
 
     if (file.default === true) {
       f.addToMap(projection);
-      f.displayInSidebar(index);
+      // f.displayInSidebar(index);
     }
   });
 }

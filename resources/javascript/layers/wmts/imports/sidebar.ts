@@ -1,20 +1,20 @@
 "use strict";
 
-import WMS from "../../WMS";
+import WMTS from "../../WMTS";
 import btnLegend from "../../../sidebar/layers/components/btn-legend";
 import btnOrder from "../../../sidebar/layers/components/btn-order";
 import btnRemove from "../../../sidebar/layers/components/btn-remove";
 import btnSettings from "../../../sidebar/layers/components/btn-settings";
 import btnZoom from "../../../sidebar/layers/components/btn-zoom";
 
-export function create(service: WMS): HTMLLIElement {
+export function create(service: WMTS): HTMLLIElement {
   const element = document.createElement("li");
   element.className = "mb-1";
-  // element.id = `layers-wms-${service.getIndex()}`;
+  // element.id = `layers-wmts-${service.getIndex()}`;
 
   const div = document.createElement("div");
   div.className = "small text-secondary";
-  div.innerText = service.capabilities.Service.Title;
+  div.innerText = service.capabilities.ServiceIdentification.Title;
 
   element.append(div);
 
@@ -38,13 +38,13 @@ function renderLegend(layer: unknown): HTMLImageElement | null {
     legend = document.createElement("img");
     legend.alt = `Legend "${layer.Name || layer.Identifier}"`;
     legend.classList.add("img-fluid");
-    legend.src = layer.Style[0].LegendURL[0].OnlineResource;
+    legend.src = layer.Style[0].LegendURL[0].href;
   }
 
   return legend;
 }
 
-export function update(service: WMS, layers: unknown[]): HTMLLIElement {
+export function update(service: WMTS, layers: unknown[]): HTMLLIElement {
   const element = service.sidebarElement;
   const ul = element.querySelector("ul.list-group");
 
@@ -54,9 +54,23 @@ export function update(service: WMS, layers: unknown[]): HTMLLIElement {
     const legend = renderLegend(layer);
     const name = layer.Name || layer.Identifier;
 
+    let queryable = false;
+    if (typeof layer.ResourceURL !== "undefined") {
+      layer.ResourceURL.forEach((resource) => {
+        if (
+          resource.resourceType === "FeatureInfo" &&
+          resource.format === "application/json"
+        ) {
+          queryable = true;
+
+          return false;
+        }
+      });
+    }
+
     const li = document.createElement("li");
     li.className = "list-group-item";
-    li.id = `layers-wms-${service.getIndex()}-${index}`;
+    li.id = `layers-wmts-${service.getIndex()}-${index}`;
 
     const div = document.createElement("div");
     div.className = "d-flex align-items-center justify-content-between";
@@ -71,7 +85,7 @@ export function update(service: WMS, layers: unknown[]): HTMLLIElement {
     divName.className = "flex-fill layer-name text-nowrap text-truncate";
     divName.title = name;
     divName.innerText = layer.Title;
-    if (layer.queryable === true) {
+    if (queryable === true) {
       if (service.mixedContent === true) {
         divName.innerHTML =
           '<i class="fas fa-fw fa-info-circle text-light" style="cursor: help;" title="GetFeatureInfo is disabled because of Mixed Active Content."></i> ' +

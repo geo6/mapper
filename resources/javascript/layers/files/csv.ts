@@ -13,6 +13,7 @@ import File from "../../File";
 import layerStyleFunction from "../../map/style";
 
 import { map } from "../../main";
+import { layerGroup } from "../../map/layerGroup";
 
 export default function (file: File, projection: ProjectionLike): void {
   Papa.parse(file.url, {
@@ -84,7 +85,7 @@ export default function (file: File, projection: ProjectionLike): void {
         file.olLayer.getSource().addFeature(feature);
       });
 
-      map.addLayer(file.olLayer);
+      layerGroup.getLayers().push(file.olLayer);
     },
   });
 }

@@ -7,7 +7,7 @@ export default function (index: number): void {
 
   document
     .querySelectorAll(
-      `#modal-layers-wms-${index} .list-group-item.list-group-item-primary`
+      `#modal-layers-wmts-${index} .list-group-item.list-group-item-primary`
     )
     .forEach((element: HTMLLIElement) => {
       names.push(element.dataset.name);
@@ -16,6 +16,6 @@ export default function (index: number): void {
     });
 
   if (names.length > 0) {
-    services.wms[index].addToMap(names);
+    services.wmts[index].addToMap(names);
   }
 }

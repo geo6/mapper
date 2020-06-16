@@ -15,7 +15,6 @@ export default function (type: string): void {
 
       if (active === true) {
         files[type][index].addToMap(proj);
-        files[type][index].displayInSidebar(index);
 
         element.classList.remove("list-group-item-primary");
       }

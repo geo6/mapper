@@ -1,11 +1,13 @@
 "use strict";
 
-import { files, services } from "../../../main";
+import File from "../../../layers/File";
+import WMS from "../../../layers/WMS";
+import WMTS from "../../../layers/WMTS";
 
 export default function (
   type: string,
-  index: number,
-  layer: string
+  layer: File | WMS | WMTS,
+  name?: string
 ): HTMLButtonElement {
   const button = document.createElement("button");
 
@@ -18,12 +20,10 @@ export default function (
 
     button.closest("li.list-group-item").remove();
 
-    if (["wms" /*, "wmts"*/].indexOf(type) > -1) {
-      services[type][index].removeLayer(layer);
-    } else if (type === "wmts") {
-      window.app[type][index].removeLayer(layer);
+    if (["wms", "wmts"].indexOf(type) > -1) {
+      layer.removeLayer(name);
     } else {
-      files[type][index].removeFromMap();
+      layer.removeLayer();
     }
   });
 

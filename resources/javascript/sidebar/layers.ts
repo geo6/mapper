@@ -5,20 +5,25 @@ import btnOrder from "./layers/components/btn-order";
 import btnRemove from "./layers/components/btn-remove";
 import btnSettings from "./layers/components/btn-settings";
 import btnZoom from "./layers/components/btn-zoom";
+import File from "../layers/File";
+import WMS from "../layers/WMS";
+import WMTS from "../layers/WMTS";
 
 export default function (
   type: string,
-  index: number,
+  layer: File | WMS | WMTS,
   name: string,
   title: string,
   queryable: boolean,
   zoom: boolean,
   legend: HTMLImageElement | HTMLCanvasElement
 ): HTMLLIElement {
+  const index = layer.getIndex().toString();
+
   const li = document.createElement("li");
-  li.className = "list-group-item";
+  li.className = "list-group";
   li.style.lineHeight = "31px";
-  li.dataset.index = index.toString();
+  li.dataset.index = index;
   li.dataset.layer = name;
   li.dataset.type = type;
 
@@ -41,11 +46,11 @@ export default function (
   const div = document.createElement("div");
   div.className = "d-flex w-100 justify-content-between";
 
-  // const divOrder = document.createElement("div");
-  // divOrder.className = "d-flex flex-column mr-2";
-  // divOrder.style.lineHeight = "0.5";
-  // divOrder.append(...btnOrder(type, index, name));
-  // div.append(divOrder);
+  const divOrder = document.createElement("div");
+  divOrder.className = "d-flex flex-column mr-2";
+  divOrder.style.lineHeight = "0.5";
+  divOrder.append(...btnOrder(type, layer));
+  div.append(divOrder);
 
   const divName = document.createElement("div");
   divName.className = "flex-fill layer-name text-nowrap text-truncate";

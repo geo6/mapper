@@ -8,14 +8,14 @@ import { register } from "ol/proj/proj4";
 import proj4 from "proj4";
 
 import Cache from "./Cache";
-import File from "./File";
+import File from "./layers/File";
+import WMS from "./layers/WMS";
+import WMTS from "./layers/WMTS";
 import initMap from "./map";
 import initLayers from "./map/layers";
 import initUpload from "./upload";
 import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
-import WMS from "./layers/wms/WMS";
-import WMTS from "./layers/wmts/wmts";
 
 import BaseLayerOptions from "./BaseLayerOptions";
 import FileOptions from "./FileOptions";
