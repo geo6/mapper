@@ -1,14 +1,14 @@
 "use strict";
 
 export interface LegendOptions {
-  column: string;
+  column?: string;
   values: Array<{
     color: string;
     size?: number;
     symbol?: string;
     text: string;
     type?: string;
-    value: string | number | null;
+    value?: string | number | null;
   }>;
 }
 

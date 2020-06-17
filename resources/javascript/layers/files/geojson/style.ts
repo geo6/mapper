@@ -8,7 +8,10 @@ export default function (feature: Feature, legend: LegendOptions): void {
   const properties = feature.getProperties();
   const { column, values } = legend;
 
-  const l = values.find((val) => val.value === properties[column]);
+  const l =
+    column !== null
+      ? values.find((val) => val.value === properties[column])
+      : values[0];
 
   if (typeof l !== "undefined") {
     const style = { color: l.color };

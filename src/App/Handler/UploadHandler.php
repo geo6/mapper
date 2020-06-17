@@ -102,9 +102,9 @@ class UploadHandler implements RequestHandlerInterface
                                             case 'text/plain':
                                                 $json = json_decode($content);
 
-                                                if (isset($json->legend, $json->legendColumn)) {
+                                                if (isset($json->legend)) {
                                                     $legend = [
-                                                        'column' => $json->legendColumn,
+                                                        'column' => $json->legendColumn ?? null,
                                                         'values' => $json->legend,
                                                     ];
                                                 }
