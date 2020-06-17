@@ -33,9 +33,9 @@ class GeoJSON extends SplFileInfo implements FileInterface
             $json = json_decode($content);
 
             if ($json !== false) {
-                if (isset($json->legend, $json->legendColumn)) {
+                if (isset($json->legend)) {
                     $legend = [
-                        'column' => $json->legendColumn,
+                        'column' => isset($json->legendColumn) ? $json->legendColumn : null,
                         'values' => $json->legend,
                     ];
                 }

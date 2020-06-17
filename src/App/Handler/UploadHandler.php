@@ -104,7 +104,7 @@ class UploadHandler implements RequestHandlerInterface
 
                                                 if (isset($json->legend)) {
                                                     $legend = [
-                                                        'column' => $json->legendColumn ?? null,
+                                                        'column' => isset($json->legendColumn) ? $json->legendColumn : null,
                                                         'values' => $json->legend,
                                                     ];
                                                 }
