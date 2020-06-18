@@ -22,7 +22,7 @@ import {
   getFromCache,
   getFromHash,
 } from "./map/permalink";
-import initSingleClick from "./map/singleclick";
+import singleClick from "./map/singleclick";
 import BaseLayer from "./BaseLayer";
 import BaseLayerOptions from "./BaseLayerOptions";
 
@@ -82,8 +82,9 @@ export default function (
   map.addLayer(layerGroup);
 
   map.once("rendercomplete", () => {
+    map.on("singleclick", (event) => singleClick(event));
+
     initPermalink();
-    initSingleClick();
     initInfo();
     initGeocoder();
     initDraw();
