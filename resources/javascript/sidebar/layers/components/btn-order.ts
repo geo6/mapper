@@ -19,8 +19,6 @@ export default function (
     const layers = layerGroup.getLayers();
     const index = layers.getArray().findIndex((l) => l === layer.olLayer);
 
-    console.info("UP", type, index);
-
     if (index > 0) {
       layers.remove(layer.olLayer);
       layers.insertAt(index - 1, layer.olLayer);
@@ -35,8 +33,6 @@ export default function (
 
     const layers = layerGroup.getLayers();
     const index = layers.getArray().findIndex((l) => l === layer.olLayer);
-
-    console.info("DOWN", type, index);
 
     if (index < layers.getLength() - 1) {
       layers.remove(layer.olLayer);
