@@ -28,7 +28,7 @@ export default function (geometry) {
       });
     });
 
-  $(divGeometry).empty().append([geometryType, "<br>"]).show();
+  $(divGeometry).empty().append([geometryType, "<br>"]).prop("hidden", false);
 
   switch (geometryType) {
     case "Point": {

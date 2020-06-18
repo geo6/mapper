@@ -4,8 +4,9 @@ export default function (): void {
   document
     .getElementById("infos-list-btn-back")
     .addEventListener("click", () => {
-      $("#info-details").hide();
-      $("#info-list").show();
+      document.getElementById("info-location").hidden = false;
+      document.getElementById("info-list").hidden = false;
+      document.getElementById("info-details").hidden = true;
     });
 
   document

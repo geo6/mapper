@@ -33,11 +33,16 @@ export default function (
   feature: Feature,
   liElement: HTMLLIElement
 ): void {
-  $("#info-list").hide();
-  $("#info-details").show();
+  document.getElementById("info-location").hidden = true;
+  document.getElementById("info-list").hidden = true;
 
-  $("#info-details > table > caption, #info-details > table > tbody").empty();
-  $("#info-details-geometry").empty().hide();
+  document.getElementById("info-details").hidden = false;
+
+  document.querySelector("#info-details > table > caption").innerHTML = "";
+  document.querySelector("#info-details > table > tbody").innerHTML = "";
+
+  document.getElementById("info-details-geometry").innerHTML = "";
+  document.getElementById("info-details-geometry").hidden = true;
 
   const items = document.querySelectorAll("#info-list ol > li");
   const current = Array.from(items).indexOf(liElement);
@@ -47,16 +52,17 @@ export default function (
   const btnPrevious = document.getElementById(
     "infos-list-btn-prev"
   ) as HTMLButtonElement;
-  const btnNext = document.getElementById(
-    "infos-list-btn-next"
-  ) as HTMLButtonElement;
-
   btnPrevious.disabled = true;
-  btnNext.disabled = true;
 
   if (current - 1 >= 0) {
     btnPrevious.disabled = false;
   }
+
+  const btnNext = document.getElementById(
+    "infos-list-btn-next"
+  ) as HTMLButtonElement;
+  btnNext.disabled = true;
+
   if (current + 1 < items.length) {
     btnNext.disabled = false;
   }

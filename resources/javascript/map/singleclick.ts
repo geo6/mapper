@@ -13,16 +13,16 @@ export default function (event: MapBrowserEvent): void {
 
   displayLocation(event.coordinate);
 
+  document.getElementById("info-location").hidden = false;
+  document.getElementById("info-list").hidden = false;
   document.getElementById("info-list").innerHTML = "";
-  document.getElementById("info-list").style.display = "";
-
-  document.getElementById("info-details").style.display = "none";
+  document.getElementById("info-details").hidden = true;
 
   document.querySelector("#info-details > table > caption").innerHTML = "";
   document.querySelector("#info-details > table > tbody").innerHTML = "";
 
   document.getElementById("info-details-geometry").innerHTML = "";
-  document.getElementById("info-details-geometry").style.display = "";
+  document.getElementById("info-details-geometry").hidden = false;
 
   (document.getElementById(
     "infos-list-btn-prev"
