@@ -1,7 +1,7 @@
 "use strict";
 
 import { Coordinate } from "ol/coordinate";
-import Feature from "ol/Feature";
+import Feature, { FeatureLike } from "ol/Feature";
 import TileLayer from "ol/layer/Tile";
 import { ProjectionLike } from "ol/proj";
 import { TileWMS } from "ol/source";
@@ -125,7 +125,7 @@ class WMS {
   /**
    * @param coordinate Coordinate.
    */
-  async getFeatureInfo(coordinate: Coordinate): Promise<void> {
+  async getFeatureInfo(coordinate: Coordinate): Promise<FeatureLike[]> {
     const source = this.olLayer.getSource() as TileWMS;
 
     createUlService("wms", this.getIndex(), this.capabilities.Service.Title);
@@ -146,18 +146,20 @@ class WMS {
       .querySelector(`#info-service-wms-${this.getIndex()} > .loading`)
       .remove();
 
-    let total = 0;
+    let features: FeatureLike[] = [];
     results.forEach((result) => {
       if (result.features.length > 0) {
         WMSDisplayFeatureList(this, result.layer, result.features);
       }
 
-      total += result.features.length;
+      features = features.concat(result.features);
     });
 
-    if (total === 0) {
+    if (features.length === 0) {
       document.getElementById(`info-service-wms-${this.getIndex()}`).remove();
     }
+
+    return features;
   }
 
   /**

@@ -1,6 +1,7 @@
 "use strict";
 
 import { MapBrowserEvent } from "ol";
+import { FeatureLike } from "ol/Feature";
 
 import displayLocation from "../info/location";
 
@@ -37,9 +38,13 @@ export default function (event: MapBrowserEvent): void {
 
   $("#infos-details-btn-locate").off();
 
+  let count = 0;
+
   // Draw
   const features = window.app.draw.getFeatureInfo(event.coordinate);
   if (features !== null && features.length > 0) {
+    count += features.length;
+
     window.app.draw.displayFeaturesList(features);
   }
 
@@ -50,6 +55,8 @@ export default function (event: MapBrowserEvent): void {
     file.selection = features;
 
     if (features !== null && features.length > 0) {
+      count += features.length;
+
       file.displayFeaturesList(index, features);
     }
   });
@@ -61,6 +68,8 @@ export default function (event: MapBrowserEvent): void {
     file.selection = features;
 
     if (features !== null && features.length > 0) {
+      count += features.length;
+
       file.displayFeaturesList(index, features);
     }
   });
@@ -72,6 +81,8 @@ export default function (event: MapBrowserEvent): void {
     file.selection = features;
 
     if (features !== null && features.length > 0) {
+      count += features.length;
+
       file.displayFeaturesList(index, features);
     }
   });
@@ -83,14 +94,17 @@ export default function (event: MapBrowserEvent): void {
     file.selection = features;
 
     if (features !== null && features.length > 0) {
+      count += features.length;
+
       file.displayFeaturesList(index, features);
     }
   });
 
   // WMS
-  services.wms.forEach((service) => {
+  const requests = [];
+  services.wms.forEach(async (service) => {
     if (service.olLayer !== null) {
-      service.getFeatureInfo(event.coordinate);
+      requests.push(service.getFeatureInfo(event.coordinate));
     }
   });
 
@@ -104,4 +118,17 @@ export default function (event: MapBrowserEvent): void {
   //     service.getFeatureInfo(event.coordinate);
   //   }
   // });
+
+  Promise.all(requests).then((results: FeatureLike[][]) => {
+    count += results.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.length,
+      0
+    );
+
+    if (count === 1) {
+      document
+        .querySelector("#info-list .info-list-feature")
+        .dispatchEvent(new Event("click"));
+    }
+  });
 }

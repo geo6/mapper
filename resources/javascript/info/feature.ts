@@ -54,7 +54,7 @@ export default function (
   }
 
   const li = document.createElement("li");
-
+  li.className = "info-list-feature";
   li.innerHTML = label;
   li.addEventListener("click", () => {
     displayDetails(title, feature, li);
