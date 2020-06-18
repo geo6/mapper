@@ -17,7 +17,11 @@ import initGeocoder from "./geocoder";
 import initInfo from "./info";
 import GeolocationControl from "./map/geolocation";
 import MeasureControl from "./map/measure/control";
-import initPermalink from "./map/permalink";
+import {
+  init as initPermalink,
+  getFromCache,
+  getFromHash,
+} from "./map/permalink";
 import initSingleClick from "./map/singleclick";
 import BaseLayer from "./BaseLayer";
 import BaseLayerOptions from "./BaseLayerOptions";
@@ -36,6 +40,17 @@ export default function (
     $("#map").height($(window).height() - $("body > nav.navbar").outerHeight());
   });
 
+  let view = getFromHash();
+  if (view.zoom === null || view.center === null) {
+    view = getFromCache();
+  }
+  if (view.zoom === null || view.center === null) {
+    view = {
+      center: fromLonLat(lnglat),
+      zoom,
+    };
+  }
+
   const map = new Map({
     target: "map",
     controls: ControlDefaults({
@@ -50,9 +65,9 @@ export default function (
     ]),
     layers: [],
     view: new View({
-      center: fromLonLat(lnglat),
+      center: view.center,
       constrainResolution: true,
-      zoom,
+      zoom: view.zoom,
     }),
   });
 

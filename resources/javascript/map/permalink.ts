@@ -1,39 +1,49 @@
 "use strict";
 
+import { Coordinate } from "ol/coordinate";
 import { fromLonLat, toLonLat } from "ol/proj";
 
 import { cache, map } from "../main";
 
-export default function () {
-  var zoom = 2;
-  var center = [0, 0];
-
-  var view = map.getView();
+export function getFromHash(): {
+  center: Coordinate | null;
+  zoom: number | null;
+} {
+  let zoom = null;
+  let center = null;
 
   if (window.location.hash !== "") {
-    // try to restore center, zoom-level and rotation from the URL
     const hash = window.location.hash.replace("#map=", "");
     const parts = hash.split("/");
 
     if (parts.length === 3) {
       zoom = parseInt(parts[0], 10);
       center = fromLonLat([parseFloat(parts[2]), parseFloat(parts[1])]);
-
-      map.getView().setCenter(center);
-      map.getView().setZoom(zoom);
     }
-  } else if (typeof cache.map !== "undefined" && cache.map !== null) {
-    zoom = parseInt(cache.map.zoom, 10);
-    center = fromLonLat([
-      parseFloat(cache.map.longitude),
-      parseFloat(cache.map.latitude),
-    ]);
-
-    map.getView().setCenter(center);
-    map.getView().setZoom(zoom);
   }
 
-  var shouldUpdate = true;
+  return { center, zoom };
+}
+
+export function getFromCache(): {
+  center: Coordinate | null;
+  zoom: number | null;
+} {
+  let zoom = null;
+  let center = null;
+
+  if (typeof cache.map !== "undefined" && cache.map !== null) {
+    zoom = cache.map.zoom;
+    center = fromLonLat([cache.map.longitude, cache.map.latitude]);
+  }
+
+  return { center, zoom };
+}
+
+export function init(): void {
+  const view = map.getView();
+
+  let shouldUpdate = true;
 
   map.on("moveend", () => {
     if (!shouldUpdate) {
