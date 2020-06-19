@@ -152,6 +152,7 @@ class HomeHandler implements RequestHandlerInterface
                             if (!is_null($f)) {
                                 $f['default'] = isset($file['default']) ? in_array(basename($item->getPathName()), $file['default'], true) : false;
                                 $f['label'] = $file['label'] ?? null;
+                                $f['queryable'] = !isset($file['queryable']) || $file['queryable'] === true;
 
                                 if (isset($file['filter'])) {
                                     $f['filter'] = self::applyFilter($file['filter'], $query);
@@ -167,6 +168,7 @@ class HomeHandler implements RequestHandlerInterface
                     if (!is_null($f)) {
                         $f['default'] = $file['default'] ?? false;
                         $f['label'] = $file['label'] ?? null;
+                        $f['queryable'] = !isset($file['queryable']) || $file['queryable'] === true;
 
                         if (isset($file['filter'])) {
                             $f['filter'] = self::applyFilter($file['filter'], $query);

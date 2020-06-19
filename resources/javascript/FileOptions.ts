@@ -10,6 +10,7 @@ export interface FileOptions {
   label?: string | null;
   legend?: LegendOptions | null;
   name: string;
+  queryable: boolean;
   title?: string | null;
 }
 

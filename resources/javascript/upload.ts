@@ -136,7 +136,7 @@ export default function (): void {
             "csv",
             file.uniqueIdentifier,
             file.fileName,
-            { title, description },
+            { title, description, queryable: true },
             null,
             false
           );
@@ -147,7 +147,7 @@ export default function (): void {
             "geojson",
             file.uniqueIdentifier,
             file.fileName,
-            { title, description, legend },
+            { title, description, legend, queryable: true },
             null,
             false
           );
@@ -157,7 +157,7 @@ export default function (): void {
             "gpx",
             file.uniqueIdentifier,
             file.fileName,
-            { title, description },
+            { title, description, queryable: true },
             null,
             false
           );
@@ -167,7 +167,7 @@ export default function (): void {
             "kml",
             file.uniqueIdentifier,
             file.fileName,
-            { title, description },
+            { title, description, queryable: true },
             null,
             false
           );

@@ -50,56 +50,64 @@ export default function (event: MapBrowserEvent): void {
   }
 
   // CSV
-  files.csv.forEach((file, index) => {
-    const features = file.getFeatureInfo(event.coordinate);
+  files.csv
+    .filter((file) => file.queryable)
+    .forEach((file, index) => {
+      const features = file.getFeatureInfo(event.coordinate);
 
-    file.selection = features;
+      file.selection = features;
 
-    if (features !== null && features.length > 0) {
-      count += features.length;
+      if (features !== null && features.length > 0) {
+        count += features.length;
 
-      file.displayFeaturesList(index, features);
-    }
-  });
+        file.displayFeaturesList(index, features);
+      }
+    });
 
   // GeoJSON
-  files.geojson.forEach((file, index) => {
-    const features = file.getFeatureInfo(event.coordinate);
+  files.geojson
+    .filter((file) => file.queryable)
+    .forEach((file, index) => {
+      const features = file.getFeatureInfo(event.coordinate);
 
-    file.selection = features;
+      file.selection = features;
 
-    if (features !== null && features.length > 0) {
-      count += features.length;
+      if (features !== null && features.length > 0) {
+        count += features.length;
 
-      file.displayFeaturesList(index, features);
-    }
-  });
+        file.displayFeaturesList(index, features);
+      }
+    });
 
   // GPX
-  files.gpx.forEach((file, index) => {
-    const features = file.getFeatureInfo(event.coordinate);
+  files.gpx
+    .filter((file) => file.queryable)
+    .forEach((file, index) => {
+      const features = file.getFeatureInfo(event.coordinate);
 
-    file.selection = features;
+      file.selection = features;
 
-    if (features !== null && features.length > 0) {
-      count += features.length;
+      if (features !== null && features.length > 0) {
+        count += features.length;
 
-      file.displayFeaturesList(index, features);
-    }
-  });
+        file.displayFeaturesList(index, features);
+      }
+    });
 
   // KML
-  files.kml.forEach((file, index) => {
-    const features = file.getFeatureInfo(event.coordinate);
+  files.kml
+    .filter((file) => file.queryable)
+    .forEach((file, index) => {
+      const features = file.getFeatureInfo(event.coordinate);
 
-    file.selection = features;
+      file.selection = features;
 
-    if (features !== null && features.length > 0) {
-      count += features.length;
+      if (features !== null && features.length > 0) {
+        count += features.length;
 
-      file.displayFeaturesList(index, features);
-    }
-  });
+        file.displayFeaturesList(index, features);
+      }
+    });
 
   // WMS
   const requests = [];

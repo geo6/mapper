@@ -37,6 +37,7 @@ export class File {
   /** File name. */
   name: string;
   olLayer: VectorLayer | null = null;
+  queryable: boolean;
   selection: Array<any> = [];
   sidebarElement: HTMLLIElement = null;
   /** File title. */
@@ -53,6 +54,7 @@ export class File {
       description?: string | null;
       label?: string | null;
       legend?: LegendOptions | null;
+      queryable: boolean;
       title?: string | null;
     },
     filter: Record<string, string> | null,
@@ -65,10 +67,9 @@ export class File {
     this.description = options.description;
     this.label = options.label;
     this.legend = options.legend;
+    this.queryable = options.queryable;
     this.local = local || false;
     this.filter = filter;
-
-    console.log(this.label);
 
     if (["csv", "geojson", "gpx", "kml"].indexOf(this.type) === -1) {
       throw new Error("Invalid file type.");

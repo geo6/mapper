@@ -53,7 +53,11 @@ export default function (file: File): HTMLLIElement {
   const divName = document.createElement("div");
   divName.className = "flex-fill layer-name text-nowrap text-truncate";
   divName.title = file.name;
-  divName.innerHTML = `<i class="fas fa-fw fa-info-circle"></i> ${title}`;
+  if (file.queryable === true) {
+    divName.innerHTML = `<i class="fas fa-fw fa-info-circle"></i> ${title}`;
+  } else {
+    divName.innerHTML = title;
+  }
   div.append(divName);
 
   $(divName).tooltip();

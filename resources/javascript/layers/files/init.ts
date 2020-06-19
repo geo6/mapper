@@ -20,6 +20,7 @@ export default function (
         description: file.description,
         label: file.label,
         legend: file.legend,
+        queryable: file.queryable,
         title: file.title,
       },
       file.filter,
