@@ -26,7 +26,10 @@ export class Sidebar {
   addLayer(layer: File | WMS | WMTS, index?: number): HTMLLIElement {
     const li = layer.sidebarElement;
 
-    if (typeof index === "undefined") {
+    if (
+      typeof index === "undefined" ||
+      document.getElementById("layers-list").children.length === 0
+    ) {
       document.getElementById("layers-list").append(li);
     } else if (index === 0) {
       document.getElementById("layers-list").prepend(li);
