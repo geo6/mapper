@@ -51,8 +51,6 @@ export const files: {
   kml: [],
 };
 
-window.app = window.app || {};
-
 export function setBaseUrl(url: string, isHttps: boolean): void {
   baseUrl = url;
   https = isHttps;
