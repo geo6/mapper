@@ -50,9 +50,10 @@ export class File {
     identifier: string,
     name: string,
     options: {
-      title?: string | null;
       description?: string | null;
+      label?: string | null;
       legend?: LegendOptions | null;
+      title?: string | null;
     },
     filter: Record<string, string> | null,
     local: boolean
@@ -62,9 +63,12 @@ export class File {
     this.name = name;
     this.title = options.title;
     this.description = options.description;
+    this.label = options.label;
     this.legend = options.legend;
     this.local = local || false;
     this.filter = filter;
+
+    console.log(this.label);
 
     if (["csv", "geojson", "gpx", "kml"].indexOf(this.type) === -1) {
       throw new Error("Invalid file type.");

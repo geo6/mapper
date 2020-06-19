@@ -16,7 +16,12 @@ export default function (
       type,
       file.identifier,
       file.name,
-      { title: file.title, description: file.description, legend: file.legend },
+      {
+        description: file.description,
+        label: file.label,
+        legend: file.legend,
+        title: file.title,
+      },
       file.filter,
       true
     );

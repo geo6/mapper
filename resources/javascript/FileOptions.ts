@@ -7,6 +7,7 @@ export interface FileOptions {
   description?: string | null;
   filter?: Record<string, string> | null;
   identifier: string;
+  label?: string | null;
   legend?: LegendOptions | null;
   name: string;
   title?: string | null;
