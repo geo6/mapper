@@ -18,9 +18,9 @@ export default function (
   button.addEventListener("click", (event: Event) => {
     event.preventDefault();
 
-    button.closest("li.list-group-item").remove();
-
     if (["wms", "wmts"].indexOf(type) > -1) {
+      button.closest("li.list-group-item").remove();
+
       layer.removeLayer(name);
     } else {
       layer.removeLayer();
