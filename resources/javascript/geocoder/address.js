@@ -3,6 +3,7 @@
 import GeoJSON from "ol/format/GeoJSON";
 
 import { baseUrl, customKey, map, providers, sidebar } from "../main";
+import { geocoderLayer } from "../geocoder";
 
 /**
  * Launch geocoding query on every API configured and display result in sidebar.
@@ -12,7 +13,8 @@ import { baseUrl, customKey, map, providers, sidebar } from "../main";
  * @returns {void}
  */
 export default function (address) {
-  window.app.geocoder.getSource().clear();
+  geocoderLayer.getSource().clear();
+
   $("#geocoder-results").empty();
 
   if ($.trim(address).length === 0) {
@@ -51,8 +53,8 @@ export default function (address) {
             featureProjection: map.getView().getProjection(),
           });
 
-          window.app.geocoder.getSource().addFeatures(features);
-          window.app.geocoder.setVisible(true);
+          geocoderLayer.getSource().addFeatures(features);
+          geocoderLayer.setVisible(true);
 
           if (features.length > 0) {
             const ol = $(document.createElement("ol")).addClass("mt-3");

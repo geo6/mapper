@@ -3,6 +3,7 @@
 import GeoJSON from "ol/format/GeoJSON";
 
 import { baseUrl, customKey, map, providers } from "../main";
+import { geocoderLayer } from "../geocoder";
 
 /**
  * Launch reverse geocoding query on every API configured and display result in sidebar.
@@ -13,7 +14,8 @@ import { baseUrl, customKey, map, providers } from "../main";
  * @returns {void}
  */
 export default function (longitude, latitude) {
-  window.app.geocoder.getSource().clear();
+  geocoderLayer.getSource().clear();
+
   $("#geocoder-results").empty();
 
   for (const key in providers) {
@@ -53,8 +55,8 @@ export default function (longitude, latitude) {
           featureProjection: map.getView().getProjection(),
         });
 
-        window.app.geocoder.getSource().addFeatures(features);
-        window.app.geocoder.setVisible(true);
+        geocoderLayer.getSource().addFeatures(features);
+        geocoderLayer.setVisible(true);
 
         if (features.length > 0) {
           const ol = document.createElement("ol");

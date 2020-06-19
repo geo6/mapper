@@ -8,13 +8,14 @@ import geocodeReverse from "./geocoder/reverse";
 
 import { map, sidebar } from "./main";
 
+export const geocoderLayer = new VectorLayer({
+  source: new VectorSource(),
+  visible: false,
+  zIndex: Infinity,
+});
+
 export default function () {
-  window.app.geocoder = new VectorLayer({
-    source: new VectorSource(),
-    visible: false,
-    zIndex: Infinity,
-  });
-  map.addLayer(window.app.geocoder);
+  map.addLayer(geocoderLayer);
 
   $("#geocoder").on("submit", (event) => {
     event.preventDefault();
