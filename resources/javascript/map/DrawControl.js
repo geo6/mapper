@@ -12,9 +12,9 @@ import MultiPolygon from "ol/geom/MultiPolygon";
 
 import saveAs from "file-saver";
 
-import DrawPoint from "./draw/point";
-import DrawLineString from "./draw/linestring";
-import DrawPolygon from "./draw/polygon";
+import DrawPoint from "./draw/DrawPoint";
+import DrawLineString from "./draw/DrawLineString";
+import DrawPolygon from "./draw/DrawPolygon";
 import displayFeatureInList from "../info/feature";
 
 import { customKey, map } from "../main";

@@ -6,6 +6,7 @@ import { FeatureLike } from "ol/Feature";
 import displayLocation from "../info/location";
 
 import { files, services } from "../main";
+import { drawControl } from "../draw";
 import { marker, markerLayer } from "./marker";
 
 export default function (event: MapBrowserEvent): void {
@@ -41,11 +42,11 @@ export default function (event: MapBrowserEvent): void {
   let count = 0;
 
   // Draw
-  const features = window.app.draw.getFeatureInfo(event.coordinate);
+  const features = drawControl.getFeatureInfo(event.coordinate);
   if (features !== null && features.length > 0) {
     count += features.length;
 
-    window.app.draw.displayFeaturesList(features);
+    drawControl.displayFeaturesList(features);
   }
 
   // CSV

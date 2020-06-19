@@ -1,9 +1,11 @@
 "use strict";
 
-import DrawControl from "./map/draw";
+import DrawControl from "./map/DrawControl";
+
+export let drawControl;
 
 export default function () {
-  window.app.draw = new DrawControl();
+  drawControl = new DrawControl();
 
   document.querySelectorAll("#sidebar a").forEach((element) => {
     element.addEventListener("click", () => {
@@ -11,27 +13,27 @@ export default function () {
         document.querySelectorAll("#sidebar > .sidebar-tabs > ul > li")
       ).find((element) => element.querySelector('a[href="#draw"]') !== null);
 
-      window.app.draw.active = li.classList.contains("active");
+      drawControl.active = li.classList.contains("active");
 
-      if (window.app.draw.active === false) {
-        window.app.draw.disable();
-        window.app.draw.type = null;
+      if (drawControl.active === false) {
+        drawControl.disable();
+        drawControl.type = null;
       }
     });
   });
 
   document.getElementById("btn-draw-clear").addEventListener("click", () => {
-    window.app.draw.clear();
+    drawControl.clear();
   });
 
   document.getElementById("btn-draw-export").addEventListener("click", () => {
-    window.app.draw.export();
+    drawControl.export();
   });
 
   document
     .getElementById("btn-draw-properties")
     .addEventListener("reset", () => {
-      window.app.draw.resetForm();
+      drawControl.resetForm();
     });
 
   document
@@ -39,7 +41,7 @@ export default function () {
     .addEventListener("submit", (event) => {
       event.preventDefault();
 
-      window.app.draw.submitForm();
+      drawControl.submitForm();
     });
 
   document
@@ -50,16 +52,16 @@ export default function () {
         const active = event.currentTarget.classList.contains("active");
 
         if (active === true) {
-          window.app.draw.disable();
-          window.app.draw.type = null;
+          drawControl.disable();
+          drawControl.type = null;
         } else {
-          if (window.app.draw.type !== null) {
-            window.app.draw.disable();
-            window.app.draw.type = null;
+          if (drawControl.type !== null) {
+            drawControl.disable();
+            drawControl.type = null;
           }
 
-          window.app.draw.type = type;
-          window.app.draw.enable();
+          drawControl.type = type;
+          drawControl.enable();
         }
       });
     });

@@ -6,11 +6,12 @@ import Draw from "ol/interaction/Draw";
 import unkinkPolygon from "@turf/unkink-polygon";
 
 import { map } from "../../main";
+import { drawControl } from "../../draw";
 
 class DrawPolygon extends Draw {
   constructor() {
     super({
-      source: window.app.draw.layerCurrent.getSource(),
+      source: drawControl.layerCurrent.getSource(),
       stopClick: true,
       type: "Polygon",
     });
@@ -18,7 +19,7 @@ class DrawPolygon extends Draw {
     this.on("drawend", (event) => {
       this.validate(event.feature);
 
-      window.app.draw.showForm();
+      drawControl.showForm();
     });
   }
 

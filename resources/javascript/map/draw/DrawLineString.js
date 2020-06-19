@@ -2,16 +2,18 @@
 
 import Draw from "ol/interaction/Draw";
 
+import { drawControl } from "../../draw";
+
 class DrawLineString extends Draw {
   constructor() {
     super({
-      source: window.app.draw.layerCurrent.getSource(),
+      source: drawControl.layerCurrent.getSource(),
       stopClick: true,
       type: "LineString",
     });
 
     this.on("drawend", () => {
-      window.app.draw.showForm();
+      drawControl.showForm();
     });
   }
 }
