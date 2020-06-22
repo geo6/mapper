@@ -14,7 +14,8 @@ export function display(value: any): HTMLAnchorElement {
   a.href = url.toString();
   a.target = "_blank";
   a.className = "text-decoration-none";
-  a.innerHTML = `<i class="fas fa-external-link-alt"></i> ${url.host}`;
+  a.innerHTML = `<i class="fas fa-external-link-alt"></i> Open`;
+  a.title = url.host;
 
   return a;
 }
