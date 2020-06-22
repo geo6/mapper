@@ -2,7 +2,11 @@
 
 import { Circle, Fill, Stroke } from "ol/style";
 
-export default function (stroke: Stroke, fill: Fill, size: number): Circle {
+export default function (
+  stroke: Stroke,
+  fill: Fill | null,
+  size: number
+): Circle {
   return new Circle({
     fill,
     stroke,

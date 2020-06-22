@@ -4,7 +4,7 @@ import { Fill, RegularShape, Stroke } from "ol/style";
 
 export default function (
   stroke: Stroke,
-  fill: Fill,
+  fill: Fill | null,
   size: number
 ): RegularShape {
   return new RegularShape({

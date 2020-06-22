@@ -32,20 +32,28 @@ export default function (
   });
   const stroke = new Stroke({
     color,
-    width: 1.25,
+    width: 2,
   });
 
   switch (symbol.toLowerCase()) {
     case "circle":
     default:
       return new Style({ image: markerCircle(stroke, fill, size) });
+    case "circle-stroked":
+      return new Style({ image: markerCircle(stroke, null, size) });
     case "cross":
       return new Style({ image: markerCross(stroke, fill, size) });
     case "square":
       return new Style({ image: markerSquare(stroke, fill, size) });
+    case "square-stroked":
+      return new Style({ image: markerSquare(stroke, null, size) });
     case "star":
       return new Style({ image: markerStar(stroke, fill, size) });
+    case "star-stroked":
+      return new Style({ image: markerStar(stroke, null, size) });
     case "triangle":
       return new Style({ image: markerTriangle(stroke, fill, size) });
+    case "triangle-stroked":
+      return new Style({ image: markerTriangle(stroke, null, size) });
   }
 }

@@ -57,6 +57,13 @@ export default function (
             canvasContext.fillStyle = legend[i].color;
             canvasContext.fill();
             break;
+          case "circle-stroked":
+            canvasContext.beginPath();
+            canvasContext.arc(15, oy + 5, 5, 0, 360);
+            canvasContext.lineWidth = 2;
+            canvasContext.strokeStyle = legend[i].color;
+            canvasContext.stroke();
+            break;
           case "cross":
             canvasContext.beginPath();
             canvasContext.moveTo(10, oy);
@@ -70,6 +77,16 @@ export default function (
             canvasContext.fillStyle = legend[i].color;
             canvasContext.fillRect(10, oy, 10, 10);
             break;
+          case "square-stroked":
+            canvasContext.beginPath();
+            canvasContext.moveTo(10, oy);
+            canvasContext.lineTo(20, oy);
+            canvasContext.lineTo(20, oy + 10);
+            canvasContext.lineTo(10, oy + 10);
+            canvasContext.lineTo(10, oy);
+            canvasContext.strokeStyle = legend[i].color;
+            canvasContext.stroke();
+            break;
           case "star":
             canvasContext.beginPath();
             canvasContext.moveTo(15, oy);
@@ -81,6 +98,17 @@ export default function (
             canvasContext.fillStyle = legend[i].color;
             canvasContext.fill();
             break;
+          case "star-stroked":
+            canvasContext.beginPath();
+            canvasContext.moveTo(15, oy);
+            canvasContext.lineTo(12, oy + 10);
+            canvasContext.lineTo(20, oy + 3);
+            canvasContext.lineTo(10, oy + 3);
+            canvasContext.lineTo(18, oy + 10);
+            canvasContext.lineTo(15, oy);
+            canvasContext.strokeStyle = legend[i].color;
+            canvasContext.stroke();
+            break;
           case "triangle":
             canvasContext.beginPath();
             canvasContext.moveTo(10, oy + 10);
@@ -89,6 +117,15 @@ export default function (
             canvasContext.lineTo(10, oy + 10);
             canvasContext.fillStyle = legend[i].color;
             canvasContext.fill();
+            break;
+          case "triangle-stroked":
+            canvasContext.beginPath();
+            canvasContext.moveTo(10, oy + 10);
+            canvasContext.lineTo(15, oy);
+            canvasContext.lineTo(20, oy + 10);
+            canvasContext.lineTo(10, oy + 10);
+            canvasContext.strokeStyle = legend[i].color;
+            canvasContext.stroke();
             break;
         }
         break;
