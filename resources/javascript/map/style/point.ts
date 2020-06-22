@@ -40,20 +40,44 @@ export default function (
     default:
       return new Style({ image: markerCircle(stroke, fill, size) });
     case "circle-stroked":
-      return new Style({ image: markerCircle(stroke, null, size) });
+      return new Style({
+        image: markerCircle(
+          stroke,
+          new Fill({ color: "rgba(255,255,255,0)" }),
+          size
+        ),
+      });
     case "cross":
       return new Style({ image: markerCross(stroke, fill, size) });
     case "square":
       return new Style({ image: markerSquare(stroke, fill, size) });
     case "square-stroked":
-      return new Style({ image: markerSquare(stroke, null, size) });
+      return new Style({
+        image: markerSquare(
+          stroke,
+          new Fill({ color: "rgba(255,255,255,0)" }),
+          size
+        ),
+      });
     case "star":
       return new Style({ image: markerStar(stroke, fill, size) });
     case "star-stroked":
-      return new Style({ image: markerStar(stroke, null, size) });
+      return new Style({
+        image: markerStar(
+          stroke,
+          new Fill({ color: "rgba(255,255,255,0)" }),
+          size
+        ),
+      });
     case "triangle":
       return new Style({ image: markerTriangle(stroke, fill, size) });
     case "triangle-stroked":
-      return new Style({ image: markerTriangle(stroke, null, size) });
+      return new Style({
+        image: markerTriangle(
+          stroke,
+          new Fill({ color: "rgba(255,255,255,0)" }),
+          size
+        ),
+      });
   }
 }
