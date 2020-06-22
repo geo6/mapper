@@ -1,5 +1,7 @@
 "use strict";
 
+import File from "../layers/File";
+
 export class SettingsModal {
   private element: HTMLElement;
   private form: HTMLFormElement;
@@ -10,7 +12,7 @@ export class SettingsModal {
   private opacityInput: HTMLInputElement;
   private opacityInputText: HTMLElement;
 
-  private layer = null;
+  private layer: File = null;
 
   constructor(element: HTMLElement) {
     this.element = element;
@@ -47,8 +49,19 @@ export class SettingsModal {
     this.form.addEventListener("submit", (event: Event) => {
       event.preventDefault();
 
-      this.layer.label = this.getLabel();
       this.layer.color = this.getColor();
+      this.layer.label = this.getLabel();
+      this.layer.queryable = this.getQueryable();
+
+      if (this.layer.queryable === true) {
+        const element = this.layer.sidebarElement.querySelector(".layer-name");
+        element.innerHTML =
+          '<i class="fas fa-fw fa-info-circle"></i> ' + element.innerHTML;
+      } else {
+        this.layer.sidebarElement
+          .querySelector(".layer-name > .fa-info-circle")
+          .remove();
+      }
 
       this.layer.olLayer.setOpacity(this.getOpacity());
 
@@ -72,12 +85,14 @@ export class SettingsModal {
     this.form.reset();
   }
 
-  setLayer(layer, name: string): void {
+  setLayer(layer: File, name: string): void {
     this.layer = layer;
 
     (this.element.querySelector(
       ".modal-body > span.font-weight-bold"
     ) as HTMLSpanElement).innerText = name;
+
+    this.setQueryable(layer.queryable);
 
     this.setLabelList(
       this.layer.getColumns().filter((column: string) => column !== "geometry")
@@ -109,6 +124,40 @@ export class SettingsModal {
 
       this.labelSelect.append(option);
     });
+  }
+
+  setQueryable(queryable: boolean): void {
+    document
+      .querySelectorAll("#layer-queryable input[type=radio]")
+      .forEach((input: HTMLInputElement) => {
+        input.parentElement.classList.remove("active");
+        input.checked = false;
+      });
+
+    if (queryable === true) {
+      const input = document.getElementById(
+        "layer-queryable-1"
+      ) as HTMLInputElement;
+
+      input.parentElement.classList.add("active");
+      input.checked = true;
+    } else {
+      const input = document.getElementById(
+        "layer-queryable-0"
+      ) as HTMLInputElement;
+
+      input.parentElement.classList.add("active");
+      input.checked = true;
+    }
+  }
+
+  getQueryable(): boolean {
+    const inputs = document.querySelectorAll(
+      "#layer-queryable input[type=radio]"
+    ) as NodeListOf<HTMLInputElement>;
+    const checked = [...inputs].filter((input) => input.checked).shift();
+
+    return parseInt(checked.value) === 1;
   }
 
   setLabel(label: string): void {
