@@ -147,13 +147,15 @@ class WMS {
       .remove();
 
     let features: FeatureLike[] = [];
-    results.forEach((result) => {
-      if (result.features.length > 0) {
-        WMSDisplayFeatureList(this, result.layer, result.features);
-      }
+    results
+      .filter((result) => result !== null)
+      .forEach((result) => {
+        if (result.features.length > 0) {
+          WMSDisplayFeatureList(this, result.layer, result.features);
+        }
 
-      features = features.concat(result.features);
-    });
+        features = features.concat(result.features);
+      });
 
     if (features.length === 0) {
       document.getElementById(`info-service-wms-${this.getIndex()}`).remove();

@@ -54,6 +54,7 @@ export default async function (
       {
         FEATURE_COUNT: 99,
         INFO_FORMAT: format,
+        LAYERS: [layer.Name],
         QUERY_LAYERS: [layer.Name],
       }
     );
