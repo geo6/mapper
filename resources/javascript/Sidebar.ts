@@ -6,13 +6,16 @@ import File from "./layers/File";
 import WMS from "./layers/WMS";
 import WMTS from "./layers/WMTS";
 
-require("sidebar-v2/js/jquery-sidebar.js");
+import SidebarControl from "sidebar-v2/js/ol5-sidebar";
 
 export class Sidebar {
-  sidebar: any;
+  sidebar: SidebarControl;
 
-  constructor(element: HTMLElement) {
-    this.sidebar = $(element).sidebar();
+  constructor(element: string) {
+    this.sidebar = new SidebarControl({
+      element,
+      position: "left",
+    });
   }
 
   open(id: string): void {

@@ -85,10 +85,12 @@ export function setMap(
 ): void {
   cache = new Cache();
 
-  sidebar = new Sidebar(document.getElementById("sidebar"));
+  sidebar = new Sidebar("sidebar");
   modalSettings = new SettingsModal(document.getElementById("modal-settings"));
 
   map = initMap(lnglat, zoom, baselayers);
+  map.addControl(sidebar.sidebar);
+
   initLayers(services, files);
   initUpload();
 
