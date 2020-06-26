@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import { MapBrowserEvent } from "ol";
 import { FeatureLike } from "ol/Feature";
 

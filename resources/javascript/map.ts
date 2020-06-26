@@ -2,6 +2,8 @@
 
 import "ol/ol.css";
 
+import $ from "jquery";
+
 import {
   defaults as ControlDefaults,
   Attribution,

@@ -1,5 +1,9 @@
 "use strict";
 
+import $ from "jquery";
+
+import "bootstrap/js/dist/tooltip";
+
 import btnLegend from "./layers/components/btn-legend";
 import btnOrder from "./layers/components/btn-order";
 import btnRemove from "./layers/components/btn-remove";

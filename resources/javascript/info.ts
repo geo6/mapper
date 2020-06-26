@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 export default function (): void {
   document
     .getElementById("infos-list-btn-back")

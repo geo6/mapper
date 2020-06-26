@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import GeoJSON from "ol/format/GeoJSON";
 
 import { baseUrl, customKey, map, providers } from "../main";

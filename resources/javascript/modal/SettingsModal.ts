@@ -1,5 +1,9 @@
 "use strict";
 
+import $ from "jquery";
+
+import "bootstrap/js/dist/modal";
+
 import File from "../layers/File";
 
 export class SettingsModal {

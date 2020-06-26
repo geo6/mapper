@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import { Modify, Snap } from "ol/interaction";
 import GeoJSON from "ol/format/GeoJSON";
 import VectorLayer from "ol/layer/Vector";

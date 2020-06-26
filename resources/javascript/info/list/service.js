@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 /**
  * Create ul DOM element for a specific service (WMS/WMTS) in the sidebar.
  *

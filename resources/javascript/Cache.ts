@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import { customKey } from "./main";
 
 export class Cache {

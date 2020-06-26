@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import { Coordinate } from "ol/coordinate";
 import LayerGroup from "ol/layer/Group";
 import TileLayer from "ol/layer/Tile";

@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import { toLonLat } from "ol/proj";
 import { toStringXY } from "ol/coordinate";
 

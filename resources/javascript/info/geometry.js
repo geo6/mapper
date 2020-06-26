@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import { toStringXY } from "ol/coordinate";
 import { toLonLat } from "ol/proj";
 import { getArea, getLength } from "ol/sphere";

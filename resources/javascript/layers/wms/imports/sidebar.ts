@@ -1,5 +1,9 @@
 "use strict";
 
+import $ from "jquery";
+
+import "bootstrap/js/dist/tooltip";
+
 import WMS from "../../WMS";
 import btnLegend from "../../../sidebar/layers/components/btn-legend";
 import btnOrder from "../../../sidebar/layers/components/btn-order";
