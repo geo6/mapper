@@ -20,15 +20,15 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
         <div class="container">
-            <div class="navbar-header">
+            <div class="navbar-header w-100 d-flex justify-content-between">
+                <a class="navbar-brand text-truncate" href="{{ path('home') }}">
+                    Mapper
+                    {{ ui.custom ? (ui.title ?? ui.custom) | upper }}
+                </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('home') }}">
-                    Mapper
-                    {{ ui.custom ? (ui.title ?? ui.custom) | upper }}
-                </a>
             </div>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
