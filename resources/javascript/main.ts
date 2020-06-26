@@ -2,6 +2,10 @@
 
 import "../sass/style.scss";
 
+import "bootstrap/js/dist/collapse";
+import "bootstrap/js/dist/dropdown";
+import "bootstrap/js/dist/util";
+
 import { Coordinate } from "ol/coordinate";
 import Map from "ol/Map";
 import { register } from "ol/proj/proj4";
