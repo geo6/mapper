@@ -1,5 +1,7 @@
 "use strict";
 
+import $ from "jquery";
+
 import initFile from "../layers/files/init";
 import FileApplySelection from "../layers/files/apply";
 
@@ -75,6 +77,8 @@ function applyOnClick(event: Event): void {
       break;
     }
   }
+
+  $("#modal-layers").modal("hide");
 }
 
 export default function (
