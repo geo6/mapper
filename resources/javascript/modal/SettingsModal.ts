@@ -59,9 +59,11 @@ export class SettingsModal {
       this.layer.queryable = this.getQueryable();
 
       if (this.layer.queryable === true) {
-        const element = this.layer.sidebarElement.querySelector(".layer-name");
+        const element = this.layer.sidebarElement.querySelector(
+          ".layer-name"
+        ) as HTMLDivElement;
         element.innerHTML =
-          '<i class="fas fa-fw fa-info-circle"></i> ' + element.innerHTML;
+          '<i class="fas fa-fw fa-info-circle"></i> ' + element.innerText;
       } else {
         this.layer.sidebarElement
           .querySelector(".layer-name > .fa-info-circle")
