@@ -31,14 +31,17 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5",
     "sass": "^1.26.9",
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "build": "parcel build --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-source-maps",
-    "watch": "parcel watch --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-hmr",
+    "build": "run-p build:*",
+    "build:login": "parcel build --out-dir=public/ resources/sass/login.scss --no-source-maps",
+    "build:main": "parcel build --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-source-maps",
+    "watch:main": "parcel watch --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-hmr",
     "test": "eslint --ext .js --ext .ts resources/javascript/",
     "fix": "eslint --fix --ext .js --ext .ts resources/javascript/"
   }
