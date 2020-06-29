@@ -3,6 +3,7 @@
 import $ from "jquery";
 
 import "bootstrap/js/dist/modal";
+import "bootstrap/js/dist/button";
 
 import File from "../layers/File";
 
