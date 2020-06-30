@@ -64,7 +64,11 @@ export class SettingsModal {
         ) as HTMLDivElement;
         element.innerHTML =
           '<i class="fas fa-fw fa-info-circle"></i> ' + element.innerText;
-      } else {
+      } else if (
+        this.layer.sidebarElement.querySelector(
+          ".layer-name > .fa-info-circle"
+        ) !== null
+      ) {
         this.layer.sidebarElement
           .querySelector(".layer-name > .fa-info-circle")
           .remove();
