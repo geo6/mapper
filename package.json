@@ -22,7 +22,7 @@
     "@types/papaparse": "^5.0.4",
     "@types/proj4": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
-    "@typescript-eslint/parser": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.1",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
