@@ -19,7 +19,7 @@
     ],
     "license": "GPL-3.0-or-later",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-curl": "*",
         "geo6/geocoder-php-bpost-provider": "^1.2",
         "geo6/geocoder-php-geo6-poi-provider": "^2.0",
