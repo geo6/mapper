@@ -6,7 +6,7 @@
     "file-saver": "^2.0.2",
     "jquery": "^3.5.1",
     "ol": "^6.4.3",
-    "papaparse": "^5.2.0",
+    "papaparse": "^5.3.0",
     "popper.js": "^1.16.1",
     "proj4": "^2.6.2",
     "resumablejs": "^1.1.0",
