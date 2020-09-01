@@ -90,7 +90,7 @@ export class BaseLayer {
         const capabilities = new WMTSCapabilities().read(text);
 
         const options = optionsFromCapabilities(capabilities, {
-          layer: this.options.layers,
+          layer: this.options.layer,
         });
         if (
           typeof this.options.attributions !== "undefined" &&

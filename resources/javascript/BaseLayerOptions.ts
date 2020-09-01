@@ -7,7 +7,8 @@ export interface BaseLayerOptions {
   url: string;
   attributions?: AttributionLike;
   maxZoom?: number;
-  layers?: string[] | string;
+  layer?: string; // WMTS
+  layers?: string[]; // WMS
 }
 
 export { BaseLayerOptions as default };
