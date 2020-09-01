@@ -13,9 +13,9 @@
     "sidebar-v2": "github:umbe1987/sidebar-v2#ol5-sidebar"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/plugin-transform-runtime": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/core": "^7.11.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
     "@babel/runtime": "^7.11.2",
     "@types/jquery": "^3.5.1",
     "@types/ol": "^6.3.1",
@@ -23,7 +23,7 @@
     "@types/proj4": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
-    "eslint": "^7.7.0",
+    "eslint": "^7.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
