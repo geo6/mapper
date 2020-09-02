@@ -18,6 +18,7 @@ export default function (service: WMTS, names: string[]): void {
             projection: service.projection,
           })
         ),
+        zIndex: 100,
       });
 
       service.olLayers.getLayers().push(layer);

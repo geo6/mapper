@@ -19,6 +19,7 @@ export default function (service: WMS, names: string[]): void {
           projection: service.projection,
           url: service.capabilities.Service.OnlineResource,
         }),
+        zIndex: 100,
       });
 
       const layers = names.map((name: string) =>

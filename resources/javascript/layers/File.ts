@@ -18,6 +18,7 @@ import LegendOptions from "../LegendOptions";
 import { baseUrl, customKey, files, map, projections, sidebar } from "../main";
 import { layerGroup } from "../map/layerGroup";
 
+export const FILE_ZINDEX = 200;
 /**
  *
  */
@@ -185,6 +186,7 @@ export class File {
             this.filter,
             resolution
           ),
+        zIndex: FILE_ZINDEX,
       });
 
       layerGroup.getLayers().push(this.olLayer);

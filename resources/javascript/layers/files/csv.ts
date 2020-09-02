@@ -14,6 +14,7 @@ import layerStyleFunction from "../../map/style";
 
 import { map } from "../../main";
 import { layerGroup } from "../../map/layerGroup";
+import { FILE_ZINDEX } from "../File";
 
 export default function (file: File, projection: ProjectionLike): void {
   Papa.parse(file.url, {
@@ -58,6 +59,7 @@ export default function (file: File, projection: ProjectionLike): void {
         source: new VectorSource(),
         style: (feature: FeatureLike, resolution: number) =>
           layerStyleFunction(feature, file.label, file.color, resolution),
+        zIndex: FILE_ZINDEX,
       });
 
       results.data.forEach((result) => {
