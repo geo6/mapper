@@ -54,7 +54,7 @@ class HomeHandler implements RequestHandlerInterface
         ];
 
         $data = [
-            'baselayers'        => self::getBaselayers($config['global']['baselayers'] ?? []),
+            'baselayers'        => self::getBaselayers($config['config']['baselayers'] ?? $config['global']['baselayers'] ?? []),
             'baseUrl'           => $baseUrl,
             'geocoderProviders' => self::getProviders($config['global']['geocoder']['providers'] ?? []),
             'services'          => self::getServices($config['config']['services'] ?? []),
