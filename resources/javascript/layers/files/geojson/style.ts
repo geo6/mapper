@@ -4,7 +4,12 @@ import Feature from "ol/Feature";
 
 import LegendOptions from "../../../LegendOptions";
 
-export default function (feature: Feature, legend: LegendOptions): void {
+export default function (
+  feature: Feature,
+  legend?: LegendOptions | null
+): void {
+  if (typeof legend === "undefined" || legend === null) return;
+
   const properties = feature.getProperties();
   const { column, values } = legend;
 
