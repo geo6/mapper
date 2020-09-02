@@ -31,6 +31,7 @@ class FileHandler implements RequestHandlerInterface
         $route = $request->getAttribute(RouteResult::class);
 
         $identifier = $request->getAttribute('identifier');
+        $action = $request->getAttribute('action');
 
         $local = $route->getMatchedRouteName() === 'file.local';
 
@@ -41,7 +42,16 @@ class FileHandler implements RequestHandlerInterface
         }
 
         if (!is_null($path)) {
-            return self::serve($path);
+            $response = self::serve($path);
+
+            if ($action === 'download') {
+                $response = $response->withHeader(
+                    'Content-Disposition',
+                    sprintf('attachment; filename="%s"', basename($path))
+                );
+            }
+
+            return $response;
         }
 
         return new EmptyResponse(404);

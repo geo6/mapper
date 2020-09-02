@@ -103,6 +103,12 @@ export class SettingsModal {
       ".modal-body > span.font-weight-bold"
     ) as HTMLSpanElement).innerText = name;
 
+    const url = new URL(this.layer.url, new URL(window.location.href).origin);
+    url.pathname += "/download";
+    (this.element.querySelector(
+      "#btn-settings-download"
+    ) as HTMLLinkElement).href = url.href;
+
     this.setQueryable(layer.queryable);
 
     this.setLabelList(
