@@ -44,7 +44,7 @@ class FileHandler implements RequestHandlerInterface
         if (!is_null($path)) {
             $response = self::serve($path);
 
-            if ($action === "download") {
+            if ($action === 'download') {
                 $response = $response->withHeader(
                     'Content-Disposition',
                     sprintf('attachment; filename="%s"', basename($path))
