@@ -108,4 +108,8 @@ export default function (
   document
     .getElementById("btn-layers-apply")
     .addEventListener("click", (event) => applyOnClick(event));
+
+  document
+    .getElementById("modal-layers-select")
+    .dispatchEvent(new Event("change"));
 }
