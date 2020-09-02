@@ -102,9 +102,7 @@ export default function (): void {
       fileTypeSelect.value = "kml";
     }
 
-    const event = document.createEvent("HTMLEvents");
-    event.initEvent("change", false, true);
-    fileTypeSelect.dispatchEvent(event);
+    fileTypeSelect.dispatchEvent(new Event("change"));
 
     resumable.upload();
   });
