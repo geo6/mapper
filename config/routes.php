@@ -37,8 +37,8 @@ use Psr\Container\ContainerInterface;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', [AuthMiddleware::class, App\Handler\HomeHandler::class], 'home');
 
-    $app->get('/file/{identifier}', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file');
-    $app->get('/file/local/{identifier}', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file.local');
+    $app->get('/file/{identifier}[/{action:download}]', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file');
+    $app->get('/file/local/{identifier}[/{action:download}]', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file.local');
     $app->get('/geocoder/{provider}/address/{address}', [AuthMiddleware::class, App\Handler\Geocoder\AddressHandler::class], 'geocoder.address');
     $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', [AuthMiddleware::class, App\Handler\Geocoder\ReverseHandler::class], 'geocoder.reverse');
     $app->get('/preview/{action:info|file}', [AuthMiddleware::class, App\Handler\PreviewHandler::class], 'preview');
