@@ -1,6 +1,6 @@
 "use strict";
 
-import Control from "ol/control/Control";
+import Control, { Options } from "ol/control/Control";
 import Feature from "ol/Feature";
 import Geolocation from "ol/Geolocation";
 import Point from "ol/geom/Point";
@@ -8,9 +8,20 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 
 class GeolocationControl extends Control {
-  constructor(optOptions) {
-    const options = optOptions || {};
+  private active: boolean;
 
+  private features: {
+    accuracy: Feature;
+    position: Feature;
+  };
+
+  private geolocation: Geolocation;
+
+  private layer: VectorLayer;
+
+  private isRecentered: boolean;
+
+  constructor(options?: Options) {
     const button = document.createElement("button");
     button.innerHTML = '<i class="fas fa-fw fa-location-arrow"></i>';
     button.title = "Show my location";
@@ -19,10 +30,11 @@ class GeolocationControl extends Control {
     element.className = "ol-geolocation ol-unselectable ol-control";
     element.appendChild(button);
 
-    super({
-      element: element,
-      target: options.target,
-    });
+    super(
+      Object.assign(options || {}, {
+        element: element,
+      })
+    );
 
     button.addEventListener("click", this.handleGeolocation.bind(this), false);
 
@@ -43,7 +55,7 @@ class GeolocationControl extends Control {
     this.initGeolocation();
   }
 
-  handleGeolocation() {
+  handleGeolocation(): void {
     this.active = !this.active;
 
     this.geolocation.setTracking(this.active);
@@ -58,7 +70,7 @@ class GeolocationControl extends Control {
     }
   }
 
-  initGeolocation() {
+  initGeolocation(): void {
     this.geolocation = new Geolocation({
       trackingOptions: {
         enableHighAccuracy: true,
