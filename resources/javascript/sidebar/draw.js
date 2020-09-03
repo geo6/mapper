@@ -1,6 +1,6 @@
 "use strict";
 
-import DrawControl from "./map/DrawControl";
+import DrawControl from "../map/DrawControl";
 
 export let drawControl;
 

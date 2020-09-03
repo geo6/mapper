@@ -2,7 +2,7 @@
 
 import Draw from "ol/interaction/Draw";
 
-import { drawControl } from "../../draw";
+import { drawControl } from "../../sidebar/draw";
 
 class DrawLineString extends Draw {
   constructor() {

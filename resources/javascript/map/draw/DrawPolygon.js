@@ -6,7 +6,7 @@ import Draw from "ol/interaction/Draw";
 import unkinkPolygon from "@turf/unkink-polygon";
 
 import { map } from "../../main";
-import { drawControl } from "../../draw";
+import { drawControl } from "../../sidebar/draw";
 
 class DrawPolygon extends Draw {
   constructor() {

@@ -14,7 +14,7 @@ import Map from "ol/Map";
 import { fromLonLat } from "ol/proj";
 import View from "ol/View";
 
-import initDraw from "../draw";
+import initDraw from "../sidebar/draw";
 import initGeocoder from "../geocoder";
 import initInfo from "../info";
 import GeolocationControl from "./control/GeolocationControl";

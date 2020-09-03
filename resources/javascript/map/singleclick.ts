@@ -8,7 +8,7 @@ import { FeatureLike } from "ol/Feature";
 import displayLocation from "../info/location";
 
 import { files, services } from "../main";
-import { drawControl } from "../draw";
+import { drawControl } from "../sidebar/draw";
 import { marker, markerLayer } from "./marker";
 
 export default function (event: MapBrowserEvent): void {
