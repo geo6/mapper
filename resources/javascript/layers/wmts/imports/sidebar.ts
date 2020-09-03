@@ -6,7 +6,7 @@ import "bootstrap/js/dist/tooltip";
 
 import WMTS from "../../WMTS";
 import btnLegend from "../../../sidebar/layers/components/btn-legend";
-import btnOrder from "../../../sidebar/layers/components/btn-order";
+// import btnOrder from "../../../sidebar/layers/components/btn-order";
 import btnRemove from "../../../sidebar/layers/components/btn-remove";
 import btnSettings from "../../../sidebar/layers/components/btn-settings";
 import btnZoom from "../../../sidebar/layers/components/btn-zoom";

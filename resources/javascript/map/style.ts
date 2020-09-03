@@ -13,8 +13,7 @@ export default function (
   feature: Feature,
   labelColumn: string,
   layerColor: string | Color | null,
-  filter: Record<string, string | number> | null,
-  resolution: number
+  filter: Record<string, string | number> | null
 ): Style {
   const type = feature.getGeometry().getType();
   const properties = feature.getProperties();

@@ -3,8 +3,6 @@
 import Resumable from "resumablejs";
 
 import File from "./layers/File";
-import { applyStyle } from "./layers/files/geojson";
-import ExtendedFeatureCollection from "./ExtendedFeatureCollection";
 
 import { baseUrl, files } from "./main";
 

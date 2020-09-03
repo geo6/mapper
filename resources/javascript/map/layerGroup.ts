@@ -56,7 +56,6 @@ layerGroup.getLayers().on("add", (event) => {
   }
 });
 layerGroup.getLayers().on("remove", (event) => {
-  const { index } = event;
   const layer = find(event.element);
 
   if (layer !== null) {

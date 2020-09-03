@@ -39,7 +39,7 @@ export class File {
   name: string;
   olLayer: VectorLayer | null = null;
   queryable: boolean;
-  selection: Array<any> = [];
+  selection: FeatureLike[] = [];
   sidebarElement: HTMLLIElement = null;
   /** File title. */
   title?: string | null;
@@ -178,14 +178,8 @@ export class File {
     if (source !== null) {
       this.olLayer = new VectorLayer({
         source: source,
-        style: (feature, resolution) =>
-          layerStyleFunction(
-            feature,
-            this.label,
-            this.color,
-            this.filter,
-            resolution
-          ),
+        style: (feature) =>
+          layerStyleFunction(feature, this.label, this.color, this.filter),
         zIndex: FILE_ZINDEX,
       });
 
