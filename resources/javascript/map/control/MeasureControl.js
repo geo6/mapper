@@ -2,11 +2,11 @@
 
 import Control from "ol/control/Control";
 
-import { createButton as createButtonArea } from "./area";
-import createElementMeasure from "./dom";
-import createInteraction from "./draw";
-import createLayer from "./layer";
-import { createButton as createButtonLength } from "./length";
+import { createButton as createButtonArea } from "./MeasureControl/area";
+import createElementMeasure from "./MeasureControl/dom";
+import createInteraction from "./MeasureControl/draw";
+import createLayer from "./MeasureControl/layer";
+import { createButton as createButtonLength } from "./MeasureControl/length";
 
 class MeasureControl extends Control {
   constructor(optOptions) {

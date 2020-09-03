@@ -18,7 +18,7 @@ import initDraw from "./draw";
 import initGeocoder from "./geocoder";
 import initInfo from "./info";
 import GeolocationControl from "./map/control/GeolocationControl";
-import MeasureControl from "./map/measure/control";
+import MeasureControl from "./map/control/MeasureControl";
 import {
   init as initPermalink,
   getFromCache,
