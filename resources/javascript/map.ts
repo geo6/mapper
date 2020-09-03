@@ -26,7 +26,7 @@ import {
 } from "./map/permalink";
 import singleClick from "./map/singleclick";
 import BaseLayer from "./BaseLayer";
-import BaseLayerOptions from "./BaseLayerOptions";
+import BaseLayerOptions from "./_interface/BaseLayerOptions";
 
 import { cache } from "./main";
 import { markerLayer } from "./map/marker";

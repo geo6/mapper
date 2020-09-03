@@ -2,7 +2,7 @@
 
 import Feature from "ol/Feature";
 
-import LegendOptions from "../../../LegendOptions";
+import LegendOptions from "../../../_interface/LegendOptions";
 
 export default function (
   feature: Feature,

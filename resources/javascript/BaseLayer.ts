@@ -7,7 +7,7 @@ import { TileWMS, WMTS, XYZ } from "ol/source";
 import { optionsFromCapabilities } from "ol/source/WMTS";
 
 import Cache from "./Cache";
-import BaseLayerOptions from "./BaseLayerOptions";
+import BaseLayerOptions from "./_interface/BaseLayerOptions";
 
 export class BaseLayer {
   private element: HTMLButtonElement;

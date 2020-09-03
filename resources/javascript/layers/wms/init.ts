@@ -1,6 +1,6 @@
 "use strict";
 
-import ServiceOptions from "../../ServiceOptions";
+import ServiceOptions from "../../_interface/ServiceOptions";
 import WMS from "../WMS";
 
 import { services } from "../../main";

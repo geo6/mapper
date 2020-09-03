@@ -21,11 +21,11 @@ import initUpload from "./upload";
 import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
 
-import BaseLayerOptions from "./BaseLayerOptions";
+import BaseLayerOptions from "./_interface/BaseLayerOptions";
 import FileOptions from "./FileOptions";
-import GeocoderProviderOptions from "./GeocoderProviderOptions";
-import ProjectionOptions from "./ProjectionOptions";
-import ServiceOptions from "./ServiceOptions";
+import GeocoderProviderOptions from "./_interface/GeocoderProviderOptions";
+import ProjectionOptions from "./_interface/ProjectionOptions";
+import ServiceOptions from "./_interface/ServiceOptions";
 
 export let baseUrl: string;
 export let cache: Cache;

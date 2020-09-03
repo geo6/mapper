@@ -11,7 +11,7 @@ import WMSApplySelection from "../layers/wms/apply";
 import initWMTS from "../layers/wmts/init";
 import WMTSApplySelection from "../layers/wmts/apply";
 import FileOptions from "../FileOptions";
-import ServiceOptions from "../ServiceOptions";
+import ServiceOptions from "../_interface/ServiceOptions";
 
 function selectOnChange(event: Event): void {
   const element = event.currentTarget as HTMLSelectElement;

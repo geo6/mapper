@@ -6,6 +6,7 @@ import { Coordinate } from "ol/coordinate";
 import { FeatureLike } from "ol/Feature";
 import { ProjectionLike } from "ol/proj";
 
+import LegendOptions from "../_interface/LegendOptions";
 import displayFeatureInList from "../info/feature";
 import sidebarElement from "./files/imports/sidebar";
 import CSVAddFileToMap from "./files/csv";
@@ -13,7 +14,6 @@ import GeoJSONAddFileToMap from "./files/geojson";
 import GPXAddFileToMap from "./files/gpx";
 import KMLAddFileToMap from "./files/kml";
 import layerStyleFunction from "../map/style";
-import LegendOptions from "../LegendOptions";
 
 import { baseUrl, customKey, files, map, projections, sidebar } from "../main";
 import { layerGroup } from "../map/layerGroup";
