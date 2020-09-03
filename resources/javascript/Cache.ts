@@ -1,7 +1,5 @@
 "use strict";
 
-import $ from "jquery";
-
 import { customKey } from "./main";
 
 export class Cache {
@@ -18,7 +16,7 @@ export class Cache {
 
     const storage = localStorage.getItem(this.storageKey);
     if (storage !== null) {
-      $.extend(this, JSON.parse(storage));
+      Object.assign(this, JSON.parse(storage));
     }
   }
 
