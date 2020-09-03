@@ -19,11 +19,7 @@ import initGeocoder from "../geocoder";
 import initInfo from "../info";
 import GeolocationControl from "./control/GeolocationControl";
 import MeasureControl from "./control/MeasureControl";
-import {
-  init as initPermalink,
-  getFromCache,
-  getFromHash,
-} from "./permalink";
+import { init as initPermalink, getFromCache, getFromHash } from "./permalink";
 import singleClick from "./singleclick";
 import BaseLayer from "../BaseLayer";
 import BaseLayerOptions from "../_interface/BaseLayerOptions";
