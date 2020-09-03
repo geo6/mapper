@@ -14,23 +14,23 @@ import Map from "ol/Map";
 import { fromLonLat } from "ol/proj";
 import View from "ol/View";
 
-import initDraw from "./draw";
-import initGeocoder from "./geocoder";
-import initInfo from "./info";
-import GeolocationControl from "./map/control/GeolocationControl";
-import MeasureControl from "./map/control/MeasureControl";
+import initDraw from "../draw";
+import initGeocoder from "../geocoder";
+import initInfo from "../info";
+import GeolocationControl from "./control/GeolocationControl";
+import MeasureControl from "./control/MeasureControl";
 import {
   init as initPermalink,
   getFromCache,
   getFromHash,
-} from "./map/permalink";
-import singleClick from "./map/singleclick";
-import BaseLayer from "./BaseLayer";
-import BaseLayerOptions from "./_interface/BaseLayerOptions";
+} from "./permalink";
+import singleClick from "./singleclick";
+import BaseLayer from "../BaseLayer";
+import BaseLayerOptions from "../_interface/BaseLayerOptions";
 
-import { cache } from "./main";
-import { markerLayer } from "./map/marker";
-import { layerGroup } from "./map/layerGroup";
+import { cache } from "../main";
+import { markerLayer } from "./marker";
+import { layerGroup } from "./layerGroup";
 
 export default function (
   lnglat: Coordinate,
