@@ -17,7 +17,7 @@ import View from "ol/View";
 import initDraw from "./draw";
 import initGeocoder from "./geocoder";
 import initInfo from "./info";
-import GeolocationControl from "./map/geolocation";
+import GeolocationControl from "./map/control/GeolocationControl";
 import MeasureControl from "./map/measure/control";
 import {
   init as initPermalink,
