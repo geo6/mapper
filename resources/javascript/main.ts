@@ -22,7 +22,7 @@ import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
 
 import BaseLayerOptions from "./_interface/BaseLayerOptions";
-import FileOptions from "./FileOptions";
+import FileOptions from "./_interface/FileOptions";
 import GeocoderProviderOptions from "./_interface/GeocoderProviderOptions";
 import ProjectionOptions from "./_interface/ProjectionOptions";
 import ServiceOptions from "./_interface/ServiceOptions";
