@@ -1,7 +1,5 @@
 "use strict";
 
-import $ from "jquery";
-
 import { Coordinate } from "ol/coordinate";
 import LayerGroup from "ol/layer/Group";
 import TileLayer from "ol/layer/Tile";
@@ -136,7 +134,9 @@ class WMTS {
 
     const requests = WMTSGetFeatureInfo(this, coordinate);
     Promise.all(requests).then((responses) => {
-      $(`#info-service-wmts-${this.getIndex()} > .loading`).remove();
+      document
+        .querySelector(`#info-service-wmts-${this.getIndex()} > .loading`)
+        .remove();
 
       this.selection = responses;
 
@@ -149,7 +149,9 @@ class WMTS {
       });
 
       if (total === 0) {
-        $(`#info-service-wmts-${this.getIndex()}`).remove();
+        document
+          .getElementById(`info-service-wmts-${this.getIndex()}`)
+          .remove();
       }
     });
   }
