@@ -1,6 +1,8 @@
 "use strict";
 
-import Control from "ol/control/Control";
+import Control, { Options } from "ol/control/Control";
+import DrawInteraction from "ol/interaction/Draw";
+import VectorLayer from "ol/layer/Vector";
 
 import { createButton as createButtonArea } from "./MeasureControl/area";
 import createElementMeasure from "./MeasureControl/dom";
@@ -9,9 +11,13 @@ import createLayer from "./MeasureControl/layer";
 import { createButton as createButtonLength } from "./MeasureControl/length";
 
 class MeasureControl extends Control {
-  constructor(optOptions) {
-    const options = optOptions || {};
+  private active: boolean;
+  private elementResult: HTMLDivElement;
+  private interaction: DrawInteraction;
+  private layer: VectorLayer;
+  private type: "length" | "area" | null;
 
+  constructor(options?: Options) {
     const buttonLength = createButtonLength();
     const buttonArea = createButtonArea();
 
@@ -52,7 +58,7 @@ class MeasureControl extends Control {
    *
    * @returns {void}
    */
-  handleMeasure(type) {
+  handleMeasure(type: "length" | "area"): void {
     this.active = !this.active;
 
     this.layer.getSource().clear();

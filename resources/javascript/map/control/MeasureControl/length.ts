@@ -1,6 +1,7 @@
 "use strict";
 
 import { getLength } from "ol/sphere";
+import LineString from "ol/geom/LineString";
 
 /**
  * Format length output.
@@ -9,7 +10,7 @@ import { getLength } from "ol/sphere";
  *
  * @return {string} The formatted length.
  */
-export function formatLength(line) {
+export function formatLength(line: LineString): string {
   const length = getLength(line);
 
   if (length > 100) {
@@ -24,7 +25,7 @@ export function formatLength(line) {
  *
  * @returns {Element} DOM button element.
  */
-export function createButton() {
+export function createButton(): HTMLButtonElement {
   const button = document.createElement("button");
 
   button.innerHTML = '<i class="fas fa-fw fa-ruler"></i>';

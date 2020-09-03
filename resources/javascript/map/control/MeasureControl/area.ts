@@ -1,6 +1,7 @@
 "use strict";
 
 import { getArea } from "ol/sphere";
+import Polygon from "ol/geom/Polygon";
 
 /**
  * Format area output.
@@ -9,7 +10,7 @@ import { getArea } from "ol/sphere";
  *
  * @return {string} Formatted area.
  */
-export function formatArea(polygon) {
+export function formatArea(polygon: Polygon): string {
   const area = getArea(polygon);
 
   if (area > 10000) {
@@ -24,7 +25,7 @@ export function formatArea(polygon) {
  *
  * @returns {Element} DOM button element.
  */
-export function createButton() {
+export function createButton(): HTMLButtonElement {
   const button = document.createElement("button");
 
   button.innerHTML = '<i class="fas fa-fw fa-draw-polygon"></i>';

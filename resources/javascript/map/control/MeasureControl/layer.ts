@@ -9,7 +9,7 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
  *
  * @returns {module:ol/layer/Vector~VectorLayer} OL VectorLayer.
  */
-export default function () {
+export default function (): VectorLayer {
   return new VectorLayer({
     source: new VectorSource(),
     style: new Style({

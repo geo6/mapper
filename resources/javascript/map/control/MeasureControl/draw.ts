@@ -1,6 +1,8 @@
 "use strict";
 
-import Draw from "ol/interaction/Draw";
+import DrawInteraction, { DrawEvent } from "ol/interaction/Draw";
+import Map from "ol/Map";
+import VectorSource from "ol/source/Vector";
 import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
 
 import { formatArea } from "./area";
@@ -17,11 +19,17 @@ import { formatLength } from "./length";
  *
  * @returns {module:ol/interaction/Draw} OL Draw Interaction.
  */
-export default function (map, element, source, type, maxPoints) {
+export default function (
+  map: Map,
+  element: HTMLElement,
+  source: VectorSource,
+  type: string,
+  maxPoints: number
+): DrawInteraction {
   let feature;
   let output = "-";
 
-  const draw = new Draw({
+  const draw = new DrawInteraction({
     maxPoints:
       type !== "length" || typeof maxPoints === "undefined"
         ? Infinity
@@ -50,7 +58,7 @@ export default function (map, element, source, type, maxPoints) {
     type: type === "area" ? "Polygon" : "LineString",
   });
 
-  draw.on("drawstart", (eventDrawStart) => {
+  draw.on("drawstart", (eventDrawStart: DrawEvent) => {
     eventDrawStart.feature.getGeometry().on("change", (eventChange) => {
       feature = eventChange.target;
 
@@ -64,7 +72,7 @@ export default function (map, element, source, type, maxPoints) {
     });
   });
 
-  draw.on("drawend", (event) => {
+  draw.on("drawend", () => {
     map.removeInteraction(draw);
 
     if (type === "area") {
