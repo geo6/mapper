@@ -3,10 +3,10 @@
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 
-import geocodeAddress from "./geocoder/address";
-import geocodeReverse from "./geocoder/reverse";
+import geocodeAddress from "./address";
+import geocodeReverse from "./reverse";
 
-import { map, sidebar } from "./main";
+import { map, sidebar } from "../main";
 
 export const geocoderLayer = new VectorLayer({
   source: new VectorSource(),
