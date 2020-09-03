@@ -1,7 +1,7 @@
 "use strict";
 
 import File from "../File";
-import FileOptions from "../../FileOptions";
+import FileOptions from "../../_interface/FileOptions";
 
 import { files } from "../../main";
 
