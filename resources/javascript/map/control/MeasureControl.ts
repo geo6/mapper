@@ -27,10 +27,11 @@ class MeasureControl extends Control {
     buttonGroup.appendChild(buttonLength);
     buttonGroup.appendChild(buttonArea);
 
-    super({
-      element: buttonGroup,
-      target: options.target,
-    });
+    super(
+      Object.assign(options || {}, {
+        element: buttonGroup,
+      })
+    );
 
     buttonLength.addEventListener(
       "click",
