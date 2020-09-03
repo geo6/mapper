@@ -1,11 +1,11 @@
 "use strict";
 
-import DrawControl from "../map/DrawControl";
+import DrawModule from "../map/DrawModule";
 
-export let drawControl;
+export let drawControl: DrawModule;
 
-export default function () {
-  drawControl = new DrawControl();
+export default function (): void {
+  drawControl = new DrawModule();
 
   document.querySelectorAll("#sidebar a").forEach((element) => {
     element.addEventListener("click", () => {

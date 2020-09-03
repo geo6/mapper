@@ -1,13 +1,12 @@
 "use strict";
 
-import $ from "jquery";
-
+import { Coordinate } from "ol/coordinate";
 import { Modify, Snap } from "ol/interaction";
 import GeoJSON from "ol/format/GeoJSON";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
-import Feature from "ol/Feature";
+import Feature, { FeatureLike } from "ol/Feature";
 import MultiPoint from "ol/geom/MultiPoint";
 import MultiLineString from "ol/geom/MultiLineString";
 import MultiPolygon from "ol/geom/MultiPolygon";
@@ -21,7 +20,17 @@ import displayFeatureInList from "../info/feature";
 
 import { customKey, map } from "../main";
 
-class DrawControl {
+class DrawModule {
+  private active: boolean;
+  private draw: DrawPoint | DrawLineString | DrawPolygon;
+  private modify: Modify;
+  private olLayer: VectorLayer;
+  private snap: Snap;
+  private storageKey: string;
+  private type: string;
+
+  public layerCurrent: VectorLayer;
+
   constructor() {
     this.active = false;
     this.type = null;
@@ -49,8 +58,12 @@ class DrawControl {
       });
 
       if (features.length > 0) {
-        document.getElementById("btn-draw-clear").disabled = false;
-        document.getElementById("btn-draw-export").disabled = false;
+        (document.getElementById(
+          "btn-draw-clear"
+        ) as HTMLButtonElement).disabled = false;
+        (document.getElementById(
+          "btn-draw-export"
+        ) as HTMLButtonElement).disabled = false;
       }
     }
 
@@ -102,7 +115,7 @@ class DrawControl {
     });
   }
 
-  enable() {
+  enable(): void {
     document
       .querySelector(
         `#draw button.list-group-item-action[data-type="${this.type}"]`
@@ -113,13 +126,13 @@ class DrawControl {
 
     switch (this.type) {
       case "point":
-        this.draw = new DrawPoint(this);
+        this.draw = new DrawPoint();
         break;
       case "linestring":
-        this.draw = new DrawLineString(this);
+        this.draw = new DrawLineString();
         break;
       case "polygon":
-        this.draw = new DrawPolygon(this);
+        this.draw = new DrawPolygon();
         break;
     }
     map.addInteraction(this.draw);
@@ -132,8 +145,8 @@ class DrawControl {
     map.addInteraction(this.snap);
   }
 
-  disable() {
-    document.getElementById("btn-draw-properties").reset();
+  disable(): void {
+    (document.getElementById("btn-draw-properties") as HTMLFormElement).reset();
 
     if (this.type !== null) {
       document
@@ -157,11 +170,15 @@ class DrawControl {
     map.removeInteraction(this.modify);
   }
 
-  clear() {
-    document.getElementById("btn-draw-clear").disabled = true;
-    document.getElementById("btn-draw-export").disabled = true;
+  clear(): void {
+    (document.getElementById(
+      "btn-draw-clear"
+    ) as HTMLButtonElement).disabled = true;
+    (document.getElementById(
+      "btn-draw-export"
+    ) as HTMLButtonElement).disabled = true;
 
-    document.querySelectorAll(".draw-count").forEach((element) => {
+    document.querySelectorAll(".draw-count").forEach((element: HTMLElement) => {
       element.innerText = "0";
     });
 
@@ -170,23 +187,23 @@ class DrawControl {
     this.clearLocalStorage();
   }
 
-  showForm() {
+  showForm(): void {
     document.getElementById("btn-draw-properties").hidden = false;
   }
 
-  resetForm() {
+  resetForm(): void {
     document.getElementById("btn-draw-properties").hidden = true;
 
     this.layerCurrent.getSource().clear();
   }
 
-  submitForm() {
-    const label = document.querySelector(
+  submitForm(): void {
+    const label = (document.querySelector(
       'form#btn-draw-properties input[name="label"]'
-    ).value;
-    const description = document.querySelector(
+    ) as HTMLInputElement).value;
+    const description = (document.querySelector(
       'form#btn-draw-properties textarea[name="description"]'
-    ).value;
+    ) as HTMLTextAreaElement).value;
 
     const features = this.layerCurrent.getSource().getFeatures();
     const feature = new Feature();
@@ -223,8 +240,12 @@ class DrawControl {
 
     this.saveLocalStorage();
 
-    document.getElementById("btn-draw-clear").disabled = false;
-    document.getElementById("btn-draw-export").disabled = false;
+    (document.getElementById(
+      "btn-draw-clear"
+    ) as HTMLButtonElement).disabled = false;
+    (document.getElementById(
+      "btn-draw-export"
+    ) as HTMLButtonElement).disabled = false;
 
     document.getElementById("btn-draw-properties").reset();
 
@@ -233,15 +254,15 @@ class DrawControl {
     }`;
   }
 
-  saveLocalStorage() {
+  saveLocalStorage(): void {
     localStorage.setItem(this.storageKey, this.toGeoJSON());
   }
 
-  clearLocalStorage() {
+  clearLocalStorage(): void {
     localStorage.removeItem(this.storageKey);
   }
 
-  export() {
+  export(): void {
     const blob = new Blob([this.toGeoJSON()], {
       type: "application/json",
     });
@@ -253,7 +274,7 @@ class DrawControl {
     }
   }
 
-  toGeoJSON() {
+  toGeoJSON(): string {
     const features = this.olLayer.getSource().getFeatures();
     const geojson = new GeoJSON().writeFeatures(features, {
       dataProjection: "EPSG:4326",
@@ -264,7 +285,7 @@ class DrawControl {
     return geojson;
   }
 
-  getFeatureInfo(coordinates) {
+  getFeatureInfo(coordinates: Coordinate): FeatureLike[] {
     const pixel = map.getPixelFromCoordinate(coordinates);
 
     if (this.olLayer === null) {
@@ -286,19 +307,22 @@ class DrawControl {
    *
    * @returns {void}
    */
-  displayFeaturesList(features) {
+  displayFeaturesList(features: Feature[]): void {
     const title = "Draw";
 
     const ol = document.createElement("ol");
 
-    $(document.createElement("li"))
-      .attr("id", "info-layer-draw")
-      .append(`<strong>${title}</strong>`)
-      .append(ol)
-      .appendTo("#info-list");
+    const li = document.createElement("li");
+    li.id = "info-layer-draw";
+    li.innerHTML = `<strong>${title}</strong>`;
+    li.append(ol);
 
-    features.forEach((feature) => displayFeatureInList(feature, title, ol));
+    document.getElementById("info-list").append(li);
+
+    features.forEach((feature: Feature) =>
+      displayFeatureInList(feature, title, ol)
+    );
   }
 }
 
-export { DrawControl as default };
+export { DrawModule as default };

@@ -1,6 +1,8 @@
 "use strict";
 
+import Feature from "ol/Feature";
 import GeoJSON from "ol/format/GeoJSON";
+import GeometryType from "ol/geom/GeometryType";
 import MultiPolygon from "ol/geom/MultiPolygon";
 import Draw from "ol/interaction/Draw";
 import unkinkPolygon from "@turf/unkink-polygon";
@@ -13,7 +15,7 @@ class DrawPolygon extends Draw {
     super({
       source: drawControl.layerCurrent.getSource(),
       stopClick: true,
-      type: "Polygon",
+      type: "Polygon" as GeometryType,
     });
 
     this.on("drawend", (event) => {
@@ -23,7 +25,7 @@ class DrawPolygon extends Draw {
     });
   }
 
-  validate(feature) {
+  validate(feature: Feature): Feature {
     const geojson = new GeoJSON().writeFeature(feature, {
       dataProjection: "EPSG:4326",
       decimals: 6,
