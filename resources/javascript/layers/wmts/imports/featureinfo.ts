@@ -6,12 +6,23 @@
  * See https://github.com/openlayers/openlayers/pull/3150
  */
 
+import { Coordinate } from "ol/coordinate";
+import Feature from "ol/Feature";
 import GeoJSON from "ol/format/GeoJSON";
+import WMTSSource from "ol/source/WMTS";
+import WMTSTileGrid from "ol/tilegrid/WMTS";
+
+import WMTS from "../../WMTS";
 
 import { map } from "../../../main";
 
-function WMTSGetFeatureInfoUrl(template, coordinate, source, resolution) {
-  const tilegrid = source.getTileGrid();
+function WMTSGetFeatureInfoUrl(
+  template: string,
+  coordinate: Coordinate,
+  source: WMTSSource,
+  resolution: number
+): string {
+  const tilegrid = source.getTileGrid() as WMTSTileGrid;
   const tileResolutions = tilegrid.getResolutions();
 
   let zoomIndex = Infinity;
@@ -54,7 +65,10 @@ function WMTSGetFeatureInfoUrl(template, coordinate, source, resolution) {
   return url;
 }
 
-export default function (service, coordinate) {
+export default function (
+  service: WMTS,
+  coordinate: Coordinate
+): Array<Promise<{ layer: string; features: Feature[] }>> {
   const view = map.getView();
 
   const requests = [];
