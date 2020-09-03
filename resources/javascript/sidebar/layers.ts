@@ -66,7 +66,7 @@ export default function (
   }
   div.append(divName);
 
-  $(divName).tooltip({});
+  $(divName).tooltip();
 
   const divButtons = document.createElement("div");
   divButtons.className = "btn-group btn-group-sm";
