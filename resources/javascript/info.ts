@@ -1,7 +1,5 @@
 "use strict";
 
-import $ from "jquery";
-
 export default function (): void {
   document
     .getElementById("infos-list-btn-back")
@@ -19,7 +17,10 @@ export default function (): void {
       );
 
       if (current - 1 >= 0) {
-        $(`#info-list ol > li:eq(${current - 1})`).trigger("click");
+        document
+          .querySelectorAll("#info-list ol > li")
+          [current - 1].dispatchEvent(new MouseEvent("click"));
+        // $(`#info-list ol > li:eq(${current - 1})`).trigger("click");
       }
     });
 
@@ -32,7 +33,11 @@ export default function (): void {
       const items = document.querySelectorAll("#info-list ol > li");
 
       if (current + 1 < items.length) {
-        $(`#info-list ol > li:eq(${current + 1})`).trigger("click");
+        document
+          .querySelectorAll("#info-list ol > li")
+          [current + 1].dispatchEvent(new MouseEvent("click"));
+
+        // $(`#info-list ol > li:eq(${current + 1})`).trigger("click");
       }
     });
 }
