@@ -14,7 +14,7 @@ import WMS from "../layers/WMS";
 import WMTS from "../layers/WMTS";
 
 export default function (
-  type: string,
+  type: "csv" | "geojson" | "gpx" | "kml" | "wms" | "wmts",
   layer: File | WMS | WMTS,
   name: string,
   title: string,
@@ -86,7 +86,11 @@ export default function (
     li.append(divLegend);
   }
 
-  document.getElementById("layers-list").append(li);
+  if (["wms", "wmts"].indexOf(type) > -1) {
+    document.getElementById("layers-list-services").append(li);
+  } else if (["csv", "geojson", "gpx", "kml"].indexOf(type) > -1) {
+    document.getElementById("layers-list-files").append(li);
+  }
 
   return li;
 }

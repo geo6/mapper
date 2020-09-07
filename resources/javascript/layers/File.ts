@@ -16,7 +16,7 @@ import KMLAddFileToMap from "./files/kml";
 import layerStyleFunction from "../map/style";
 
 import { baseUrl, customKey, files, map, projections, sidebar } from "../main";
-import { layerGroup } from "../map/layerGroup";
+import { layerGroupFiles } from "../map/layerGroup";
 
 export const FILE_ZINDEX = 200;
 /**
@@ -44,11 +44,11 @@ export class File {
   /** File title. */
   title?: string | null;
   /** File type (csv|geojson|gpx|kml). */
-  type: string;
+  type: "csv" | "geojson" | "gpx" | "kml";
   url: string;
 
   constructor(
-    type: string,
+    type: "csv" | "geojson" | "gpx" | "kml",
     identifier: string,
     name: string,
     options: {
@@ -155,7 +155,7 @@ export class File {
   }
 
   addToSidebar(index?: number): void {
-    sidebar.addLayer(this, index);
+    sidebar.addLayer(this.type, this, index);
   }
 
   addToMap(projection: ProjectionLike): void {
@@ -183,12 +183,12 @@ export class File {
         zIndex: FILE_ZINDEX,
       });
 
-      layerGroup.getLayers().push(this.olLayer);
+      layerGroupFiles.getLayers().push(this.olLayer);
     }
   }
 
   removeLayer(): void {
-    layerGroup.getLayers().remove(this.olLayer);
+    layerGroupFiles.getLayers().remove(this.olLayer);
 
     this.olLayer = null;
     this.selection = [];

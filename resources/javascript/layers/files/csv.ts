@@ -13,7 +13,7 @@ import File from "../../File";
 import layerStyleFunction from "../../map/style";
 
 import { map } from "../../main";
-import { layerGroup } from "../../map/layerGroup";
+import { layerGroupFiles } from "../../map/layerGroup";
 import { FILE_ZINDEX } from "../File";
 
 export default function (file: File, projection: ProjectionLike): void {
@@ -87,7 +87,7 @@ export default function (file: File, projection: ProjectionLike): void {
         file.olLayer.getSource().addFeature(feature);
       });
 
-      layerGroup.getLayers().push(file.olLayer);
+      layerGroupFiles.getLayers().push(file.olLayer);
     },
   });
 }

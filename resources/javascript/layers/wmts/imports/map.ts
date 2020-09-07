@@ -6,7 +6,7 @@ import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
 import WMTS from "../../WMTS";
 import { update as updateSidebarElement } from "./sidebar";
 
-import { layerGroup } from "../../../map/layerGroup";
+import { layerGroupServices } from "../../../map/layerGroup";
 
 export default function (service: WMTS, names: string[]): void {
   if (names.length > 0) {
@@ -34,13 +34,13 @@ export default function (service: WMTS, names: string[]): void {
     updateSidebarElement(service, layers);
   }
 
-  const intersect = layerGroup
+  const intersect = layerGroupServices
     .getLayersArray()
     .filter((layer: TileLayer) =>
       service.olLayers.getLayersArray().includes(layer)
     );
 
   if (intersect.length === 0) {
-    layerGroup.getLayers().push(service.olLayers);
+    layerGroupServices.getLayers().push(service.olLayers);
   }
 }

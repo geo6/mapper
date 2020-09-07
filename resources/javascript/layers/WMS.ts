@@ -15,7 +15,7 @@ import { create as sidebarElement } from "./wms/imports/sidebar";
 import { createUlService } from "../info/list/service";
 
 import { map, services, sidebar } from "../main";
-import { layerGroup } from "../map/layerGroup";
+import { layerGroupServices } from "../map/layerGroup";
 
 /**
  *
@@ -171,8 +171,8 @@ class WMS {
     WMSAddLayersToMap(this, names);
   }
 
-  addToSidebar(index?: number): void {
-    sidebar.addLayer(this, index);
+  addToSidebar(): void {
+    sidebar.addLayer("wms", this);
   }
 
   /**
@@ -191,7 +191,7 @@ class WMS {
           LAYERS: layers,
         });
       } else {
-        layerGroup.getLayers().remove(this.olLayer);
+        layerGroupServices.getLayers().remove(this.olLayer);
         this.olLayer = null;
       }
     }

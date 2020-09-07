@@ -1,14 +1,14 @@
 "use strict";
 
 import File from "../../../layers/File";
-import WMS from "../../../layers/WMS";
-import WMTS from "../../../layers/WMTS";
+// import WMS from "../../../layers/WMS";
+// import WMTS from "../../../layers/WMTS";
 
-import { layerGroup } from "../../../map/layerGroup";
+import { layerGroupFiles } from "../../../map/layerGroup";
 
 export default function (
   type: string,
-  layer: File | WMS | WMTS
+  layer: File /* | WMS | WMTS */
 ): HTMLAnchorElement[] {
   const aOrderUp = document.createElement("a");
   aOrderUp.href = "#";
@@ -16,12 +16,12 @@ export default function (
   aOrderUp.addEventListener("click", (event: Event) => {
     event.preventDefault();
 
-    const layers = layerGroup.getLayers();
+    const layers = layerGroupFiles.getLayers();
     const index = layers.getArray().findIndex((l) => l === layer.olLayer);
 
-    if (index > 0) {
+    if (index < layers.getLength() - 1) {
       layers.remove(layer.olLayer);
-      layers.insertAt(index - 1, layer.olLayer);
+      layers.insertAt(index + 1, layer.olLayer);
     }
   });
 
@@ -31,12 +31,12 @@ export default function (
   aOrderDown.addEventListener("click", (event: Event) => {
     event.preventDefault();
 
-    const layers = layerGroup.getLayers();
+    const layers = layerGroupFiles.getLayers();
     const index = layers.getArray().findIndex((l) => l === layer.olLayer);
 
-    if (index < layers.getLength() - 1) {
+    if (index > 0) {
       layers.remove(layer.olLayer);
-      layers.insertAt(index + 1, layer.olLayer);
+      layers.insertAt(index - 1, layer.olLayer);
     }
   });
 

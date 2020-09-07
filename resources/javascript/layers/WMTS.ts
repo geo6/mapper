@@ -15,7 +15,7 @@ import { create as sidebarElement } from "./wmts/imports/sidebar";
 import { createUlService } from "../info/list/service";
 
 import { services, sidebar } from "../main";
-import { layerGroup } from "../map/layerGroup";
+import { layerGroupServices } from "../map/layerGroup";
 
 /**
  *
@@ -163,8 +163,8 @@ class WMTS {
     WMTSAddLayersToMap(this, names);
   }
 
-  addToSidebar(index?: number): void {
-    sidebar.addLayer(this, index);
+  addToSidebar(): void {
+    sidebar.addLayer("wmts", this);
   }
 
   /**
@@ -183,7 +183,7 @@ class WMTS {
     }
 
     if (this.olLayers.getLayers().getLength() === 0) {
-      layerGroup.getLayers().remove(this.olLayers);
+      layerGroupServices.getLayers().remove(this.olLayers);
     }
   }
 }

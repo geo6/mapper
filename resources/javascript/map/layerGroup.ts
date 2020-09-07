@@ -1,7 +1,8 @@
 "use strict";
 
-import LayerGroup from "ol/layer/Group";
+import { CollectionEvent } from "ol/Collection";
 import BaseLayer from "ol/layer/Base";
+import LayerGroup from "ol/layer/Group";
 
 import File from "../layers/File";
 import WMS from "../layers/WMS";
@@ -45,20 +46,27 @@ function find(olLayer: BaseLayer): File | WMS | WMTS {
   return null;
 }
 
-export const layerGroup: LayerGroup = new LayerGroup();
-
-layerGroup.getLayers().on("add", (event) => {
+function addLayer(event: CollectionEvent<BaseLayer>): void {
   const { index } = event;
   const layer = find(event.element);
 
   if (layer !== null) {
     layer.addToSidebar(index);
   }
-});
-layerGroup.getLayers().on("remove", (event) => {
+}
+
+function removeLayer(event: CollectionEvent<BaseLayer>): void {
   const layer = find(event.element);
 
   if (layer !== null) {
     layer.sidebarElement.remove();
   }
-});
+}
+
+export const layerGroupFiles: LayerGroup = new LayerGroup();
+export const layerGroupServices: LayerGroup = new LayerGroup();
+
+layerGroupFiles.getLayers().on("add", (event) => addLayer(event));
+layerGroupFiles.getLayers().on("remove", (event) => removeLayer(event));
+layerGroupServices.getLayers().on("add", (event) => addLayer(event));
+layerGroupServices.getLayers().on("remove", (event) => removeLayer(event));

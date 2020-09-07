@@ -2,11 +2,13 @@
 
 import "sidebar-v2/css/ol3-sidebar.css";
 
+import SidebarControl from "sidebar-v2/js/ol5-sidebar";
+
 import File from "./layers/File";
 import WMS from "./layers/WMS";
 import WMTS from "./layers/WMTS";
 
-import SidebarControl from "sidebar-v2/js/ol5-sidebar";
+import { layerGroupFiles } from "./map/layerGroup";
 
 export class Sidebar {
   sidebar: SidebarControl;
@@ -26,18 +28,36 @@ export class Sidebar {
     this.sidebar.close();
   }
 
-  addLayer(layer: File | WMS | WMTS, index?: number): HTMLLIElement {
+  addLayer(
+    type: "csv" | "geojson" | "gpx" | "kml" | "wms" | "wmts",
+    layer: File | WMS | WMTS,
+    index?: number
+  ): HTMLLIElement {
     const li = layer.sidebarElement;
+
+    let element = null;
+    if (["wms", "wmts"].indexOf(type) > -1) {
+      element = document.getElementById(
+        "layers-list-services"
+      ) as HTMLUListElement;
+    } else if (["csv", "geojson", "gpx", "kml"].indexOf(type) > -1) {
+      element = document.getElementById(
+        "layers-list-files"
+      ) as HTMLUListElement;
+    } else {
+      throw new Error(`Invalid layer type "${type}".`);
+    }
 
     if (
       typeof index === "undefined" ||
-      document.getElementById("layers-list").children.length === 0
+      element.children.length === 0 ||
+      index === layerGroupFiles.getLayers().getLength() - 1
     ) {
-      document.getElementById("layers-list").append(li);
+      element.prepend(li);
     } else if (index === 0) {
-      document.getElementById("layers-list").prepend(li);
+      element.append(li);
     } else {
-      document.getElementById("layers-list").children[index - 1].after(li);
+      element.children[element.children.length - index].before(li);
     }
 
     return li;

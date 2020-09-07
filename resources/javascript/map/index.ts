@@ -26,7 +26,7 @@ import BaseLayerOptions from "../_interface/BaseLayerOptions";
 
 import { cache } from "../main";
 import { markerLayer } from "./marker";
-import { layerGroup } from "./layerGroup";
+import { layerGroupFiles, layerGroupServices } from "./layerGroup";
 
 export default function (
   lnglat: Coordinate,
@@ -77,7 +77,8 @@ export default function (
   const baselayer = cache.baselayer || Object.keys(_baselayers)[0];
   baselayers[baselayer].highlight().addToMap();
 
-  map.addLayer(layerGroup);
+  map.addLayer(layerGroupFiles);
+  map.addLayer(layerGroupServices);
 
   map.once("rendercomplete", () => {
     map.on("singleclick", (event) => singleClick(event));

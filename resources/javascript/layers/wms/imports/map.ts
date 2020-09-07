@@ -6,7 +6,7 @@ import TileWMS from "ol/source/TileWMS";
 import WMS from "../../WMS";
 import { update as updateSidebarElement } from "./sidebar";
 
-import { layerGroup } from "../../../map/layerGroup";
+import { layerGroupServices } from "../../../map/layerGroup";
 
 export default function (service: WMS, names: string[]): void {
   if (names.length > 0) {
@@ -27,7 +27,7 @@ export default function (service: WMS, names: string[]): void {
       );
       updateSidebarElement(service, layers);
 
-      layerGroup.getLayers().push(service.olLayer);
+      layerGroupServices.getLayers().push(service.olLayer);
     } else {
       const source = service.olLayer.getSource() as TileWMS;
       const params = source.getParams();
