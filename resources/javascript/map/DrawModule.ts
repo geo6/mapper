@@ -268,9 +268,9 @@ class DrawModule {
     });
 
     if (customKey !== null) {
-      saveAs(blob, `mapper-${customKey}.json`);
+      saveAs(blob, `mapper-${customKey}.geojson`);
     } else {
-      saveAs(blob, "mapper.json");
+      saveAs(blob, "mapper.geojson");
     }
   }
 
