@@ -1,6 +1,7 @@
 @import "openlayers";
-@import "geolocation";
-@import "measure";
+@import "map/control/geolocation";
+@import "map/control/mapExport";
+@import "map/control/measure";
 
 #map {
   background-color: #eee;

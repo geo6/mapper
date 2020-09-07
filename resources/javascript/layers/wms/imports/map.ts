@@ -13,6 +13,7 @@ export default function (service: WMS, names: string[]): void {
     if (service.olLayer === null) {
       service.olLayer = new TileLayer({
         source: new TileWMS({
+          crossOrigin: "anonymous",
           params: {
             LAYERS: names,
           },

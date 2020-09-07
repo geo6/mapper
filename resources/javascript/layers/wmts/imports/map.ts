@@ -11,13 +11,14 @@ import { layerGroupServices } from "../../../map/layerGroup";
 export default function (service: WMTS, names: string[]): void {
   if (names.length > 0) {
     names.forEach((name) => {
+      const options = optionsFromCapabilities(service.capabilities, {
+        layer: name,
+        projection: service.projection,
+      });
+      options.crossOrigin = "anonymous";
+
       const layer = new TileLayer({
-        source: new WMTSSource(
-          optionsFromCapabilities(service.capabilities, {
-            layer: name,
-            projection: service.projection,
-          })
-        ),
+        source: new WMTSSource(options),
         zIndex: 100,
       });
 
