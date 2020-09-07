@@ -65,6 +65,7 @@ export class BaseLayer {
         maxZoom: this.options.maxZoom,
         source: new TileWMS({
           attributions: this.options.attributions,
+          crossOrigin: "anonymous",
           params: {
             LAYERS: this.options.layers,
             TRANSPARENT: false,
@@ -92,6 +93,7 @@ export class BaseLayer {
         const options = optionsFromCapabilities(capabilities, {
           layer: this.options.layer,
         });
+        options.crossOrigin = "anonymous";
         if (
           typeof this.options.attributions !== "undefined" &&
           this.options.attributions !== null
@@ -116,6 +118,7 @@ export class BaseLayer {
         maxZoom: this.options.maxZoom,
         source: new XYZ({
           attributions: this.options.attributions,
+          crossOrigin: "anonymous",
           url: this.options.url,
         }),
       })

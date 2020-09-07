@@ -18,6 +18,7 @@ import initDraw from "../sidebar/draw";
 import initGeocoder from "../geocoder";
 import initInfo from "../info";
 import GeolocationControl from "./control/GeolocationControl";
+import MapExportControl from "./control/MapExportControl";
 import MeasureControl from "./control/MeasureControl";
 import { init as initPermalink, getFromCache, getFromHash } from "./permalink";
 import singleClick from "./singleclick";
@@ -59,6 +60,7 @@ export default function (
       }),
       new ScaleLine(),
       new GeolocationControl(),
+      new MapExportControl(),
       new MeasureControl(),
     ]),
     layers: [],

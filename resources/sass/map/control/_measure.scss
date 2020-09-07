@@ -1,13 +1,13 @@
-$position-top: 112px;
+$position-top: 8.5em;
 
 .ol-measure {
   top: $position-top;
   left: 0.5em;
 }
 
-.ol-touch .ol-measure {
-  top: $position-top + 15px;
-}
+// .ol-touch .ol-measure {
+//   top: $position-top + 15px;
+// }
 
 .sidebar-left ~ .sidebar-map .ol-measure {
   margin-left: 46px;
