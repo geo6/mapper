@@ -6,6 +6,7 @@ import "bootstrap/js/dist/modal";
 import "bootstrap/js/dist/button";
 
 import File from "../layers/File";
+import { ColorLike } from "ol/colorlike";
 
 export class SettingsModal {
   private element: HTMLElement;
@@ -14,6 +15,7 @@ export class SettingsModal {
   private labelSelect: HTMLSelectElement;
   private colorInput: HTMLInputElement;
   private colorInputText: HTMLElement;
+  private legendInput: HTMLInputElement;
   private opacityInput: HTMLInputElement;
   private opacityInputText: HTMLElement;
 
@@ -32,6 +34,9 @@ export class SettingsModal {
     this.colorInputText = document.getElementById(
       "layer-color-text"
     ) as HTMLElement;
+    this.legendInput = document.getElementById(
+      "layer-legend"
+    ) as HTMLInputElement;
     this.opacityInput = document.getElementById(
       "layer-opacity"
     ) as HTMLInputElement;
@@ -43,9 +48,13 @@ export class SettingsModal {
       this.opacityInputText.innerText = `${this.opacityInput.value}%`;
     });
 
+    this.legendInput.addEventListener("change", () => {
+      this.colorInput.disabled = this.legendInput.checked;
+    });
+
     this.form.addEventListener("reset", () => {
       this.colorInput.disabled = false;
-
+      this.legendInput.parentElement.hidden = true;
       this.colorInputText.innerText = "";
       this.colorInputText.hidden = true;
       this.opacityInputText.innerText = "";
@@ -118,16 +127,15 @@ export class SettingsModal {
 
     this.setOpacity(layer.olLayer.getOpacity());
 
-    if (
-      layer.type === "geojson" &&
-      typeof layer.legend !== "undefined" &&
-      layer.legend !== null
-    ) {
-      this.disableColor("Function disabled because this layer has a legend.");
-    } else if (layer.type === "kml") {
+    if (layer.type === "kml") {
       this.disableColor("Function disabled for KML files.");
     } else {
-      this.setColor(layer.color);
+      const legend =
+        layer.type === "geojson" &&
+        typeof layer.legend !== "undefined" &&
+        layer.legend !== null;
+
+      this.setColor(layer.color, legend);
     }
   }
 
@@ -194,8 +202,14 @@ export class SettingsModal {
     }
   }
 
-  setColor(color: string): void {
-    this.colorInput.value = color;
+  setColor(color: ColorLike | null, legend: boolean): void {
+    this.colorInput.value = color !== null ? color.toString() : "";
+
+    if (legend === true) {
+      this.legendInput.parentElement.hidden = false;
+      this.legendInput.checked = color === null;
+      this.colorInput.disabled = color === null;
+    }
   }
 
   getColor(): string | null {
