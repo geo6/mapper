@@ -29,15 +29,11 @@ export function getFromHash(): CacheParams {
       if (parts.length === 3) {
         coordinate = [parseFloat(parts[2]), parseFloat(parts[1])];
         zoom = parseInt(parts[0], 10);
-
-        cache.setMap(zoom, coordinate[0], coordinate[1]);
       }
     }
 
     if (typeof params.baselayer !== "undefined") {
       baselayer = params.baselayer;
-
-      cache.setBaselayer(baselayer);
     }
   }
 

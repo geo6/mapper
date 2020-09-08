@@ -40,6 +40,12 @@ export default function (
   });
 
   const hash = getFromHash();
+  if (hash.zoom !== null && hash.coordinate !== null) {
+    cache.setMap(hash.zoom, hash.coordinate[0], hash.coordinate[1]);
+  }
+  if (hash.baselayer !== null) {
+    cache.setBaselayer(hash.baselayer);
+  }
 
   const view = new View({ constrainResolution: true });
   if (cache.map !== null) {
