@@ -1,5 +1,3 @@
-"use strict";
-
 import LegendOptions from "./LegendOptions";
 
 export interface FileOptions {

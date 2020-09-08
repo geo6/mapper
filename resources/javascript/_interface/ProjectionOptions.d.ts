@@ -1,5 +1,3 @@
-"use strict";
-
 export interface ProjectionOptions {
   name: string;
   description: string;

@@ -1,5 +1,3 @@
-"use strict";
-
 export interface ServiceOptions {
   default?: string[];
   maxZoom?: number;

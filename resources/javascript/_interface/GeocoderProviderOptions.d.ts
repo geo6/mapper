@@ -1,5 +1,3 @@
-"use strict";
-
 export interface GeocoderProviderOptions {
   attribution?: string | null;
   reverse: boolean;
