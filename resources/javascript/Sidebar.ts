@@ -7,16 +7,36 @@ import SidebarControl from "sidebar-v2/js/ol5-sidebar";
 import File from "./layers/File";
 import WMS from "./layers/WMS";
 import WMTS from "./layers/WMTS";
+import ShareSidebar from "./sidebar/ShareSidebar";
 
 import { layerGroupFiles } from "./map/layerGroup";
 
 export class Sidebar {
-  sidebar: SidebarControl;
+  private sidebar: SidebarControl;
+
+  private share: ShareSidebar;
 
   constructor(element: string) {
     this.sidebar = new SidebarControl({
       element,
       position: "left",
+    });
+
+    this.share = new ShareSidebar();
+
+    document.querySelectorAll("#sidebar a").forEach((element) => {
+      element.addEventListener("click", () => {
+        const active =
+          element.parentElement.classList.contains("active") === false;
+
+        switch (element.hash) {
+          case "#share":
+            if (active === true) {
+              this.share.update();
+            }
+            break;
+        }
+      });
     });
   }
 
