@@ -15,7 +15,7 @@ import { drawControl } from "../../sidebar/draw";
 
 class DrawPolygon extends Draw {
   private listener: EventsKey;
-  private element: HTMLElement;
+  private target: HTMLElement;
 
   constructor() {
     super({
@@ -24,7 +24,7 @@ class DrawPolygon extends Draw {
       type: "Polygon" as GeometryType,
     });
 
-    this.element = document.querySelector(".ol-measure-result");
+    this.target = document.querySelector(".ol-measure-result");
 
     this.on("drawstart", (event: DrawEvent) => {
       this.listener = event.feature.on("change", () => {
@@ -35,7 +35,7 @@ class DrawPolygon extends Draw {
     this.on("drawend", (event) => {
       unByKey(this.listener);
 
-      this.element.innerHTML = "";
+      this.target.innerHTML = "";
 
       this.validate(event.feature);
 
@@ -71,7 +71,7 @@ class DrawPolygon extends Draw {
   showArea(feature: Feature): number {
     const area = getArea(feature.getGeometry());
 
-    this.element.innerHTML = DrawPolygon.formatArea(area);
+    this.target.innerHTML = DrawPolygon.formatArea(area);
 
     return area;
   }

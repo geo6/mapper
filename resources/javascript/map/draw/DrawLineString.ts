@@ -12,7 +12,7 @@ import { drawControl } from "../../sidebar/draw";
 
 class DrawLineString extends Draw {
   private listener: EventsKey;
-  private element: HTMLElement;
+  private target: HTMLElement;
 
   constructor() {
     super({
@@ -21,7 +21,7 @@ class DrawLineString extends Draw {
       type: "LineString" as GeometryType,
     });
 
-    this.element = document.querySelector(".ol-measure-result");
+    this.target = document.querySelector(".ol-measure-result");
 
     this.on("drawstart", (event: DrawEvent) => {
       this.listener = event.feature.on("change", () => {
@@ -32,7 +32,7 @@ class DrawLineString extends Draw {
     this.on("drawend", () => {
       unByKey(this.listener);
 
-      this.element.innerHTML = "";
+      this.target.innerHTML = "";
 
       drawControl.showForm();
     });
@@ -41,7 +41,7 @@ class DrawLineString extends Draw {
   showLength(feature: Feature): number {
     const length = getLength(feature.getGeometry());
 
-    this.element.innerHTML = DrawLineString.formatLength(length);
+    this.target.innerHTML = DrawLineString.formatLength(length);
 
     return length;
   }
