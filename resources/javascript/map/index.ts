@@ -11,7 +11,7 @@ import {
 } from "ol/control";
 import { Coordinate } from "ol/coordinate";
 import Map from "ol/Map";
-import { fromLonLat } from "ol/proj";
+import { fromLonLat, toLonLat } from "ol/proj";
 import View from "ol/View";
 
 import initDraw from "../sidebar/draw";
@@ -20,7 +20,7 @@ import initInfo from "../info";
 import GeolocationControl from "./control/GeolocationControl";
 import MapExportControl from "./control/MapExportControl";
 import MeasureControl from "./control/MeasureControl";
-import { init as initPermalink, getFromCache, getFromHash } from "./permalink";
+import { init as initPermalink, getFromHash } from "./permalink";
 import singleClick from "./singleclick";
 import BaseLayer from "../BaseLayer";
 import BaseLayerOptions from "../_interface/BaseLayerOptions";
@@ -39,15 +39,12 @@ export default function (
     $("#map").height($(window).height() - $("body > nav.navbar").outerHeight());
   });
 
-  let view = getFromHash();
-  if (view.zoom === null || view.center === null) {
-    view = getFromCache();
-  }
-  if (view.zoom === null || view.center === null) {
-    view = {
-      center: fromLonLat(lnglat),
-      zoom,
-    };
+  const hash = getFromHash();
+
+  const view = new View({ constrainResolution: true });
+  if (cache.map !== null) {
+    view.setCenter(fromLonLat([cache.map.longitude, cache.map.latitude]));
+    view.setZoom(cache.map.zoom);
   }
 
   const map = new Map({
@@ -64,11 +61,7 @@ export default function (
       new MeasureControl(),
     ]),
     layers: [],
-    view: new View({
-      center: view.center,
-      constrainResolution: true,
-      zoom: view.zoom,
-    }),
+    view,
   });
 
   const baselayers = {};

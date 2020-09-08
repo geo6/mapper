@@ -3,9 +3,14 @@
 import { customKey } from "./main";
 
 export class Cache {
-  baselayer: string;
-  map: { latitude: number; longitude: number; zoom: number };
-  storageKey: string;
+  private storageKey: string;
+
+  public baselayer: string | null = null;
+  public map: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  } | null = null;
 
   constructor() {
     if (customKey !== null) {

@@ -1,43 +1,47 @@
 "use strict";
 
 import { Coordinate } from "ol/coordinate";
-import { fromLonLat, toLonLat } from "ol/proj";
+import { toLonLat } from "ol/proj";
+
+import CacheParams from "../_interface/CacheParams";
 
 import { cache, map } from "../main";
 
-export function getFromHash(): {
-  center: Coordinate | null;
-  zoom: number | null;
-} {
-  let zoom = null;
-  let center = null;
+export function getFromHash(): CacheParams {
+  let baselayer: string | null = null;
+  let coordinate: Coordinate | null = null;
+  let zoom: number | null = null;
 
   if (window.location.hash !== "") {
-    const hash = window.location.hash.replace("#map=", "");
-    const parts = hash.split("/");
+    const params: { map?: string; baselayer?: string } = {};
+    window.location.hash
+      .substr(1)
+      .split("&")
+      .forEach((param) => {
+        const [key, value] = param.split("=");
 
-    if (parts.length === 3) {
-      zoom = parseInt(parts[0], 10);
-      center = fromLonLat([parseFloat(parts[2]), parseFloat(parts[1])]);
+        params[key] = value;
+      });
+
+    if (typeof params.map !== "undefined") {
+      const parts = params.map.split("/");
+
+      if (parts.length === 3) {
+        coordinate = [parseFloat(parts[2]), parseFloat(parts[1])];
+        zoom = parseInt(parts[0], 10);
+
+        cache.setMap(zoom, coordinate[0], coordinate[1]);
+      }
+    }
+
+    if (typeof params.baselayer !== "undefined") {
+      baselayer = params.baselayer;
+
+      cache.setBaselayer(baselayer);
     }
   }
 
-  return { center, zoom };
-}
-
-export function getFromCache(): {
-  center: Coordinate | null;
-  zoom: number | null;
-} {
-  let zoom = null;
-  let center = null;
-
-  if (typeof cache.map !== "undefined" && cache.map !== null) {
-    zoom = cache.map.zoom;
-    center = fromLonLat([cache.map.longitude, cache.map.latitude]);
-  }
-
-  return { center, zoom };
+  return { baselayer, coordinate, zoom };
 }
 
 export function init(): void {
