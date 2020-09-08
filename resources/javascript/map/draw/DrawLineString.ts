@@ -3,7 +3,6 @@
 import { EventsKey } from "ol/events";
 import Feature from "ol/Feature";
 import GeometryType from "ol/geom/GeometryType";
-import LineString from "ol/geom/LineString";
 import Draw, { DrawEvent } from "ol/interaction/Draw";
 import { unByKey } from "ol/Observable";
 import { getLength } from "ol/sphere";
