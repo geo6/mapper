@@ -1,7 +1,6 @@
 # Mapper
 
-![JavaScript CI](https://github.com/geo6/mapper/workflows/JavaScript%20CI/badge.svg)
-![PHP CI](https://github.com/geo6/mapper/workflows/PHP%20CI/badge.svg)
+![Check](https://github.com/geo6/mapper/workflows/Check/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/geo6/mapper/v/stable)](https://packagist.org/packages/geo6/mapper)
 [![Total Downloads](https://poser.pugx.org/geo6/mapper/downloads)](https://packagist.org/packages/geo6/mapper)
 [![Monthly Downloads](https://poser.pugx.org/geo6/mapper/d/monthly.png)](https://packagist.org/packages/geo6/mapper)
