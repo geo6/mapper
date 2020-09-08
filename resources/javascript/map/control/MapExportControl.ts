@@ -59,6 +59,20 @@ class MapExportControl extends Control {
           }
         });
 
+      const attributions = [];
+      document
+        .querySelectorAll(".ol-attribution li")
+        .forEach((element: HTMLLIElement) => {
+          attributions.push(element.innerText);
+        });
+      mapContext.font = "caption";
+      const { width } = mapContext.measureText(attributions.join(", "));
+      mapContext.fillText(
+        attributions.join(", "),
+        mapCanvas.width - width - 10,
+        mapCanvas.height - 10
+      );
+
       mapCanvas.toBlob((blob) => {
         if (customKey !== null) {
           saveAs(blob, `mapper-${customKey}.png`);
