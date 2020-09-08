@@ -1,5 +1,3 @@
-"use strict";
-
 import { AttributionLike } from "ol/source/Source";
 
 export interface BaseLayerOptions {
