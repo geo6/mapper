@@ -47,7 +47,7 @@ class MapExportControl extends Control {
 
             const transform = canvas.style.transform;
             const matrix = transform
-              .match(/^matrix\(([^\(]*)\)$/)[1]
+              .match(/^matrix\(([^(]*)\)$/)[1]
               .split(",")
               .map(Number);
             CanvasRenderingContext2D.prototype.setTransform.apply(
