@@ -11,7 +11,7 @@ import {
 } from "ol/control";
 import { Coordinate } from "ol/coordinate";
 import Map from "ol/Map";
-import { fromLonLat, toLonLat } from "ol/proj";
+import { fromLonLat } from "ol/proj";
 import View from "ol/View";
 
 import initDraw from "../sidebar/draw";
