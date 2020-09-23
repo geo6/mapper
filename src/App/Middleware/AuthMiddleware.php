@@ -81,8 +81,6 @@ class AuthMiddleware implements MiddlewareInterface
 
             if (!isset($query['c']) || in_array($query['c'], $projects, true)) {
                 return $handler->handle($request->withAttribute(UserInterface::class, $user));
-            } else {
-                throw new Exception(sprintf('Access denied for "%s".', $query['c']));
             }
         }
 
@@ -91,7 +89,7 @@ class AuthMiddleware implements MiddlewareInterface
 
         return $this->auth
             ->unauthorizedResponse($request)
-            ->withHeader('Location', $redirect.'?'.http_build_query($query));
+            ->withHeader('Location', $redirect);
     }
 
     public static function getProjects(string $username, iterable $roles = []): array
