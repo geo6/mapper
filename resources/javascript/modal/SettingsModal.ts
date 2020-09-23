@@ -12,7 +12,7 @@ export class SettingsModal {
   private element: HTMLElement;
   private form: HTMLFormElement;
 
-  private labelSelect: HTMLSelectElement;
+  private labelOptGroup: HTMLOptGroupElement;
   private colorInput: HTMLInputElement;
   private colorInputText: HTMLElement;
   private legendInput: HTMLInputElement;
@@ -25,9 +25,9 @@ export class SettingsModal {
     this.element = element;
     this.form = this.element.querySelector("form");
 
-    this.labelSelect = document.getElementById(
-      "layer-label"
-    ) as HTMLSelectElement;
+    this.labelOptGroup = document.querySelector(
+      "#layer-label > optgroup"
+    ) as HTMLOptGroupElement;
     this.colorInput = document.getElementById(
       "layer-color"
     ) as HTMLInputElement;
@@ -140,14 +140,14 @@ export class SettingsModal {
   }
 
   setLabelList(labels: string[]): void {
-    this.labelSelect.innerHTML = '<option value=""></option>';
+    this.labelOptGroup.innerHTML = "";
     labels.forEach((column: string) => {
       const option = document.createElement("option");
 
       option.value = column;
       option.innerText = column;
 
-      this.labelSelect.append(option);
+      this.labelOptGroup.append(option);
     });
   }
 
@@ -186,11 +186,13 @@ export class SettingsModal {
   }
 
   setLabel(label: string): void {
-    this.labelSelect.value = label;
+    (this.labelOptGroup.parentElement as HTMLSelectElement).value = label;
   }
 
   getLabel(): string | null {
-    return this.labelSelect.value.length > 0 ? this.labelSelect.value : null;
+    const select = (this.labelOptGroup.parentElement as HTMLSelectElement);
+
+    return select.value.length > 0 ? select.value : null;
   }
 
   disableColor(message?: string): void {

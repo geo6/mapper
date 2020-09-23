@@ -8,18 +8,20 @@ export default function (feature: Feature, labelColumn: string): Text | null {
   const type = feature.getGeometry().getType();
   const properties = feature.getProperties();
 
-  const label =
-    labelColumn !== null && typeof properties[labelColumn] !== "undefined"
-      ? properties[labelColumn]
-      : null;
+  if (labelColumn !== null) {
+    let label = "";
+    if (labelColumn === 'feature.id') {
+      label = feature.getId().toString();
+    } else if (typeof properties[labelColumn] !== "undefined") {
+      label = properties[labelColumn].toString();
+    }
 
-  if (label !== null) {
     const textOptions = {
       stroke: new Stroke({
         color: "#fff",
         width: 2,
       }),
-      text: label.toString(),
+      text: label,
     };
 
     switch (type) {
