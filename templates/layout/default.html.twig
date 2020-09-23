@@ -9,7 +9,7 @@
         Mapper
         {{ ui.custom ? (ui.title ?? ui.custom) | upper }}
     </title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('/style.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
 

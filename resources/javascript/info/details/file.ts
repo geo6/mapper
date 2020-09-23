@@ -60,7 +60,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     }
 
     a.title = json.filename;
-    a.innerHTML = '<i class="far fa-file-image"></i> Preview';
+    a.innerHTML = '<i class="fas fa-file-image"></i> Preview';
 
     a.addEventListener("click", (event: Event) => {
       event.preventDefault();
@@ -90,7 +90,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
   } else {
     a.target = "_blank";
     a.title = json.filename;
-    a.innerHTML = '<i class="far fa-file"></i> Open';
+    a.innerHTML = '<i class="fas fa-file"></i> Open';
   }
 
   return a;

@@ -1,6 +1,6 @@
 "use strict";
 
-import "../sass/style.scss";
+import "../sass/main.scss";
 
 import "bootstrap/js/dist/collapse";
 import "bootstrap/js/dist/dropdown";

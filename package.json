@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@geo6/overlay-image-preview": "^0.1.0",
     "@turf/unkink-polygon": "^5.1.5",
     "bootstrap": "^4.5.2",
@@ -39,7 +40,7 @@
   },
   "scripts": {
     "build": "run-p build:*",
-    "build:login": "parcel build --out-dir=public/ resources/sass/login.scss --no-source-maps",
+    "build:style": "parcel build --out-dir=public/ --public-url . resources/sass/style.scss --no-source-maps",
     "build:main": "parcel build --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-source-maps",
     "watch:main": "parcel watch --out-dir=public/ --out-file=mapper.js --global app resources/javascript/main.ts --no-hmr",
     "test": "eslint --ext .js --ext .ts resources/javascript/",

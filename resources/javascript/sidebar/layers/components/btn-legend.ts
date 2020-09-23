@@ -7,7 +7,7 @@ export default function (
 
   button.className = "btn btn-outline-secondary btn-layer-legend";
   button.title = "Legend";
-  button.innerHTML = '<i class="far fa-image"></i>';
+  button.innerHTML = '<i class="fas fa-image"></i>';
   button.disabled = typeof legend === "undefined" || legend === null;
 
   if (button.disabled === false) {
