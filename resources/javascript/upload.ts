@@ -43,9 +43,9 @@ export default function (): void {
 
       switch (extension.toLowerCase()) {
         case "csv": {
-          count.csv++;
+          li.id = `file-csv-${count.csv}`;
 
-          li.id = `file-csv-${files.csv.length}`;
+          count.csv++;
 
           document
             .querySelector("#modal-layers-files-csv > .list-group")
@@ -54,9 +54,9 @@ export default function (): void {
         }
         case "json":
         case "geojson": {
-          count.geojson++;
+          li.id = `file-geojson-${count.geojson}`;
 
-          li.id = `file-geojson-${files.geojson.length}`;
+          count.geojson++;
 
           document
             .querySelector("#modal-layers-files-geojson > .list-group")
@@ -64,9 +64,9 @@ export default function (): void {
           break;
         }
         case "gpx": {
-          count.gpx++;
+          li.id = `file-gpx-${count.gpx}`;
 
-          li.id = `file-gpx-${files.gpx.length}`;
+          count.gpx++;
 
           document
             .querySelector("#modal-layers-files-gpx > .list-group")
@@ -74,9 +74,9 @@ export default function (): void {
           break;
         }
         case "kml": {
-          count.kml++;
+          li.id = `file-kml-${count.kml}`;
 
-          li.id = `file-kml-${files.kml.length}`;
+          count.kml++;
 
           document
             .querySelector("#modal-layers-files-kml > .list-group")
