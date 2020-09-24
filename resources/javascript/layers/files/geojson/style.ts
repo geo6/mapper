@@ -15,7 +15,7 @@ export default function (
 
   if (column === null) return;
 
-  const l = values.find((val) => val.value === properties[column])
+  const l = values.find((val) => val.value === properties[column]);
   if (typeof l !== "undefined") {
     const style = { color: l.color };
 

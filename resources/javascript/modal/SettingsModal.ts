@@ -190,7 +190,7 @@ export class SettingsModal {
   }
 
   getLabel(): string | null {
-    const select = (this.labelOptGroup.parentElement as HTMLSelectElement);
+    const select = this.labelOptGroup.parentElement as HTMLSelectElement;
 
     return select.value.length > 0 ? select.value : null;
   }
