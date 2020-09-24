@@ -13,11 +13,9 @@ export default function (
   const properties = feature.getProperties();
   const { column, values } = legend;
 
-  const l =
-    column !== null
-      ? values.find((val) => val.value === properties[column])
-      : values[0];
+  if (column === null) return;
 
+  const l = values.find((val) => val.value === properties[column])
   if (typeof l !== "undefined") {
     const style = { color: l.color };
 
