@@ -43,7 +43,7 @@ export default function (): void {
 
       switch (extension.toLowerCase()) {
         case "csv": {
-          li.id = `file-csv-${count.csv}`;
+          li.id = `file-csv-${files.geojson.length + count.csv}`;
 
           count.csv++;
 
@@ -54,7 +54,7 @@ export default function (): void {
         }
         case "json":
         case "geojson": {
-          li.id = `file-geojson-${count.geojson}`;
+          li.id = `file-geojson-${files.geojson.length + count.geojson}`;
 
           count.geojson++;
 
@@ -64,7 +64,7 @@ export default function (): void {
           break;
         }
         case "gpx": {
-          li.id = `file-gpx-${count.gpx}`;
+          li.id = `file-gpx-${files.gpx.length + count.gpx}`;
 
           count.gpx++;
 
@@ -74,7 +74,7 @@ export default function (): void {
           break;
         }
         case "kml": {
-          li.id = `file-kml-${count.kml}`;
+          li.id = `file-kml-${files.kml.length + count.kml}`;
 
           count.kml++;
 
