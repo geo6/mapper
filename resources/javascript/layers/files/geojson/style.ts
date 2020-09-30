@@ -13,19 +13,25 @@ export default function (
   const properties = feature.getProperties();
   const { column, values } = legend;
 
-  if (column === null) return;
+  if (column === null) {
+    if (typeof properties.color === "undefined" && values.length === 1) {
+      const style = { color: values[0].color };
 
-  const l = values.find((val) => val.value === properties[column]);
-  if (typeof l !== "undefined") {
-    const style = { color: l.color };
-
-    if (typeof l.size !== "undefined" && l.size !== null) {
-      Object.assign(style, { "marker-size": l.size });
+      feature.setProperties(style);
     }
-    if (typeof l.symbol !== "undefined" && l.symbol !== null) {
-      Object.assign(style, { "marker-symbol": l.symbol });
-    }
+  } else {
+    const l = values.find((val) => val.value === properties[column]);
+    if (typeof l !== "undefined") {
+      const style = { color: l.color };
 
-    feature.setProperties(style);
+      if (typeof l.size !== "undefined" && l.size !== null) {
+        Object.assign(style, { "marker-size": l.size });
+      }
+      if (typeof l.symbol !== "undefined" && l.symbol !== null) {
+        Object.assign(style, { "marker-symbol": l.symbol });
+      }
+
+      feature.setProperties(style);
+    }
   }
 }
