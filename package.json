@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/fontawesome-free": "^5.15.0",
     "@geo6/overlay-image-preview": "^0.1.0",
     "@turf/unkink-polygon": "^5.1.5",
     "bootstrap": "^4.5.2",
@@ -22,8 +22,8 @@
     "@types/ol": "^6.4.1",
     "@types/papaparse": "^5.2.2",
     "@types/proj4": "^2.5.0",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-config-standard": "^14.1.1",
