@@ -91,7 +91,7 @@ class PreviewHandler implements RequestHandlerInterface
                 $data['mime'] = $mime;
 
                 if ($mime !== false && preg_match('/^image\/.+$/', $mime) === 1) {
-                    $exif = exif_read_data($path, 'ANY_TAG', true);
+                    $exif = @exif_read_data($path, 'ANY_TAG', true);
 
                     $data['exif'] = $exif ?: null;
 
