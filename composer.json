@@ -42,7 +42,7 @@
         "mezzio/mezzio-authentication-session": "1.0.1",
         "mezzio/mezzio-fastroute": "3.0.3",
         "mezzio/mezzio-helpers": "5.3.0",
-        "mezzio/mezzio-session-ext": "1.9.0",
+        "mezzio/mezzio-session-ext": "1.10.0",
         "mezzio/mezzio-twigrenderer": "2.6.1",
         "mtymek/blast-base-url": "1.0.0",
         "php-http/guzzle6-adapter": "2.0.1",
