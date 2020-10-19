@@ -3,7 +3,7 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@geo6/overlay-image-preview": "^0.1.0",
     "@turf/unkink-polygon": "^5.1.5",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^4.5.3",
     "file-saver": "^2.0.2",
     "jquery": "^3.5.1",
     "ol": "^6.4.3",
