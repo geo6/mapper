@@ -50,13 +50,6 @@ export default function (
       case "point":
       default: {
         switch (symbol.toLowerCase()) {
-          case "circle":
-          default:
-            canvasContext.beginPath();
-            canvasContext.arc(15, oy + 5, 5, 0, 360);
-            canvasContext.fillStyle = legend[i].color;
-            canvasContext.fill();
-            break;
           case "circle-stroked":
             canvasContext.beginPath();
             canvasContext.arc(15, oy + 5, 5, 0, 360);
@@ -126,6 +119,13 @@ export default function (
             canvasContext.lineTo(10, oy + 10);
             canvasContext.strokeStyle = legend[i].color;
             canvasContext.stroke();
+            break;
+          case "circle":
+          default:
+            canvasContext.beginPath();
+            canvasContext.arc(15, oy + 5, 5, 0, 360);
+            canvasContext.fillStyle = legend[i].color;
+            canvasContext.fill();
             break;
         }
         break;

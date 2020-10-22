@@ -36,9 +36,6 @@ export default function (
   });
 
   switch (symbol.toLowerCase()) {
-    case "circle":
-    default:
-      return new Style({ image: markerCircle(stroke, fill, size) });
     case "circle-stroked":
       return new Style({
         image: markerCircle(
@@ -79,5 +76,8 @@ export default function (
           size
         ),
       });
+    case "circle":
+    default:
+      return new Style({ image: markerCircle(stroke, fill, size) });
   }
 }
