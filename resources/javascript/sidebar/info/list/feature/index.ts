@@ -7,17 +7,14 @@ import getLabel from "./label";
 
 // import { map } from "../../../../main";
 
-export default function (
-  feature: Feature,
-  file: File,
-): HTMLLIElement {
+export default function (feature: Feature, file: File): HTMLLIElement {
   const li = document.createElement("li");
 
   li.className = "info-list-feature";
 
   if (feature.getGeometry() !== null) {
-    li.innerHTML += '<i class="fas fa-fw fa-vector-square"></i>' + ' ';
-  };
+    li.innerHTML += '<i class="fas fa-fw fa-vector-square"></i>' + " ";
+  }
 
   li.innerHTML += getLabel(feature, file.label);
 

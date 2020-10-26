@@ -6,11 +6,11 @@ import { baseUrl, customKey } from "../../../../../../main";
 
 const regex = /^(file:\/\/)(\/.+\.[a-zA-Z]+)$/;
 
-export function check (value: any): boolean {
+export function check(value: any): boolean {
   return value.toString().match(regex) !== null;
 }
 
-export async function display (value: any): Promise<HTMLAnchorElement | string> {
+export async function display(value: any): Promise<HTMLAnchorElement | string> {
   const urlInfo =
     `${baseUrl}preview/info?` +
     new URLSearchParams({

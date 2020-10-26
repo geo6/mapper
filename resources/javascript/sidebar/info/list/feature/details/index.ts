@@ -33,8 +33,5 @@ export default function (feature: Feature): [HTMLTableElement, HTMLDivElement] {
 
   table.append(tbody);
 
-  return [
-    table,
-    createGeometryElement(geometry)
-  ];
+  return [table, createGeometryElement(geometry)];
 }

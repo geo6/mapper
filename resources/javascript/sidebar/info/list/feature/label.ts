@@ -2,11 +2,15 @@
 
 import Feature from "ol/Feature";
 
-export default function (feature: Feature, labelColumn: string|null): string {
+export default function (feature: Feature, labelColumn: string | null): string {
   const id = feature.getId();
   const properties = feature.getProperties();
 
-  if (typeof labelColumn !== "undefined" && labelColumn !== null && properties[labelColumn].toString().length > 0) {
+  if (
+    typeof labelColumn !== "undefined" &&
+    labelColumn !== null &&
+    properties[labelColumn].toString().length > 0
+  ) {
     return properties[labelColumn].toString();
   }
 
@@ -23,5 +27,5 @@ export default function (feature: Feature, labelColumn: string|null): string {
     }
   }
 
-  return '';
+  return "";
 }

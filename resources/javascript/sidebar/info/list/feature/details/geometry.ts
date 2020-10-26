@@ -24,7 +24,8 @@ export default function (geometry: Geometry): HTMLDivElement {
     case "Point": {
       const coordinates = (geometry as Point).getCoordinates();
 
-      div.innerHTML += type + "<br>" + toStringXY(toLonLat(coordinates), 6) + "<br>";
+      div.innerHTML +=
+        type + "<br>" + toStringXY(toLonLat(coordinates), 6) + "<br>";
       break;
     }
     case "MultiPoint": {

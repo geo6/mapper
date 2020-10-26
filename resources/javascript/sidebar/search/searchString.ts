@@ -3,7 +3,11 @@
 import Feature from "ol/Feature";
 import VectorSource from "ol/source/Vector";
 
-export default function (source: VectorSource, value: string, filter: Record<string, string>): Feature[] {
+export default function (
+  source: VectorSource,
+  value: string,
+  filter: Record<string, string>
+): Feature[] {
   let features = source.getFeatures();
 
   if (typeof filter !== "undefined" && filter !== null) {
@@ -17,7 +21,7 @@ export default function (source: VectorSource, value: string, filter: Record<str
     });
   }
 
-  return features.filter(feature => {
+  return features.filter((feature) => {
     const properties = feature.getProperties();
 
     for (const prop in properties) {
@@ -25,13 +29,21 @@ export default function (source: VectorSource, value: string, filter: Record<str
         typeof properties[prop] === "number" ||
         typeof properties[prop] === "string"
       ) {
-        const compare = properties[prop].toString().localeCompare(value, navigator.language, {
-          ignorePunctuation: true,
-          sensitivity: "base",
-          usage: "search",
-        });
+        const compare = properties[prop]
+          .toString()
+          .localeCompare(value, navigator.language, {
+            ignorePunctuation: true,
+            sensitivity: "base",
+            usage: "search",
+          });
 
-        if (compare === 0 || properties[prop].toString().toLowerCase().includes(value.toLowerCase())) {
+        if (
+          compare === 0 ||
+          properties[prop]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        ) {
           return true;
         }
       }

@@ -1,6 +1,9 @@
 "use strict";
 
-export default function (targets: { list: HTMLElement; details: HTMLElement; }): HTMLButtonElement {
+export default function (targets: {
+  list: HTMLElement;
+  details: HTMLElement;
+}): HTMLButtonElement {
   const button = document.createElement("button");
 
   button.className = "btn btn-outline-secondary btn-sm";

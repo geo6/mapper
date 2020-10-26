@@ -3,7 +3,9 @@
 import { check as checkURL, display as displayURL } from "./properties/url";
 import { check as checkFile, display as displayFile } from "./properties/file";
 
-export default function (properties: Record<string, any>): HTMLTableRowElement[] {
+export default function (
+  properties: Record<string, any>
+): HTMLTableRowElement[] {
   const rows: HTMLTableRowElement[] = [];
 
   Object.keys(properties).forEach((key: string) => {
@@ -30,11 +32,10 @@ export default function (properties: Record<string, any>): HTMLTableRowElement[]
       } else if (checkFile(value) !== false) {
         td.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
-        displayFile(value)
-          .then((file: HTMLAnchorElement | string) => {
-            td.innerHTML = "";
-            td.append(file);
-          });
+        displayFile(value).then((file: HTMLAnchorElement | string) => {
+          td.innerHTML = "";
+          td.append(file);
+        });
       } else {
         td.innerText = value.toString();
       }

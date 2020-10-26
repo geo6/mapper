@@ -7,7 +7,10 @@ import createLocate from "./locate";
 import createNext from "./next";
 import createPrev from "./prev";
 
-export default function(geometry: Geometry, targets: { list: HTMLElement; details: HTMLElement; }): HTMLDivElement {
+export default function (
+  geometry: Geometry,
+  targets: { list: HTMLElement; details: HTMLElement }
+): HTMLDivElement {
   const div = document.createElement("div");
 
   div.className = "mb-3";

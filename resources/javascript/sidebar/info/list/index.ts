@@ -11,11 +11,16 @@ import createButtonsElement from "./feature/details/buttons";
 import { map } from "../../../main";
 import { marker, markerLayer } from "../../../map/marker";
 
-function showOnMap (feature: Feature): void {
+function showOnMap(feature: Feature): void {
   marker.setGeometry(feature.getGeometry());
   markerLayer.setVisible(true);
 
-  if (containsExtent(map.getView().calculateExtent(), feature.getGeometry().getExtent()) !== true) {
+  if (
+    containsExtent(
+      map.getView().calculateExtent(),
+      feature.getGeometry().getExtent()
+    ) !== true
+  ) {
     map.getView().fit(feature.getGeometry().getExtent(), {
       maxZoom: 18,
       padding: [15, 15, 15, 15],
@@ -23,8 +28,12 @@ function showOnMap (feature: Feature): void {
   }
 }
 
-export default function (file: File, features: Feature[], targets: { list: HTMLElement; details: HTMLElement; }): HTMLLIElement {
-  const li = document.createElement('li');
+export default function (
+  file: File,
+  features: Feature[],
+  targets: { list: HTMLElement; details: HTMLElement }
+): HTMLLIElement {
+  const li = document.createElement("li");
 
   li.innerHTML = `<strong>${file.title || file.name}</strong>`;
 
@@ -48,7 +57,9 @@ export default function (file: File, features: Feature[], targets: { list: HTMLE
       targets.details.hidden = false;
       targets.details.dataset.current = current.toString();
 
-      targets.details.append(createButtonsElement(feature.getGeometry(), targets));
+      targets.details.append(
+        createButtonsElement(feature.getGeometry(), targets)
+      );
       targets.details.append(titleElement);
       targets.details.append(...details);
 
