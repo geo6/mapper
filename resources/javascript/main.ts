@@ -17,6 +17,7 @@ import WMS from "./layers/WMS";
 import WMTS from "./layers/WMTS";
 import initMap from "./map";
 import initLayers from "./map/layers";
+import initSearch from "./sidebar/search";
 import initUpload from "./upload";
 import Sidebar from "./Sidebar";
 import SettingsModal from "./modal/SettingsModal";
@@ -96,6 +97,7 @@ export function setMap(
   map.addControl(sidebar.sidebar);
 
   initLayers(services, files);
+  initSearch();
   initUpload();
 
   document.body.classList.add("loaded");

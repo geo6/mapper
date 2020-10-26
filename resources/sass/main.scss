@@ -17,7 +17,8 @@
   }
 }
 
-#info-list ol > li {
+#info-list ol > li,
+#search-list ol > li {
   cursor: pointer;
 
   &:hover {
@@ -25,7 +26,8 @@
   }
 }
 
-#info-details {
+#info-details,
+#search-details {
   font-size: 0.8rem;
 
   & > table > caption {
