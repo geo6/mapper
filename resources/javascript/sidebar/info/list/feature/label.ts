@@ -1,8 +1,11 @@
 "use strict";
 
-import Feature from "ol/Feature";
+import { FeatureLike } from "ol/Feature";
 
-export default function (feature: Feature, labelColumn: string | null): string {
+export default function (
+  feature: FeatureLike,
+  labelColumn: string | null
+): string {
   const id = feature.getId();
   const properties = feature.getProperties();
 

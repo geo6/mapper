@@ -210,42 +210,6 @@ export class File {
 
     return features.length > 0 ? Object.keys(features[0].getProperties()) : [];
   }
-
-  getFeatureInfo(coordinates: Coordinate): Array<FeatureLike> {
-    const pixel = map.getPixelFromCoordinate(coordinates);
-
-    if (this.olLayer === null) {
-      return [];
-    }
-
-    return map.getFeaturesAtPixel(pixel, {
-      // hitTolerance: 10,
-      layerFilter: (layer) => {
-        return layer === this.olLayer;
-      },
-    });
-  }
-
-  /**
-   * Generate list with the result of GetFeatureInfo request on a file in the sidebar.
-   *
-   * @param features Feature to display.
-   */
-  displayFeaturesList(index: number, features: Array<FeatureLike>): void {
-    const title = this.title || this.name;
-
-    const ol = document.createElement("ol");
-
-    const li = document.createElement("li");
-    li.id = `info-layer-${this.type}-${index}`;
-    li.innerHTML = `<strong>${title}</strong>`;
-
-    li.append(ol);
-
-    document.getElementById("info-list").append(li);
-
-    features.forEach((feature) => displayFeatureInList(feature, title, ol));
-  }
 }
 
 export { File as default };

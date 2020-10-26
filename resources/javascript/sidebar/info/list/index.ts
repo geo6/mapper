@@ -1,9 +1,8 @@
 "use strict";
 
 import { containsExtent } from "ol/extent";
-import Feature from "ol/Feature";
+import Feature, { FeatureLike } from "ol/Feature";
 
-import File from "../../../layers/File";
 import createFeatureLI from "./feature";
 import createFeatureDetails from "./feature/details";
 import createButtonsElement from "./feature/details/buttons";
@@ -29,18 +28,19 @@ function showOnMap(feature: Feature): void {
 }
 
 export default function (
-  file: File,
-  features: Feature[],
-  targets: { list: HTMLElement; details: HTMLElement }
+  title: string,
+  features: FeatureLike[],
+  targets: { list: HTMLElement; details: HTMLElement },
+  label?: string
 ): HTMLLIElement {
   const li = document.createElement("li");
 
-  li.innerHTML = `<strong>${file.title || file.name}</strong>`;
+  li.innerHTML = `<strong>${title}</strong>`;
 
   const ol = document.createElement("ol");
 
   features.forEach((feature) => {
-    const li = createFeatureLI(feature, file);
+    const li = createFeatureLI(feature, label);
 
     li.addEventListener("click", () => {
       const details = createFeatureDetails(feature);
@@ -51,7 +51,7 @@ export default function (
       targets.list.hidden = true;
 
       const titleElement = document.createElement("div");
-      titleElement.innerHTML = `<strong>${file.title || file.name}</strong>`;
+      titleElement.innerHTML = `<strong>${title}</strong>`;
 
       targets.details.innerHTML = "";
       targets.details.hidden = false;

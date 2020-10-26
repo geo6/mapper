@@ -12,7 +12,6 @@ import WMSDisplayFeatureList from "./wms/imports/featurelist";
 import generateLayersList from "./wms/imports/list";
 import WMSAddLayersToMap from "./wms/imports/map";
 import { create as sidebarElement } from "./wms/imports/sidebar";
-import { createUlService } from "../info/list/service";
 
 import { map, services, sidebar } from "../main";
 import { layerGroupServices } from "../map/layerGroup";
@@ -128,8 +127,6 @@ class WMS {
   async getFeatureInfo(coordinate: Coordinate): Promise<FeatureLike[]> {
     const source = this.olLayer.getSource() as TileWMS;
 
-    createUlService("wms", this.getIndex(), this.capabilities.Service.Title);
-
     const requests: Array<Promise<{
       layer: string;
       features: Feature[];
@@ -140,11 +137,6 @@ class WMS {
     });
 
     const results = await Promise.all(requests);
-    // this.selection = results;
-
-    document
-      .querySelector(`#info-service-wms-${this.getIndex()} > .loading`)
-      .remove();
 
     let features: FeatureLike[] = [];
     results
@@ -156,10 +148,6 @@ class WMS {
 
         features = features.concat(result.features);
       });
-
-    if (features.length === 0) {
-      document.getElementById(`info-service-wms-${this.getIndex()}`).remove();
-    }
 
     return features;
   }

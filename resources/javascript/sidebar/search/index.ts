@@ -30,52 +30,72 @@ export default function (): void {
       files.csv
         .filter((file) => file.olLayer !== null)
         .forEach((file) => {
-          const features = search(file.olLayer.getSource(), value, file.filter);
+          const features = search(file.olLayer, value, file.filter);
           if (features.length > 0) {
             listElement.append(
-              createLI(file, features, {
-                list: listElement,
-                details: detailsElement,
-              })
+              createLI(
+                file.title || file.name,
+                features,
+                {
+                  list: listElement,
+                  details: detailsElement,
+                },
+                file.label
+              )
             );
           }
         });
       files.geojson
         .filter((file) => file.olLayer !== null)
         .forEach((file) => {
-          const features = search(file.olLayer.getSource(), value, file.filter);
+          const features = search(file.olLayer, value, file.filter);
           if (features.length > 0) {
             listElement.append(
-              createLI(file, features, {
-                list: listElement,
-                details: detailsElement,
-              })
+              createLI(
+                file.title || file.name,
+                features,
+                {
+                  list: listElement,
+                  details: detailsElement,
+                },
+                file.label
+              )
             );
           }
         });
       files.gpx
         .filter((file) => file.olLayer !== null)
         .forEach((file) => {
-          const features = search(file.olLayer.getSource(), value, file.filter);
+          const features = search(file.olLayer, value, file.filter);
           if (features.length > 0) {
             listElement.append(
-              createLI(file, features, {
-                list: listElement,
-                details: detailsElement,
-              })
+              createLI(
+                file.title || file.name,
+                features,
+                {
+                  list: listElement,
+                  details: detailsElement,
+                },
+                file.label
+              )
             );
           }
         });
       files.kml
         .filter((file) => file.olLayer !== null)
         .forEach((file) => {
-          const features = search(file.olLayer.getSource(), value, file.filter);
+          const features = search(file.olLayer, value, file.filter);
           if (features.length > 0) {
             listElement.append(
-              createLI(file, features, {
-                list: listElement,
-                details: detailsElement,
-              })
+              createLI(
+                file.title || file.name,
+                features,
+                {
+                  list: listElement,
+                  details: detailsElement,
+                },
+                file.label
+              )
             );
           }
         });

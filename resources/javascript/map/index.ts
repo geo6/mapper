@@ -16,12 +16,11 @@ import View from "ol/View";
 
 import initDraw from "../sidebar/draw";
 import initGeocoder from "../geocoder";
-import initInfo from "../info";
+import initInfo from "../sidebar/info";
 import GeolocationControl from "./control/GeolocationControl";
 import MapExportControl from "./control/MapExportControl";
 import MeasureControl from "./control/MeasureControl";
 import { init as initPermalink, getFromCache, getFromHash } from "./permalink";
-import singleClick from "./singleclick";
 import BaseLayer from "../BaseLayer";
 import BaseLayerOptions from "../_interface/BaseLayerOptions";
 
@@ -83,8 +82,6 @@ export default function (
   map.addLayer(layerGroupServices);
 
   map.once("rendercomplete", () => {
-    map.on("singleclick", (event) => singleClick(event));
-
     initPermalink();
     initInfo();
     initGeocoder();

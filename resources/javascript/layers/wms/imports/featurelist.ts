@@ -3,8 +3,7 @@
 import Feature from "ol/Feature";
 
 import WMS from "../../WMS";
-import displayFeatureInList from "../../../info/feature";
-import { createOlLayer } from "../../../info/list/service";
+import createLI from "../../../sidebar/info/list";
 
 /**
  * Generate list with the result of GetFeatureInfo request on a WMS service for each queried layers in the sidebar.
@@ -25,16 +24,13 @@ export default function (
   );
   const layerTitle = service.layers[layerIndex].Title;
 
-  const olElement = createOlLayer(
-    "wms",
-    service.getIndex(),
-    layerIndex,
-    layerTitle
+  const listElement = document.getElementById("info-list");
+  const detailsElement = document.getElementById("info-details");
+
+  listElement.append(
+    createLI(`${serviceTitle}<br>${layerTitle}`, features, {
+      list: listElement,
+      details: detailsElement,
+    })
   );
-
-  const title = `${serviceTitle}<br>${layerTitle}`;
-
-  features.forEach((feature: Feature) => {
-    displayFeatureInList(feature, title, olElement);
-  });
 }

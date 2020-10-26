@@ -24,12 +24,12 @@ class DrawModule {
   private active: boolean;
   private draw: DrawPoint | DrawLineString | DrawPolygon;
   private modify: Modify;
-  private olLayer: VectorLayer;
   private snap: Snap;
   private storageKey: string;
   private type: string;
 
   public layerCurrent: VectorLayer;
+  public olLayer: VectorLayer;
 
   constructor() {
     this.active = false;
@@ -283,45 +283,6 @@ class DrawModule {
     });
 
     return geojson;
-  }
-
-  getFeatureInfo(coordinates: Coordinate): FeatureLike[] {
-    const pixel = map.getPixelFromCoordinate(coordinates);
-
-    if (this.olLayer === null) {
-      return [];
-    }
-
-    return map.getFeaturesAtPixel(pixel, {
-      hitTolerance: 10,
-      layerFilter: (layer) => {
-        return layer === this.olLayer;
-      },
-    });
-  }
-
-  /**
-   * Generate list with the result of GetFeatureInfo request on a file in the sidebar.
-   *
-   * @param {Feature[]} features Feature to display.
-   *
-   * @returns {void}
-   */
-  displayFeaturesList(features: Feature[]): void {
-    const title = "Draw";
-
-    const ol = document.createElement("ol");
-
-    const li = document.createElement("li");
-    li.id = "info-layer-draw";
-    li.innerHTML = `<strong>${title}</strong>`;
-    li.append(ol);
-
-    document.getElementById("info-list").append(li);
-
-    features.forEach((feature: Feature) =>
-      displayFeatureInList(feature, title, ol)
-    );
   }
 }
 

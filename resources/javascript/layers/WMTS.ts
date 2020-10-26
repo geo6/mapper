@@ -12,7 +12,6 @@ import WMTSDisplayFeatureList from "./wmts/imports/featurelist";
 import generateLayersList from "./wmts/imports/list";
 import WMTSAddLayersToMap from "./wmts/imports/map";
 import { create as sidebarElement } from "./wmts/imports/sidebar";
-import { createUlService } from "../info/list/service";
 
 import { services, sidebar } from "../main";
 import { layerGroupServices } from "../map/layerGroup";
@@ -127,11 +126,6 @@ class WMTS {
    * @param coordinate Coordinate.
    */
   async getFeatureInfo(coordinate: Coordinate): Promise<void> {
-    const title =
-      this.capabilities.ServiceIdentification.Title || this.layers[0].Title;
-
-    createUlService("wmts", this.getIndex(), title);
-
     const requests = WMTSGetFeatureInfo(this, coordinate);
     Promise.all(requests).then((responses) => {
       document
@@ -140,19 +134,11 @@ class WMTS {
 
       this.selection = responses;
 
-      const total = 0;
-
       responses.forEach((response) => {
         if (response.features.length > 0) {
           WMTSDisplayFeatureList(this, response.layer, response.features);
         }
       });
-
-      if (total === 0) {
-        document
-          .getElementById(`info-service-wmts-${this.getIndex()}`)
-          .remove();
-      }
     });
   }
 

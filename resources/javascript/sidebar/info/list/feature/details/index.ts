@@ -1,15 +1,19 @@
 "use strict";
 
-import Feature from "ol/Feature";
+import Feature, { FeatureLike } from "ol/Feature";
+import { Geometry } from "ol/geom";
 
 import createGeometryElement from "./geometry";
 import createPropertiesElements from "./properties";
 
-export default function (feature: Feature): [HTMLTableElement, HTMLDivElement] {
+export default function (
+  feature: FeatureLike
+): [HTMLTableElement, HTMLDivElement] {
   const id = feature.getId();
   const properties = feature.getProperties();
   const geometry = feature.getGeometry();
-  const geometryName = feature.getGeometryName();
+  const geometryName =
+    feature instanceof Feature ? feature.getGeometryName() : null;
 
   const table = document.createElement("table");
 

@@ -1,12 +1,13 @@
 "use strict";
 
 import { Coordinate } from "ol/coordinate";
-import Feature from "ol/Feature";
-import VectorSource from "ol/source/Vector";
+import { FeatureLike } from "ol/Feature";
+import Layer from "ol/layer/Layer";
 
-export default function (
-  source: VectorSource,
-  coordinate: Coordinate
-): Feature[] {
-  return source.getFeaturesAtCoordinate(coordinate);
+import searchPixel from "./searchPixel";
+
+import { map } from "../../main";
+
+export default function (layer: Layer, coordinate: Coordinate): FeatureLike[] {
+  return searchPixel(layer, map.getPixelFromCoordinate(coordinate));
 }

@@ -1,14 +1,14 @@
 "use strict";
 
-import Feature from "ol/Feature";
-import VectorSource from "ol/source/Vector";
+import { FeatureLike } from "ol/Feature";
+import VectorLayer from "ol/layer/Vector";
 
 export default function (
-  source: VectorSource,
+  layer: VectorLayer,
   value: string,
   filter: Record<string, string>
-): Feature[] {
-  let features = source.getFeatures();
+): FeatureLike[] {
+  let features = layer.getSource().getFeatures();
 
   if (typeof filter !== "undefined" && filter !== null) {
     features = features.filter((feature) => {

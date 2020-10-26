@@ -1,13 +1,12 @@
 "use strict";
 
-import Feature from "ol/Feature";
+import { FeatureLike } from "ol/Feature";
 
-import File from "../../../../layers/File";
 import getLabel from "./label";
 
 // import { map } from "../../../../main";
 
-export default function (feature: Feature, file: File): HTMLLIElement {
+export default function (feature: FeatureLike, label?: string): HTMLLIElement {
   const li = document.createElement("li");
 
   li.className = "info-list-feature";
@@ -16,7 +15,7 @@ export default function (feature: Feature, file: File): HTMLLIElement {
     li.innerHTML += '<i class="fas fa-fw fa-vector-square"></i>' + " ";
   }
 
-  li.innerHTML += getLabel(feature, file.label);
+  li.innerHTML += getLabel(feature, label);
 
   // const locate = document.createElement("a");
   // locate.href = "#";
