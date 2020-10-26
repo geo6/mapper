@@ -1,7 +1,6 @@
 "use strict";
 
 import Feature, { FeatureLike } from "ol/Feature";
-import { Geometry } from "ol/geom";
 
 import createGeometryElement from "./geometry";
 import createPropertiesElements from "./properties";

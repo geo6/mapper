@@ -2,12 +2,10 @@
 
 import VectorLayer from "ol/layer/Vector";
 import { ColorLike } from "ol/colorlike";
-import { Coordinate } from "ol/coordinate";
 import { FeatureLike } from "ol/Feature";
 import { ProjectionLike } from "ol/proj";
 
 import LegendOptions from "../_interface/LegendOptions";
-import displayFeatureInList from "../info/feature";
 import sidebarElement from "./files/imports/sidebar";
 import CSVAddFileToMap from "./files/csv";
 import GeoJSONAddFileToMap from "./files/geojson";

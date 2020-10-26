@@ -1,12 +1,11 @@
 "use strict";
 
-import { Coordinate } from "ol/coordinate";
 import { Modify, Snap } from "ol/interaction";
 import GeoJSON from "ol/format/GeoJSON";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
-import Feature, { FeatureLike } from "ol/Feature";
+import Feature from "ol/Feature";
 import MultiPoint from "ol/geom/MultiPoint";
 import MultiLineString from "ol/geom/MultiLineString";
 import MultiPolygon from "ol/geom/MultiPolygon";
@@ -16,7 +15,6 @@ import saveAs from "file-saver";
 import DrawPoint from "./draw/DrawPoint";
 import DrawLineString from "./draw/DrawLineString";
 import DrawPolygon from "./draw/DrawPolygon";
-import displayFeatureInList from "../info/feature";
 
 import { customKey, map } from "../main";
 

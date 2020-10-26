@@ -153,11 +153,11 @@ export default function (): void {
       .classList.remove("disabled");
 
     if (count === 1) {
-      listElement.querySelector("ol > li").dispatchEvent(new MouseEvent("click"));
+      listElement
+        .querySelector("ol > li")
+        .dispatchEvent(new MouseEvent("click"));
     }
 
     sidebar.open("info");
-
-
   });
 }
