@@ -5,6 +5,7 @@ import search from "./searchString";
 
 import { files } from "../../main";
 import { marker, markerLayer } from "../../map/marker";
+import { drawControl } from "../draw";
 
 export default function (): void {
   document
@@ -27,6 +28,18 @@ export default function (): void {
       marker.setGeometry(null);
       markerLayer.setVisible(false);
 
+      // Draw
+      const features = search(drawControl.olLayer, value);
+      if (features.length > 0) {
+        listElement.append(
+          createLI("Draw", features, {
+            list: listElement,
+            details: detailsElement,
+          })
+        );
+      }
+
+      // Files
       files.csv
         .filter((file) => file.olLayer !== null)
         .forEach((file) => {

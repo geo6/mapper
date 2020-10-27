@@ -6,7 +6,7 @@ import VectorLayer from "ol/layer/Vector";
 export default function (
   layer: VectorLayer,
   value: string,
-  filter: Record<string, string>
+  filter?: Record<string, string>
 ): FeatureLike[] {
   let features = layer.getSource().getFeatures();
 
