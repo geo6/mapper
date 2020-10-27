@@ -1,5 +1,7 @@
 "use strict";
 
+import { FeatureLike } from "ol/Feature";
+
 import createLI from "./list";
 import searchPixel from "./searchPixel";
 import displayCoordinate from "./coordinate";
@@ -7,7 +9,6 @@ import displayCoordinate from "./coordinate";
 import { sidebar, map, files, services } from "../../main";
 import { marker, markerLayer } from "../../map/marker";
 import { drawControl } from "../draw";
-import { FeatureLike } from "ol/Feature";
 
 export default function (): void {
   map.on("singleclick", (event) => {
