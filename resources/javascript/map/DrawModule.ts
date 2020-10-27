@@ -15,12 +15,13 @@ import saveAs from "file-saver";
 import DrawPoint from "./draw/DrawPoint";
 import DrawLineString from "./draw/DrawLineString";
 import DrawPolygon from "./draw/DrawPolygon";
+import DrawCircle from "./draw/DrawCircle";
 
 import { customKey, map } from "../main";
 
 class DrawModule {
   private active: boolean;
-  private draw: DrawPoint | DrawLineString | DrawPolygon;
+  private draw: DrawPoint | DrawLineString | DrawPolygon | DrawCircle;
   private modify: Modify;
   private snap: Snap;
   private storageKey: string;
@@ -132,6 +133,9 @@ class DrawModule {
       case "polygon":
         this.draw = new DrawPolygon();
         break;
+      case "circle":
+        this.draw = new DrawCircle();
+        break;
     }
     map.addInteraction(this.draw);
 
@@ -228,6 +232,9 @@ class DrawModule {
           feature.setGeometry(new MultiLineString(coordinates));
           break;
         case "polygon":
+          feature.setGeometry(new MultiPolygon(coordinates));
+          break;
+        case "circle":
           feature.setGeometry(new MultiPolygon(coordinates));
           break;
       }
