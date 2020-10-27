@@ -7,7 +7,8 @@ import Circle from "ol/geom/Circle";
 import { fromCircle } from "ol/geom/Polygon";
 import Draw, { DrawEvent } from "ol/interaction/Draw";
 import { unByKey } from "ol/Observable";
-import { getArea } from "ol/sphere";
+import { toLonLat } from "ol/proj";
+import { getDistance } from "ol/sphere";
 
 import { drawControl } from "../../sidebar/draw";
 
@@ -26,7 +27,7 @@ class DrawCircle extends Draw {
 
     this.on("drawstart", (event: DrawEvent) => {
       this.listener = event.feature.on("change", () => {
-        this.showArea(event.feature);
+        this.showRadiusAndArea(event.feature as Feature<Circle>);
       });
     });
 
@@ -43,10 +44,19 @@ class DrawCircle extends Draw {
     });
   }
 
-  showArea(feature: Feature): number {
-    const area = getArea(fromCircle(feature.getGeometry() as Circle));
+  showRadiusAndArea(feature: Feature<Circle>): number {
+    const center = feature.getGeometry().getCenter();
+    const radius = feature.getGeometry().getRadius();
+    const edgeCoordinate = [center[0] + radius, center[1]];
 
-    this.target.innerHTML = DrawCircle.formatArea(area);
+    const length = getDistance(toLonLat(center), toLonLat(edgeCoordinate));
+    const area = Math.PI * length * length;
+
+    this.target.innerHTML =
+      "Radius: " +
+      DrawCircle.formatLength(length) +
+      "<br>" +
+      DrawCircle.formatArea(area);
 
     return area;
   }
@@ -56,6 +66,14 @@ class DrawCircle extends Draw {
       return Math.round((area / 1000000) * 100) / 100 + " " + "km<sup>2</sup>";
     } else {
       return Math.round(area * 100) / 100 + " " + "m<sup>2</sup>";
+    }
+  }
+
+  static formatLength(length: number): string {
+    if (length >= 1000) {
+      return Math.round((length / 1000) * 1000) / 1000 + " " + "km";
+    } else {
+      return Math.round(length * 100) / 100 + " " + "m";
     }
   }
 }
