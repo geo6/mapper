@@ -16,6 +16,13 @@ export default function (): void {
     const listElement = document.getElementById("info-list");
     const detailsElement = document.getElementById("info-details");
 
+    Array.from(document.querySelectorAll(".sidebar-tabs > ul > li"))
+      .filter(
+        (element: HTMLLIElement) =>
+          element.querySelector('a[href="#info"]') !== null
+      )[0]
+      .classList.remove("disabled");
+
     listElement.innerHTML = "";
     listElement.hidden = false;
     detailsElement.innerHTML = "";
@@ -142,22 +149,14 @@ export default function (): void {
         (accumulator, currentValue) => accumulator + currentValue.length,
         0
       );
+
+      if (count === 1) {
+        listElement
+          .querySelector("ol > li")
+          .dispatchEvent(new MouseEvent("click"));
+      }
+
+      sidebar.open("info");
     });
-
-    // Open sidebar
-    Array.from(document.querySelectorAll(".sidebar-tabs > ul > li"))
-      .filter(
-        (element: HTMLLIElement) =>
-          element.querySelector('a[href="#info"]') !== null
-      )[0]
-      .classList.remove("disabled");
-
-    if (count === 1) {
-      listElement
-        .querySelector("ol > li")
-        .dispatchEvent(new MouseEvent("click"));
-    }
-
-    sidebar.open("info");
   });
 }
