@@ -31,6 +31,21 @@ export default function (
   if (typeof geometryName !== "undefined" && geometryName !== null) {
     delete properties[geometryName];
   }
+  [
+    "geometry",
+    "boundedBy",
+    "color",
+    "marker-color",
+    "marker-size",
+    "marker-symbol",
+    "stroke",
+    "stroke-width",
+    "stroke-opacity",
+    "fill",
+    "fill-opacity",
+  ].forEach((key) => {
+    delete properties[key];
+  });
 
   tbody.append(...createPropertiesElements(properties));
 
