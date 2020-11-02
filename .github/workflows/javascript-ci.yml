@@ -2,12 +2,12 @@ name: JavaScript CI
 
 on:
   push:
-    path:
+    paths:
       - "package.json"
       - "package-lock.json"
       - "resources/**"
   pull_request:
-    path:
+    paths:
       - "package.json"
       - "package-lock.json"
       - "resources/**"
