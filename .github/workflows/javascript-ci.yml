@@ -3,14 +3,20 @@ name: JavaScript CI
 on:
   push:
     paths:
+      - ".github/workflows/javascript-ci.yml"
       - "package.json"
       - "package-lock.json"
       - "resources/**"
+      - "**.js"
+      - "**.ts"
   pull_request:
     paths:
+      - ".github/workflows/javascript-ci.yml"
       - "package.json"
       - "package-lock.json"
       - "resources/**"
+      - "**.js"
+      - "**.ts"
 
 jobs:
   test-js:
