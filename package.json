@@ -19,7 +19,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/runtime": "^7.12.1",
     "@types/jquery": "^3.5.4",
-    "@types/ol": "^6.4.1",
+    "@types/ol": "^6.4.2",
     "@types/papaparse": "^5.2.4",
     "@types/proj4": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
