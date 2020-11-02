@@ -3,20 +3,24 @@ name: PHP CI
 on:
   push:
     paths:
+      - ".github/workflows/php-ci.yml"
       - "composer.json"
       - "composer.lock"
       - "bin/**"
       - "config/**"
       - "src/**"
       - "test/**"
+      - "**.php"
   pull_request:
     paths:
+      - ".github/workflows/php-ci.yml"
       - "composer.json"
       - "composer.lock"
       - "bin/**"
       - "config/**"
       - "src/**"
       - "test/**"
+      - "**.php"
 
 jobs:
   check-test-php:
