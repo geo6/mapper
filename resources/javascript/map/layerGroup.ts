@@ -13,11 +13,7 @@ import { files, services } from "../main";
 function find(olLayer: BaseLayer): File | WMS | WMTS {
   const searchFile = Object.keys(files)
     .map((type: string) => {
-      const file = files[type].find((file: File) => file.olLayer === olLayer);
-
-      if (typeof file !== "undefined") {
-        return file;
-      }
+      return files[type].find((file: File) => file.olLayer === olLayer);
     })
     .filter((file) => typeof file !== "undefined");
 
@@ -27,15 +23,11 @@ function find(olLayer: BaseLayer): File | WMS | WMTS {
 
   const searchService = Object.keys(services)
     .map((type: string) => {
-      const service = services[type].find(
+      return services[type].find(
         (service: WMS | WMTS) =>
           (service as WMS).olLayer === olLayer ||
           (service as WMTS).olLayers === olLayer
       );
-
-      if (typeof service !== "undefined") {
-        return service;
-      }
     })
     .filter((service) => typeof service !== "undefined");
 

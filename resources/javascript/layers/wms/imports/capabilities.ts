@@ -86,8 +86,7 @@ export default async function (
         ? parseLayers(capabilities.Capability.Layer.Layer)
         : parseLayers(capabilities.Capability.Layer),
     mixedContent:
-      https === true &&
-      RegExp("^http://").test(capabilities.Service.OnlineResource),
+      https === true && /^http:\/\//.test(capabilities.Service.OnlineResource),
     projection,
   };
 }

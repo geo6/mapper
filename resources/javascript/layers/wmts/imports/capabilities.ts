@@ -82,7 +82,7 @@ export default async function (
   return {
     capabilities: capabilities,
     layers: parseLayers(capabilities.Contents.Layer),
-    mixedContent: https === true && RegExp("^http://").test(origUrl),
+    mixedContent: https === true && /^http:\/\//.test(origUrl),
     projection,
   };
 }
