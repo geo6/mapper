@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "baf5180bb625ead34a611b9c313ddf1c",
+    "content-hash": "2ce71efd2a6af19d42f0352c7ca04ef4",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -1411,26 +1411,25 @@
         },
         {
             "name": "laminas/laminas-dependency-plugin",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-dependency-plugin.git",
-                "reference": "7738ded196287dd88dec24d1a3cb58f5d4453e69"
+                "reference": "1cedcd1590225fcaa3d4d580ab3adf318779ac28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-dependency-plugin/zipball/7738ded196287dd88dec24d1a3cb58f5d4453e69",
-                "reference": "7738ded196287dd88dec24d1a3cb58f5d4453e69",
+                "url": "https://api.github.com/repos/laminas/laminas-dependency-plugin/zipball/1cedcd1590225fcaa3d4d580ab3adf318779ac28",
+                "reference": "1cedcd1590225fcaa3d4d580ab3adf318779ac28",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.1 || ^2.0",
-                "php": "^5.6 || ^7.0"
+                "php": "^7.3 || ~8.0.0"
             },
             "require-dev": {
                 "composer/composer": "^1.9 || ^2.0",
                 "mikey179/vfsstream": "^1.6",
-                "phpcompatibility/php-compatibility": "^9.3",
                 "roave/security-advisories": "dev-master"
             },
             "type": "composer-plugin",
@@ -1453,7 +1452,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-10-30T14:51:02+00:00"
+            "time": "2020-11-02T18:16:57+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -7319,12 +7318,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6"
+                "reference": "e440567339d5fe93d9525e377c5e686b0b08bcca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
-                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e440567339d5fe93d9525e377c5e686b0b08bcca",
+                "reference": "e440567339d5fe93d9525e377c5e686b0b08bcca",
                 "shasum": ""
             },
             "conflict": {
@@ -7622,7 +7621,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-01T20:01:47+00:00"
+            "time": "2020-11-07T16:07:08+00:00"
         },
         {
             "name": "sebastian/cli-parser",
