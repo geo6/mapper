@@ -53,13 +53,12 @@ export default function (geometry: Geometry): HTMLDivElement {
 
       div.innerHTML += `${type} : ${linestrings.length} line(s)<br>`;
 
-      if (linestrings.length === 1) {
-        const length = Math.round(
-          getLength((geometry as MultiLineString).getLineString(0))
-        );
+      const length = Math.round(getLength(geometry as MultiLineString));
 
-        div.innerHTML += `${length} m.<br>`;
-      }
+      div.innerHTML +=
+        length < 1000
+          ? `${length} m.<br>`
+          : `${(length / 1000).toFixed(2)} km.<br>`;
       break;
     }
     case "Polygon": {
@@ -73,13 +72,12 @@ export default function (geometry: Geometry): HTMLDivElement {
 
       div.innerHTML += `${type} : ${polygons.length} polygon(s)<br>`;
 
-      if (polygons.length === 1) {
-        const area = Math.round(
-          getArea((geometry as MultiPolygon).getPolygon(0))
-        );
+      const area = Math.round(getArea(geometry as MultiPolygon));
 
-        div.innerHTML += `${area} m&sup2;<br>`;
-      }
+      div.innerHTML +=
+        area < 1000000
+          ? `${area} m&sup2;<br>`
+          : `${(area / 1000000).toFixed(2)} km&sup2;<br>`;
       break;
     }
   }
