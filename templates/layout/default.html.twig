@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
         Mapper
-        {{ ui.custom ? (ui.title ?? ui.custom) | upper }}
+        {{ ui is defined and ui.custom ? (ui.title ?? ui.custom) | upper }}
     </title>
     <link rel="stylesheet" href="{{ asset('/style.css') }}">
     {% block stylesheets %}{% endblock %}
@@ -21,7 +21,7 @@
             <div class="navbar-header w-100 d-flex justify-content-between">
                 <a class="navbar-brand text-truncate" href="{{ path('home') }}">
                     Mapper
-                    {{ ui.custom ? (ui.title ?? ui.custom) | upper }}
+                    {{ ui is defined and ui.custom ? (ui.title ?? ui.custom) | upper }}
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
