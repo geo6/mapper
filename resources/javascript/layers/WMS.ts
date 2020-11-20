@@ -127,10 +127,12 @@ class WMS {
   async getFeatureInfo(coordinate: Coordinate): Promise<FeatureLike[]> {
     const source = this.olLayer.getSource() as TileWMS;
 
-    const requests: Array<Promise<{
-      layer: string;
-      features: Feature[];
-    }>> = [];
+    const requests: Array<
+      Promise<{
+        layer: string;
+        features: Feature[];
+      }>
+    > = [];
     const activeLayers = source.getParams().LAYERS || [];
     activeLayers.forEach((name: string) => {
       requests.push(WMSGetFeatureInfo(this, name, coordinate));
