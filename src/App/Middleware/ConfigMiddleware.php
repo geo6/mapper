@@ -8,7 +8,9 @@ use Exception;
 use Laminas\ConfigAggregator\ConfigAggregator;
 use Laminas\ConfigAggregator\LaminasConfigProvider;
 use Laminas\ConfigAggregator\PhpFileProvider;
+use Laminas\Diactoros\Response\HtmlResponse;
 use Mezzio\Session\SessionMiddleware;
+use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -17,6 +19,14 @@ use Psr\Http\Server\RequestHandlerInterface;
 class ConfigMiddleware implements MiddlewareInterface
 {
     public const CONFIG_ATTRIBUTE = 'config';
+
+    /** @var TemplateRendererInterface */
+    private $template;
+
+    public function __construct(TemplateRendererInterface $template)
+    {
+        $this->template = $template;
+    }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -48,7 +58,7 @@ class ConfigMiddleware implements MiddlewareInterface
             $users = in_array($query['c'], $projects['users'], true);
 
             if (!$public && !$roles && !$users) {
-                throw new Exception(sprintf('Unable to find configuration file for "%s".', $query['c']));
+                return new HtmlResponse($this->template->render('error::404', ['message' => sprintf('Unable to find configuration file for "%s".', $query['c'])]), 404);
             }
 
             if (!($public xor $roles xor $users)) {
@@ -86,7 +96,7 @@ class ConfigMiddleware implements MiddlewareInterface
         }
 
         return (new ConfigAggregator([
-            new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml,yml}'),
+            new LaminasConfigProvider($directory[0] . '/*.{php,ini,xml,json,yaml,yml}'),
         ]))->getMergedConfig();
     }
 }
