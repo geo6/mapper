@@ -17,7 +17,7 @@ $aggregator = new ConfigAggregator([
     new ArrayProvider($cacheConfig),
 
     \Blast\BaseUrl\ConfigProvider::class,
-    \Geo6\Expressive\Monolog\ConfigProvider::class,
+    \Geo6\Mezzio\Monolog\ConfigProvider::class,
     \Mezzio\Authentication\Session\ConfigProvider::class,
     \Mezzio\Authentication\ConfigProvider::class,
     \Mezzio\ConfigProvider::class,
