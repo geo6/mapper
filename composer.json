@@ -47,7 +47,7 @@
         "mtymek/blast-base-url": "1.0.0",
         "php-http/guzzle6-adapter": "2.0.1",
         "php-http/message": "1.10.0",
-        "sentry/sdk": "2.2.0"
+        "sentry/sdk": "3.0.0"
     },
     "require-dev": {
         "ext-mbstring": "*",
