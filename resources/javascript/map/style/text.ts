@@ -10,9 +10,9 @@ export default function (feature: Feature, labelColumn: string): Text | null {
 
   if (labelColumn !== null) {
     let label = "";
-    if (labelColumn === "feature.id") {
-      label = (feature.getId() || '').toString();
-    } else if (typeof properties[labelColumn] !== "undefined") {
+    if (labelColumn === "feature.id" && feature.getId() !== null) {
+      label = feature.getId().toString();
+    } else if (typeof properties[labelColumn] !== "undefined" && properties[labelColumn] !== null) {
       label = properties[labelColumn].toString();
     }
 
