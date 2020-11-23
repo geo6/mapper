@@ -11,7 +11,7 @@ export default function (feature: Feature, labelColumn: string): Text | null {
   if (labelColumn !== null) {
     let label = "";
     if (labelColumn === "feature.id") {
-      label = feature.getId().toString();
+      label = (feature.getId() || '').toString();
     } else if (typeof properties[labelColumn] !== "undefined") {
       label = properties[labelColumn].toString();
     }
