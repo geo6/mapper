@@ -35,7 +35,7 @@ export default async function (
     `${baseUrl}proxy` +
     "?" +
     new URLSearchParams({
-      c: customKey !== null ? customKey : "",
+      c: customKey,
       SERVICE: "WMS",
       REQUEST: "GetCapabilities",
       VERSION: "1.3.0",

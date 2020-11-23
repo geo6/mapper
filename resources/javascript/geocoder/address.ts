@@ -35,7 +35,7 @@ export default async function (address: string): Promise<void> {
         `${baseUrl}geocoder/${key}/address/${address}` +
         "?" +
         new URLSearchParams({
-          c: customKey !== null ? customKey : "",
+          c: customKey,
         }).toString();
 
       const response = await fetch(url);

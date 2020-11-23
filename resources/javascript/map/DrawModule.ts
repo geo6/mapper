@@ -34,7 +34,7 @@ class DrawModule {
     this.active = false;
     this.type = null;
 
-    if (customKey !== null) {
+    if (customKey.length > 0) {
       this.storageKey = `mapper.${customKey}.draw`;
     } else {
       this.storageKey = "mapper.draw";
@@ -272,7 +272,7 @@ class DrawModule {
       type: "application/json",
     });
 
-    if (customKey !== null) {
+    if (customKey.length > 0) {
       saveAs(blob, `mapper-${customKey}.geojson`);
     } else {
       saveAs(blob, "mapper.geojson");

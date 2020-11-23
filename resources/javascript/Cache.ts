@@ -8,7 +8,7 @@ export class Cache {
   storageKey: string;
 
   constructor() {
-    if (customKey !== null) {
+    if (customKey.length > 0) {
       this.storageKey = `mapper.${customKey}.cache`;
     } else {
       this.storageKey = "mapper.cache";

@@ -40,7 +40,7 @@ export default async function (
       `${baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}` +
       "?" +
       new URLSearchParams({
-        c: customKey !== null ? customKey : "",
+        c: customKey,
       }).toString();
 
     const response = await fetch(url);

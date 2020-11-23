@@ -81,7 +81,7 @@ export class File {
       this.identifier +
       "?" +
       new URLSearchParams({
-        c: customKey !== null ? customKey : "",
+        c: customKey,
       }).toString();
 
     this.sidebarElement = sidebarElement(this);

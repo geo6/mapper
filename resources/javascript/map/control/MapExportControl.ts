@@ -74,7 +74,7 @@ class MapExportControl extends Control {
       );
 
       mapCanvas.toBlob((blob) => {
-        if (customKey !== null) {
+        if (customKey.length > 0) {
           saveAs(blob, `mapper-${customKey}.png`);
         } else {
           saveAs(blob, "mapper.png");

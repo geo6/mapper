@@ -14,7 +14,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
   const urlInfo =
     `${baseUrl}preview/info?` +
     new URLSearchParams({
-      c: customKey !== null ? customKey : "",
+      c: customKey,
       path: value,
     }).toString();
 
@@ -34,7 +34,7 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
   const urlPreview =
     `${baseUrl}preview/file?` +
     new URLSearchParams({
-      c: customKey !== null ? customKey : "",
+      c: customKey,
       path: json.path,
     }).toString();
 
