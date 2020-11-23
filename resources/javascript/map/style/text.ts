@@ -12,7 +12,10 @@ export default function (feature: Feature, labelColumn: string): Text | null {
     let label = "";
     if (labelColumn === "feature.id" && feature.getId() !== null) {
       label = feature.getId().toString();
-    } else if (typeof properties[labelColumn] !== "undefined" && properties[labelColumn] !== null) {
+    } else if (
+      typeof properties[labelColumn] !== "undefined" &&
+      properties[labelColumn] !== null
+    ) {
       label = properties[labelColumn].toString();
     }
 
