@@ -31,7 +31,7 @@ import ServiceOptions from "./_interface/ServiceOptions";
 
 export let baseUrl: string;
 export let cache: Cache;
-export let customKey: string | null;
+export let customKey: string;
 export let https: boolean;
 export let map: Map;
 export let sidebar: Sidebar;
@@ -59,21 +59,6 @@ export const files: {
 
 export function initSentry(dsn: string): void {
   Sentry.init({ dsn });
-}
-
-export function setBaseUrl(url: string, isHttps: boolean): void {
-  baseUrl = url;
-  https = isHttps;
-}
-
-export function setCustomKey(key: string): void {
-  customKey = key;
-}
-
-export function setProviders(
-  _providers: Record<string, GeocoderProviderOptions>
-): void {
-  providers = _providers;
 }
 
 export function setProjections(_projections: ProjectionOptions[]): void {

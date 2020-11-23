@@ -8,21 +8,19 @@
 <script src="{{ asset('/mapper.js') }}"></script>
 <script>
     var baselayers = {{ baselayers | json_encode | raw }};
-    var baseUrl = "{{ baseUrl }}";
-    var custom = {% if ui.custom %}"{{ ui.custom}}"{% else %} null{% endif %};
     var services = {{ services | json_encode | raw }};
     var files = {{ files | json_encode | raw }};
-    var https = {{ https == true ? 'true' : 'false' }};
-    var projections = {{ epsg | json_encode | raw }};
-    var providers = {{ geocoderProviders | json_encode | raw }};
-    var sentryDSN = "{{ sentry.dsn | default('') }}";
 
     (function () {
-        app.initSentry(sentryDSN);
-        app.setBaseUrl(baseUrl, https);
-        app.setCustomKey(custom);
-        app.setProviders(providers);
-        app.setProjections(projections);
+        app.baseUrl = "{{ baseUrl }}";
+        app.https = {{ https == true ? 'true' : 'false' }};
+
+        app.customKey = "{{ ui.custom | default('') }}";
+
+        app.providers = {{ geocoderProviders | json_encode | raw }};
+
+        app.initSentry("{{ sentry.dsn | default('') }}");
+        app.setProjections({{ epsg | json_encode | raw }});
         app.setMap(baselayers, services, files, {{ map.center | json_encode }}, {{ map.zoom }});
     }) ();
 </script>
