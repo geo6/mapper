@@ -71,6 +71,10 @@ class HomeHandler implements RequestHandlerInterface
     {
         $providers = [];
 
+        uasort($configProviders, function ($p1, $p2) {
+            return ($p1['order'] ?? 999) - ($p2['order'] ?? 999);
+        });
+
         foreach ($configProviders as $key => $provider) {
             $providers[$key] = [
                 'attribution' => $provider['attribution'] ?? null,
