@@ -62,6 +62,7 @@ class HomeHandler implements RequestHandlerInterface
             'https'             => isset($server['HTTPS']) && strlen($server['HTTPS']) > 0,
             'map'               => $map,
             'epsg'              => $config['global']['epsg'] ?? [],
+            'sentry'            => $config['global']['monolog']['sentry'] ?? null,
         ];
 
         return new HtmlResponse($this->template->render('app::home', $data));

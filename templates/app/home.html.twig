@@ -15,8 +15,10 @@
     var https = {{ https == true ? 'true' : 'false' }};
     var projections = {{ epsg | json_encode | raw }};
     var providers = {{ geocoderProviders | json_encode | raw }};
+    var sentryDSN = "{{ sentry.dsn | default('') }}";
 
     (function () {
+        app.initSentry(sentryDSN);
         app.setBaseUrl(baseUrl, https);
         app.setCustomKey(custom);
         app.setProviders(providers);

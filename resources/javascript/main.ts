@@ -6,6 +6,7 @@ import "bootstrap/js/dist/collapse";
 import "bootstrap/js/dist/dropdown";
 import "bootstrap/js/dist/util";
 
+import * as Sentry from "@sentry/browser";
 import { Coordinate } from "ol/coordinate";
 import Map from "ol/Map";
 import { register } from "ol/proj/proj4";
@@ -55,6 +56,10 @@ export const files: {
   gpx: [],
   kml: [],
 };
+
+export function initSentry(dsn: string): void {
+  Sentry.init({ dsn });
+}
 
 export function setBaseUrl(url: string, isHttps: boolean): void {
   baseUrl = url;
