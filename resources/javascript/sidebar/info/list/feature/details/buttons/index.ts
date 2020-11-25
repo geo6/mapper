@@ -23,7 +23,9 @@ export default function (
 
   div.append(createList(targets));
 
-  div.append(createLocate(geometry));
+  if (typeof geometry !== "undefined") {
+    div.append(createLocate(geometry));
+  }
 
   return div;
 }

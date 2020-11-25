@@ -1,6 +1,7 @@
 "use strict";
 
 import Feature, { FeatureLike } from "ol/Feature";
+import Geometry from "ol/geom/Geometry";
 
 import createGeometryElement from "./geometry";
 import createPropertiesElements from "./properties";
@@ -51,5 +52,5 @@ export default function (
 
   table.append(tbody);
 
-  return [table, createGeometryElement(geometry)];
+  return [table, typeof geometry !== "undefined" ? createGeometryElement(geometry as Geometry) : document.createElement("div")];
 }

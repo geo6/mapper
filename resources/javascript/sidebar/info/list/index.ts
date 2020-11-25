@@ -2,6 +2,7 @@
 
 import { containsExtent } from "ol/extent";
 import Feature, { FeatureLike } from "ol/Feature";
+import Geometry from "ol/geom/Geometry";
 
 import createFeatureLI from "./feature";
 import createFeatureDetails from "./feature/details";
@@ -10,27 +11,31 @@ import createButtonsElement from "./feature/details/buttons";
 import { map } from "../../../main";
 import { marker, markerLayer } from "../../../map/marker";
 
-function showOnMap(feature: Feature): void {
-  marker.setGeometry(feature.getGeometry());
-  markerLayer.setVisible(true);
+function showOnMap (feature: Feature): void {
+  const geometry = feature.getGeometry();
 
-  if (
-    containsExtent(
-      map.getView().calculateExtent(),
-      feature.getGeometry().getExtent()
-    ) !== true
-  ) {
-    map.getView().fit(feature.getGeometry().getExtent(), {
-      maxZoom: 18,
-      padding: [15, 15, 15, 15],
-    });
+  if (typeof geometry !== "undefined") {
+    marker.setGeometry(geometry);
+    markerLayer.setVisible(true);
+
+    if (
+      containsExtent(
+        map.getView().calculateExtent(),
+        geometry.getExtent()
+      ) !== true
+    ) {
+      map.getView().fit(geometry.getExtent(), {
+        maxZoom: 18,
+        padding: [15, 15, 15, 15],
+      });
+    }
   }
 }
 
 export default function (
   title: string,
   features: FeatureLike[],
-  targets: { list: HTMLElement; details: HTMLElement },
+  targets: { list: HTMLElement; details: HTMLElement; },
   label?: string
 ): HTMLLIElement {
   const li = document.createElement("li");
@@ -40,6 +45,8 @@ export default function (
   const ol = document.createElement("ol");
 
   features.forEach((feature) => {
+    const geometry = feature.getGeometry() as Geometry;
+
     const li = createFeatureLI(feature, label);
 
     li.addEventListener("click", () => {
@@ -58,12 +65,14 @@ export default function (
       targets.details.dataset.current = current.toString();
 
       targets.details.append(
-        createButtonsElement(feature.getGeometry(), targets)
+        createButtonsElement(geometry, targets)
       );
       targets.details.append(titleElement);
       targets.details.append(...details);
 
-      showOnMap(feature);
+      if (typeof geometry !== "undefined") {
+        showOnMap(feature as Feature);
+      }
     });
 
     ol.append(li);
