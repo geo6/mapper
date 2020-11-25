@@ -52,5 +52,10 @@ export default function (
 
   table.append(tbody);
 
-  return [table, typeof geometry !== "undefined" ? createGeometryElement(geometry as Geometry) : document.createElement("div")];
+  return [
+    table,
+    typeof geometry !== "undefined"
+      ? createGeometryElement(geometry as Geometry)
+      : document.createElement("div"),
+  ];
 }

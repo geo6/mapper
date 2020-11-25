@@ -11,7 +11,7 @@ import createButtonsElement from "./feature/details/buttons";
 import { map } from "../../../main";
 import { marker, markerLayer } from "../../../map/marker";
 
-function showOnMap (feature: Feature): void {
+function showOnMap(feature: Feature): void {
   const geometry = feature.getGeometry();
 
   if (typeof geometry !== "undefined") {
@@ -19,10 +19,8 @@ function showOnMap (feature: Feature): void {
     markerLayer.setVisible(true);
 
     if (
-      containsExtent(
-        map.getView().calculateExtent(),
-        geometry.getExtent()
-      ) !== true
+      containsExtent(map.getView().calculateExtent(), geometry.getExtent()) !==
+      true
     ) {
       map.getView().fit(geometry.getExtent(), {
         maxZoom: 18,
@@ -35,7 +33,7 @@ function showOnMap (feature: Feature): void {
 export default function (
   title: string,
   features: FeatureLike[],
-  targets: { list: HTMLElement; details: HTMLElement; },
+  targets: { list: HTMLElement; details: HTMLElement },
   label?: string
 ): HTMLLIElement {
   const li = document.createElement("li");
@@ -64,9 +62,7 @@ export default function (
       targets.details.hidden = false;
       targets.details.dataset.current = current.toString();
 
-      targets.details.append(
-        createButtonsElement(geometry, targets)
-      );
+      targets.details.append(createButtonsElement(geometry, targets));
       targets.details.append(titleElement);
       targets.details.append(...details);
 
