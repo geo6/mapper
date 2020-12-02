@@ -31,12 +31,12 @@
         "geocoder-php/nominatim-provider": "5.2.0",
         "guzzlehttp/guzzle": "6.5.5",
         "intervention/image": "2.5.1",
-        "laminas/laminas-component-installer": "2.3.2",
+        "laminas/laminas-component-installer": "2.4.0",
         "laminas/laminas-config": "3.4.0",
         "laminas/laminas-config-aggregator": "1.4.0",
         "laminas/laminas-dependency-plugin": "2.1.0",
         "laminas/laminas-diactoros": "2.5.0",
-        "laminas/laminas-servicemanager": "3.4.1",
+        "laminas/laminas-servicemanager": "3.5.1",
         "laminas/laminas-stdlib": "3.3.1",
         "mezzio/mezzio": "3.2.2",
         "mezzio/mezzio-authentication-session": "1.0.1",
@@ -47,7 +47,7 @@
         "mtymek/blast-base-url": "1.0.0",
         "php-http/guzzle6-adapter": "2.0.1",
         "php-http/message": "1.10.0",
-        "sentry/sdk": "3.0.0"
+        "sentry/sdk": "3.1.0"
     },
     "require-dev": {
         "ext-mbstring": "*",
