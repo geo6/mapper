@@ -101,7 +101,7 @@ class GeolocationControl extends Control {
       );
     });
     this.geolocation.on("error", (error) => {
-      throw new Error(error.message);
+      console.error(error.message);
     });
   }
 }
