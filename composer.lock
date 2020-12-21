@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb2854ade9bdfed9579f41aaeb466e9b",
+    "content-hash": "a691407d2636fb574731ceaaf63703cc",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -2156,25 +2156,25 @@
         },
         {
             "name": "mezzio/mezzio-fastroute",
-            "version": "3.0.3",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-fastroute.git",
-                "reference": "3e7d8ade90c3c2ef68a1f798c11c0c396ed40929"
+                "reference": "02fb02ad21e948aa955f871829eb15ac35ee449a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-fastroute/zipball/3e7d8ade90c3c2ef68a1f798c11c0c396ed40929",
-                "reference": "3e7d8ade90c3c2ef68a1f798c11c0c396ed40929",
+                "url": "https://api.github.com/repos/mezzio/mezzio-fastroute/zipball/02fb02ad21e948aa955f871829eb15ac35ee449a",
+                "reference": "02fb02ad21e948aa955f871829eb15ac35ee449a",
                 "shasum": ""
             },
             "require": {
                 "fig/http-message-util": "^1.1.2",
                 "laminas/laminas-stdlib": "^2.0 || ^3.1",
                 "laminas/laminas-zendframework-bridge": "^1.0",
-                "mezzio/mezzio-router": "^3.0",
+                "mezzio/mezzio-router": "^3.2",
                 "nikic/fast-route": "^1.2",
-                "php": "^7.1",
+                "php": "^7.3 || ~8.0.0",
                 "psr/container": "^1.0",
                 "psr/http-message": "^1.0.1"
             },
@@ -2182,22 +2182,18 @@
                 "container-interop/container-interop": "<1.2.0"
             },
             "replace": {
-                "zendframework/zend-expressive-fastroute": "self.version"
+                "zendframework/zend-expressive-fastroute": "^3.0.3"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
                 "laminas/laminas-diactoros": "^1.7.1",
                 "laminas/laminas-stratigility": "^3.0",
                 "malukenho/docheader": "^0.1.6",
-                "mikey179/vfsstream": "^1.6.5",
-                "phpunit/phpunit": "^7.0.2"
+                "mikey179/vfsstream": "^1.6.7",
+                "phpunit/phpunit": "^9.4.1"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0.x-dev",
-                    "dev-develop": "3.1.x-dev"
-                },
                 "laminas": {
                     "config-provider": "Mezzio\\Router\\FastRouteRouter\\ConfigProvider"
                 }
@@ -2222,7 +2218,13 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2019-12-31T15:43:56+00:00"
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-12-21T02:11:53+00:00"
         },
         {
             "name": "mezzio/mezzio-helpers",

@@ -40,7 +40,7 @@
         "laminas/laminas-stdlib": "3.3.1",
         "mezzio/mezzio": "3.2.2",
         "mezzio/mezzio-authentication-session": "1.0.1",
-        "mezzio/mezzio-fastroute": "3.0.3",
+        "mezzio/mezzio-fastroute": "3.1.0",
         "mezzio/mezzio-helpers": "5.4.0",
         "mezzio/mezzio-session-ext": "1.10.0",
         "mezzio/mezzio-twigrenderer": "2.6.1",
