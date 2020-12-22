@@ -35,12 +35,10 @@ abstract class AbstractAuthMiddleware implements MiddlewareInterface
         $this->router = $router;
     }
 
-    abstract public function response(ServerRequestInterface $request): ResponseInterface;
+    abstract public function unauthorizedResponse(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $basePath = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-
         $query = $request->getQueryParams();
 
         if (isset($query['c']) && strlen($query['c']) === 0) {
@@ -86,10 +84,7 @@ abstract class AbstractAuthMiddleware implements MiddlewareInterface
             }
         }
 
-        $redirect = ($basePath !== '/' ? $basePath : '');
-        $redirect .= $this->router->generateUri($this->config['redirect']);
-
-        return $this->response($request);
+        return $this->unauthorizedResponse($request, $handler);
     }
 
     public static function getProjects(string $username, iterable $roles = []): array

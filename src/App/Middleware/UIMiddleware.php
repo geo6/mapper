@@ -41,7 +41,7 @@ class UIMiddleware implements MiddlewareInterface
                 $user
             );
 
-            $projects = AuthMiddleware::getProjects($user['username'], $user['roles']);
+            $projects = AbstractAuthMiddleware::getProjects($user['username'], $user['roles']);
         }
 
         $this->template->addDefaultParam(
