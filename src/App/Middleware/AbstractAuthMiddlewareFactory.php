@@ -8,13 +8,16 @@ use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Authentication\Exception\InvalidConfigException;
 use Mezzio\Router\RouterInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Server\MiddlewareInterface;
 
 /**
  * @see https://github.com/mezzio/mezzio-authentication/blob/master/src/AuthenticationMiddlewareFactory.php
  */
-class AuthMiddlewareFactory
+abstract class AbstractAuthMiddlewareFactory
 {
-    public function __invoke(ContainerInterface $container): AuthMiddleware
+    public abstract function middleware(RouterInterface $router, array $config, ?AuthenticationInterface $authentication = null): MiddlewareInterface;
+
+    public function __invoke(ContainerInterface $container): MiddlewareInterface
     {
         $router = $container->get(RouterInterface::class);
         $config = $container->get('config')['authentication'] ?? [];
@@ -29,6 +32,6 @@ class AuthMiddlewareFactory
             }
         }
 
-        return new AuthMiddleware($router, $config, $authentication ?? null);
+        return $this->middleware($router, $config, $authentication ?? null);
     }
 }

@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Middleware\AuthMiddleware;
+use App\Middleware\AuthMiddlewareHtml;
+use App\Middleware\AuthMiddlewareJson;
 use Mezzio\Application;
 use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
@@ -35,20 +36,20 @@ use Psr\Container\ContainerInterface;
  */
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->get('/', [AuthMiddleware::class, App\Handler\HomeHandler::class], 'home');
+    $app->get('/', [AuthMiddlewareHtml::class, App\Handler\HomeHandler::class], 'home');
 
-    $app->get('/file/{identifier}[/{action:download}]', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file');
-    $app->get('/file/local/{identifier}[/{action:download}]', [AuthMiddleware::class, App\Handler\FileHandler::class], 'file.local');
-    $app->get('/geocoder/{provider}/address/{address}', [AuthMiddleware::class, App\Handler\Geocoder\AddressHandler::class], 'geocoder.address');
-    $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', [AuthMiddleware::class, App\Handler\Geocoder\ReverseHandler::class], 'geocoder.reverse');
-    $app->get('/preview/{action:info|file}', [AuthMiddleware::class, App\Handler\PreviewHandler::class], 'preview');
-    $app->get('/proxy', [AuthMiddleware::class, App\Handler\ProxyHandler::class], 'proxy');
+    $app->get('/file/{identifier}[/{action:download}]', [AuthMiddlewareJson::class, App\Handler\FileHandler::class], 'file');
+    $app->get('/file/local/{identifier}[/{action:download}]', [AuthMiddlewareJson::class, App\Handler\FileHandler::class], 'file.local');
+    $app->get('/geocoder/{provider}/address/{address}', [AuthMiddlewareJson::class, App\Handler\Geocoder\AddressHandler::class], 'geocoder.address');
+    $app->get('/geocoder/{provider}/reverse/{longitude}/{latitude}', [AuthMiddlewareJson::class, App\Handler\Geocoder\ReverseHandler::class], 'geocoder.reverse');
+    $app->get('/preview/{action:info|file}', [AuthMiddlewareJson::class, App\Handler\PreviewHandler::class], 'preview');
+    $app->get('/proxy', [AuthMiddlewareJson::class, App\Handler\ProxyHandler::class], 'proxy');
 
-    $app->post('/upload', [AuthMiddleware::class, App\Handler\UploadHandler::class], 'upload');
+    $app->post('/upload', [AuthMiddlewareJson::class, App\Handler\UploadHandler::class], 'upload');
 
     $app->route('/login', [
         App\Handler\LoginHandler::class,
-        AuthMiddleware::class,
+        AuthMiddlewareHtml::class,
     ], ['GET', 'POST'], 'login');
     $app->get('/logout', App\Handler\LoginHandler::class, 'logout');
 };

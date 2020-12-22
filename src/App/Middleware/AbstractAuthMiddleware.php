@@ -17,7 +17,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 /**
  * @see https://github.com/mezzio/mezzio-authentication/blob/master/src/Authentication.php
  */
-class AuthMiddleware implements MiddlewareInterface
+abstract class AbstractAuthMiddleware implements MiddlewareInterface
 {
     /** @var AuthenticationInterface|null */
     protected $auth;
@@ -34,6 +34,8 @@ class AuthMiddleware implements MiddlewareInterface
         $this->config = $config;
         $this->router = $router;
     }
+
+    public abstract function response(ServerRequestInterface $request): ResponseInterface;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -87,9 +89,7 @@ class AuthMiddleware implements MiddlewareInterface
         $redirect = ($basePath !== '/' ? $basePath : '');
         $redirect .= $this->router->generateUri($this->config['redirect']);
 
-        return $this->auth
-            ->unauthorizedResponse($request)
-            ->withHeader('Location', $redirect);
+        return $this->response($request);
     }
 
     public static function getProjects(string $username, iterable $roles = []): array
