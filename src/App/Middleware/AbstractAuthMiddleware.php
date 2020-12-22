@@ -35,7 +35,7 @@ abstract class AbstractAuthMiddleware implements MiddlewareInterface
         $this->router = $router;
     }
 
-    public abstract function response(ServerRequestInterface $request): ResponseInterface;
+    abstract public function response(ServerRequestInterface $request): ResponseInterface;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

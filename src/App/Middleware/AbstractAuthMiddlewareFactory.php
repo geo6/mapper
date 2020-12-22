@@ -15,7 +15,7 @@ use Psr\Http\Server\MiddlewareInterface;
  */
 abstract class AbstractAuthMiddlewareFactory
 {
-    public abstract function middleware(RouterInterface $router, array $config, ?AuthenticationInterface $authentication = null): MiddlewareInterface;
+    abstract public function middleware(RouterInterface $router, array $config, ?AuthenticationInterface $authentication = null): MiddlewareInterface;
 
     public function __invoke(ContainerInterface $container): MiddlewareInterface
     {

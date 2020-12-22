@@ -13,7 +13,7 @@ class AuthMiddlewareJson extends AbstractAuthMiddleware
     public function response(ServerRequestInterface $request): ResponseInterface
     {
         $error = [
-            'code' => 403,
+            'code'    => 403,
             'message' => 'Access denied.',
         ];
 
