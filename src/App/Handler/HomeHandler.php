@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use App\File;
+use App\File\AbstractFile;
 use App\Middleware\ConfigMiddleware;
 use Blast\BaseUrl\BaseUrlMiddleware;
 use FilesystemIterator;
@@ -46,7 +47,7 @@ class HomeHandler implements RequestHandlerInterface
         $query = $request->getQueryParams();
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/').'/';
+        $baseUrl = rtrim($baseUrl, '/') . '/';
 
         $map = [
             'center' => $config['config']['map']['center'] ?? [0, 0],
@@ -152,33 +153,19 @@ class HomeHandler implements RequestHandlerInterface
 
                     foreach ($iterator as $item) {
                         if ($item->isFile()) {
-                            $f = self::getFile($file['type'], $item->getPathName());
+                            $default = isset($file['default']) ? in_array(basename($item->getPathName()), $file['default'], true) : false;
+
+                            $f = self::getFile($file, $item->getPathName(), $default, $query);
 
                             if (!is_null($f)) {
-                                $f['default'] = isset($file['default']) ? in_array(basename($item->getPathName()), $file['default'], true) : false;
-                                $f['label'] = $file['label'] ?? null;
-                                $f['queryable'] = !isset($file['queryable']) || $file['queryable'] === true;
-
-                                if (isset($file['filter'])) {
-                                    $f['filter'] = self::applyFilter($file['filter'], $query);
-                                }
-
                                 $files[$file['type']][] = $f;
                             }
                         }
                     }
                 } else {
-                    $f = self::getFile($file['type'], $file['path']);
+                    $f = self::getFile($file, $file['path'], $file['default'] ?? false, $query);
 
                     if (!is_null($f)) {
-                        $f['default'] = $file['default'] ?? false;
-                        $f['label'] = $file['label'] ?? null;
-                        $f['queryable'] = !isset($file['queryable']) || $file['queryable'] === true;
-
-                        if (isset($file['filter'])) {
-                            $f['filter'] = self::applyFilter($file['filter'], $query);
-                        }
-
                         $files[$file['type']][] = $f;
                     }
                 }
@@ -207,9 +194,9 @@ class HomeHandler implements RequestHandlerInterface
         return $files;
     }
 
-    private static function getFile(string $type, string $path): ?array
+    private static function getFile(array $config, string $path, bool $default, array $query = []): ?AbstractFile
     {
-        switch ($type) {
+        switch ($config['type']) {
             case 'csv':
                 $file = new File\CSV($path);
                 break;
@@ -232,17 +219,12 @@ class HomeHandler implements RequestHandlerInterface
         }
 
         if (!is_null($file) && $file->checkType() === true) {
-            $info = $file->getInfo();
+            $file->default = $default;
+            $file->label = $config['label'] ?? null;
+            $file->queryable = !isset($config['queryable']) || $config['queryable'] === true;
+            $file->filter = isset($config['filter']) ? self::applyFilter($config['filter'], $query) : null;
 
-            $identifier = filesize($path).'-'.preg_replace('/[^0-9a-zA-Z_-]/im', '', basename($path));
-
-            return [
-                'identifier'   => $identifier,
-                'name'         => basename($path),
-                'title'        => $info['title'] ?? null,
-                'description'  => $info['description'] ?? null,
-                'legend'       => $info['legend'] ?? null,
-            ];
+            return $file;
         }
 
         return null;
