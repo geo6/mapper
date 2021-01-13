@@ -189,9 +189,13 @@ class HomeHandler implements RequestHandlerInterface
                 );
 
                 array_multisort(
-                    array_map(function (AbstractFile $file) { return is_array($file->collection) ? implode('-', $file->collection) : $file->collection; }, $unique),
+                    array_map(function (AbstractFile $file): ?string {
+                        return is_array($file->collection) ? implode('-', $file->collection) : $file->collection;
+                    }, $unique),
                     SORT_ASC,
-                    array_map(function (AbstractFile $file) { return $file->name; }, $unique),
+                    array_map(function (AbstractFile $file): string {
+                        return $file->name;
+                    }, $unique),
                     SORT_ASC,
                     $unique
                 );
@@ -236,7 +240,7 @@ class HomeHandler implements RequestHandlerInterface
 
             if (isset($config['collection'])) {
                 $file->collection = $config['collection'];
-            } else if (is_dir($config['path'])) {
+            } elseif (is_dir($config['path'])) {
                 $file->setCollectionFromPath($config['path']);
             }
 
