@@ -5,17 +5,21 @@ import slugify from "slugify";
 
 type Collection = string[] | string;
 
-function slugCollection (collection: Collection): string {
-  return Array.isArray(collection) ? slugify(collection.join("-")) : slugify(collection);
+function slugCollection(collection: Collection): string {
+  return Array.isArray(collection)
+    ? slugify(collection.join("-"))
+    : slugify(collection);
 }
 
-function createHeader (type: string, collection: Collection): HTMLDivElement {
+function createHeader(type: string, collection: Collection): HTMLDivElement {
   const div = document.createElement("div");
   div.className = "card-header";
 
   const button = document.createElement("button");
   button.className = "btn btn-link btn-block text-left p-0";
-  button.innerText = Array.isArray(collection) ? collection.join(" / ") : collection;
+  button.innerText = Array.isArray(collection)
+    ? collection.join(" / ")
+    : collection;
   button.dataset.toggle = "collapse";
   button.dataset.target = `#${type}-${slugCollection(collection)}-list`;
 
@@ -24,7 +28,7 @@ function createHeader (type: string, collection: Collection): HTMLDivElement {
   return div;
 }
 
-function createBody (type: string, collection: Collection): HTMLDivElement {
+function createBody(type: string, collection: Collection): HTMLDivElement {
   const div = document.createElement("div");
   div.className = "collapse";
   div.id = `${type}-${slugCollection(collection)}-list`;

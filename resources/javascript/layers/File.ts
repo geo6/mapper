@@ -50,7 +50,7 @@ export class File {
   /* File collection */
   collection: string[] | string | null;
 
-  constructor (
+  constructor(
     type: "csv" | "geojson" | "gpx" | "kml",
     identifier: string,
     name: string,
@@ -97,28 +97,40 @@ export class File {
   /**
    * @returns File index in `files[type]` array.
    */
-  getIndex (): number {
+  getIndex(): number {
     return files[this.type].indexOf(this);
   }
 
   /**
    * @param element DOM element to replace (used by upload).
    */
-  displayInList (index: number, element?: HTMLElement): void {
-    let listElement = document.querySelector(`#modal-layers-files-${this.type} > .list-group`);
+  displayInList(index: number, element?: HTMLElement): void {
+    let listElement = document.querySelector(
+      `#modal-layers-files-${this.type} > .list-group`
+    );
 
     if (typeof this.collection !== "undefined" && this.collection !== null) {
-      const slugCollection = Array.isArray(this.collection) ? slugify(this.collection.join("-")) : slugify(this.collection);
+      const slugCollection = Array.isArray(this.collection)
+        ? slugify(this.collection.join("-"))
+        : slugify(this.collection);
 
-      const accordionElement = document.querySelector(`#modal-layers-files-${this.type} > .accordion`);
+      const accordionElement = document.querySelector(
+        `#modal-layers-files-${this.type} > .accordion`
+      );
 
-      if (accordionElement.querySelector(`div[data-collection=${slugCollection}]`) === null) {
+      if (
+        accordionElement.querySelector(
+          `div[data-collection=${slugCollection}]`
+        ) === null
+      ) {
         const FileListCard = FileListCardComponent(this.type, this.collection);
 
         accordionElement.append(FileListCard);
       }
 
-      listElement = accordionElement.querySelector(`div[data-collection=${slugCollection}] > .collapse > .list-group`);
+      listElement = accordionElement.querySelector(
+        `div[data-collection=${slugCollection}] > .collapse > .list-group`
+      );
     }
 
     const li = document.createElement("li");
@@ -172,11 +184,11 @@ export class File {
     }
   }
 
-  addToSidebar (index?: number): void {
+  addToSidebar(index?: number): void {
     sidebar.addLayer(this.type, this, index);
   }
 
-  addToMap (projection: ProjectionLike): void {
+  addToMap(projection: ProjectionLike): void {
     let source = null;
     switch (this.type) {
       case "csv":
@@ -205,14 +217,14 @@ export class File {
     }
   }
 
-  removeLayer (): void {
+  removeLayer(): void {
     layerGroupFiles.getLayers().remove(this.olLayer);
 
     this.olLayer = null;
     this.selection = [];
   }
 
-  zoom (): void {
+  zoom(): void {
     const extent = this.olLayer.getSource().getExtent();
 
     map.getView().fit(extent, {
@@ -223,7 +235,7 @@ export class File {
     sidebar.close();
   }
 
-  getColumns (): Array<string> {
+  getColumns(): Array<string> {
     const features = this.olLayer.getSource().getFeatures();
 
     return features.length > 0 ? Object.keys(features[0].getProperties()) : [];
