@@ -4,8 +4,10 @@ import VectorLayer from "ol/layer/Vector";
 import { ColorLike } from "ol/colorlike";
 import { FeatureLike } from "ol/Feature";
 import { ProjectionLike } from "ol/proj";
+import slugify from "slugify";
 
 import LegendOptions from "../_interface/LegendOptions";
+import FileListCardComponent from "../components/files/FileListCard";
 import sidebarElement from "./files/imports/sidebar";
 import CSVAddFileToMap from "./files/csv";
 import GeoJSONAddFileToMap from "./files/geojson";
@@ -17,6 +19,7 @@ import { baseUrl, customKey, files, map, projections, sidebar } from "../main";
 import { layerGroupFiles } from "../map/layerGroup";
 
 export const FILE_ZINDEX = 200;
+
 /**
  *
  */
@@ -44,12 +47,15 @@ export class File {
   /** File type (csv|geojson|gpx|kml). */
   type: "csv" | "geojson" | "gpx" | "kml";
   url: string;
+  /* File collection */
+  collection: string[] | string | null;
 
-  constructor(
+  constructor (
     type: "csv" | "geojson" | "gpx" | "kml",
     identifier: string,
     name: string,
     options: {
+      collection?: string[] | string | null;
       description?: string | null;
       label?: string | null;
       legend?: LegendOptions | null;
@@ -63,6 +69,7 @@ export class File {
     this.identifier = identifier;
     this.name = name;
     this.title = options.title;
+    this.collection = options.collection;
     this.description = options.description;
     this.label = options.label;
     this.legend = options.legend;
@@ -90,14 +97,30 @@ export class File {
   /**
    * @returns File index in `files[type]` array.
    */
-  getIndex(): number {
+  getIndex (): number {
     return files[this.type].indexOf(this);
   }
 
   /**
    * @param element DOM element to replace (used by upload).
    */
-  displayInList(index: number, element?: HTMLElement): void {
+  displayInList (index: number, element?: HTMLElement): void {
+    let listElement = document.querySelector(`#modal-layers-files-${this.type} > .list-group`);
+
+    if (typeof this.collection !== "undefined" && this.collection !== null) {
+      const slugCollection = Array.isArray(this.collection) ? slugify(this.collection.join("-")) : slugify(this.collection);
+
+      const accordionElement = document.querySelector(`#modal-layers-files-${this.type} > .accordion`);
+
+      if (accordionElement.querySelector(`div[data-collection=${slugCollection}]`) === null) {
+        const FileListCard = FileListCardComponent(this.type, this.collection);
+
+        accordionElement.append(FileListCard);
+      }
+
+      listElement = accordionElement.querySelector(`div[data-collection=${slugCollection}] > .collapse > .list-group`);
+    }
+
     const li = document.createElement("li");
     li.id = `file-${this.type}-${index}`;
     li.className = "list-group-item";
@@ -132,31 +155,28 @@ export class File {
       li.innerHTML = `<strong>${this.name}</strong><br>`;
     }
 
-    if (this.title !== null) {
+    if (typeof this.title !== "undefined" && this.title !== null) {
       li.innerHTML += this.title;
     }
-    if (this.description !== null) {
+    if (typeof this.description !== "undefined" && this.description !== null) {
       const p = document.createElement("p");
-      p.className = "text-info small";
+      p.className = "text-info small mb-0";
       p.innerText = this.description;
 
       li.append(p);
     }
-
     if (typeof element !== "undefined") {
       element.parentElement.replaceChild(li, element);
     } else {
-      document
-        .querySelector(`#modal-layers-files-${this.type} > .list-group`)
-        .append(li);
+      listElement.append(li);
     }
   }
 
-  addToSidebar(index?: number): void {
+  addToSidebar (index?: number): void {
     sidebar.addLayer(this.type, this, index);
   }
 
-  addToMap(projection: ProjectionLike): void {
+  addToMap (projection: ProjectionLike): void {
     let source = null;
     switch (this.type) {
       case "csv":
@@ -185,14 +205,14 @@ export class File {
     }
   }
 
-  removeLayer(): void {
+  removeLayer (): void {
     layerGroupFiles.getLayers().remove(this.olLayer);
 
     this.olLayer = null;
     this.selection = [];
   }
 
-  zoom(): void {
+  zoom (): void {
     const extent = this.olLayer.getSource().getExtent();
 
     map.getView().fit(extent, {
@@ -203,7 +223,7 @@ export class File {
     sidebar.close();
   }
 
-  getColumns(): Array<string> {
+  getColumns (): Array<string> {
     const features = this.olLayer.getSource().getFeatures();
 
     return features.length > 0 ? Object.keys(features[0].getProperties()) : [];

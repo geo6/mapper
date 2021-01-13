@@ -1,6 +1,7 @@
 import LegendOptions from "./LegendOptions";
 
 export interface FileOptions {
+  collection?: string[] | string | null;
   default: boolean;
   description?: string | null;
   filter?: Record<string, string> | null;

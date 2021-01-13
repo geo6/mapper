@@ -17,6 +17,7 @@ export default function (
       file.identifier,
       file.name,
       {
+        collection: file.collection,
         description: file.description,
         label: file.label,
         legend: file.legend,

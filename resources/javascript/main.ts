@@ -4,6 +4,7 @@ import "../sass/main.scss";
 
 import "bootstrap/js/dist/collapse";
 import "bootstrap/js/dist/dropdown";
+import "bootstrap/js/dist/tab";
 import "bootstrap/js/dist/util";
 
 import * as Sentry from "@sentry/browser";

@@ -172,13 +172,13 @@ class HomeHandler implements RequestHandlerInterface
             }
         }
 
-        // Remove duplicates based on identifier
+        // Remove duplicates based on identifier + Sort files by collection and name
         $files = array_map(
             function ($_files) {
                 $identifiers = array_column($_files, 'identifier');
                 $identifiers = array_unique($identifiers);
 
-                return array_values(
+                $unique = array_values(
                     array_filter(
                         $_files,
                         function ($key, $value) use ($identifiers): bool {
@@ -187,6 +187,16 @@ class HomeHandler implements RequestHandlerInterface
                         ARRAY_FILTER_USE_BOTH
                     )
                 );
+
+                array_multisort(
+                    array_map(function (AbstractFile $file) { return is_array($file->collection) ? implode('-', $file->collection) : $file->collection; }, $unique),
+                    SORT_ASC,
+                    array_map(function (AbstractFile $file) { return $file->name; }, $unique),
+                    SORT_ASC,
+                    $unique
+                );
+
+                return $unique;
             },
             $files
         );
@@ -223,6 +233,12 @@ class HomeHandler implements RequestHandlerInterface
             $file->label = $config['label'] ?? null;
             $file->queryable = !isset($config['queryable']) || $config['queryable'] === true;
             $file->filter = isset($config['filter']) ? self::applyFilter($config['filter'], $query) : null;
+
+            if (isset($config['collection'])) {
+                $file->collection = $config['collection'];
+            } else if (is_dir($config['path'])) {
+                $file->setCollectionFromPath($config['path']);
+            }
 
             return $file;
         }
