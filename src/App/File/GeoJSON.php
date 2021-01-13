@@ -39,7 +39,6 @@ class GeoJSON extends AbstractFile
                     'title'       => $json->title ?? null,
                     'description' => $json->description ?? null,
                     'legend'      => $legend ?? null,
-                    'group'       => $this->getGroup(),
                 ], ArrayObject::ARRAY_AS_PROPS);
             }
         }
