@@ -47,7 +47,7 @@ class HomeHandler implements RequestHandlerInterface
         $query = $request->getQueryParams();
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/') . '/';
+        $baseUrl = rtrim($baseUrl, '/').'/';
 
         $map = [
             'center' => $config['config']['map']['center'] ?? [0, 0],
