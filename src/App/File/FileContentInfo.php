@@ -6,8 +6,10 @@ namespace App\File;
 
 class FileContentInfo
 {
-    public ?string $title;
-    public ?string $description;
+    /** @var string|null */
+    public $title;
+    /** @var string|null */
+    public $description;
     /** @phpstan-ignore-next-line */
     public $legend;
 }
