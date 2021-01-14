@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\File;
 
-use ArrayObject;
-
 class CSV extends AbstractFile
 {
     /** {@inheritdoc} */
@@ -20,7 +18,7 @@ class CSV extends AbstractFile
     }
 
     /** {@inheritdoc} */
-    protected function getInfo(): ?ArrayObject
+    protected function getInfo(): ?FileContentInfo
     {
         return null;
     }

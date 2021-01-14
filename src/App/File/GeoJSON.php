@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\File;
 
-use ArrayObject;
-
 class GeoJSON extends AbstractFile
 {
     /** {@inheritdoc} */
@@ -20,7 +18,7 @@ class GeoJSON extends AbstractFile
     }
 
     /** {@inheritdoc} */
-    protected function getInfo(): ?ArrayObject
+    protected function getInfo(): ?FileContentInfo
     {
         $content = file_get_contents($this->getPathname());
 
@@ -35,11 +33,12 @@ class GeoJSON extends AbstractFile
                     ];
                 }
 
-                return new ArrayObject([
-                    'title'       => $json->title ?? null,
-                    'description' => $json->description ?? null,
-                    'legend'      => $legend ?? null,
-                ], ArrayObject::ARRAY_AS_PROPS);
+                $info = new FileContentInfo();
+                $info->title = $json->title ?? null;
+                $info->description = $json->description ?? null;
+                $info->legend = $legend ?? null;
+
+                return $info;
             }
         }
 

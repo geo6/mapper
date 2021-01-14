@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\File;
 
-use ArrayObject;
 use Exception;
 use SplFileInfo;
 
@@ -39,7 +38,7 @@ abstract class AbstractFile extends SplFileInfo
         }
     }
 
-    public function setCollectionFromPath(string $path): array
+    public function setCollectionFromPath(string $path): ?array
     {
         if (is_dir($path) !== true) {
             return null;
@@ -73,5 +72,5 @@ abstract class AbstractFile extends SplFileInfo
   /**
    * Return title and description from file content (if possible).
    */
-    abstract protected function getInfo(): ?ArrayObject;
+    abstract protected function getInfo(): ?FileContentInfo;
 }

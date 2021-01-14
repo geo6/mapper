@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\File;
 
-use ArrayObject;
 use SimpleXMLElement;
 
 class XML extends AbstractFile
@@ -21,17 +20,18 @@ class XML extends AbstractFile
     }
 
     /** {@inheritdoc} */
-    protected function getInfo(): ?ArrayObject
+    protected function getInfo(): ?FileContentInfo
     {
         $content = file_get_contents($this->getPathname());
 
         if ($content !== false) {
             $xml = new SimpleXMLElement($content);
 
-            return new ArrayObject([
-                'title'       => isset($xml->Document->name) ? (string) $xml->Document->name : null,
-                'description' => isset($xml->Document->description) ? (string) $xml->Document->description : null,
-            ], ArrayObject::ARRAY_AS_PROPS);
+            $info = new FileContentInfo();
+            $info->title = isset($xml->Document->name) ? (string) $xml->Document->name : null;
+            $info->description = isset($xml->Document->description) ? (string) $xml->Document->description : null;
+
+            return $info;
         }
 
         return null;
