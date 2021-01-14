@@ -9,16 +9,25 @@ use SplFileInfo;
 
 abstract class AbstractFile extends SplFileInfo
 {
-    public string $identifier;
-    public string $name;
-    public bool $default;
-    public bool $queryable;
-    public ?string $title;
-    public ?string $description;
-    public ?array $legend;
-    public ?string $label;
-    public ?array $filter;
-  /** @var string[]|string|null */
+    /** @var string */
+    public $identifier;
+    /** @var string */
+    public $name;
+    /** @var bool */
+    public $default;
+    /** @var bool */
+    public $queryable;
+    /** @var string|null */
+    public $title;
+    /** @var string|null */
+    public $description;
+    /** @var array|null */
+    public $legend;
+    /** @var string|null */
+    public $label;
+    /** @var array|null */
+    public $filter;
+    /** @var string[]|string|null */
     public $collection;
 
     public function __construct(string $path)
@@ -64,13 +73,13 @@ abstract class AbstractFile extends SplFileInfo
         return $folders;
     }
 
-  /**
-   * Check mime-type and extension.
-   */
+    /**
+     * Check mime-type and extension.
+     */
     abstract public function checkType(): bool;
 
-  /**
-   * Return title and description from file content (if possible).
-   */
+    /**
+     * Return title and description from file content (if possible).
+     */
     abstract protected function getInfo(): ?FileContentInfo;
 }
