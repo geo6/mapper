@@ -8,6 +8,6 @@ class FileContentInfo
 {
     public ?string $title;
     public ?string $description;
-  /** @phpstan-ignore-next-line */
+    /** @phpstan-ignore-next-line */
     public $legend;
 }

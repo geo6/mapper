@@ -34,7 +34,7 @@ abstract class AbstractFile extends SplFileInfo
     {
         parent::__construct($path);
 
-        $this->identifier = $this->getSize() . '-' . preg_replace('/[^0-9a-zA-Z_-]/im', '', $this->getFilename());
+        $this->identifier = $this->getSize().'-'.preg_replace('/[^0-9a-zA-Z_-]/im', '', $this->getFilename());
         $this->name = $this->getFilename();
 
         if ($this->isFile() && $this->isReadable() === true && $this->checkType() === true) {
@@ -66,7 +66,7 @@ abstract class AbstractFile extends SplFileInfo
             );
         }
 
-        $folders = explode("/", substr($directory, strlen($path) + 1));
+        $folders = explode('/', substr($directory, strlen($path) + 1));
 
         $this->collection = $folders;
 
