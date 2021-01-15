@@ -9,3 +9,4 @@ vendor/
 node_modules/
 hosts.yml
 .cache/
+.phpunit.result.cache
