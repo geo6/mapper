@@ -5,9 +5,9 @@ import VectorSource from "ol/source/Vector";
 
 import File from "../../File";
 
-export default function (file: File): VectorSource {
+export default function (file: File, extractStyles = true): VectorSource {
   return new VectorSource({
     url: file.url,
-    format: new KML(),
+    format: new KML({ extractStyles }),
   });
 }
