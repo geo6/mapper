@@ -145,7 +145,8 @@ export class SettingsModal {
     this.setOpacity(layer.olLayer.getOpacity());
 
     if (layer.type === "geojson") {
-      const legend = typeof layer.legend !== "undefined" && layer.legend !== null;
+      const legend =
+        typeof layer.legend !== "undefined" && layer.legend !== null;
 
       this.legendInput.parentElement.hidden = false;
 
