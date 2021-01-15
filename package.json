@@ -44,7 +44,7 @@
     "build:style": "parcel build --out-dir=public/ --public-url . resources/sass/style.scss --no-source-maps",
     "build:main": "parcel build --out-dir=public/ --out-file=mapper.js --public-url . --global app resources/javascript/main.ts",
     "watch:main": "parcel watch --out-dir=public/ --out-file=mapper.js --public-url . --global app resources/javascript/main.ts --no-hmr",
-    "test": "eslint --ext .js --ext .ts resources/javascript/",
-    "fix": "eslint --fix --ext .js --ext .ts resources/javascript/"
+    "lint": "eslint --ext .js --ext .ts resources/javascript/",
+    "lint:fix": "eslint --fix --ext .js --ext .ts resources/javascript/"
   }
 }
