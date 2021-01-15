@@ -6,6 +6,7 @@ import "bootstrap/js/dist/modal";
 import "bootstrap/js/dist/button";
 
 import File from "../layers/File";
+import KMLSource from "../layers/files/kml";
 import { ColorLike } from "ol/colorlike";
 
 export class SettingsModal {
@@ -16,6 +17,7 @@ export class SettingsModal {
   private colorInput: HTMLInputElement;
   private colorInputText: HTMLElement;
   private legendInput: HTMLInputElement;
+  private styleInput: HTMLInputElement;
   private opacityInput: HTMLInputElement;
   private opacityInputText: HTMLElement;
 
@@ -37,6 +39,9 @@ export class SettingsModal {
     this.legendInput = document.getElementById(
       "layer-legend"
     ) as HTMLInputElement;
+    this.styleInput = document.getElementById(
+      "layer-style"
+    ) as HTMLInputElement;
     this.opacityInput = document.getElementById(
       "layer-opacity"
     ) as HTMLInputElement;
@@ -51,10 +56,14 @@ export class SettingsModal {
     this.legendInput.addEventListener("change", () => {
       this.colorInput.disabled = this.legendInput.checked;
     });
+    this.styleInput.addEventListener("change", () => {
+      this.colorInput.disabled = this.styleInput.checked;
+    });
 
     this.form.addEventListener("reset", () => {
       this.colorInput.disabled = false;
       this.legendInput.parentElement.hidden = true;
+      this.styleInput.parentElement.hidden = true;
       this.colorInputText.innerText = "";
       this.colorInputText.hidden = true;
       this.opacityInputText.innerText = "";
@@ -63,7 +72,15 @@ export class SettingsModal {
     this.form.addEventListener("submit", (event: Event) => {
       event.preventDefault();
 
-      this.layer.color = this.getColor();
+      const color = this.getColor();
+
+      if (this.layer.type === "kml" && this.layer.color !== color) {
+        const source = KMLSource(this.layer, this.styleInput.checked);
+
+        this.layer.olLayer.setSource(source);
+      }
+
+      this.layer.color = color;
       this.layer.label = this.getLabel();
       this.layer.queryable = this.getQueryable();
 
@@ -127,15 +144,18 @@ export class SettingsModal {
 
     this.setOpacity(layer.olLayer.getOpacity());
 
-    if (layer.type === "kml") {
-      this.disableColor("Function disabled for KML files.");
-    } else {
-      const legend =
-        layer.type === "geojson" &&
-        typeof layer.legend !== "undefined" &&
-        layer.legend !== null;
+    if (layer.type === "geojson") {
+      const legend = typeof layer.legend !== "undefined" && layer.legend !== null;
+
+      this.legendInput.parentElement.hidden = false;
 
       this.setColor(layer.color, legend);
+    } else if (layer.type === "kml") {
+      this.styleInput.parentElement.hidden = false;
+      this.styleInput.checked = this.layer.color === null;
+      this.colorInput.disabled = this.layer.color === null;
+
+      this.setColor(layer.color);
     }
   }
 
@@ -195,20 +215,10 @@ export class SettingsModal {
     return select.value.length > 0 ? select.value : null;
   }
 
-  disableColor(message?: string): void {
-    this.colorInput.disabled = true;
-
-    if (typeof message !== "undefined") {
-      this.colorInputText.innerText = message;
-      this.colorInputText.hidden = false;
-    }
-  }
-
-  setColor(color: ColorLike | null, legend: boolean): void {
+  setColor(color: ColorLike | null, legend?: boolean): void {
     this.colorInput.value = color !== null ? color.toString() : "";
 
     if (legend === true) {
-      this.legendInput.parentElement.hidden = false;
       this.legendInput.checked = color === null;
       this.colorInput.disabled = color === null;
     }
