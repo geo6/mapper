@@ -38,17 +38,6 @@ export default function (
     $("#map").height($(window).height() - $("body > nav.navbar").outerHeight());
   });
 
-  let view = getFromHash();
-  if (view.zoom === null || view.center === null) {
-    view = getFromCache();
-  }
-  if (view.zoom === null || view.center === null) {
-    view = {
-      center: fromLonLat(lnglat),
-      zoom,
-    };
-  }
-
   const map = new Map({
     target: "map",
     controls: ControlDefaults({
@@ -63,12 +52,10 @@ export default function (
       new MeasureControl(),
     ]),
     layers: [],
-    view: new View({
-      center: view.center,
-      constrainResolution: true,
-      zoom: view.zoom,
-    }),
   });
+
+  const view = getFromHash(map) ?? getFromCache() ?? map.getView();
+  map.setView(view);
 
   const baselayers = {};
   Object.keys(_baselayers).forEach((key: string) => {
