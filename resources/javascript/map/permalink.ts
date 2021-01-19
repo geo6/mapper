@@ -5,15 +5,22 @@ import { fromLonLat, toLonLat } from "ol/proj";
 
 import { cache, map } from "../main";
 
-export function getFromHash (map: Map): View {
+export function getFromHash(map: Map): View {
   let view = null;
 
-  const matchZoomCenter = window.location.hash.match(/#map=(\d+)\/([\d.]+)\/([\d.]+)$/);
-  const matchBBox = window.location.hash.match(/#bbox=([\d.]+),([\d.]+),([\d.]+),([\d.]+)$/);
+  const matchZoomCenter = window.location.hash.match(
+    /#map=(\d+)\/([\d.]+)\/([\d.]+)$/
+  );
+  const matchBBox = window.location.hash.match(
+    /#bbox=([\d.]+),([\d.]+),([\d.]+),([\d.]+)$/
+  );
 
   if (matchZoomCenter !== null) {
     const zoom = parseInt(matchZoomCenter[1], 10);
-    const center = fromLonLat([parseFloat(matchZoomCenter[3]), parseFloat(matchZoomCenter[2])]);
+    const center = fromLonLat([
+      parseFloat(matchZoomCenter[3]),
+      parseFloat(matchZoomCenter[2]),
+    ]);
 
     view = new View({
       center,
@@ -22,7 +29,7 @@ export function getFromHash (map: Map): View {
     });
   } else if (matchBBox !== null) {
     view = new View({
-      constrainResolution: true
+      constrainResolution: true,
     });
 
     const min = fromLonLat([
@@ -36,14 +43,14 @@ export function getFromHash (map: Map): View {
 
     view.fit([min[0], min[1], max[0], max[1]], {
       padding: [25, 25, 25, 25],
-      size: map.getSize()
+      size: map.getSize(),
     });
   }
 
   return view;
 }
 
-export function getFromCache (): View {
+export function getFromCache(): View {
   let view = null;
 
   if (typeof cache.map !== "undefined" && cache.map !== null) {
@@ -60,7 +67,7 @@ export function getFromCache (): View {
   return view;
 }
 
-export function init (): void {
+export function init(): void {
   const view = map.getView();
 
   let shouldUpdate = true;
