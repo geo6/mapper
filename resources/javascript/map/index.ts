@@ -11,6 +11,8 @@ import {
 } from "ol/control";
 import { Coordinate } from "ol/coordinate";
 import Map from "ol/Map";
+import View from "ol/View";
+import { fromLonLat } from "ol/proj";
 
 import initDraw from "../sidebar/draw";
 import initGeocoder from "../geocoder";
@@ -52,7 +54,7 @@ export default function (
     layers: [],
   });
 
-  const view = getFromHash(map) ?? getFromCache() ?? map.getView();
+  const view = getFromHash(map) ?? getFromCache() ?? new View({ center: fromLonLat(lnglat), zoom });
   map.setView(view);
 
   const baselayers = {};
