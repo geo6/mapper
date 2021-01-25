@@ -187,7 +187,7 @@ class HomeHandler implements RequestHandlerInterface
 
         // Remove duplicates based on identifier
         $files = array_map(
-            function ($_files) {
+            function ($_files): array {
                 $identifiers = array_column($_files, 'identifier');
                 $identifiers = array_unique($identifiers);
 
