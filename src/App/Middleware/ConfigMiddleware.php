@@ -9,7 +9,6 @@ use Laminas\ConfigAggregator\ConfigAggregator;
 use Laminas\ConfigAggregator\LaminasConfigProvider;
 use Laminas\ConfigAggregator\PhpFileProvider;
 use Laminas\Diactoros\Response\HtmlResponse;
-use Mezzio\Session\SessionMiddleware;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -99,7 +98,7 @@ class ConfigMiddleware implements MiddlewareInterface
         }
 
         return (new ConfigAggregator([
-            new LaminasConfigProvider($directory[0] . '/*.{php,ini,xml,json,yaml,yml}'),
+            new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml,yml}'),
         ]))->getMergedConfig();
     }
 }
