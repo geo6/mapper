@@ -54,7 +54,10 @@ export default function (
     layers: [],
   });
 
-  const view = getFromHash(map) ?? getFromCache() ?? new View({ center: fromLonLat(lnglat), zoom });
+  const view =
+    getFromHash(map) ??
+    getFromCache() ??
+    new View({ center: fromLonLat(lnglat), zoom });
   map.setView(view);
 
   const baselayers = {};
