@@ -30,8 +30,6 @@ class ConfigMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-
         $query = $request->getQueryParams();
 
         $projects = [
@@ -53,20 +51,25 @@ class ConfigMiddleware implements MiddlewareInterface
         ];
 
         if (isset($query['c']) && strlen($query['c']) > 0) {
+            $data['custom'] = $query['c'];
+
             $public = in_array($query['c'], $projects['public'], true);
             $roles = in_array($query['c'], $projects['roles'], true);
             $users = in_array($query['c'], $projects['users'], true);
 
             if (!$public && !$roles && !$users) {
-                return new HtmlResponse($this->template->render('error::404', ['message' => sprintf('Unable to find configuration file for "%s".', $query['c'])]), 404);
+                return new HtmlResponse($this->template->render('error::config', ['message' => sprintf('Unable to find configuration file for "%s".', $query['c'])]), 404);
             }
 
             if (!($public xor $roles xor $users)) {
-                throw new Exception(sprintf('Multiple configuration files found for "%s".', $query['c']));
+                return new HtmlResponse($this->template->render('error::config', ['message' => sprintf('Multiple configuration files found for "%s".', $query['c'])]), 500);
             }
 
-            $data['custom'] = $query['c'];
-            $data['config'] = self::getCustomConfig($query['c']);
+            try {
+                $data['config'] = self::getCustomConfig($query['c']);
+            } catch (Exception $e) {
+                return new HtmlResponse($this->template->render('error::config', ['message' => $e->getMessage()]), 500);
+            }
         }
 
         return $handler->handle($request->withAttribute(self::CONFIG_ATTRIBUTE, $data));
@@ -96,7 +99,7 @@ class ConfigMiddleware implements MiddlewareInterface
         }
 
         return (new ConfigAggregator([
-            new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml,yml}'),
+            new LaminasConfigProvider($directory[0] . '/*.{php,ini,xml,json,yaml,yml}'),
         ]))->getMergedConfig();
     }
 }
