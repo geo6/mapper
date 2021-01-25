@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace App\File;
 
-use ArrayObject;
-use SplFileInfo;
-
-class GeoJSON extends SplFileInfo implements FileInterface
+class GeoJSON extends AbstractFile
 {
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function checkType(): bool
     {
         $mime = mime_content_type($this->getPathname());
@@ -22,10 +17,8 @@ class GeoJSON extends SplFileInfo implements FileInterface
             in_array($mime, ['text/plain', 'application/json'], true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getInfo(): ?ArrayObject
+    /** {@inheritdoc} */
+    protected function getInfo(): ?FileContentInfo
     {
         $content = file_get_contents($this->getPathname());
 
@@ -40,11 +33,12 @@ class GeoJSON extends SplFileInfo implements FileInterface
                     ];
                 }
 
-                return new ArrayObject([
-                    'title'       => $json->title ?? null,
-                    'description' => $json->description ?? null,
-                    'legend'      => $legend ?? null,
-                ], ArrayObject::ARRAY_AS_PROPS);
+                $info = new FileContentInfo();
+                $info->title = $json->title ?? null;
+                $info->description = $json->description ?? null;
+                $info->legend = $legend ?? null;
+
+                return $info;
             }
         }
 

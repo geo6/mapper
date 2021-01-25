@@ -12,3 +12,4 @@ parameters:
     ignoreErrors:
         - '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary#'
         - '#^Call to an undefined method Geocoder\\Location::get.+\(\)\.$#'
+        - '#.+?function array_multisort is passed by reference, so it expects variables only#'
