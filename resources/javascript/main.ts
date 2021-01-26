@@ -59,7 +59,10 @@ export const files: {
 };
 
 export function initSentry(dsn: string): void {
-  Sentry.init({ dsn });
+  Sentry.init({
+    dsn,
+    environment: process.env.NODE_ENV
+  });
 }
 
 export function setProjections(_projections: ProjectionOptions[]): void {
