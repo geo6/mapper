@@ -31,7 +31,6 @@ export default function (
         file.filter,
         true
       );
-      console.log(file.name, file.order);
 
       files[type].push(f);
 
