@@ -47,7 +47,7 @@ class HomeHandler implements RequestHandlerInterface
         $query = $request->getQueryParams();
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/') . '/';
+        $baseUrl = rtrim($baseUrl, '/').'/';
 
         $map = [
             'center' => $config['config']['map']['center'] ?? [0, 0],
@@ -158,7 +158,9 @@ class HomeHandler implements RequestHandlerInterface
                             $f = self::getFile($file, $item->getPathName(), $default, $query);
 
                             if (!is_null($f)) {
-                                if (is_null($f->order)) $f->order = $order;
+                                if (is_null($f->order)) {
+                                    $f->order = $order;
+                                }
 
                                 $files[$file['type']][] = $f;
                             }
@@ -168,7 +170,9 @@ class HomeHandler implements RequestHandlerInterface
                     $f = self::getFile($file, $file['path'], $file['default'] ?? false, $query);
 
                     if (!is_null($f)) {
-                        if (is_null($f->order)) $f->order = $order;
+                        if (is_null($f->order)) {
+                            $f->order = $order;
+                        }
 
                         $files[$file['type']][] = $f;
                     }
