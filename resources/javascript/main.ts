@@ -61,7 +61,7 @@ export const files: {
 export function initSentry(dsn: string): void {
   Sentry.init({
     dsn,
-    environment: process.env.NODE_ENV
+    environment: process.env.NODE_ENV,
   });
 }
 
