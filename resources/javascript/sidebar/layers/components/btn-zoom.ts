@@ -9,9 +9,15 @@ export default function (
   layer: File | WMS | WMTS,
   name?: string
 ): HTMLButtonElement {
-  // OL doesn't read correctly CRS from WMS Capabilites < 1.3.0 (SRS instead of CRS)
-  // See https://github.com/openlayers/openlayers/issues/5476
-  const zoom = type !== "wms" || (layer as WMS).capabilities.version >= "1.3.0";
+  let zoom = true;
+
+  if (type === "wms") {
+    // OL doesn't read correctly CRS from WMS Capabilites < 1.3.0 (SRS instead of CRS)
+    // See https://github.com/openlayers/openlayers/issues/5476
+    if ((layer as WMS).capabilities.version < "1.3.0") zoom = false;
+    // Disable zoom if layer BoundingBox is not defined
+    if (typeof (layer as WMS).layers.find((layer) => layer.Name === name).BoundingBox === "undefined") zoom = false;
+  }
 
   const button = document.createElement("button");
 
