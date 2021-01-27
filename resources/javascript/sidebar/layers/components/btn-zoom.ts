@@ -16,7 +16,11 @@ export default function (
     // See https://github.com/openlayers/openlayers/issues/5476
     if ((layer as WMS).capabilities.version < "1.3.0") zoom = false;
     // Disable zoom if layer BoundingBox is not defined
-    if (typeof (layer as WMS).layers.find((layer) => layer.Name === name).BoundingBox === "undefined") zoom = false;
+    if (
+      typeof (layer as WMS).layers.find((layer) => layer.Name === name)
+        .BoundingBox === "undefined"
+    )
+      zoom = false;
   }
 
   const button = document.createElement("button");
