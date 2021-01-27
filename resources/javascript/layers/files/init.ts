@@ -23,6 +23,7 @@ export default function (
         legend: file.legend,
         queryable: file.queryable,
         title: file.title,
+        zIndex: file.zIndex,
       },
       file.filter,
       true

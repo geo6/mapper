@@ -49,6 +49,7 @@ export class File {
   url: string;
   /* File collection */
   collection: string[] | string | null;
+  zIndex: number;
 
   constructor(
     type: "csv" | "geojson" | "gpx" | "kml",
@@ -61,6 +62,7 @@ export class File {
       legend?: LegendOptions | null;
       queryable: boolean;
       title?: string | null;
+      zIndex?: number | null;
     },
     filter: Record<string, string> | null,
     local: boolean
@@ -74,6 +76,7 @@ export class File {
     this.label = options.label;
     this.legend = options.legend;
     this.queryable = options.queryable;
+    this.zIndex = options.zIndex || FILE_ZINDEX;
     this.local = local || false;
     this.filter = filter;
 
@@ -210,7 +213,7 @@ export class File {
         source: source,
         style: (feature) =>
           layerStyleFunction(feature, this.label, this.color, this.filter),
-        zIndex: FILE_ZINDEX,
+        zIndex: this.zIndex >= FILE_ZINDEX ? this.zIndex : FILE_ZINDEX,
       });
 
       layerGroupFiles.getLayers().push(this.olLayer);

@@ -237,6 +237,7 @@ class HomeHandler implements RequestHandlerInterface
             $file->label = $config['label'] ?? null;
             $file->queryable = !isset($config['queryable']) || $config['queryable'] === true;
             $file->filter = isset($config['filter']) ? self::applyFilter($config['filter'], $query) : null;
+            $file->zIndex = $config['zIndex'] ?? null;
 
             if (isset($config['collection'])) {
                 $file->collection = $config['collection'];

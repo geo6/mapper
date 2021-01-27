@@ -29,6 +29,8 @@ abstract class AbstractFile extends SplFileInfo
     public $filter;
     /** @var string[]|string|null */
     public $collection;
+    /** @var int|null */
+    public $zIndex;
 
     public function __construct(string $path)
     {

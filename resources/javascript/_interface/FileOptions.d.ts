@@ -11,6 +11,7 @@ export interface FileOptions {
   name: string;
   queryable: boolean;
   title?: string | null;
+  zIndex?: number | null;
 }
 
 export { FileOptions as default };
