@@ -9,9 +9,9 @@ export interface FileOptions {
   label?: string | null;
   legend?: LegendOptions | null;
   name: string;
+  order?: number | null;
   queryable: boolean;
   title?: string | null;
-  zIndex?: number | null;
 }
 
 export { FileOptions as default };

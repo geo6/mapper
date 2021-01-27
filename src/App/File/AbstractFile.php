@@ -30,7 +30,7 @@ abstract class AbstractFile extends SplFileInfo
     /** @var string[]|string|null */
     public $collection;
     /** @var int|null */
-    public $zIndex;
+    public $order;
 
     public function __construct(string $path)
     {

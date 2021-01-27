@@ -47,7 +47,7 @@ class HomeHandler implements RequestHandlerInterface
         $query = $request->getQueryParams();
 
         $baseUrl = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
-        $baseUrl = rtrim($baseUrl, '/').'/';
+        $baseUrl = rtrim($baseUrl, '/') . '/';
 
         $map = [
             'center' => $config['config']['map']['center'] ?? [0, 0],
@@ -137,7 +137,7 @@ class HomeHandler implements RequestHandlerInterface
             'kml'     => [],
         ];
 
-        foreach ($configFiles as $file) {
+        foreach ($configFiles as $order => $file) {
             if (in_array($file['type'], ['csv', 'geojson', 'gpx', 'kml'], true) && file_exists($file['path']) && is_readable($file['path'])) {
                 if (is_dir($file['path'])) {
                     $directory = new RecursiveDirectoryIterator(
@@ -158,6 +158,8 @@ class HomeHandler implements RequestHandlerInterface
                             $f = self::getFile($file, $item->getPathName(), $default, $query);
 
                             if (!is_null($f)) {
+                                if (is_null($f->order)) $f->order = $order;
+
                                 $files[$file['type']][] = $f;
                             }
                         }
@@ -166,6 +168,8 @@ class HomeHandler implements RequestHandlerInterface
                     $f = self::getFile($file, $file['path'], $file['default'] ?? false, $query);
 
                     if (!is_null($f)) {
+                        if (is_null($f->order)) $f->order = $order;
+
                         $files[$file['type']][] = $f;
                     }
                 }
@@ -237,7 +241,7 @@ class HomeHandler implements RequestHandlerInterface
             $file->label = $config['label'] ?? null;
             $file->queryable = !isset($config['queryable']) || $config['queryable'] === true;
             $file->filter = isset($config['filter']) ? self::applyFilter($config['filter'], $query) : null;
-            $file->zIndex = $config['zIndex'] ?? null;
+            $file->order = $config['order'] ?? null;
 
             if (isset($config['collection'])) {
                 $file->collection = $config['collection'];
