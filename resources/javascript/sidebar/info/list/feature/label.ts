@@ -12,6 +12,7 @@ export default function (
   if (
     typeof labelColumn !== "undefined" &&
     labelColumn !== null &&
+    typeof properties[labelColumn] !== "undefined" &&
     properties[labelColumn] !== null &&
     properties[labelColumn].toString().length > 0
   ) {
