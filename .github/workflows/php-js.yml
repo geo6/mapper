@@ -20,7 +20,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: curl, soap
+          extensions: curl, gmp, soap
       - name: Validate composer.json and composer.lock
         run: composer validate
       - name: Install dependencies
