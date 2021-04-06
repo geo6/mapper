@@ -65,8 +65,12 @@ export default function (
     baselayers[key] = new BaseLayer(map, cache, key, _baselayers[key]);
   });
 
-  const baselayer = cache.baselayer || Object.keys(_baselayers)[0];
-  baselayers[baselayer].highlight().addToMap();
+  if (typeof baselayers[cache.baselayer] !== 'undefined') {
+    baselayers[cache.baselayer].highlight().addToMap();
+  } else {
+    const baselayer = Object.keys(_baselayers)[0];
+    baselayers[baselayer].highlight().addToMap();
+  }
 
   map.addLayer(layerGroupFiles);
   map.addLayer(layerGroupServices);
