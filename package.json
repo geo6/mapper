@@ -41,10 +41,10 @@
     "typescript": "^4.2.3"
   },
   "scripts": {
-    "build": "run-p build:*",
+    "build": "npm-run-all build:*",
     "build:style": "parcel build --out-dir=public/ --public-url . resources/sass/style.scss --no-source-maps",
-    "build:main": "parcel build --out-dir=public/ --out-file=mapper.js --public-url . --global app resources/javascript/main.ts",
-    "watch:main": "parcel watch --out-dir=public/ --out-file=mapper.js --public-url . --global app resources/javascript/main.ts --no-hmr",
+    "build:script": "parcel build --out-dir=public/ --out-file=mapper.js --public-url . --global app resources/javascript/main.ts",
+    "watch:script": "parcel watch --out-dir=public/ --out-file=mapper.js --public-url . --global app resources/javascript/main.ts --no-hmr",
     "lint": "eslint --ext .js --ext .ts resources/javascript/",
     "lint:fix": "eslint --fix --ext .js --ext .ts resources/javascript/"
   }
