@@ -17,10 +17,13 @@ class AuthMiddlewareHtml extends AbstractAuthMiddleware
             return $handler->handle($request);
         }
 
+        $config = $request->getAttribute(ConfigMiddleware::CONFIG_ATTRIBUTE);
+
         $basePath = $request->getAttribute(BaseUrlMiddleware::BASE_PATH);
 
         $redirect = ($basePath !== '/' ? $basePath : '');
         $redirect .= $this->router->generateUri($this->config['redirect']);
+        $redirect .= '?' . http_build_query(['c' => $config['custom'] ?? null]);
 
         return $this->auth
             ->unauthorizedResponse($request)
