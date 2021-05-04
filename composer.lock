@@ -2390,16 +2390,16 @@
         },
         {
             "name": "mezzio/mezzio-helpers",
-            "version": "5.4.0",
+            "version": "5.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-helpers.git",
-                "reference": "cead6d7edd15de0496e6ad3e3093286234af2522"
+                "reference": "d0dfb5f447faf7e019436976adec5128a0379132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-helpers/zipball/cead6d7edd15de0496e6ad3e3093286234af2522",
-                "reference": "cead6d7edd15de0496e6ad3e3093286234af2522",
+                "url": "https://api.github.com/repos/mezzio/mezzio-helpers/zipball/d0dfb5f447faf7e019436976adec5128a0379132",
+                "reference": "d0dfb5f447faf7e019436976adec5128a0379132",
                 "shasum": ""
             },
             "require": {
@@ -2414,12 +2414,18 @@
                 "zendframework/zend-expressive-helpers": "^5.3.0"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
+                "ext-json": "*",
+                "laminas/laminas-coding-standard": "~2.1.0",
                 "laminas/laminas-diactoros": "^1.7.1",
                 "malukenho/docheader": "^0.1.8",
                 "mockery/mockery": "^1.4.2",
                 "phpspec/prophecy-phpunit": "^2.0",
-                "phpunit/phpunit": "^9.4.2"
+                "phpunit/phpunit": "^9.4.2",
+                "psalm/plugin-phpunit": "^0.15.1",
+                "vimeo/psalm": "^4.7"
+            },
+            "suggest": {
+                "ext-json": "If you wish to use the JsonStrategy with BodyParamsMiddleware"
             },
             "type": "library",
             "extra": {
@@ -2460,7 +2466,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-11-18T13:59:04+00:00"
+            "time": "2021-04-23T14:12:21+00:00"
         },
         {
             "name": "mezzio/mezzio-router",
