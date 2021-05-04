@@ -2049,16 +2049,16 @@
         },
         {
             "name": "mezzio/mezzio",
-            "version": "3.3.0",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio.git",
-                "reference": "3d18f3dbafd350b3620fe292f5b72ceccf59b54f"
+                "reference": "af67e673959bbd60013fd777326117edf6288899"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio/zipball/3d18f3dbafd350b3620fe292f5b72ceccf59b54f",
-                "reference": "3d18f3dbafd350b3620fe292f5b72ceccf59b54f",
+                "url": "https://api.github.com/repos/mezzio/mezzio/zipball/af67e673959bbd60013fd777326117edf6288899",
+                "reference": "af67e673959bbd60013fd777326117edf6288899",
                 "shasum": ""
             },
             "require": {
@@ -2071,7 +2071,8 @@
                 "php": "^7.3||~8.0.0",
                 "psr/container": "^1.0",
                 "psr/http-message": "^1.0.1",
-                "psr/http-server-middleware": "^1.0"
+                "psr/http-server-middleware": "^1.0",
+                "webmozart/assert": "^1.10"
             },
             "conflict": {
                 "container-interop/container-interop": "<1.2.0",
@@ -2087,15 +2088,13 @@
                 "laminas/laminas-diactoros": "^2.5.0",
                 "laminas/laminas-servicemanager": "^3.6.0",
                 "malukenho/docheader": "^0.1.8",
-                "mezzio/mezzio-aurarouter": "^3.0",
+                "mezzio/mezzio-aurarouter": "^3.1.0",
                 "mezzio/mezzio-fastroute": "^3.1.0",
                 "mezzio/mezzio-laminasrouter": "^3.1.0",
                 "mockery/mockery": "^1.0",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "^0.12.33",
-                "phpstan/phpstan-phpunit": "^0.12.13",
-                "phpstan/phpstan-strict-rules": "^0.12.4",
-                "phpunit/phpunit": "^9.3"
+                "phpunit/phpunit": "^9.3",
+                "psalm/plugin-phpunit": "^0.13",
+                "vimeo/psalm": "^4.1"
             },
             "suggest": {
                 "filp/whoops": "^2.1 to use the Whoops error handler",
@@ -2154,7 +2153,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-01-24T21:16:27+00:00"
+            "time": "2021-04-20T18:13:43+00:00"
         },
         {
             "name": "mezzio/mezzio-authentication",
