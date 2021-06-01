@@ -45,7 +45,7 @@
         "mezzio/mezzio-session-ext": "^1.10",
         "mezzio/mezzio-twigrenderer": "^2.6",
         "mtymek/blast-base-url": "^1.0",
-        "php-http/guzzle7-adapter": "^0.1",
+        "php-http/guzzle7-adapter": "^1.0",
         "php-http/message": "^1.10",
         "sentry/sdk": "^3.1"
     },
