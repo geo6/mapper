@@ -1987,16 +1987,16 @@
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
-                "reference": "6cccbddfcfc742eb02158d6137ca5687d92cee32"
+                "reference": "13af2502d9bb6f7d33be2de4b51fb68c6cdb476e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/6cccbddfcfc742eb02158d6137ca5687d92cee32",
-                "reference": "6cccbddfcfc742eb02158d6137ca5687d92cee32",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/13af2502d9bb6f7d33be2de4b51fb68c6cdb476e",
+                "reference": "13af2502d9bb6f7d33be2de4b51fb68c6cdb476e",
                 "shasum": ""
             },
             "require": {
@@ -2045,7 +2045,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-02-25T21:54:58+00:00"
+            "time": "2021-06-24T12:49:22+00:00"
         },
         {
             "name": "mezzio/mezzio",
@@ -2764,16 +2764,16 @@
         },
         {
             "name": "mezzio/mezzio-twigrenderer",
-            "version": "2.6.1",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-twigrenderer.git",
-                "reference": "ff4944ffc02b84cc9be5df655fb8168397fff473"
+                "reference": "ce4ba692548d5de26038453c4202bf1b7934bd06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-twigrenderer/zipball/ff4944ffc02b84cc9be5df655fb8168397fff473",
-                "reference": "ff4944ffc02b84cc9be5df655fb8168397fff473",
+                "url": "https://api.github.com/repos/mezzio/mezzio-twigrenderer/zipball/ce4ba692548d5de26038453c4202bf1b7934bd06",
+                "reference": "ce4ba692548d5de26038453c4202bf1b7934bd06",
                 "shasum": ""
             },
             "require": {
@@ -2781,7 +2781,7 @@
                 "mezzio/mezzio-helpers": "^5.0",
                 "mezzio/mezzio-router": "^3.0",
                 "mezzio/mezzio-template": "^2.0",
-                "php": "^7.1",
+                "php": "^7.3 || ~8.0.0",
                 "psr/container": "^1.0",
                 "twig/twig": "^1.42.5 || ^2.12.5 || ^3.0.3"
             },
@@ -2792,17 +2792,12 @@
                 "zendframework/zend-expressive-twigrenderer": "^2.5.0"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-coding-standard": "~2.1.0",
                 "malukenho/docheader": "^0.1.5",
-                "phpspec/prophecy": "^1.10.3",
-                "phpunit/phpunit": "^7.5.20 || ^8.5.2"
+                "phpunit/phpunit": "^9.3.0"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.6.x-dev",
-                    "dev-develop": "2.7.x-dev"
-                },
                 "laminas": {
                     "config-provider": "Mezzio\\Twig\\ConfigProvider"
                 }
@@ -2835,7 +2830,13 @@
                 "rss": "https://github.com/mezzio/mezzio-twigrenderer/releases.atom",
                 "source": "https://github.com/mezzio/mezzio-twigrenderer"
             },
-            "time": "2020-03-28T21:43:15+00:00"
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2021-05-09T16:03:16+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5179,16 +5180,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.3.0",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5"
+                "reference": "21578f00e83d4a82ecfa3d50752b609f13de6790"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5",
-                "reference": "1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/21578f00e83d4a82ecfa3d50752b609f13de6790",
+                "reference": "21578f00e83d4a82ecfa3d50752b609f13de6790",
                 "shasum": ""
             },
             "require": {
@@ -5239,7 +5240,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.3.0"
+                "source": "https://github.com/twigphp/Twig/tree/v3.3.2"
             },
             "funding": [
                 {
@@ -5251,7 +5252,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-08T09:54:36+00:00"
+            "time": "2021-05-16T12:14:13+00:00"
         },
         {
             "name": "web-token/jwt-core",
@@ -9403,5 +9404,5 @@
     "platform-dev": {
         "ext-mbstring": "*"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
