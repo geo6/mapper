@@ -1,4 +1,5 @@
 @import "~bootstrap/scss/_functions.scss";
+
 @import "~bootstrap/scss/_variables.scss";
 @import "~bootstrap/scss/_mixins.scss";
 @import "~bootstrap/scss/_utilities.scss";
@@ -6,6 +7,9 @@
 @import "~bootstrap/scss/_root.scss";
 @import "~bootstrap/scss/_reboot.scss";
 @import "~bootstrap/scss/_type.scss";
+
+@import "~bootstrap/scss/_containers.scss";
+@import "~bootstrap/scss/_grid.scss";
 
 @import "~bootstrap/scss/_alert.scss";
 @import "~bootstrap/scss/_badge.scss";
@@ -15,8 +19,6 @@
 @import "~bootstrap/scss/_card.scss";
 @import "~bootstrap/scss/_dropdown.scss";
 @import "~bootstrap/scss/_forms.scss";
-@import "~bootstrap/scss/_grid.scss";
-@import "~bootstrap/scss/_input-group.scss";
 @import "~bootstrap/scss/_list-group.scss";
 @import "~bootstrap/scss/_modal.scss";
 @import "~bootstrap/scss/_nav.scss";
@@ -25,3 +27,7 @@
 @import "~bootstrap/scss/_tables.scss";
 @import "~bootstrap/scss/_tooltip.scss";
 @import "~bootstrap/scss/_transitions.scss";
+
+@import "~bootstrap/scss/_helpers.scss";
+
+@import "~bootstrap/scss/utilities/_api.scss";
