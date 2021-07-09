@@ -12,7 +12,7 @@
     "popper.js": "1.16.1",
     "proj4": "2.7.2",
     "resumablejs": "1.1.0",
-    "sidebar-v2": "git+https://git@github.com:umbe1987/sidebar-v2#ol5-sidebar",
+    "sidebar-v2": "https://gitpkg.now.sh/umbe1987/sidebar-v2?ol5-sidebar",
     "slugify": "^1.5.3"
   },
   "devDependencies": {
