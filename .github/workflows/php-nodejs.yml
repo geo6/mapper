@@ -37,6 +37,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Use PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: curl, gmp, soap
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
       - name: Configure PHPCS
@@ -49,6 +54,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Use PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: curl, gmp, soap
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
       - name: Run check suite
