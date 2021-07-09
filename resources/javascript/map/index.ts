@@ -2,8 +2,6 @@
 
 import "ol/ol.css";
 
-import $ from "jquery";
-
 import {
   defaults as ControlDefaults,
   Attribution,
@@ -33,11 +31,6 @@ export default function (
   zoom: number,
   _baselayers: Record<string, BaseLayerOptions>
 ): Map {
-  $("#map").height($(window).height() - $("body > nav.navbar").outerHeight());
-  $(window).on("resize", () => {
-    $("#map").height($(window).height() - $("body > nav.navbar").outerHeight());
-  });
-
   const map = new Map({
     target: "map",
     controls: ControlDefaults({

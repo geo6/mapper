@@ -1,8 +1,6 @@
 "use strict";
 
-import $ from "jquery";
-
-import "bootstrap/js/dist/tooltip";
+import { Tooltip } from 'bootstrap';
 
 import File from "../../File";
 import btnLegend from "../../../sidebar/layers/components/btn-legend";
@@ -64,7 +62,7 @@ export default function (file: File): HTMLLIElement {
   }
   div.append(divName);
 
-  $(divName).tooltip();
+  const tooltip = new Tooltip(divName);
 
   const divButtons = document.createElement("div");
   divButtons.className = "btn-group btn-group-sm";

@@ -1,6 +1,5 @@
 "use strict";
 
-import $ from "jquery";
 import slugify from "slugify";
 
 type Collection = string[] | string;
@@ -13,15 +12,15 @@ function slugCollection(collection: Collection): string {
 
 function createHeader(type: string, collection: Collection): HTMLDivElement {
   const div = document.createElement("div");
-  div.className = "card-header";
+  div.className = "accordion-header";
 
   const button = document.createElement("button");
-  button.className = "btn btn-link btn-block text-left p-0";
+  button.className = "accordion-button collapsed";
   button.innerText = Array.isArray(collection)
     ? collection.join(" / ")
     : collection;
-  button.dataset.toggle = "collapse";
-  button.dataset.target = `#${type}-${slugCollection(collection)}-list`;
+  button.dataset.bsToggle = "collapse";
+  button.dataset.bsTarget = `#${type}-${slugCollection(collection)}-list`;
 
   div.append(button);
 
@@ -30,7 +29,7 @@ function createHeader(type: string, collection: Collection): HTMLDivElement {
 
 function createBody(type: string, collection: Collection): HTMLDivElement {
   const div = document.createElement("div");
-  div.className = "collapse";
+  div.className = "accordion-collapse collapse collapsed";
   div.id = `${type}-${slugCollection(collection)}-list`;
   div.dataset.parent = `#modal-layers-files-${type}`;
 
@@ -39,8 +38,8 @@ function createBody(type: string, collection: Collection): HTMLDivElement {
 
   div.append(ul);
 
-  $(div).on("shown.bs.collapse", (event) => {
-    event.target.parentElement.querySelector(".card-header").scrollIntoView();
+  div.addEventListener("shown.bs.collapse", (event) => {
+    event.target.parentElement.querySelector(".accordion-header").scrollIntoView();
   });
 
   return div;
@@ -48,7 +47,7 @@ function createBody(type: string, collection: Collection): HTMLDivElement {
 
 export default function (type: string, collection: Collection): HTMLDivElement {
   const div = document.createElement("div");
-  div.className = "card";
+  div.className = "accordion-item";
   div.dataset.collection = slugCollection(collection);
 
   const body = createBody(type, collection);

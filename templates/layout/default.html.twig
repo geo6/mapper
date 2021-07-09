@@ -13,7 +13,7 @@
     {% block stylesheets %}{% endblock %}
 </head>
 
-<body class="app">
+<body class="app d-flex flex-column">
     {% block loader %}{% endblock %}
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
@@ -23,7 +23,7 @@
                     Mapper
                     {{ ui is defined and ui.custom ? (ui.title ?? ui.custom) | upper }}
                 </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse"
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,7 +35,7 @@
                     {% if user is defined %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-circle"></i> {{ user.details.fullname }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -64,7 +64,7 @@
         </div>
     </nav>
 
-    <main>
+    <main class="flex-fill">
         {% block content %}{% endblock %}
     </main>
 

@@ -1,9 +1,6 @@
 "use strict";
 
-import $ from "jquery";
-
-import "bootstrap/js/dist/modal";
-import "bootstrap/js/dist/button";
+import { Modal } from "bootstrap";
 
 import File from "../layers/File";
 import KMLSource from "../layers/files/kml";
@@ -11,6 +8,7 @@ import { ColorLike } from "ol/colorlike";
 
 export class SettingsModal {
   private element: HTMLElement;
+  private modal: Modal;
   private form: HTMLFormElement;
 
   private labelOptGroup: HTMLOptGroupElement;
@@ -25,6 +23,7 @@ export class SettingsModal {
 
   constructor(element: HTMLElement) {
     this.element = element;
+    this.modal = new Modal(this.element)
     this.form = this.element.querySelector("form");
 
     this.labelOptGroup = document.querySelector(
@@ -111,11 +110,11 @@ export class SettingsModal {
   }
 
   show(): void {
-    $(this.element).modal("show");
+    this.modal.show();
   }
 
   hide(): void {
-    $(this.element).modal("hide");
+    this.modal.hide();
   }
 
   reset(): void {
