@@ -22,7 +22,7 @@ export default function (service: WMS): HTMLUListElement {
     const div = document.createElement("div");
 
     const spanName = document.createElement("span");
-    spanName.className = "badge badge-light float-right";
+    spanName.className = "badge bg-secondary float-end";
     spanName.innerText = layer.Name;
     div.append(spanName);
 

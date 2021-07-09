@@ -1,7 +1,6 @@
 "use strict";
 
-
-import "bootstrap/js/dist/tooltip";
+import { Tooltip } from 'bootstrap';
 
 import btnLegend from "./layers/components/btn-legend";
 import btnOrder from "./layers/components/btn-order";
@@ -65,7 +64,7 @@ export default function (
   }
   div.append(divName);
 
-  $(divName).tooltip();
+  new Tooltip(divName);
 
   const divButtons = document.createElement("div");
   divButtons.className = "btn-group btn-group-sm";

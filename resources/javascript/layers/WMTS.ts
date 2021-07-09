@@ -80,7 +80,7 @@ class WMTS {
     option.innerText = title;
     option.value = `wmts:${index}`;
     option.dataset.index = index.toString();
-    option.dataset.target = `#modal-layers-wmts-${index}`;
+    option.dataset.bsTarget = `#modal-layers-wmts-${index}`;
 
     document.getElementById("modal-layers-optgroup-wmts").append(option);
 
@@ -90,7 +90,7 @@ class WMTS {
 
     const spanVersion = document.createElement("span");
     spanVersion.innerText = version;
-    spanVersion.className = "badge badge-info float-right";
+    spanVersion.className = "badge badge-info float-end";
     div.append(spanVersion);
 
     const spanTitle = document.createElement("span");

@@ -1,7 +1,6 @@
 "use strict";
 
-
-import "bootstrap/js/dist/tooltip";
+import { Tooltip } from 'bootstrap';
 
 import WMTS from "../../WMTS";
 import btnLegend from "../../../sidebar/layers/components/btn-legend";
@@ -100,7 +99,7 @@ export function update(service: WMTS, layers: unknown[]): HTMLLIElement {
     }
     div.append(divName);
 
-    $(divName).tooltip();
+    new Tooltip(divName);
 
     const divButtons = document.createElement("div");
     divButtons.className = "btn-group btn-group-sm";

@@ -76,7 +76,7 @@ class WMS {
     option.innerText = this.capabilities.Service.Title;
     option.value = `wms:${index}`;
     option.dataset.index = index.toString();
-    option.dataset.target = `#modal-layers-wms-${index}`;
+    option.dataset.bsTarget = `#modal-layers-wms-${index}`;
 
     document.getElementById("modal-layers-optgroup-wms").append(option);
 
@@ -89,7 +89,7 @@ class WMS {
 
     const spanVersion = document.createElement("span");
     spanVersion.innerText = version;
-    spanVersion.className = "badge badge-info float-right";
+    spanVersion.className = "badge badge-info float-end";
     div.append(spanVersion);
 
     const spanTitle = document.createElement("span");

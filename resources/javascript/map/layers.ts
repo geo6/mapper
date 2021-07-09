@@ -1,6 +1,6 @@
 "use strict";
 
-
+import { Modal } from "bootstrap";
 
 import initFile from "../layers/files/init";
 import FileApplySelection from "../layers/files/apply";
@@ -43,7 +43,7 @@ function selectOnChange(event: Event): void {
       element.style.display = "none";
     });
 
-  (document.querySelector(dataset.target) as HTMLDivElement).style.display = "";
+  (document.querySelector(dataset.bsTarget) as HTMLDivElement).style.display = "";
 
   if (typeof dataset.upload !== "undefined" && dataset.upload === "true") {
     progressElement.style.display = "";
@@ -78,7 +78,7 @@ function applyOnClick(event: Event): void {
     }
   }
 
-  $("#modal-layers").modal("hide");
+  (new Modal(document.getElementById("modal-layers"))).hide();
 }
 
 export default function (

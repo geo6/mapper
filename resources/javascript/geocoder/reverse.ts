@@ -81,7 +81,7 @@ export default async function (
 
         if (provider.attribution !== null) {
           const div = document.createElement("div");
-          div.classList.add("small", "text-right", "text-muted");
+          div.classList.add("small", "text-end", "text-muted");
           div.innerHTML = provider.attribution;
 
           ol.after(div);

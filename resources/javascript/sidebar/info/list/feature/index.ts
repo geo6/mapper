@@ -20,7 +20,7 @@ export default function (feature: FeatureLike, label?: string): HTMLLIElement {
   // const locate = document.createElement("a");
   // locate.href = "#";
   // locate.style.color = "inherit";
-  // locate.className = "float-right";
+  // locate.className = "float-end";
   // locate.innerHTML = '<i class="fas fa-location-arrow"></i>';
   // locate.title = 'Locate';
 

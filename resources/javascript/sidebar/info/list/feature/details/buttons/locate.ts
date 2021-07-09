@@ -7,7 +7,7 @@ import { map } from "../../../../../../main";
 export default function (geometry: Geometry): HTMLButtonElement {
   const button = document.createElement("button");
 
-  button.className = "btn btn-outline-secondary btn-sm float-right";
+  button.className = "btn btn-outline-secondary btn-sm float-end";
   button.innerHTML = '<i class="fas fa-location-arrow"></i> Locate';
   button.type = "button";
 

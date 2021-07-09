@@ -129,7 +129,7 @@ export class File {
       }
 
       listElement = accordionElement.querySelector(
-        `div[data-collection=${slugCollection}] > .collapse > .list-group`
+        `div[data-collection=${slugCollection}] > .accordion-collapse > .list-group`
       );
     }
 
@@ -148,7 +148,7 @@ export class File {
     if (this.type === "csv") {
       const select = document.createElement("select");
       select.className =
-        "float-right form-control form-control-sm d-inline-block w-auto";
+        "float-end form-select form-select-sm d-inline-block w-auto";
       select.innerHTML =
         '<option value="EPSG:4326">WGS 84 (EPSG:4326)</option>';
 
