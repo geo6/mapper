@@ -13,7 +13,7 @@
     {% block stylesheets %}{% endblock %}
 </head>
 
-<body class="app">
+<body class="app d-flex flex-column">
     {% block loader %}{% endblock %}
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
@@ -64,7 +64,7 @@
         </div>
     </nav>
 
-    <main>
+    <main class="flex-fill">
         {% block content %}{% endblock %}
     </main>
 
