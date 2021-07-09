@@ -62,7 +62,7 @@ export default function (file: File): HTMLLIElement {
   }
   div.append(divName);
 
-  new Tooltip(divName);
+  const tooltip = new Tooltip(divName);
 
   const divButtons = document.createElement("div");
   divButtons.className = "btn-group btn-group-sm";
