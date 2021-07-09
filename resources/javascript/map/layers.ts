@@ -1,6 +1,6 @@
 "use strict";
 
-import $ from "jquery";
+
 
 import initFile from "../layers/files/init";
 import FileApplySelection from "../layers/files/apply";

@@ -1,6 +1,5 @@
 "use strict";
 
-import $ from "jquery";
 import slugify from "slugify";
 
 type Collection = string[] | string;
@@ -39,7 +38,7 @@ function createBody(type: string, collection: Collection): HTMLDivElement {
 
   div.append(ul);
 
-  $(div).on("shown.bs.collapse", (event) => {
+  div.addEventListener("shown.bs.collapse", (event) => {
     event.target.parentElement.querySelector(".card-header").scrollIntoView();
   });
 

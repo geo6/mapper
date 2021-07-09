@@ -1,7 +1,5 @@
 "use strict";
 
-import $ from "jquery";
-
 import "bootstrap/js/dist/tooltip";
 
 import File from "../../File";
