@@ -65,7 +65,7 @@ class ConfigMiddleware implements MiddlewareInterface
             }
 
             try {
-                $data['config'] = self::getCustomConfig($query['c']);
+                $data['config'] = self::getCustomConfig($query['c'], $query);
             } catch (Exception $e) {
                 return new HtmlResponse($this->template->render('error::config', ['message' => $e->getMessage()]), 500);
             }
@@ -82,7 +82,7 @@ class ConfigMiddleware implements MiddlewareInterface
         ]))->getMergedConfig();
     }
 
-    private static function getCustomConfig(string $custom): array
+    private static function getCustomConfig(string $custom, array $params): array
     {
         $glob = array_merge(
             glob('config/application/public/*') ?: [],
@@ -97,8 +97,22 @@ class ConfigMiddleware implements MiddlewareInterface
             throw new Exception(sprintf('Unable to find configuration file for "%s".', $custom));
         }
 
-        return (new ConfigAggregator([
+        $config = (new ConfigAggregator([
             new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml,yml}'),
         ]))->getMergedConfig();
+
+        array_walk_recursive($config, function (&$value) use ($params): void {
+            if (is_string($value) && preg_match('/%(.+?)%/', $value) === 1) {
+                $value = preg_replace_callback(
+                    '/%(.+?)%/',
+                    function ($matches) use ($params): string {
+                        return isset($params[$matches[1]]) ? $params[$matches[1]] : $matches[0];
+                    },
+                    $value
+                );
+            }
+        });
+
+        return $config;
     }
 }
