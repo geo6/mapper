@@ -111,8 +111,8 @@ export class File {
 
     if (typeof this.collection !== "undefined" && this.collection !== null) {
       const slugCollection = Array.isArray(this.collection)
-        ? slugify(this.collection.join("-"))
-        : slugify(this.collection);
+        ? slugify(this.collection.join("-"), { lower: true, strict: true })
+        : slugify(this.collection, { lower: true, strict: true });
 
       const accordionElement = document.querySelector(
         `#modal-layers-files-${this.type} > .accordion`
@@ -120,7 +120,7 @@ export class File {
 
       if (
         accordionElement.querySelector(
-          `div[data-collection=${slugCollection}]`
+          `div[data-collection="${slugCollection}"]`
         ) === null
       ) {
         const FileListCard = FileListCardComponent(this.type, this.collection);
@@ -129,7 +129,7 @@ export class File {
       }
 
       listElement = accordionElement.querySelector(
-        `div[data-collection=${slugCollection}] > .accordion-collapse > .list-group`
+        `div[data-collection="${slugCollection}"] > .accordion-collapse > .list-group`
       );
     }
 

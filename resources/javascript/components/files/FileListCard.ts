@@ -6,8 +6,8 @@ type Collection = string[] | string;
 
 function slugCollection(collection: Collection): string {
   return Array.isArray(collection)
-    ? slugify(collection.join("-"))
-    : slugify(collection);
+    ? slugify(collection.join("-"), { lower: true, strict: true })
+    : slugify(collection, { lower: true, strict: true });
 }
 
 function createHeader(type: string, collection: Collection): HTMLDivElement {
