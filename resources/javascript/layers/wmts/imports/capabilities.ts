@@ -3,7 +3,7 @@
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import { ProjectionLike } from "ol/proj";
 
-import { baseUrl, customKey, https, map } from "../../../main";
+import { baseUrl, https, map } from "../../../main";
 
 function parseLayers(layers: unknown): unknown[] {
   const results = [];
@@ -27,16 +27,13 @@ export default async function (
   mixedContent: boolean;
   projection: ProjectionLike;
 }> | null {
-  const url =
-    `${baseUrl}proxy` +
-    "?" +
-    new URLSearchParams({
-      c: customKey,
-      SERVICE: "WMTS",
-      REQUEST: "GetCapabilities",
-      VERSION: "1.0.0",
-      _url: origUrl,
-    }).toString();
+  const searchParams = new URL(window.location.toString()).searchParams;
+  searchParams.append("SERVICE", "WMTS");
+  searchParams.append("REQUEST", "GetCapabilities");
+  searchParams.append("VERSION", "1.0.0");
+  searchParams.append("_url", origUrl);
+
+  const url = `${baseUrl}proxy` + "?" + searchParams.toString();
 
   const response = await fetch(url);
   if (response.ok !== true) return null;

@@ -2,7 +2,7 @@
 
 import GeoJSON from "ol/format/GeoJSON";
 
-import { baseUrl, customKey, map, providers } from "../main";
+import { baseUrl, map, providers } from "../main";
 import { geocoderLayer } from "../geocoder";
 
 /**
@@ -36,12 +36,8 @@ export default async function (
       "<hr>";
     document.getElementById("geocoder-results").append(div);
 
-    const url =
-      `${baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}` +
-      "?" +
-      new URLSearchParams({
-        c: customKey,
-      }).toString();
+    const searchParams = new URL(window.location.toString()).searchParams;
+    const url = `${baseUrl}geocoder/${key}/reverse/${longitude}/${latitude}` + "?" + searchParams.toString();
 
     const response = await fetch(url);
 

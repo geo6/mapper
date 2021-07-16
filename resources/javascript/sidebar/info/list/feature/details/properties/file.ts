@@ -2,7 +2,7 @@
 
 import Overlay from "@geo6/overlay-image-preview";
 
-import { baseUrl, customKey } from "../../../../../../main";
+import { baseUrl } from "../../../../../../main";
 
 const regex = /^(file:\/\/)(\/.+\.[a-zA-Z]+)$/;
 
@@ -11,12 +11,10 @@ export function check(value: any): boolean {
 }
 
 export async function display(value: any): Promise<HTMLAnchorElement | string> {
-  const urlInfo =
-    `${baseUrl}preview/info?` +
-    new URLSearchParams({
-      c: customKey,
-      path: value,
-    }).toString();
+  const searchParamsInfo = new URL(window.location.toString()).searchParams;
+  searchParamsInfo.append("path", value);
+
+  const urlInfo = `${baseUrl}preview/info` + "?" + searchParamsInfo.toString();
 
   const response = await fetch(urlInfo);
 
@@ -31,12 +29,10 @@ export async function display(value: any): Promise<HTMLAnchorElement | string> {
     exif?: any;
   };
 
-  const urlPreview =
-    `${baseUrl}preview/file?` +
-    new URLSearchParams({
-      c: customKey,
-      path: json.path,
-    }).toString();
+  const searchParamsPreview = new URL(window.location.toString()).searchParams;
+  searchParamsPreview.append("path", json.path);
+
+  const urlPreview = `${baseUrl}preview/file` + "?" + searchParamsPreview.toString();
 
   const a = document.createElement("a");
 

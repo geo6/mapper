@@ -15,7 +15,7 @@ import GPXAddFileToMap from "./files/gpx";
 import KMLAddFileToMap from "./files/kml";
 import layerStyleFunction from "../map/style";
 
-import { baseUrl, customKey, files, map, projections, sidebar } from "../main";
+import { baseUrl, files, map, projections, sidebar } from "../main";
 import { layerGroupFiles } from "../map/layerGroup";
 
 export const FILE_ZINDEX = 200;
@@ -81,15 +81,13 @@ export class File {
       throw new Error("Invalid file type.");
     }
 
+    const searchParams = new URL(window.location.toString()).searchParams;
     this.url =
       baseUrl +
       "file/" +
       (this.local ? "local/" : "") +
       this.identifier +
-      "?" +
-      new URLSearchParams({
-        c: customKey,
-      }).toString();
+      "?" + searchParams.toString();
 
     this.sidebarElement = sidebarElement(this);
   }
