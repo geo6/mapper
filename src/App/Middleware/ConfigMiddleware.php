@@ -101,11 +101,11 @@ class ConfigMiddleware implements MiddlewareInterface
             new LaminasConfigProvider($directory[0].'/*.{php,ini,xml,json,yaml,yml}'),
         ]))->getMergedConfig();
 
-        array_walk_recursive($config, function(&$value) use ($params) {
+        array_walk_recursive($config, function (&$value) use ($params) {
             if (is_string($value) && preg_match('/%(.+?)%/', $value) === 1) {
                 $value = preg_replace_callback(
                     '/%(.+?)%/',
-                    function($matches) use ($params) {
+                    function ($matches) use ($params) {
                         return isset($params[$matches[1]]) ? $params[$matches[1]] : $matches[0];
                     },
                     $value
