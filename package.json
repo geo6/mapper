@@ -3,7 +3,7 @@
     "@fortawesome/fontawesome-free": "5.15.3",
     "@geo6/overlay-image-preview": "0.2.3",
     "@sentry/browser": "6.8.0",
-    "@turf/unkink-polygon": "6.4.0",
+    "@turf/unkink-polygon": "6.5.0",
     "bootstrap": "^5.0.2",
     "file-saver": "2.0.5",
     "ol": "6.5.0",
