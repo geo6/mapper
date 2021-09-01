@@ -53,7 +53,7 @@
         "ext-mbstring": "*",
         "filp/whoops": "^2.1",
         "laminas/laminas-development-mode": "^3.1",
-        "mezzio/mezzio-tooling": "^1.0",
+        "mezzio/mezzio-tooling": "^2.0",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-strict-rules": "^0.12",
         "phpunit/phpunit": "^9.1",
