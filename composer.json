@@ -65,7 +65,12 @@
         "ext-yaml": "Needed to support YAML configuration files."
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "laminas/laminas-dependency-plugin": true,
+            "laminas/laminas-component-installer": true
+        }
     },
     "autoload": {
         "psr-4": {
