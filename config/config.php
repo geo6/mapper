@@ -26,7 +26,9 @@ $aggregator = new ConfigAggregator([
     \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
     \Mezzio\Session\ConfigProvider::class,
     \Mezzio\Session\Ext\ConfigProvider::class,
+    \Mezzio\Tooling\ConfigProvider::class,
     \Mezzio\Twig\ConfigProvider::class,
+    \Laminas\Diactoros\ConfigProvider::class,
     \Laminas\HttpHandlerRunner\ConfigProvider::class,
 
     // Default App module config
