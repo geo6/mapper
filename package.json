@@ -18,7 +18,7 @@
     "@babel/plugin-transform-runtime": "^7.16.5",
     "@babel/preset-env": "^7.16.11",
     "@babel/runtime": "^7.14.6",
-    "@types/bootstrap": "^5.1.2",
+    "@types/bootstrap": "^5.1.9",
     "@types/jquery": "^3.5.10",
     "@types/ol": "^6.5.3",
     "@types/papaparse": "^5.3.2",
