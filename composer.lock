@@ -6620,28 +6620,27 @@
         },
         {
             "name": "laminas/laminas-development-mode",
-            "version": "3.3.0",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-development-mode.git",
-                "reference": "11b2adc8837e4419a5b31e2a7ae59f06636d4096"
+                "reference": "4f74da6f4b82e5060457cfb2fbd0ce452dfecd51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-development-mode/zipball/11b2adc8837e4419a5b31e2a7ae59f06636d4096",
-                "reference": "11b2adc8837e4419a5b31e2a7ae59f06636d4096",
+                "url": "https://api.github.com/repos/laminas/laminas-development-mode/zipball/4f74da6f4b82e5060457cfb2fbd0ce452dfecd51",
+                "reference": "4f74da6f4b82e5060457cfb2fbd0ce452dfecd51",
                 "shasum": ""
             },
             "require": {
-                "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^7.3 || ~8.0.0"
+                "php": "^7.3 || ~8.0.0 || ~8.1.0"
             },
-            "replace": {
-                "zfcampus/zf-development-mode": "^3.2.0"
+            "conflict": {
+                "zfcampus/zf-development-mode": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
-                "mikey179/vfsstream": "^1.6.5",
+                "laminas/laminas-coding-standard": "~2.3.0",
+                "mikey179/vfsstream": "^1.6.10",
                 "phpunit/phpunit": "^9.3"
             },
             "bin": [
@@ -6676,7 +6675,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-12-16T22:26:52+00:00"
+            "time": "2021-12-03T09:38:03+00:00"
         },
         {
             "name": "laminas/laminas-eventmanager",
